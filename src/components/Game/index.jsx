@@ -213,10 +213,6 @@ const Game = () => {
 
                 }
                 const {id, text} = option;
-                // const timeout = window.setTimeout(() => {
-                //
-                //     window.clearTimeout(timeout)
-                // }, 500)
                 return <li key={id}>
                     <Button onClick={() => {
                         handleClick(id);
@@ -226,9 +222,11 @@ const Game = () => {
                 </li>
             })
 
-            useEffect(()=>{
+            useEffect(() => {
                 word()
-            },[word])
+            }, [word])
+
+
             return (
                 <div style={{textAlign: "center"}}>
                     <div>Вопрос {currentQuestionIndex + 1} из {questions.length}</div>
