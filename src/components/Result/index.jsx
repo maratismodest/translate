@@ -1,7 +1,7 @@
 import React from 'react';
-import { List, Typography, Divider } from 'antd';
+import {List, Typography, Divider, Button} from 'antd';
 
-const Result = ({state}) => {
+const Result = ({state, setState}) => {
     const {
         result,
         finished,
@@ -19,16 +19,18 @@ const Result = ({state}) => {
         <div>
             <List
                 header={<div>Результат</div>}
-                footer={<div>Повторить</div>}
+                footer={<Button onClick={()=>{setState({...state, currentQuestionIndex: 0, finished: false, result: []})}}>Повторить</Button>}
                 bordered
                 dataSource={result}
                 renderItem={item => {
                     const {id, correct, questionText} = item;
                     return (
-                    <List.Item>
-                        <Typography.Text mark>{questionText} : {correct === true ? 'Верно' : 'Неверно'}</Typography.Text>
-                    </List.Item>
-                )}}
+                        <List.Item>
+                            <Typography.Text
+                                mark>{questionText} : {correct === true ? 'Верно' : 'Неверно'}</Typography.Text>
+                        </List.Item>
+                    )
+                }}
             />
 
         </div>
