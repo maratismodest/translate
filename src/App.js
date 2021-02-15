@@ -5,7 +5,7 @@ import Game from "./components/Game";
 function App() {
     console.log("App")
     return (
-        <Game />
+        <Game/>
     );
 }
 
