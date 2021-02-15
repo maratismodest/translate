@@ -201,6 +201,7 @@ const Game = () => {
                         } else {
                             setState({
                                 ...state,
+                                questions: _.shuffle(initialQuestions).slice(1, 6),
                                 currentQuestionIndex: currentQuestionIndex + 1,
                                 result: [...result, res],
                                 finished: true
