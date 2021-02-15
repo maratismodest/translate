@@ -52,6 +52,115 @@ const initialQuestions = [
             {id: 4, text: "Дождь"},
         ]
     },
+    {
+        id: 4,
+        questionText: 'Ел',
+        correct: 2,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Год"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Дождь"},
+        ]
+    },
+    {
+        id: 5,
+        questionText: 'Кеше',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Человек"},
+        ]
+    },
+    {
+        id: 6,
+        questionText: 'Эш',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Работы"},
+        ]
+    },
+    {
+        id: 7,
+        questionText: 'Көн',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Дождь"},
+        ]
+    },
+    {
+        id: 8,
+        questionText: 'Авыл',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Дождь"},
+        ]
+    },
+    {
+        id: 9,
+        questionText: 'Бала',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Ребенок"},
+        ]
+    },
+    {
+        id: 10,
+        questionText: 'Вакыт',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Время"},
+        ]
+    },
+    {
+        id: 11,
+        questionText: 'Баш',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Голова"},
+        ]
+    },
+    {
+        id: 12,
+        questionText: 'Сүз',
+        correct: 4,
+        options: [
+            {id: 1, text: "Рубашка"},
+            {id: 2, text: "Книга"},
+            {id: 3, text: "Яблоко"},
+            {id: 4, text: "Слово"},
+        ]
+    },
+//     Ел – год, лет;
+// Кеше – человек;
+// Эш – работа, деятельность, занятие, труд;
+// Көн – день, сутки;
+// Авыл – деревня, село, селение;
+// Бала – ребёнок, дитя, младенец, малыш;
+// Халык – народ, толпа, люди (в широком смысле);
+// Вакыт – время, пора, период;
+// Баш – голова, ум, разум, вершина чего-либо;
+// Сүз – слово;
 
 
 ]
@@ -66,7 +175,7 @@ const Game = () => {
             result: [],
             finished: false,
             currentQuestionIndex: 0,
-            questions: _.shuffle(initialQuestions)
+            questions: _.shuffle(initialQuestions).slice(1,11)
         }
         const [state, setState] = useState(initialState);
         const Question = () => {
@@ -113,6 +222,7 @@ const Game = () => {
 
             return (
                 <div style={{textAlign: "center"}}>
+                    <div>Вопрос {currentQuestionIndex + 1} из {questions.length}</div>
                     <Title>{questionText}</Title>
                     <ul style={{width: '200px'}}>
                         {Options}
@@ -121,6 +231,8 @@ const Game = () => {
             )
         }
         const {finished} = state;
+
+
         return (
             <StyledGame>
                 {finished ? <Result state={state} setState={setState}/> : <Question/>}
