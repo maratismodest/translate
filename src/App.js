@@ -1,10 +1,11 @@
-import logo from './logo.svg';
+import 'antd/dist/antd.css';
 import './App.css';
+import Game from "./components/Game";
 
 function App() {
     console.log("App")
     return (
-        <div>Test</div>
+        <Game />
     );
 }
 
