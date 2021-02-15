@@ -144,14 +144,12 @@ const initialQuestions = [
 
 ]
 
-
-
 const Game = () => {
         const initialState = {
             result: [],
             finished: false,
             currentQuestionIndex: 0,
-            questions: _.shuffle(initialQuestions).slice(1, 11)
+            questions: _.shuffle(initialQuestions).slice(1, 6)
         }
         const [state, setState] = useState(initialState);
         const {currentQuestionIndex, result, questions, finished} = state
