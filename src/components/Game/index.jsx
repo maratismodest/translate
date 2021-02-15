@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import Result from "../Result";
 import _ from 'lodash';
 import styled from 'styled-components'
@@ -6,6 +6,7 @@ import {Button} from "antd";
 import useSound from 'use-sound';
 import Title from "antd/es/typography/Title";
 import sound from '../../sounds/sound.mp3';
+import wrong from '../../sounds/wrong.mp3';
 
 const initialQuestions = [
     {
@@ -32,28 +33,6 @@ const initialQuestions = [
     },
     {
         id: 2,
-        questionText: 'Кулмек',
-        correct: 1,
-        options: [
-            {id: 1, text: "Рубашка"},
-            {id: 2, text: "Книга"},
-            {id: 3, text: "Яблоко"},
-            {id: 4, text: "Дождь"},
-        ]
-    },
-    {
-        id: 3,
-        questionText: 'Янгыр',
-        correct: 4,
-        options: [
-            {id: 1, text: "Рубашка"},
-            {id: 2, text: "Книга"},
-            {id: 3, text: "Яблоко"},
-            {id: 4, text: "Дождь"},
-        ]
-    },
-    {
-        id: 4,
         questionText: 'Ел',
         correct: 2,
         options: [
@@ -64,7 +43,7 @@ const initialQuestions = [
         ]
     },
     {
-        id: 5,
+        id: 3,
         questionText: 'Кеше',
         correct: 4,
         options: [
@@ -75,40 +54,40 @@ const initialQuestions = [
         ]
     },
     {
-        id: 6,
+        id: 4,
         questionText: 'Эш',
         correct: 4,
         options: [
             {id: 1, text: "Рубашка"},
             {id: 2, text: "Книга"},
             {id: 3, text: "Яблоко"},
-            {id: 4, text: "Работы"},
+            {id: 4, text: "Работа"},
         ]
     },
     {
-        id: 7,
+        id: 5,
         questionText: 'Көн',
         correct: 4,
         options: [
             {id: 1, text: "Рубашка"},
             {id: 2, text: "Книга"},
             {id: 3, text: "Яблоко"},
-            {id: 4, text: "Дождь"},
+            {id: 4, text: "День"},
         ]
     },
     {
-        id: 8,
+        id: 6,
         questionText: 'Авыл',
         correct: 4,
         options: [
             {id: 1, text: "Рубашка"},
             {id: 2, text: "Книга"},
             {id: 3, text: "Яблоко"},
-            {id: 4, text: "Дождь"},
+            {id: 4, text: "Деревня"},
         ]
     },
     {
-        id: 9,
+        id: 7,
         questionText: 'Бала',
         correct: 4,
         options: [
@@ -119,7 +98,7 @@ const initialQuestions = [
         ]
     },
     {
-        id: 10,
+        id: 8,
         questionText: 'Вакыт',
         correct: 4,
         options: [
@@ -130,7 +109,7 @@ const initialQuestions = [
         ]
     },
     {
-        id: 11,
+        id: 9,
         questionText: 'Баш',
         correct: 4,
         options: [
@@ -141,7 +120,7 @@ const initialQuestions = [
         ]
     },
     {
-        id: 12,
+        id: 10,
         questionText: 'Сүз',
         correct: 4,
         options: [
@@ -166,24 +145,22 @@ const initialQuestions = [
 ]
 
 
+
 const Game = () => {
-
-        const [play] = useSound(sound);
-
-
         const initialState = {
             result: [],
             finished: false,
             currentQuestionIndex: 0,
-            questions: _.shuffle(initialQuestions).slice(1,11)
+            questions: _.shuffle(initialQuestions).slice(1, 11)
         }
         const [state, setState] = useState(initialState);
+        const {currentQuestionIndex, result, questions, finished} = state
         const Question = () => {
-            const {currentQuestionIndex, result, questions} = state
             const question = questions[currentQuestionIndex];
             const {options, questionText, correct, id: questionId} = question
-
             const shuffledOptions = _.shuffle(options)
+            const [yes] = useSound(sound);
+            const [no] = useSound(wrong);
 
             const Options = shuffledOptions.map((option, index) => {
                 const handleClick = (id) => {
@@ -194,6 +171,8 @@ const Game = () => {
                             id: questionId,
                             questionText: questionText
                         } : {correct: false, id: questionId, questionText: questionText}
+
+                        id === correct ? yes() : no()
                         if (currentQuestionIndex + 1 < questions.length) {
                             setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
                         } else {
@@ -204,8 +183,9 @@ const Game = () => {
                                 finished: true
                             })
                         }
+
                         window.clearTimeout(timeout)
-                    }, 1000)
+                    }, 500)
 
 
                 }
@@ -213,7 +193,6 @@ const Game = () => {
                 return <li key={id}>
                     <Button onClick={() => {
                         handleClick(id);
-                        play()
 
                     }} block>{text}</Button>
 
@@ -230,12 +209,12 @@ const Game = () => {
                 </div>
             )
         }
-        const {finished} = state;
+
 
 
         return (
             <StyledGame>
-                {finished ? <Result state={state} setState={setState}/> : <Question/>}
+                {finished === false ? <Question/> : <Result state={state} setState={setState}/>}
             </StyledGame>
         );
     }

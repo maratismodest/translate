@@ -26,8 +26,7 @@ const Result = ({state, setState}) => {
                     const {id, correct, questionText} = item;
                     return (
                         <List.Item>
-                            <Typography.Text
-                                mark>{questionText} : {correct === true ? 'Верно' : 'Неверно'}</Typography.Text>
+                            <Typography.Text>{questionText} : {correct === true ? 'Верно' : 'Неверно'}</Typography.Text>
                         </List.Item>
                     )
                 }}
