@@ -1,5 +1,6 @@
 import React from 'react';
 import {List, Typography, Divider, Button} from 'antd';
+import {initialState} from "../Game";
 
 const Result = ({state, setState}) => {
     const {
@@ -15,11 +16,28 @@ const Result = ({state, setState}) => {
             <li key={index}>{questionText} : {correct === true ? 'Верно' : 'Неверно'} </li>
         )
     })
+
+    function footer() {
+        return (
+            <>
+                <Button onClick={() => {
+                    setState({...initialState, gameState: state.chosenGame})
+                }}>Повторить</Button>
+                <Divider/>
+                <Button onClick={() => {
+                    setState({...initialState, gameState: 'welcome'})
+                }}>Главное окно</Button>
+            </>
+
+        )
+
+    }
+
     return (
         <div>
             <List
                 header={<div>Результат</div>}
-                footer={<Button onClick={()=>{setState({...state, currentQuestionIndex: 0, finished: false, result: [], gameState: 'game'})}}>Повторить</Button>}
+                footer={footer()}
                 bordered
                 dataSource={result}
                 renderItem={item => {
