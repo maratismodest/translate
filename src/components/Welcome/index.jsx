@@ -12,7 +12,7 @@ const Welcome = ({state, setState}) => {
     const handlePhrasesButton = () => {
         console.log("handleStartButton")
         console.log(state)
-        setState({...initialState, gameState: 'words'})
+        setState({...initialState, gameState: 'phrases'})
     }
     return (
         <>
