@@ -19,7 +19,7 @@ const Result = ({state, setState}) => {
         <div>
             <List
                 header={<div>Результат</div>}
-                footer={<Button onClick={()=>{setState({...state, currentQuestionIndex: 0, finished: false, result: []})}}>Повторить</Button>}
+                footer={<Button onClick={()=>{setState({...state, currentQuestionIndex: 0, finished: false, result: [], gameState: 'game'})}}>Повторить</Button>}
                 bordered
                 dataSource={result}
                 renderItem={item => {
