@@ -11,6 +11,70 @@ import {initialQuestions, initialPhrases} from "../../words";
 import Welcome from "../Welcome";
 
 import AidaMenu from "../AidaMenu";
+import kitap from "../../sounds/words/kitap.mp3";
+
+const phrases = [{tat: 'Сәлам!', rus: 'Привет!'},
+    {tat: 'Хәерле көн!', rus:'Добрый день!'},
+    {tat: 'Ни хәл?', rus:'Как дела?'},
+    {tat: 'Исәнмесез!', rus:'Здравствуй(те)!'},
+    {tat: 'Ни хәл?', rus:'Как дела?'},
+    {tat: 'Хуш!', rus:'Пока!'},
+    {tat: 'Сау булыгыз!', rus:'До свидания!'},
+    {tat: 'Сәлам әйт!', rus:'Передавай привет!'},
+    {tat: 'Рәхмәт!', rus:'Спасибо!'},
+    {tat: 'Зинһар!', rus:'Пожалуйста!'},
+    {tat: 'Гафу итегез!', rus:'Извините!'},
+    {tat: 'Берни түгел!', rus:'Ничего не стоит!'},
+    {tat: 'Борчылмагыз!', rus:'Не беспокойтесь!'},
+    {tat: 'Әлбәттә!', rus:'Конечно, разумеется!'},
+    {tat: 'Әйдә!', rus:'Давай!'},
+    {tat: 'Минемчә!', rus:'По-моему!'},
+    {tat: 'Бәлки!', rus:'Возможно!'},
+    {tat: 'Һичшиксез!', rus:'Несомненно'},
+    {tat: 'Кыскасы', rus:'Короче'},
+    {tat: 'Син (сез) кайда?', rus:'Где ты (вы)?'},
+    {tat: 'Кая барабыз?', rus:'Куда пойдём?'},
+    {tat: 'Хәзер нишлик?', rus:'Что сейчас будем делать?'},
+    {tat: ' Ә сез кем?', rus:'А кто вы?'},
+    {tat: 'Шулаймы?', rus:'Это так?'},
+    {tat: 'Килә аласыңмы?', rus:'Можешь прийти?'},
+    {tat: 'Мин бик шат!', rus:'Я очень рад!'},
+    {tat: 'Кәефем юк', rus:'Нет настроения'},
+    {tat: 'Арыдым', rus:'Я устал(а)'},
+
+
+
+
+
+]
+
+const rusPhrases = phrases.map((item, index)=>{
+    const {tat,rus} = item;
+    return rus;
+
+})
+
+console.log("rusPhrases", rusPhrases)
+
+const newArr = phrases.map((item, index)=>{
+    const {tat,rus} = item;
+    return {
+        id: index,
+        questionText: tat,
+        correct: 1,
+        options: [
+            {id: 1, text: rus},
+            {id: 2, text: _.sample(rusPhrases)},
+            {id: 3, text: _.sample(rusPhrases)},
+            {id: 4, text: _.sample(rusPhrases)},
+        ],
+        audio: kitap
+    }
+
+})
+
+console.log("newArr", newArr)
+
 
 export const initialState = {
     chosenGame: undefined,
@@ -19,8 +83,10 @@ export const initialState = {
     finished: false,
     currentQuestionIndex: 0,
     questions: _.shuffle(initialQuestions).slice(1, 6),
-    phrases: _.shuffle(initialPhrases),
+    phrases: _.shuffle(newArr).slice(1,6),
 }
+
+
 
 const Game = () => {
 
@@ -28,7 +94,7 @@ const Game = () => {
         const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState} = state;
 
         useEffect(()=>{
-            setState((prevState => ({...prevState, questions: _.shuffle(initialQuestions).slice(1, 6), phrases: _.shuffle(initialPhrases)})))
+            setState((prevState => ({...prevState, questions: _.shuffle(initialQuestions).slice(1, 6), phrases: _.shuffle(newArr).slice(1,6),})))
         },[gameState])
 
         const Question = () => {
