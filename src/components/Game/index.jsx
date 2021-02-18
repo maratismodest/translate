@@ -12,7 +12,6 @@ import Welcome from "../Welcome";
 
 import AidaMenu from "../AidaMenu";
 
-
 export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
@@ -28,12 +27,6 @@ const Game = () => {
         const [state, setState] = useState(initialState);
         const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState} = state
 
-        useEffect(() => {
-            setState({
-                ...state, questions: _.shuffle(initialQuestions).slice(1, 6),
-                phrases: _.shuffle(initialPhrases),
-            })
-        }, [gameState])
         const Question = () => {
             const question = questions[currentQuestionIndex];
             const {options, questionText, correct, id: questionId} = question
