@@ -25,7 +25,11 @@ export const initialState = {
 const Game = () => {
 
         const [state, setState] = useState(initialState);
-        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState} = state
+        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState} = state;
+
+        useEffect(()=>{
+            setState((prevState => ({...prevState, questions: _.shuffle(initialQuestions).slice(1, 6), phrases: _.shuffle(initialPhrases)})))
+        },[gameState])
 
         const Question = () => {
             const question = questions[currentQuestionIndex];

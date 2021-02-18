@@ -1087,4 +1087,16 @@ export const initialPhrases = [
             {id: 4, text: "Нет, не бери"},
         ],
         audio: alma
+    },
+    {
+        id: 3,
+        questionText: 'Минем исемем Марат',
+        correct: 1,
+        options: [
+            {id: 1, text: "Меня зовут Марат"},
+            {id: 2, text: "Меня зовут Кхан"},
+            {id: 3, text: "Позови меня в ночи"},
+            {id: 4, text: "Марата так зовут"},
+        ],
+        audio: alma
     }]
