@@ -21,11 +21,11 @@ const Result = ({state, setState}) => {
         return (
             <>
                 <Button onClick={() => {
-                    setState({...initialState, gameState: state.chosenGame})
+                    setState({...state, currentQuestionIndex: 0, result: [],gameState: state.chosenGame})
                 }}>Повторить</Button>
                 <Divider/>
                 <Button onClick={() => {
-                    setState({...initialState, gameState: 'welcome'})
+                    setState({...state, currentQuestionIndex: 0, result: [],gameState: 'welcome'})
                 }}>Главное окно</Button>
             </>
 

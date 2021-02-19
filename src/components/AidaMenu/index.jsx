@@ -8,14 +8,14 @@ const AidaMenu = ({state, setState}) => {
             <Menu.Item key="0">
                 <a onClick={e => {
                     e.preventDefault();
-                    setState({...initialState, gameState: 'words'})
-                }}>Слова</a>
+                    setState({...initialState, language: 'tat'})
+                }}>Татарский-Русский</a>
             </Menu.Item>
             <Menu.Item key="1">
                 <a onClick={e => {
                     e.preventDefault();
-                    setState({...initialState, gameState: 'phrases'})
-                }}>Фразы</a>
+                    setState({...initialState, language: 'rus'})
+                }}>Русский-Татарский</a>
             </Menu.Item>
         </Menu>
     );

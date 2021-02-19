@@ -14,50 +14,64 @@ import AidaMenu from "../AidaMenu";
 import kitap from "../../sounds/words/kitap.mp3";
 
 const phrases = [{tat: 'Сәлам!', rus: 'Привет!'},
-    {tat: 'Хәерле көн!', rus:'Добрый день!'},
-    {tat: 'Ни хәл?', rus:'Как дела?'},
-    {tat: 'Исәнмесез!', rus:'Здравствуй(те)!'},
-    {tat: 'Ни хәл?', rus:'Как дела?'},
-    {tat: 'Хуш!', rus:'Пока!'},
-    {tat: 'Сау булыгыз!', rus:'До свидания!'},
-    {tat: 'Сәлам әйт!', rus:'Передавай привет!'},
-    {tat: 'Рәхмәт!', rus:'Спасибо!'},
-    {tat: 'Зинһар!', rus:'Пожалуйста!'},
-    {tat: 'Гафу итегез!', rus:'Извините!'},
-    {tat: 'Берни түгел!', rus:'Ничего не стоит!'},
-    {tat: 'Борчылмагыз!', rus:'Не беспокойтесь!'},
-    {tat: 'Әлбәттә!', rus:'Конечно, разумеется!'},
-    {tat: 'Әйдә!', rus:'Давай!'},
-    {tat: 'Минемчә!', rus:'По-моему!'},
-    {tat: 'Бәлки!', rus:'Возможно!'},
-    {tat: 'Һичшиксез!', rus:'Несомненно'},
-    {tat: 'Кыскасы', rus:'Короче'},
-    {tat: 'Син (сез) кайда?', rus:'Где ты (вы)?'},
-    {tat: 'Кая барабыз?', rus:'Куда пойдём?'},
-    {tat: 'Хәзер нишлик?', rus:'Что сейчас будем делать?'},
-    {tat: ' Ә сез кем?', rus:'А кто вы?'},
-    {tat: 'Шулаймы?', rus:'Это так?'},
-    {tat: 'Килә аласыңмы?', rus:'Можешь прийти?'},
-    {tat: 'Мин бик шат!', rus:'Я очень рад!'},
-    {tat: 'Кәефем юк', rus:'Нет настроения'},
-    {tat: 'Арыдым', rus:'Я устал(а)'},
-
-
-
+    {tat: 'Хәерле көн!', rus: 'Добрый день!'},
+    {tat: 'Ни хәл?', rus: 'Как дела?'},
+    {tat: 'Исәнмесез!', rus: 'Здравствуй(те)!'},
+    {tat: 'Ни хәл?', rus: 'Как дела?'},
+    {tat: 'Хуш!', rus: 'Пока!'},
+    {tat: 'Сау булыгыз!', rus: 'До свидания!'},
+    {tat: 'Сәлам әйт!', rus: 'Передавай привет!'},
+    {tat: 'Рәхмәт!', rus: 'Спасибо!'},
+    {tat: 'Зинһар!', rus: 'Пожалуйста!'},
+    {tat: 'Гафу итегез!', rus: 'Извините!'},
+    {tat: 'Берни түгел!', rus: 'Ничего не стоит!'},
+    {tat: 'Борчылмагыз!', rus: 'Не беспокойтесь!'},
+    {tat: 'Әлбәттә!', rus: 'Конечно, разумеется!'},
+    {tat: 'Әйдә!', rus: 'Давай!'},
+    {tat: 'Минемчә!', rus: 'По-моему!'},
+    {tat: 'Бәлки!', rus: 'Возможно!'},
+    {tat: 'Һичшиксез!', rus: 'Несомненно'},
+    {tat: 'Кыскасы', rus: 'Короче'},
+    {tat: 'Син (сез) кайда?', rus: 'Где ты (вы)?'},
+    {tat: 'Кая барабыз?', rus: 'Куда пойдём?'},
+    {tat: 'Хәзер нишлик?', rus: 'Что сейчас будем делать?'},
+    {tat: ' Ә сез кем?', rus: 'А кто вы?'},
+    {tat: 'Шулаймы?', rus: 'Это так?'},
+    {tat: 'Килә аласыңмы?', rus: 'Можешь прийти?'},
+    {tat: 'Мин бик шат!', rus: 'Я очень рад!'},
+    {tat: 'Кәефем юк', rus: 'Нет настроения'},
+    {tat: 'Арыдым', rus: 'Я устал(а)'},
 
 
 ]
 
-const rusPhrases = phrases.map((item, index)=>{
-    const {tat,rus} = item;
+const rusPhrases = phrases.map((item, index) => {
+    const {tat, rus} = item;
     return rus;
-
+})
+const tatPhrases = phrases.map((item, index) => {
+    const {tat, rus} = item;
+    return tat;
 })
 
-console.log("rusPhrases", rusPhrases)
+const phrasesRusTat = phrases.map((item, index) => {
+    const {tat, rus} = item;
+    return {
+        id: index,
+        questionText: rus,
+        correct: 1,
+        options: [
+            {id: 1, text: tat},
+            {id: 2, text: _.sample(tatPhrases)},
+            {id: 3, text: _.sample(tatPhrases)},
+            {id: 4, text: _.sample(tatPhrases)},
+        ],
+        audio: kitap
+    }
 
-const newArr = phrases.map((item, index)=>{
-    const {tat,rus} = item;
+})
+const phrasesTatRus = phrases.map((item, index) => {
+    const {tat, rus} = item;
     return {
         id: index,
         questionText: tat,
@@ -73,29 +87,42 @@ const newArr = phrases.map((item, index)=>{
 
 })
 
-console.log("newArr", newArr)
-
-
 export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
+    language: 'tat',
     result: [],
     finished: false,
     currentQuestionIndex: 0,
-    questions: _.shuffle(initialQuestions).slice(1, 6),
-    phrases: _.shuffle(newArr).slice(1,6),
 }
-
 
 
 const Game = () => {
 
         const [state, setState] = useState(initialState);
-        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState} = state;
+        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState, language} = state;
 
-        useEffect(()=>{
-            setState((prevState => ({...prevState, questions: _.shuffle(initialQuestions).slice(1, 6), phrases: _.shuffle(newArr).slice(1,6),})))
-        },[gameState])
+
+        useEffect(() => {
+            console.log(language)
+            if (language === 'tat') {
+                setState((prevState => ({
+                    ...prevState,
+                    questions: _.shuffle(initialQuestions).slice(1, 6),
+                    phrases: _.shuffle(phrasesTatRus).slice(1, 6),
+                })))
+
+            }
+            if (language === 'rus') {
+                setState((prevState => ({
+                    ...prevState,
+                    questions: _.shuffle(initialQuestions).slice(1, 6),
+                    phrases: _.shuffle(phrasesRusTat).slice(1, 6),
+                })))
+
+            }
+            console.log(state.phrases)
+        }, [gameState, language])
 
         const Question = () => {
             const question = questions[currentQuestionIndex];
@@ -164,7 +191,6 @@ const Game = () => {
             const question = phrases[currentQuestionIndex];
             const {options, questionText, correct, id: questionId} = question
             const shuffledOptions = _.shuffle(options)
-            const shuffledPhrases = _.shuffle(phrases)
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
             // const [word] = useSound(audio)
