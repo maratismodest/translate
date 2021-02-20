@@ -13,6 +13,8 @@ import Welcome from "../Welcome";
 import AidaMenu from "../AidaMenu";
 import kitap from "../../sounds/words/kitap.mp3";
 import {words} from "./100";
+import { YMInitializer } from 'react-yandex-metrika';
+
 
 const phrases = [{tat: 'Сәлам!', rus: 'Привет!'},
     {tat: 'Хәерле көн!', rus: 'Добрый день!'},
@@ -337,6 +339,7 @@ const Game = () => {
                     <AidaMenu state={state} setState={setState}/>
                 </StyledMenu>
                 {res()}
+                <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2" />
             </StyledGame>
         );
     }
