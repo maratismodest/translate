@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { YMInitializer } from 'react-yandex-metrika';
 
 ReactDOM.render(
   <React.StrictMode>
+      <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2" />
     <App />
   </React.StrictMode>,
   document.getElementById('root')
