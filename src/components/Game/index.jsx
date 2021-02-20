@@ -7,11 +7,12 @@ import useSound from 'use-sound';
 import Title from "antd/es/typography/Title";
 import sound from '../../sounds/sound.mp3';
 import wrong from '../../sounds/wrong.mp3';
-import {initialQuestions, initialPhrases} from "../../words";
+
 import Welcome from "../Welcome";
 
 import AidaMenu from "../AidaMenu";
 import kitap from "../../sounds/words/kitap.mp3";
+import {words} from "./100";
 
 const phrases = [{tat: 'Сәлам!', rus: 'Привет!'},
     {tat: 'Хәерле көн!', rus: 'Добрый день!'},
@@ -44,6 +45,18 @@ const phrases = [{tat: 'Сәлам!', rus: 'Привет!'},
 
 
 ]
+
+
+
+const rusWords = words.map((item, index) => {
+    const {tat, rus} = item;
+    return rus;
+})
+const tatWords = words.map((item, index) => {
+    const {tat, rus} = item;
+    return tat;
+})
+
 
 const rusPhrases = phrases.map((item, index) => {
     const {tat, rus} = item;
@@ -87,6 +100,41 @@ const phrasesTatRus = phrases.map((item, index) => {
 
 })
 
+
+
+const wordsRusTat = words.map((item, index) => {
+    const {tat, rus} = item;
+    return {
+        id: index,
+        questionText: rus,
+        correct: 1,
+        options: [
+            {id: 1, text: tat},
+            {id: 2, text: _.sample(tatWords)},
+            {id: 3, text: _.sample(tatWords)},
+            {id: 4, text: _.sample(tatWords)},
+        ],
+        audio: kitap
+    }
+
+})
+const wordsTatRus = words.map((item, index) => {
+    const {tat, rus} = item;
+    return {
+        id: index,
+        questionText: tat,
+        correct: 1,
+        options: [
+            {id: 1, text: rus},
+            {id: 2, text: _.sample(rusWords)},
+            {id: 3, text: _.sample(rusWords)},
+            {id: 4, text: _.sample(rusWords)},
+        ],
+        audio: kitap
+    }
+
+})
+
 export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
@@ -108,7 +156,7 @@ const Game = () => {
             if (language === 'tat') {
                 setState((prevState => ({
                     ...prevState,
-                    questions: _.shuffle(initialQuestions).slice(1, 6),
+                    questions: _.shuffle(wordsTatRus).slice(1, 6),
                     phrases: _.shuffle(phrasesTatRus).slice(1, 6),
                 })))
 
@@ -116,7 +164,7 @@ const Game = () => {
             if (language === 'rus') {
                 setState((prevState => ({
                     ...prevState,
-                    questions: _.shuffle(initialQuestions).slice(1, 6),
+                    questions: _.shuffle(wordsRusTat).slice(1, 6),
                     phrases: _.shuffle(phrasesRusTat).slice(1, 6),
                 })))
 
@@ -147,7 +195,7 @@ const Game = () => {
                         } else {
                             setState({
                                 ...state,
-                                questions: _.shuffle(initialQuestions).slice(1, 6),
+                                // questions: _.shuffle(initialQuestions).slice(1, 6),
                                 currentQuestionIndex: currentQuestionIndex + 1,
                                 result: [...result, res],
                                 finished: true,
@@ -210,7 +258,7 @@ const Game = () => {
                         } else {
                             setState({
                                 ...state,
-                                phrases: _.shuffle(initialPhrases).slice(1, 6),
+                                // phrases: _.shuffle(initialPhrases).slice(1, 6),
                                 currentQuestionIndex: currentQuestionIndex + 1,
                                 result: [...result, res],
                                 finished: true,
