@@ -12,77 +12,27 @@ import Welcome from "../Welcome";
 
 import AidaMenu from "../AidaMenu";
 import kitap from "../../sounds/words/kitap.mp3";
-import {words} from "./100";
+import {words} from "./words";
+import {phrases} from "./phrases";
 import { YMInitializer } from 'react-yandex-metrika';
 
 
-const phrases = [{tat: 'Сәлам!', rus: 'Привет!'},
-    {tat: 'Хәерле көн!', rus: 'Добрый день!'},
-    {tat: 'Ни хәл?', rus: 'Как дела?'},
-    {tat: 'Исәнмесез!', rus: 'Здравствуй(те)!'},
-    {tat: 'Ни хәл?', rus: 'Как дела?'},
-    {tat: 'Хуш!', rus: 'Пока!'},
-    {tat: 'Сау булыгыз!', rus: 'До свидания!'},
-    {tat: 'Сәлам әйт!', rus: 'Передавай привет!'},
-    {tat: 'Рәхмәт!', rus: 'Спасибо!'},
-    {tat: 'Зинһар!', rus: 'Пожалуйста!'},
-    {tat: 'Берни түгел!', rus: 'Ничего не стоит!'},
-    {tat: 'Борчылмагыз!', rus: 'Не беспокойтесь!'},
-    {tat: 'Әлбәттә!', rus: 'Конечно, разумеется!'},
-    {tat: 'Әйдә!', rus: 'Давай!'},
-    {tat: 'Минемчә!', rus: 'По-моему!'},
-    {tat: 'Бәлки!', rus: 'Возможно!'},
-    {tat: 'Һичшиксез!', rus: 'Несомненно'},
-    {tat: 'Кыскасы', rus: 'Короче'},
-    {tat: 'Син (сез) кайда?', rus: 'Где ты (вы)?'},
-    {tat: 'Кая барабыз?', rus: 'Куда пойдём?'},
-    {tat: 'Хәзер нишлик?', rus: 'Что сейчас будем делать?'},
-    {tat: ' Ә сез кем?', rus: 'А кто вы?'},
-    {tat: 'Шулаймы?', rus: 'Это так?'},
-    {tat: 'Килә аласыңмы?', rus: 'Можешь прийти?'},
-    {tat: 'Мин бик шат!', rus: 'Я очень рад!'},
-    {tat: 'Кәефем юк', rus: 'Нет настроения'},
-    {tat: 'Арыдым', rus: 'Я устал(а)'},
-    {tat: 'бу туристлар Америкадан', rus: 'эти туристы из Америки'},
-    {tat: 'хәерле кич', rus: 'добрый вечер'},
-    {tat: 'минем исемем Алсу', rus: 'меня зовут Алсу'},
-    {tat: 'Бу Азатның әтисе', rus: 'это папа Азата'},
-    {tat: 'Бик зур рәхмәт', rus: 'большое спасибо'},
-    {tat: 'Сезгә дә рәхмәт', rus: 'вам тоже спасибо'},
-    {tat: 'Хәлләрең ничек?', rus: 'как дела?'},
-    {tat: 'Гафу итегез', rus: 'извините'},
-    {tat: 'мин татарча сөйләшәм', rus: 'я говорю по-татарски'},
-    {tat: 'сау булыгыз', rus: 'до свидания'},
-    {tat: 'бу нэрсә?', rus: 'что это?'},
-    {tat: 'бу кем?', rus: 'кто это?'},
-    {tat: 'матур кыз', rus: 'красивая девочка'},
-    {tat: 'син нишлисең?', rus: 'что ты делаешь?'},
-    {tat: 'минем телефон кайда?', rus: 'где мой телефон'},
-    {tat: 'Әйдә ашыйбыз', rus: 'давай покушаем'},
-    {tat: 'Әйдә киттек', rus: 'давай пошли'},
-    {tat: 'рәхим итегез', rus: 'добро пожаловать'},
-    {tat: 'миңа апельсин кирәк', rus: 'мне нужен апельсин'},
-    {tat: 'татар теле', rus: 'татарский язык'},
-]
-
-
-
 const rusWords = words.map((item, index) => {
-    const {tat, rus} = item;
+    const { rus} = item;
     return rus;
 })
 const tatWords = words.map((item, index) => {
-    const {tat, rus} = item;
+    const {tat} = item;
     return tat;
 })
 
 
 const rusPhrases = phrases.map((item, index) => {
-    const {tat, rus} = item;
+    const { rus} = item;
     return rus;
 })
 const tatPhrases = phrases.map((item, index) => {
-    const {tat, rus} = item;
+    const {tat} = item;
     return tat;
 })
 
@@ -171,7 +121,7 @@ const Game = () => {
 
 
         useEffect(() => {
-            console.log(language)
+            // console.log(language)
             if (language === 'tat') {
                 setState((prevState => ({
                     ...prevState,
@@ -188,7 +138,7 @@ const Game = () => {
                 })))
 
             }
-            console.log(state.phrases)
+            // console.log(state.phrases)
         }, [gameState, language])
 
         const Question = () => {

@@ -1,17 +1,16 @@
 import {Button, Divider} from "antd";
 import React from "react";
-import {initialState} from "../Game";
 
 const Welcome = ({state, setState}) => {
-    console.log("Welcome")
+    // console.log("Welcome")
     const handleWordsButton = () => {
-        console.log("handleStartButton")
-        console.log(state)
+        // console.log("handleStartButton")
+        // console.log(state)
         setState({...state, gameState: 'words'})
     }
     const handlePhrasesButton = () => {
-        console.log("handleStartButton")
-        console.log(state)
+        // console.log("handleStartButton")
+        // console.log(state)
         setState({...state, gameState: 'phrases'})
     }
     return (

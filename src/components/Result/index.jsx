@@ -1,21 +1,11 @@
 import React from 'react';
 import {List, Typography, Divider, Button} from 'antd';
-import {initialState} from "../Game";
 
 const Result = ({state, setState}) => {
     const {
-        result,
-        finished,
-        currentQuestionIndex,
-        questions,
+        result
     } = state;
-    console.log("Result");
-    const ResultList = result.map((item, index) => {
-        const {id, correct, questionText} = item;
-        return (
-            <li key={index}>{questionText} : {correct === true ? 'Верно' : 'Неверно'} </li>
-        )
-    })
+    // console.log("Result");
 
     function footer() {
         return (
@@ -41,7 +31,7 @@ const Result = ({state, setState}) => {
                 bordered
                 dataSource={result}
                 renderItem={item => {
-                    const {id, correct, questionText} = item;
+                    const { correct, questionText} = item;
                     return (
                         <List.Item>
                             <Typography.Text>{questionText} : {correct === true ? 'Верно' : 'Неверно'}</Typography.Text>
