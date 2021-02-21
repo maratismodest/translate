@@ -14,11 +14,11 @@ import AidaMenu from "../AidaMenu";
 import kitap from "../../sounds/words/kitap.mp3";
 import {words} from "./words";
 import {phrases} from "./phrases";
-import { YMInitializer } from 'react-yandex-metrika';
+import {YMInitializer} from 'react-yandex-metrika';
 
 
 const rusWords = words.map((item, index) => {
-    const { rus} = item;
+    const {rus} = item;
     return rus;
 })
 const tatWords = words.map((item, index) => {
@@ -28,7 +28,7 @@ const tatWords = words.map((item, index) => {
 
 
 const rusPhrases = phrases.map((item, index) => {
-    const { rus} = item;
+    const {rus} = item;
     return rus;
 })
 const tatPhrases = phrases.map((item, index) => {
@@ -68,7 +68,6 @@ const phrasesTatRus = phrases.map((item, index) => {
     }
 
 })
-
 
 
 const wordsRusTat = words.map((item, index) => {
@@ -191,10 +190,54 @@ const Game = () => {
             // useEffect(() => {
             //     word()
             // }, [word])
+            const DragAndDrop = () => {
+                const [arr,setArr] = useState(['a', 'b', 'c', 'd', 'e']);
+                const [result, setResult] = useState([]);
+
+                // arr.splice(1, 1);
+                // console.log(arr);
+
+                const handleClick = (index) => {
+                    console.log("index", index)
+                    const res = arr.map((item)=>{
+                        return item;
+                    })
+                    setResult(prevState => [...prevState,arr[index]])
+                    res.splice(index, 1)
+
+                    setArr(res);
+                    console.log("res", res)
+
+                    // setArr(arr.splice(index, 1));
+                    // console.log(arr.splice(1, 1));
+                }
+
+
+
+
+
+
+                const arrList = arr.map((item, index) => {
+                    return <button onClick={() => {
+                        handleClick(index)
+                    }}>{item}</button>
+                })
+                const resultList = result.map((item, index) => {
+                    return <button onClick={() => {
+                        handleClick(index)
+                    }}>{item}</button>
+                })
+                return <div>
+                    {resultList}
+                    DragAndDrop
+                    {arrList}
+                </div>
+            }
 
 
             return (
                 <div style={{textAlign: "center"}}>
+                    {/*<DragAndDrop/>*/}
                     <div>Вопрос {currentQuestionIndex + 1} из {questions.length}</div>
                     <Title>{questionText}</Title>
                     <ul style={{minWidth: '200px'}}>
@@ -289,7 +332,7 @@ const Game = () => {
                     <AidaMenu state={state} setState={setState}/>
                 </StyledMenu>
                 {res()}
-                <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2" />
+                <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
             </StyledGame>
         );
     }
