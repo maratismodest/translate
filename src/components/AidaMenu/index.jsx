@@ -7,16 +7,16 @@ const AidaMenu = ({state, setState}) => {
     const menu = (
         <Menu>
             <Menu.Item key="0">
-                <Button onClick={e => {
+                <a onClick={e => {
                     e.preventDefault();
                     setState({...initialState, language: 'tat'})
-                }}>Татарский-Русский</Button>
+                }}>Татарский-Русский</a>
             </Menu.Item>
             <Menu.Item key="1">
-                <Button onClick={e => {
+                <a onClick={e => {
                     e.preventDefault();
                     setState({...initialState, language: 'rus'})
-                }}>Русский-Татарский</Button>
+                }}>Русский-Татарский</a>
             </Menu.Item>
         </Menu>
     );

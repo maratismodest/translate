@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Result from "../Result";
 import _ from 'lodash';
 import styled from 'styled-components'
-import {Button} from "antd";
+import {Tag, Button, Divider} from "antd";
 import useSound from 'use-sound';
 import Title from "antd/es/typography/Title";
 import sound from '../../sounds/sound.mp3';
@@ -190,49 +190,6 @@ const Game = () => {
             // useEffect(() => {
             //     word()
             // }, [word])
-            const DragAndDrop = () => {
-                const [arr,setArr] = useState(['a', 'b', 'c', 'd', 'e']);
-                const [result, setResult] = useState([]);
-
-                // arr.splice(1, 1);
-                // console.log(arr);
-
-                const handleClick = (index) => {
-                    console.log("index", index)
-                    const res = arr.map((item)=>{
-                        return item;
-                    })
-                    setResult(prevState => [...prevState,arr[index]])
-                    res.splice(index, 1)
-
-                    setArr(res);
-                    console.log("res", res)
-
-                    // setArr(arr.splice(index, 1));
-                    // console.log(arr.splice(1, 1));
-                }
-
-
-
-
-
-
-                const arrList = arr.map((item, index) => {
-                    return <button onClick={() => {
-                        handleClick(index)
-                    }}>{item}</button>
-                })
-                const resultList = result.map((item, index) => {
-                    return <button onClick={() => {
-                        handleClick(index)
-                    }}>{item}</button>
-                })
-                return <div>
-                    {resultList}
-                    DragAndDrop
-                    {arrList}
-                </div>
-            }
 
 
             return (
@@ -310,6 +267,92 @@ const Game = () => {
             )
         }
 
+        const DragAndDrop = () => {
+
+            const question = phrases[currentQuestionIndex];
+            const {options, questionText, correct, id: questionId} = question
+            const [arr, setArr] = useState(_.shuffle(questionText.split(' ')));
+            const [answer, setAnswer] = useState([]);
+            const [yes] = useSound(sound);
+            const [no] = useSound(wrong);
+
+            const handleClick = (index) => {
+
+                const currentWord = arr[index];
+                const copyAnswer = answer.map((item) => {
+                    return item;
+                })
+                copyAnswer.push(currentWord);
+
+                setAnswer(prevState => [...prevState, currentWord])
+
+                const resultArr = arr.map((item) => {
+                    return item;
+                })
+
+                resultArr.splice(index, 1)
+                setArr(resultArr);
+
+
+                if (resultArr.length === 0) {
+
+                    const timeout = window.setTimeout(() => {
+                    const final = copyAnswer.join(' ');
+                        questionText.toLowerCase() === final.toLowerCase() ? yes() : no()
+                    const res = questionText === final ? {
+                        correct: true,
+                        id: questionId,
+                        questionText: questionText
+                    } : {correct: false, id: questionId, questionText: questionText}
+                    console.log("res", res)
+                    if (currentQuestionIndex + 1 < phrases.length) {
+                        setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
+                    } else {
+                        setState({
+                            ...state,
+                            // phrases: _.shuffle(initialPhrases).slice(1, 6),
+                            currentQuestionIndex: currentQuestionIndex + 1,
+                            result: [...result, res],
+                            finished: true,
+                            gameState: 'result',
+                            chosenGame: 'dragAndDrop'
+                        })
+                    }
+                        window.clearTimeout(timeout)
+                    }, 500)
+                }
+
+            }
+
+            const arrList = arr.map((item, index) => {
+                return <li key={item}>
+                    <button onClick={() => {
+                        handleClick(index)
+                    }}>{item.toLowerCase()}</button>
+                </li>
+            })
+
+            const resultList = answer.map((item, index) => {
+                return <li key={item}><Tag>{item}</Tag></li>
+            })
+
+
+            return (
+                <div style={{textAlign: "center"}}>
+                    <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
+                    <Title>{questionText}</Title>
+                    <ul style={{minWidth: '200px', display: 'flex'}}>
+                        {resultList}
+                    </ul>
+                    <Divider/>
+                    <ul style={{minWidth: '200px', display: 'flex', justifyContent: 'space-evenly' }}>
+                        {arrList}
+                    </ul>
+                </div>
+            )
+
+        }
+
         function res() {
             switch (gameState) {
                 case 'welcome':
@@ -320,6 +363,8 @@ const Game = () => {
                     return <Phrases/>
                 case 'result':
                     return <Result state={state} setState={setState}/>
+                case 'dragAndDrop':
+                    return <DragAndDrop state={state} setState={setState}/>
                 default:
                     return null
             }
@@ -357,3 +402,37 @@ const StyledGame = styled.div`
   flex-grow: 1;
   background: #FEF5EF;
 `
+
+// const [arr, setArr] = useState(['a', 'b', 'c', 'd', 'e']);
+// const [result, setResult] = useState([]);
+//
+// const handleClick = (index) => {
+//     console.log("index", index)
+//     const res = arr.map((item) => {
+//         return item;
+//     })
+//     setResult(prevState => [...prevState, arr[index]])
+//     res.splice(index, 1)
+//
+//     setArr(res);
+//     console.log("res", res)
+//
+//     // setArr(arr.splice(index, 1));
+//     // console.log(arr.splice(1, 1));
+// }
+//
+// const arrList = arr.map((item, index) => {
+//     return <button onClick={() => {
+//         handleClick(index)
+//     }}>{item}</button>
+// })
+// const resultList = result.map((item, index) => {
+//     return <button onClick={() => {
+//         handleClick(index)
+//     }}>{item}</button>
+// })
+// return <div>
+//     {resultList}
+//     DragAndDrop
+//     {arrList}
+// </div>
