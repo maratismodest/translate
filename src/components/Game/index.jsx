@@ -37,7 +37,7 @@ const tatPhrases = phrases.map((item, index) => {
 })
 
 const phrasesRusTat = phrases.map((item, index) => {
-    const {tat, rus} = item;
+    const {tat, rus, audio} = item;
     return {
         id: index,
         questionText: rus,
@@ -48,12 +48,12 @@ const phrasesRusTat = phrases.map((item, index) => {
             {id: 3, text: _.sample(tatPhrases)},
             {id: 4, text: _.sample(tatPhrases)},
         ],
-        audio: kitap
+        audio: audio
     }
 
 })
 const phrasesTatRus = phrases.map((item, index) => {
-    const {tat, rus} = item;
+    const {tat, rus, audio} = item;
     return {
         id: index,
         questionText: tat,
@@ -64,7 +64,7 @@ const phrasesTatRus = phrases.map((item, index) => {
             {id: 3, text: _.sample(rusPhrases)},
             {id: 4, text: _.sample(rusPhrases)},
         ],
-        audio: kitap
+        audio: audio
     }
 
 })
@@ -270,11 +270,16 @@ const Game = () => {
         const DragAndDrop = () => {
 
             const question = phrases[currentQuestionIndex];
-            const {options, questionText, correct, id: questionId} = question
+            const {options, questionText, correct, id: questionId, audio} = question
             const [arr, setArr] = useState(_.shuffle(questionText.split(' ')));
             const [answer, setAnswer] = useState([]);
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
+            const [tell] = useSound(audio);
+            useEffect(() => {
+                // console.log("question", question)
+                tell()
+            }, [tell])
 
             const handleClick = (index) => {
 
@@ -297,27 +302,27 @@ const Game = () => {
                 if (resultArr.length === 0) {
 
                     const timeout = window.setTimeout(() => {
-                    const final = copyAnswer.join(' ');
+                        const final = copyAnswer.join(' ');
                         questionText.toLowerCase() === final.toLowerCase() ? yes() : no()
-                    const res = questionText === final ? {
-                        correct: true,
-                        id: questionId,
-                        questionText: questionText
-                    } : {correct: false, id: questionId, questionText: questionText}
-                    console.log("res", res)
-                    if (currentQuestionIndex + 1 < phrases.length) {
-                        setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
-                    } else {
-                        setState({
-                            ...state,
-                            // phrases: _.shuffle(initialPhrases).slice(1, 6),
-                            currentQuestionIndex: currentQuestionIndex + 1,
-                            result: [...result, res],
-                            finished: true,
-                            gameState: 'result',
-                            chosenGame: 'dragAndDrop'
-                        })
-                    }
+                        const res = questionText === final ? {
+                            correct: true,
+                            id: questionId,
+                            questionText: questionText
+                        } : {correct: false, id: questionId, questionText: questionText}
+                        console.log("res", res)
+                        if (currentQuestionIndex + 1 < phrases.length) {
+                            setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
+                        } else {
+                            setState({
+                                ...state,
+                                // phrases: _.shuffle(initialPhrases).slice(1, 6),
+                                currentQuestionIndex: currentQuestionIndex + 1,
+                                result: [...result, res],
+                                finished: true,
+                                gameState: 'result',
+                                chosenGame: 'dragAndDrop'
+                            })
+                        }
                         window.clearTimeout(timeout)
                     }, 500)
                 }
@@ -333,19 +338,22 @@ const Game = () => {
             })
 
             const resultList = answer.map((item, index) => {
-                return <li key={item}><Tag>{item}</Tag></li>
+                return <li key={item}><Tag color="green" style={{
+                    fontSize: '16px',
+                    lineHeight: '18px',
+                    padding: '4px'}}>{item}</Tag></li>
             })
 
 
             return (
                 <div style={{textAlign: "center"}}>
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
-                    <Title>{questionText}</Title>
-                    <ul style={{minWidth: '200px', display: 'flex'}}>
+                    <Title>Прослушайте аудио</Title>
+                    <ul style={{minWidth: '200px', minHeight: '36px', display: 'flex'}}>
                         {resultList}
                     </ul>
                     <Divider/>
-                    <ul style={{minWidth: '200px', display: 'flex', justifyContent: 'space-evenly' }}>
+                    <ul style={{minWidth: '200px', display: 'flex', justifyContent: 'space-evenly', minHeight: '36px'}}>
                         {arrList}
                     </ul>
                 </div>
@@ -402,37 +410,3 @@ const StyledGame = styled.div`
   flex-grow: 1;
   background: #FEF5EF;
 `
-
-// const [arr, setArr] = useState(['a', 'b', 'c', 'd', 'e']);
-// const [result, setResult] = useState([]);
-//
-// const handleClick = (index) => {
-//     console.log("index", index)
-//     const res = arr.map((item) => {
-//         return item;
-//     })
-//     setResult(prevState => [...prevState, arr[index]])
-//     res.splice(index, 1)
-//
-//     setArr(res);
-//     console.log("res", res)
-//
-//     // setArr(arr.splice(index, 1));
-//     // console.log(arr.splice(1, 1));
-// }
-//
-// const arrList = arr.map((item, index) => {
-//     return <button onClick={() => {
-//         handleClick(index)
-//     }}>{item}</button>
-// })
-// const resultList = result.map((item, index) => {
-//     return <button onClick={() => {
-//         handleClick(index)
-//     }}>{item}</button>
-// })
-// return <div>
-//     {resultList}
-//     DragAndDrop
-//     {arrList}
-// </div>

@@ -1,3 +1,4 @@
+
 export const words = [{tat: 'Сәлам', rus: 'Привет'},
     {tat: 'Ел', rus: 'Год, лет'},
     {tat: 'Кеше', rus: 'Человек'},
