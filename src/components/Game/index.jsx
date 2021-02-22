@@ -331,9 +331,9 @@ const Game = () => {
 
             const arrList = arr.map((item, index) => {
                 return <li key={item}>
-                    <button onClick={() => {
+                    <Button onClick={() => {
                         handleClick(index)
-                    }}>{item.toLowerCase()}</button>
+                    }}>{item.toLowerCase()}</Button>
                 </li>
             })
 
@@ -348,12 +348,12 @@ const Game = () => {
             return (
                 <div style={{textAlign: "center"}}>
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
-                    <Title>Прослушайте аудио</Title>
-                    <ul style={{minWidth: '200px', minHeight: '36px', display: 'flex'}}>
+                    <h2 onClick={tell} style={{maxWidth:300, border: '1px solid black'}}>Нажмите на текст, чтобы повторить аудио</h2>
+                    <ul style={{minWidth: '200px', minHeight: '40px', display: 'flex'}}>
                         {resultList}
                     </ul>
                     <Divider/>
-                    <ul style={{minWidth: '200px', display: 'flex', justifyContent: 'space-evenly', minHeight: '36px'}}>
+                    <ul style={{minWidth: '200px', display: 'flex', justifyContent: 'space-evenly', minHeight: '40px'}}>
                         {arrList}
                     </ul>
                 </div>
