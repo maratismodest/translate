@@ -271,7 +271,9 @@ const Game = () => {
 
             const question = phrases[currentQuestionIndex];
             const {options, questionText, correct, id: questionId, audio} = question
-            const [arr, setArr] = useState(_.shuffle(questionText.split(' ')));
+            const questionArr = questionText.split(' ');
+            const randomArr = _.sample(phrases).questionText.split(' ');
+            const [arr, setArr] = useState(_.shuffle(questionArr.concat(randomArr)));
             const [answer, setAnswer] = useState([]);
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
@@ -284,22 +286,18 @@ const Game = () => {
             const handleClick = (index) => {
 
                 const currentWord = arr[index];
-                const copyAnswer = answer.map((item) => {
-                    return item;
-                })
+                const copyAnswer = _.clone(answer);
+
                 copyAnswer.push(currentWord);
 
                 setAnswer(prevState => [...prevState, currentWord])
 
-                const resultArr = arr.map((item) => {
-                    return item;
-                })
-
+                const resultArr = _.clone(arr)
                 resultArr.splice(index, 1)
                 setArr(resultArr);
 
 
-                if (resultArr.length === 0) {
+                if (answer.length + 1 === questionArr.length) {
 
                     const timeout = window.setTimeout(() => {
                         const final = copyAnswer.join(' ');
@@ -330,7 +328,7 @@ const Game = () => {
             }
 
             const arrList = arr.map((item, index) => {
-                return <li key={item}>
+                return <li key={item} style={{marginRight:4}}>
                     <Button onClick={() => {
                         handleClick(index)
                     }}>{item.toLowerCase()}</Button>
@@ -347,15 +345,17 @@ const Game = () => {
 
             return (
                 <div style={{textAlign: "center"}}>
+                {/*// <div style={{textAlign: "center", display: 'flex',*/}
+                {/*//     flexDirection: 'column', alignItems: 'center'}}>*/}
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
-                    <h2 onClick={tell} style={{maxWidth:300, border: '1px solid black'}}>Нажмите на текст, чтобы повторить аудио</h2>
-                    <ul style={{minWidth: '200px', minHeight: '40px', display: 'flex'}}>
+                    <h2 onClick={tell} style={{maxWidth:300, border: '1px solid black', margin: '4px auto 8px auto'}}>Нажмите на текст, чтобы повторить аудио</h2>
+                    <StyledResult>
                         {resultList}
-                    </ul>
+                    </StyledResult>
                     <Divider/>
-                    <ul style={{minWidth: '200px', display: 'flex', justifyContent: 'space-evenly', minHeight: '40px'}}>
+                    <StyledUl>
                         {arrList}
-                    </ul>
+                    </StyledUl>
                 </div>
             )
 
@@ -409,4 +409,25 @@ const StyledGame = styled.div`
   justify-content: center;
   flex-grow: 1;
   background: #FEF5EF;
+  .ant-divider-horizontal {
+  margin: 12px 0 !important;
+  }
+`
+
+const StyledResult = styled.ul`
+    min-width: 200px;
+    display: flex;
+    min-height: 40px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    // padding: 12px 0;
+    max-width: 300px;
+`
+const StyledUl = styled.ul`
+    min-width: 200px;
+    display: flex;
+    min-height: 104px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+    max-width: 300px;
 `
