@@ -16,6 +16,7 @@ import kitap from "../../sounds/words/kitap.mp3";
 import {words} from "./words";
 import {phrases} from "./phrases";
 import {YMInitializer} from 'react-yandex-metrika';
+import NavMenu from "../NavMenu";
 
 export const translateBase = {
     rus: {
@@ -339,6 +340,10 @@ const Game = () => {
                 <StyledMenu>
                     <AidaMenu state={state} setState={setState}/>
                 </StyledMenu>
+                <StyledNavMenu>
+                    <NavMenu state={state} setState={setState}/>
+                </StyledNavMenu>
+
                 {res()}
                 <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
             </StyledGame>
@@ -349,13 +354,20 @@ const Game = () => {
 
 export default Game;
 
-const StyledMenu = styled.div`
+export const StyledMenu = styled.div`
   position: absolute;
   right: 0;
   top: 0;
 `
 
+const StyledNavMenu = styled.div`
+  position: absolute;
+  left: 0;
+  top: 0;
+`
+
 const StyledGame = styled.div`
+padding: 5%;
   position: relative;
   height: 100vh;
   display: flex;
