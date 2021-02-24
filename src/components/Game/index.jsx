@@ -160,41 +160,45 @@ const Game = () => {
 
         const Phrases = () => {
             const question = phrases[currentQuestionIndex];
-            const {options, questionText, correct, id: questionId} = question
+            const {options, questionText, correct, id: questionId, audio} = question
             const shuffledOptions = _.shuffle(options)
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
-            // const [word] = useSound(audio)
 
+            // const [word] = useSound(audio);
+            // useEffect(() => {
+            //     word()
+            // }, [word])
+
+            const handleClick = (id) => {
+                const timeout = window.setTimeout(() => {
+                    const res = id === correct ? {
+                        correct: true,
+                        id: questionId,
+                        questionText: questionText
+                    } : {correct: false, id: questionId, questionText: questionText}
+
+                    id === correct ? yes() : no()
+                    if (currentQuestionIndex + 1 < phrases.length) {
+                        setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
+                    } else {
+                        setState({
+                            ...state,
+                            // phrases: _.shuffle(initialPhrases).slice(1, 6),
+                            currentQuestionIndex: currentQuestionIndex + 1,
+                            result: [...result, res],
+                            finished: true,
+                            gameState: 'result',
+                            chosenGame: 'phrases'
+                        })
+                    }
+
+                    window.clearTimeout(timeout)
+                }, 500)
+
+
+            }
             const Options = shuffledOptions.map((option, index) => {
-                const handleClick = (id) => {
-                    const timeout = window.setTimeout(() => {
-                        const res = id === correct ? {
-                            correct: true,
-                            id: questionId,
-                            questionText: questionText
-                        } : {correct: false, id: questionId, questionText: questionText}
-
-                        id === correct ? yes() : no()
-                        if (currentQuestionIndex + 1 < phrases.length) {
-                            setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
-                        } else {
-                            setState({
-                                ...state,
-                                // phrases: _.shuffle(initialPhrases).slice(1, 6),
-                                currentQuestionIndex: currentQuestionIndex + 1,
-                                result: [...result, res],
-                                finished: true,
-                                gameState: 'result',
-                                chosenGame: 'phrases'
-                            })
-                        }
-
-                        window.clearTimeout(timeout)
-                    }, 500)
-
-
-                }
                 const {id, text} = option;
                 return <li key={id}>
                     <Button onClick={() => {
@@ -205,9 +209,7 @@ const Game = () => {
                 </li>
             })
 
-            // useEffect(() => {
-            //     word()
-            // }, [word])
+
 
 
             return (
