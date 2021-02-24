@@ -4,15 +4,16 @@ import Welcome from "../Welcome";
 
 const Result = ({state, setState}) => {
         const {
-            result, language
+            result, language, translate
         } = state;
 
+        const {repeat, resultText} = translate
         function footer() {
             return (
                 <>
                     <Button onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: state.chosenGame})
-                    }}>{language === ('rus' || 'tat') ? 'Повторить' : 'Repeat'}</Button>
+                    }}>{repeat}</Button>
                     <Divider/>
                     <Button onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: 'welcome'})
@@ -26,7 +27,7 @@ const Result = ({state, setState}) => {
         return (
             <div>
                 <List
-                    header={<div>{language === ('rus' || 'tat') ? 'Результат' : 'Result'}</div>}
+                    header={<div>{resultText}</div>}
                     footer={footer()}
                     bordered
                     dataSource={result}

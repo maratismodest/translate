@@ -19,13 +19,19 @@ import {YMInitializer} from 'react-yandex-metrika';
 
 export const translateBase = {
     rus: {
-        chooseLanguage: 'Язык'
+        chooseLanguage: 'Язык',
+        repeat : 'Повторить',
+        resultText: 'Результат'
     },
     tat: {
-        chooseLanguage: 'Тел'
+        chooseLanguage: 'Тел',
+        repeat : 'Кабат',
+        resultText: 'Нәтиҗә'
     },
     eng: {
-        chooseLanguage: 'Language'
+        chooseLanguage: 'Language',
+        repeat : 'Repeat',
+        resultText: 'Result'
     }
 
 }
@@ -44,7 +50,7 @@ export const initialState = {
 const Game = () => {
 
         const [state, setState] = useState(initialState);
-        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState, language,} = state;
+        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState, language, translate} = state;
 
 
         useEffect(() => {
@@ -116,7 +122,7 @@ const Game = () => {
                                 result: [...result, res],
                                 finished: true,
                                 gameState: 'result',
-                                chosenGame: 'words'
+                                chosenGame: 'words',
                             })
                         }
 

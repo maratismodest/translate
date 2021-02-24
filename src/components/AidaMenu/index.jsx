@@ -35,7 +35,7 @@ const AidaMenu = ({state, setState}) => {
             </Menu.Item>
         </Menu>
     );
-    
+
     return (
         <Dropdown overlay={menu} trigger={['click']}>
             <Button className="ant-dropdown-link" onClick={e => e.preventDefault()}>
