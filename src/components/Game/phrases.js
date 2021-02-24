@@ -36,11 +36,11 @@ import rahim_itegez from '../../sounds/phrases/rahim_itegez.mp3';
 import rahmat from '../../sounds/phrases/rahmat.mp3';
 import salam from '../../sounds/phrases/salam.mp3';
 import salam_ait from '../../sounds/phrases/salam_ait.mp3';
-import sau_buligiz from '../../sounds/phrases/sau_buligiz.mp3';
 import saubuligiz from '../../sounds/phrases/saubuligiz.mp3';
 import sezge_de_rehmet from '../../sounds/phrases/sezge_de_rehmet.mp3';
 import shulaimi from '../../sounds/phrases/shulaimi.mp3';
 import sin_nishlisen from '../../sounds/phrases/sin_nishlisen.mp3';
+import tatar_tele from '../../sounds/phrases/tatar_tele.mp3';
 import sinzes_kaida from '../../sounds/phrases/sinzes_kaida.mp3';
 import zinhar from '../../sounds/phrases/zinhar.mp3';
 
@@ -50,7 +50,6 @@ export const phrases = [
     {tat: 'Ни хәл?', rus: 'Как дела?', audio: ni_hel},
     {tat: 'Исәнме(сез)!', rus: 'Здравствуй(те)!', audio: isanmesez},
     {tat: 'Хуш!', rus: 'Пока!', audio: hush},
-    {tat: 'Сау булыгыз!', rus: 'До свидания!', audio: sau_buligiz},
     {tat: 'Сәлам әйт!', rus: 'Передавай привет!', audio: salam_ait},
     {tat: 'Рәхмәт!', rus: 'Спасибо!', audio: rahmat},
     {tat: 'Зинһар!', rus: 'Пожалуйста!', audio: zinhar},
@@ -80,7 +79,7 @@ export const phrases = [
     {tat: 'Хәлләрең ничек?', rus: 'Как дела?', audio: hallaren_nichek},
     {tat: 'Гафу итегез', rus: 'Извините', audio: gafu_itegez},
     {tat: 'Мин татарча сөйләшәм', rus: 'Я говорю по-татарски', audio: min_tatarcha_soileshem},
-    {tat: 'Сау булыгыз', rus: 'До свидания', audio: sau_buligiz},
+    {tat: 'Сау булыгыз', rus: 'До свидания', audio: saubuligiz},
     {tat: 'Бу нәрсә?', rus: 'Что это?', audio: bu_nerse},
     {tat: 'Бу кем?', rus: 'Кто это?', audio: bu_kem},
     {tat: 'Матур кыз', rus: 'Красивая девочка', audio: matur_kyz},
@@ -90,5 +89,5 @@ export const phrases = [
     {tat: 'Әйдә киттек', rus: 'Давай пошли', audio: eide_kittek},
     {tat: 'Рәхим итегез', rus: 'Добро пожаловать', audio: rahim_itegez},
     {tat: 'Миңа апельсин кирәк', rus: 'Мне нужен апельсин', audio: mina_apelsin_kirek},
-    // {tat: 'Татар теле', rus: 'Татарский язык', audio: tatar},
+    {tat: 'Татар теле', rus: 'Татарский язык', audio: tatar_tele},
 ]

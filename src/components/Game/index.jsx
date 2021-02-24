@@ -7,6 +7,8 @@ import useSound from 'use-sound';
 import Title from "antd/es/typography/Title";
 import sound from '../../sounds/sound.mp3';
 import wrong from '../../sounds/wrong.mp3';
+import { PlayCircleOutlined} from '@ant-design/icons';
+import Icon from '@ant-design/icons';
 
 import Welcome from "../Welcome";
 
@@ -279,18 +281,16 @@ const Game = () => {
             const [no] = useSound(wrong);
             const [tell] = useSound(audio);
             useEffect(() => {
-                // console.log("question", question)
                 tell()
             }, [tell])
 
             const handleClick = (index) => {
 
                 const currentWord = arr[index];
+
                 const copyAnswer = _.clone(answer);
-
                 copyAnswer.push(currentWord);
-
-                setAnswer(prevState => [...prevState, currentWord])
+                setAnswer(copyAnswer)
 
                 const resultArr = _.clone(arr)
                 resultArr.splice(index, 1)
@@ -348,7 +348,8 @@ const Game = () => {
                 {/*// <div style={{textAlign: "center", display: 'flex',*/}
                 {/*//     flexDirection: 'column', alignItems: 'center'}}>*/}
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
-                    <h2 onClick={tell} style={{maxWidth:300, border: '1px solid black', margin: '4px auto 8px auto'}}>Нажмите на текст, чтобы повторить аудио</h2>
+                    <h2>Повторить фразу</h2>
+                    <Icon onClick={tell} component={PlayCircleOutlined} style={{ fontSize: '400%', color: '#12a4d9'}} />
                     <StyledResult>
                         {resultList}
                     </StyledResult>
