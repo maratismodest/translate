@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Menu, Dropdown, Button} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
 import {initialState} from "../Game";
 
 const AidaMenu = ({state, setState}) => {
+    const {translate} = state;
+    const {chooseLanguage} = translate;
+
     const menu = (
         <Menu>
             <Menu.Item key="0">
@@ -18,13 +21,25 @@ const AidaMenu = ({state, setState}) => {
                     setState({...initialState, language: 'rus'})
                 }}>Русский-Татарский</a>
             </Menu.Item>
+            <Menu.Item key="2">
+                <a onClick={e => {
+                    e.preventDefault();
+                    setState({...initialState, language: 'tat-eng'})
+                }}>Tatar-English</a>
+            </Menu.Item>
+            <Menu.Item key="3">
+                <a onClick={e => {
+                    e.preventDefault();
+                    setState({...initialState, language: 'eng-tat'})
+                }}>English-Tatar</a>
+            </Menu.Item>
         </Menu>
     );
-
+    
     return (
         <Dropdown overlay={menu} trigger={['click']}>
             <Button className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Язык<DownOutlined/>
+                {chooseLanguage}<DownOutlined/>
             </Button>
         </Dropdown>
     )

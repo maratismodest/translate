@@ -9,7 +9,6 @@ import sound from '../../sounds/sound.mp3';
 import wrong from '../../sounds/wrong.mp3';
 import { PlayCircleOutlined} from '@ant-design/icons';
 import Icon from '@ant-design/icons';
-
 import Welcome from "../Welcome";
 
 import AidaMenu from "../AidaMenu";
@@ -18,107 +17,34 @@ import {words} from "./words";
 import {phrases} from "./phrases";
 import {YMInitializer} from 'react-yandex-metrika';
 
-
-const rusWords = words.map((item, index) => {
-    const {rus} = item;
-    return rus;
-})
-const tatWords = words.map((item, index) => {
-    const {tat} = item;
-    return tat;
-})
-
-
-const rusPhrases = phrases.map((item, index) => {
-    const {rus} = item;
-    return rus;
-})
-const tatPhrases = phrases.map((item, index) => {
-    const {tat} = item;
-    return tat;
-})
-
-const phrasesRusTat = phrases.map((item, index) => {
-    const {tat, rus, audio} = item;
-    return {
-        id: index,
-        questionText: rus,
-        correct: 1,
-        options: [
-            {id: 1, text: tat},
-            {id: 2, text: _.sample(tatPhrases)},
-            {id: 3, text: _.sample(tatPhrases)},
-            {id: 4, text: _.sample(tatPhrases)},
-        ],
-        audio: audio
+export const translateBase = {
+    rus: {
+        chooseLanguage: 'Язык'
+    },
+    tat: {
+        chooseLanguage: 'Тел'
+    },
+    eng: {
+        chooseLanguage: 'Language'
     }
 
-})
-const phrasesTatRus = phrases.map((item, index) => {
-    const {tat, rus, audio} = item;
-    return {
-        id: index,
-        questionText: tat,
-        correct: 1,
-        options: [
-            {id: 1, text: rus},
-            {id: 2, text: _.sample(rusPhrases)},
-            {id: 3, text: _.sample(rusPhrases)},
-            {id: 4, text: _.sample(rusPhrases)},
-        ],
-        audio: audio
-    }
-
-})
-
-
-const wordsRusTat = words.map((item, index) => {
-    const {tat, rus} = item;
-    return {
-        id: index,
-        questionText: rus,
-        correct: 1,
-        options: [
-            {id: 1, text: tat},
-            {id: 2, text: _.sample(tatWords)},
-            {id: 3, text: _.sample(tatWords)},
-            {id: 4, text: _.sample(tatWords)},
-        ],
-        audio: kitap
-    }
-
-})
-const wordsTatRus = words.map((item, index) => {
-    const {tat, rus} = item;
-    return {
-        id: index,
-        questionText: tat,
-        correct: 1,
-        options: [
-            {id: 1, text: rus},
-            {id: 2, text: _.sample(rusWords)},
-            {id: 3, text: _.sample(rusWords)},
-            {id: 4, text: _.sample(rusWords)},
-        ],
-        audio: kitap
-    }
-
-})
+}
 
 export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
-    language: 'tat',
+    language: 'rus',
     result: [],
     finished: false,
     currentQuestionIndex: 0,
+    translate: translateBase.rus
 }
 
 
 const Game = () => {
 
         const [state, setState] = useState(initialState);
-        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState, language} = state;
+        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState, language,} = state;
 
 
         useEffect(() => {
@@ -128,6 +54,7 @@ const Game = () => {
                     ...prevState,
                     questions: _.shuffle(wordsTatRus).slice(1, 6),
                     phrases: _.shuffle(phrasesTatRus).slice(1, 6),
+                    translate: translateBase.tat
                 })))
 
             }
@@ -136,6 +63,25 @@ const Game = () => {
                     ...prevState,
                     questions: _.shuffle(wordsRusTat).slice(1, 6),
                     phrases: _.shuffle(phrasesRusTat).slice(1, 6),
+                    translate: translateBase.rus
+                })))
+
+            }
+            if (language === 'tat-eng') {
+                setState((prevState => ({
+                    ...prevState,
+                    questions: _.shuffle(wordsTatEng).slice(1, 6),
+                    phrases: _.shuffle(phrasesTatEng).slice(1, 6),
+                    translate: translateBase.eng
+                })))
+
+            }
+            if (language === 'eng-tat') {
+                setState((prevState => ({
+                    ...prevState,
+                    questions: _.shuffle(wordsEngTat).slice(1, 6),
+                    phrases: _.shuffle(phrasesEngTat).slice(1, 6),
+                    translate: translateBase.eng
                 })))
 
             }
@@ -301,7 +247,7 @@ const Game = () => {
 
                     const timeout = window.setTimeout(() => {
                         const final = copyAnswer.join(' ');
-                        questionText.toLowerCase() === final.toLowerCase() ? yes() : no()
+                        questionText === final ? yes() : no()
                         const res = questionText === final ? {
                             correct: true,
                             id: questionId,
@@ -331,7 +277,7 @@ const Game = () => {
                 return <li key={item} style={{marginRight:4}}>
                     <Button onClick={() => {
                         handleClick(index)
-                    }}>{item.toLowerCase()}</Button>
+                    }}>{item}</Button>
                 </li>
             })
 
@@ -348,7 +294,7 @@ const Game = () => {
                 {/*// <div style={{textAlign: "center", display: 'flex',*/}
                 {/*//     flexDirection: 'column', alignItems: 'center'}}>*/}
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
-                    <h2>Повторить фразу</h2>
+                    <h2>{language === ('rus' || 'tat') ? 'Повторить фразу' : 'Repeat again'}</h2>
                     <Icon onClick={tell} component={PlayCircleOutlined} style={{ fontSize: '400%', color: '#12a4d9'}} />
                     <StyledResult>
                         {resultList}
@@ -432,3 +378,162 @@ const StyledUl = styled.ul`
     padding: 12px 0;
     max-width: 300px;
 `
+const rusWords = words.map((item, index) => {
+    const {rus} = item;
+    return rus;
+})
+const tatWords = words.map((item, index) => {
+    const {tat} = item;
+    return tat;
+})
+
+const engWords = words.map((item, index) => {
+    const {eng} = item;
+    return eng;
+})
+
+const rusPhrases = phrases.map((item, index) => {
+    const {rus} = item;
+    return rus;
+})
+const tatPhrases = phrases.map((item, index) => {
+    const {tat} = item;
+    return tat;
+})
+
+const engPhrases = phrases.map((item, index) => {
+    const {eng} = item;
+    return eng;
+})
+const wordsRusTat = words.map((item, index) => {
+    const {tat, rus} = item;
+    return {
+        id: index,
+        questionText: rus,
+        correct: 1,
+        options: [
+            {id: 1, text: tat},
+            {id: 2, text: _.sample(tatWords)},
+            {id: 3, text: _.sample(tatWords)},
+            {id: 4, text: _.sample(tatWords)},
+        ],
+        audio: kitap
+    }
+
+})
+const wordsTatRus = words.map((item, index) => {
+    const {tat, rus} = item;
+    return {
+        id: index,
+        questionText: tat,
+        correct: 1,
+        options: [
+            {id: 1, text: rus},
+            {id: 2, text: _.sample(rusWords)},
+            {id: 3, text: _.sample(rusWords)},
+            {id: 4, text: _.sample(rusWords)},
+        ],
+        audio: kitap
+    }
+
+})
+
+const wordsTatEng = words.map((item, index) => {
+    const {tat, eng} = item;
+    return {
+        id: index,
+        questionText: tat,
+        correct: 1,
+        options: [
+            {id: 1, text: eng},
+            {id: 2, text: _.sample(engWords)},
+            {id: 3, text: _.sample(engWords)},
+            {id: 4, text: _.sample(engWords)},
+        ],
+        audio: sound
+    }
+
+})
+const wordsEngTat = words.map((item, index) => {
+    const {tat, eng} = item;
+    return {
+        id: index,
+        questionText: eng,
+        correct: 1,
+        options: [
+            {id: 1, text: tat},
+            {id: 2, text: _.sample(tatWords)},
+            {id: 3, text: _.sample(tatWords)},
+            {id: 4, text: _.sample(tatWords)},
+        ],
+        audio: sound
+    }
+
+})
+
+const phrasesRusTat = phrases.map((item, index) => {
+    const {tat, rus, audio} = item;
+    return {
+        id: index,
+        questionText: rus,
+        correct: 1,
+        options: [
+            {id: 1, text: tat},
+            {id: 2, text: _.sample(tatPhrases)},
+            {id: 3, text: _.sample(tatPhrases)},
+            {id: 4, text: _.sample(tatPhrases)},
+        ],
+        audio: audio
+    }
+
+})
+const phrasesTatRus = phrases.map((item, index) => {
+    const {tat, rus, audio} = item;
+    return {
+        id: index,
+        questionText: tat,
+        correct: 1,
+        options: [
+            {id: 1, text: rus},
+            {id: 2, text: _.sample(rusPhrases)},
+            {id: 3, text: _.sample(rusPhrases)},
+            {id: 4, text: _.sample(rusPhrases)},
+        ],
+        audio: audio
+    }
+
+})
+
+const phrasesTatEng = phrases.map((item, index) => {
+    const {tat, rus, eng, audio} = item;
+    return {
+        id: index,
+        questionText: tat,
+        correct: 1,
+        options: [
+            {id: 1, text: eng},
+            {id: 2, text: _.sample(engPhrases)},
+            {id: 3, text: _.sample(engPhrases)},
+            {id: 4, text: _.sample(engPhrases)},
+        ],
+        audio: audio
+    }
+
+})
+
+const phrasesEngTat = phrases.map((item, index) => {
+    const {tat, rus, eng, audio} = item;
+    return {
+        id: index,
+        questionText: eng,
+        correct: 1,
+        options: [
+            {id: 1, text: tat},
+            {id: 2, text: _.sample(tatPhrases)},
+            {id: 3, text: _.sample(tatPhrases)},
+            {id: 4, text: _.sample(tatPhrases)},
+        ],
+        audio: audio
+    }
+
+})
