@@ -243,7 +243,7 @@ const Game = () => {
 
 
             return (
-                <div style={{textAlign: "center"}}>
+                <StyledQuestion>
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
                     <h2>{language === ('rus' || 'tat') ? 'Повторить фразу' : 'Repeat again'}</h2>
                     <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
@@ -254,7 +254,7 @@ const Game = () => {
                     <StyledUl>
                         {arrList}
                     </StyledUl>
-                </div>
+                </StyledQuestion>
             )
 
         }
@@ -302,6 +302,12 @@ export const StyledMenu = styled.div`
   top: 0;
 `
 
+const StyledQuestion = styled.div`
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+`
+
 const StyledNavMenu = styled.div`
   position: absolute;
   left: 0;
@@ -334,10 +340,11 @@ const StyledResult = styled.ul`
   max-width: 300px;
 `
 const StyledUl = styled.ul`
+  width: auto;
   min-width: 200px;
   display: flex;
   min-height: 104px;
   flex-wrap: wrap;
   padding: 12px 0;
-  max-width: 300px;
+  //max-width: 300px;
 `
