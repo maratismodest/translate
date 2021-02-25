@@ -488,4 +488,3 @@ export const words = [{
     }
 ]
 
-console.log(words)

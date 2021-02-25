@@ -226,7 +226,7 @@ const Game = () => {
             }
 
             const arrList = arr.map((item, index) => {
-                return <li key={item} style={{marginRight: 4}}>
+                return <li key={item + index + arr.length} style={{marginRight: 4}}>
                     <Button onClick={() => {
                         handleClick(index)
                     }}>{item}</Button>
@@ -234,7 +234,7 @@ const Game = () => {
             })
 
             const resultList = answer.map((item, index) => {
-                return <li key={item}><Tag color="green" style={{
+                return <li key={item + index + answer.length}><Tag color="green" style={{
                     fontSize: '16px',
                     lineHeight: '18px',
                     padding: '4px'
