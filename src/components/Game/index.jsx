@@ -28,8 +28,6 @@ import {
 } from "./base";
 
 
-
-
 const Game = () => {
         const [state, setState] = useState(initialState);
         const {
@@ -175,7 +173,7 @@ const Game = () => {
             })
 
             return (
-                <StyledPhrase >
+                <StyledPhrase>
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
                     <Title>{questionText}</Title>
                     <ul style={{minWidth: '200px', maxWidth: '350px'}}>
@@ -186,13 +184,17 @@ const Game = () => {
         }
 
 
-
         const DragAndDrop = () => {
 
             const question = phrases[currentQuestionIndex];
             const {options, questionText, correct, id: questionId, audio} = question
             const questionArr = questionText.split(' ');
-            const randomArr = _.sample(phrases).questionText.split(' ');
+            const phrasesClone = _.clone(phrases);
+
+            const firstIndex = _.indexOf(phrasesClone, question);
+            // console.log("firstIndex",firstIndex)
+            phrasesClone.splice(firstIndex, 1);
+            const randomArr = _.sample(phrasesClone).questionText.split(' ');
             const [arr, setArr] = useState(_.shuffle(questionArr.concat(randomArr)));
             const [answer, setAnswer] = useState([]);
 
@@ -213,10 +215,15 @@ const Game = () => {
                 resultArr.splice(index, 1)
                 setArr(resultArr);
 
-                if (answer.length + 1 === questionArr.length) {
+
+            }
+
+            const handleAnswerClick = () => {
+                console.log("handleAnswerClick")
+                // if (answer.length === questionArr.length) {
 
                     const timeout = window.setTimeout(() => {
-                        const final = copyAnswer.join(' ');
+                        const final = answer.join(' ');
                         questionText === final ? yes() : no()
                         const questionResult = questionText === final ? {
                             correct: true,
@@ -226,7 +233,7 @@ const Game = () => {
                         checkGameState(chosenGame, questionResult)
                         window.clearTimeout(timeout)
                     }, 500)
-                }
+                // }
             }
 
             const arrList = arr.map((item, index) => {
@@ -237,12 +244,30 @@ const Game = () => {
                 </li>
             })
 
+            const handleTagClick = (index) => {
+                console.log(answer)
+                console.log(arr)
+
+                const currentWord = answer[index];
+                const resultArr = _.clone(arr)
+                resultArr.push(currentWord)
+                setArr(resultArr);
+
+                const copyAnswer = _.clone(answer);
+                copyAnswer.splice(index,1);
+                setAnswer(copyAnswer)
+
+
+            }
             const resultList = answer.map((item, index) => {
                 return <li key={item + index + answer.length}><Tag color="green" style={{
                     fontSize: '16px',
                     lineHeight: '18px',
                     padding: '4px'
-                }}>{item}</Tag></li>
+                }}
+                                                                   onClick={() => {handleTagClick(index)
+                                                                   }}
+                >{item}</Tag></li>
             })
 
 
@@ -258,6 +283,7 @@ const Game = () => {
                     <StyledUl>
                         {arrList}
                     </StyledUl>
+                    <Button size={'large'} type="primary" onClick={handleAnswerClick}>Проверить</Button>
                 </StyledQuestion>
             )
 
