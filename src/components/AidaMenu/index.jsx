@@ -24,13 +24,13 @@ const AidaMenu = ({state, setState}) => {
             <Menu.Item key="2">
                 <a onClick={e => {
                     e.preventDefault();
-                    setState({...initialState, language: 'tat-eng'})
+                    setState({...initialState, language: 'tateng'})
                 }}>Tatar-English</a>
             </Menu.Item>
             <Menu.Item key="3">
                 <a onClick={e => {
                     e.preventDefault();
-                    setState({...initialState, language: 'eng-tat'})
+                    setState({...initialState, language: 'engtat'})
                 }}>English-Tatar</a>
             </Menu.Item>
         </Menu>

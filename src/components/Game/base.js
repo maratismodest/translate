@@ -8,17 +8,43 @@ export const translateBase = {
     rus: {
         chooseLanguage: 'Язык',
         repeat: 'Повторить',
-        resultText: 'Результат'
+        resultText: 'Результат',
+        words: 'Слова',
+        phrases: 'Фразы',
+        dragAndDrop: 'Собери'
+
     },
     tat: {
         chooseLanguage: 'Тел',
         repeat: 'Кабат',
-        resultText: 'Нәтиҗә'
+        resultText: 'Нәтиҗә',
+        words: 'Сүзләр',
+        phrases: 'Гыйбарә',
+        dragAndDrop: 'Тупла'
     },
     eng: {
         chooseLanguage: 'Language',
         repeat: 'Repeat',
-        resultText: 'Result'
+        resultText: 'Result',
+        words: 'Words',
+        phrases: 'Phrases',
+        dragAndDrop: 'DragAndDrop'
+    },
+    engtat: {
+        chooseLanguage: 'Language',
+        repeat: 'Repeat',
+        resultText: 'Result',
+        words: 'Words',
+        phrases: 'Phrases',
+        dragAndDrop: 'DragAndDrop'
+    },
+    tateng: {
+        chooseLanguage: 'Language',
+        repeat: 'Repeat',
+        resultText: 'Result',
+        words: 'Words',
+        phrases: 'Phrases',
+        dragAndDrop: 'DragAndDrop'
     }
 
 }
@@ -90,7 +116,7 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
         const second = _.sample(secondArrClone);
         const secondIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
         secondArrClone.splice(secondIndex, 1);
-        const third =_.sample(secondArrClone);
+        const third = _.sample(secondArrClone);
         const thirdIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
         secondArrClone.splice(thirdIndex, 1);
         const fourth = _.sample(secondArrClone);
@@ -164,7 +190,7 @@ function getPhrasesFirstSecond(firstLanguage, secondLanguage) {
         secondArrClone.splice(secondIndex, 1);
 
 
-        const third =_.sample(secondArrClone);
+        const third = _.sample(secondArrClone);
         const thirdIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
         secondArrClone.splice(thirdIndex, 1);
 

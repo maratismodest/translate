@@ -28,6 +28,8 @@ import {
 } from "./base";
 
 
+
+
 const Game = () => {
         const [state, setState] = useState(initialState);
         const {
@@ -77,7 +79,7 @@ const Game = () => {
                         translate: translateBase.rus
                     })))
                     break;
-                case 'tat-eng':
+                case 'tateng':
                     setState((prevState => ({
                         ...prevState,
                         questions: _.shuffle(wordsTatEng).slice(1, 6),
@@ -85,7 +87,7 @@ const Game = () => {
                         translate: translateBase.eng
                     })))
                     break;
-                case 'eng-tat':
+                case 'engtat':
                     setState((prevState => ({
                         ...prevState,
                         questions: _.shuffle(wordsEngTat).slice(1, 6),

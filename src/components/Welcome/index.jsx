@@ -1,7 +1,14 @@
 import {Button, Divider} from "antd";
 import React from "react";
+import {translateBase} from '../Game/base'
 
 const Welcome = ({state, setState}) => {
+    const {language} = state;
+    console.log("language", language)
+    console.log("translateBase[language];", translateBase[language])
+
+    const {words, phrases, dragAndDrop} = translateBase[language];
+    console.log(words, phrases, dragAndDrop)
 
     const handleWordsButton = () => {
         setState({...state, chosenGame: 'words', gameState: 'words'})
@@ -14,11 +21,11 @@ const Welcome = ({state, setState}) => {
     }
     return (
         <>
-            <Button onClick={handleWordsButton}>Слова</Button>
-            <Divider />
-            <Button onClick={handlePhrasesButton}>Фразы</Button>
-            <Divider />
-            <Button onClick={handleDragAndDropButton}>Собери</Button>
+            <Button onClick={handleWordsButton}>{words}</Button>
+            <Divider/>
+            <Button onClick={handlePhrasesButton}>{phrases}</Button>
+            <Divider/>
+            <Button onClick={handleDragAndDropButton}>{dragAndDrop}</Button>
         </>
 
     )
