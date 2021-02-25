@@ -3,6 +3,7 @@ import {phrases} from "./phrases";
 import _ from "lodash";
 import sound from "../../sounds/sound.mp3";
 
+
 export const translateBase = {
     rus: {
         chooseLanguage: 'Язык',
@@ -21,6 +22,18 @@ export const translateBase = {
     }
 
 }
+
+
+export const initialState = {
+    chosenGame: undefined,
+    gameState: 'welcome',
+    language: 'rus',
+    result: [],
+    finished: false,
+    currentQuestionIndex: 0,
+    translate: translateBase.rus
+}
+
 
 
 function getLangWords(language = 'rus') {

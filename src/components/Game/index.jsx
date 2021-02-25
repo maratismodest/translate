@@ -7,7 +7,7 @@ import useSound from 'use-sound';
 import Title from "antd/es/typography/Title";
 import sound from '../../sounds/sound.mp3';
 import wrong from '../../sounds/wrong.mp3';
-import { PlayCircleOutlined} from '@ant-design/icons';
+import {PlayCircleOutlined} from '@ant-design/icons';
 import Icon from '@ant-design/icons';
 import Welcome from "../Welcome";
 import AidaMenu from "../AidaMenu";
@@ -39,94 +39,103 @@ export const initialState = {
 
 
 const Game = () => {
-
         const [state, setState] = useState(initialState);
-        const {currentQuestionIndex, result, questions, phrases, finished, currentAudio, gameState, language, translate} = state;
+        const {
+            currentQuestionIndex,
+            result,
+            questions,
+            phrases,
+            finished,
+            currentAudio,
+            gameState,
+            language,
+            translate
+        } = state;
 
+        function checkState(chosenGame) {
+            if (currentQuestionIndex + 1 < phrases.length) {
+                setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
+            } else {
+                setState({
+                    ...state,
+                    // phrases: _.shuffle(initialPhrases).slice(1, 6),
+                    currentQuestionIndex: currentQuestionIndex + 1,
+                    result: [...result, res],
+                    finished: true,
+                    gameState: 'result',
+                    chosenGame: chosenGame
+                })
+            }
+        }
 
         useEffect(() => {
-            // console.log(language)
-            if (language === 'tat') {
-                setState((prevState => ({
-                    ...prevState,
-                    questions: _.shuffle(wordsTatRus).slice(1, 6),
-                    phrases: _.shuffle(phrasesTatRus).slice(1, 6),
-                    translate: translateBase.tat
-                })))
-
+            switch (language) {
+                case 'tat':
+                    setState((prevState => ({
+                        ...prevState,
+                        questions: _.shuffle(wordsTatRus).slice(1, 6),
+                        phrases: _.shuffle(phrasesTatRus).slice(1, 6),
+                        translate: translateBase.tat
+                    })))
+                    break;
+                case 'rus':
+                    setState((prevState => ({
+                        ...prevState,
+                        questions: _.shuffle(wordsRusTat).slice(1, 6),
+                        phrases: _.shuffle(phrasesRusTat).slice(1, 6),
+                        translate: translateBase.rus
+                    })))
+                    break;
+                case 'tat-eng':
+                    setState((prevState => ({
+                        ...prevState,
+                        questions: _.shuffle(wordsTatEng).slice(1, 6),
+                        phrases: _.shuffle(phrasesTatEng).slice(1, 6),
+                        translate: translateBase.eng
+                    })))
+                    break;
+                case 'eng-tat':
+                    setState((prevState => ({
+                        ...prevState,
+                        questions: _.shuffle(wordsEngTat).slice(1, 6),
+                        phrases: _.shuffle(phrasesEngTat).slice(1, 6),
+                        translate: translateBase.eng
+                    })))
+                    break;
+                default:
+                    break;
             }
-            if (language === 'rus') {
-                setState((prevState => ({
-                    ...prevState,
-                    questions: _.shuffle(wordsRusTat).slice(1, 6),
-                    phrases: _.shuffle(phrasesRusTat).slice(1, 6),
-                    translate: translateBase.rus
-                })))
-
-            }
-            if (language === 'tat-eng') {
-                setState((prevState => ({
-                    ...prevState,
-                    questions: _.shuffle(wordsTatEng).slice(1, 6),
-                    phrases: _.shuffle(phrasesTatEng).slice(1, 6),
-                    translate: translateBase.eng
-                })))
-
-            }
-            if (language === 'eng-tat') {
-                setState((prevState => ({
-                    ...prevState,
-                    questions: _.shuffle(wordsEngTat).slice(1, 6),
-                    phrases: _.shuffle(phrasesEngTat).slice(1, 6),
-                    translate: translateBase.eng
-                })))
-
-            }
-            // console.log(state.phrases)
         }, [gameState, language])
 
         const Question = () => {
             const question = questions[currentQuestionIndex];
             const {options, questionText, correct, id: questionId} = question
             const shuffledOptions = _.shuffle(options)
+
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
-            // const [word] = useSound(audio)
+            const handleClick = (id) => {
+                const timeout = window.setTimeout(() => {
+                    id === correct ? yes() : no()
+                    const res = id === correct ? {
+                        correct: true,
+                        id: questionId,
+                        questionText: questionText
+                    } : {correct: false, id: questionId, questionText: questionText}
 
-            const Options = shuffledOptions.map((option, index) => {
-                const handleClick = (id) => {
-                    const timeout = window.setTimeout(() => {
-                        const res = id === correct ? {
-                            correct: true,
-                            id: questionId,
-                            questionText: questionText
-                        } : {correct: false, id: questionId, questionText: questionText}
+                    checkState('words')
 
-                        id === correct ? yes() : no()
-                        if (currentQuestionIndex + 1 < questions.length) {
-                            setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
-                        } else {
-                            setState({
-                                ...state,
-                                // questions: _.shuffle(initialQuestions).slice(1, 6),
-                                currentQuestionIndex: currentQuestionIndex + 1,
-                                result: [...result, res],
-                                finished: true,
-                                gameState: 'result',
-                                chosenGame: 'words',
-                            })
-                        }
-
-                        window.clearTimeout(timeout)
-                    }, 500)
+                    window.clearTimeout(timeout)
+                }, 500)
 
 
-                }
+            }
+
+            const optionsList = shuffledOptions.map((option, index) => {
                 const {id, text} = option;
                 return <li key={id}>
                     <Button onClick={() => {
                         handleClick(id);
-
                     }} block>{text}</Button>
 
                 </li>
@@ -134,11 +143,10 @@ const Game = () => {
 
             return (
                 <div style={{textAlign: "center"}}>
-                    {/*<DragAndDrop/>*/}
                     <div>Вопрос {currentQuestionIndex + 1} из {questions.length}</div>
                     <Title>{questionText}</Title>
                     <ul style={{minWidth: '200px'}}>
-                        {Options}
+                        {optionsList}
                     </ul>
                 </div>
             )
@@ -151,11 +159,6 @@ const Game = () => {
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
 
-            // const [word] = useSound(audio);
-            // useEffect(() => {
-            //     word()
-            // }, [word])
-
             const handleClick = (id) => {
                 const timeout = window.setTimeout(() => {
                     const res = id === correct ? {
@@ -165,19 +168,9 @@ const Game = () => {
                     } : {correct: false, id: questionId, questionText: questionText}
 
                     id === correct ? yes() : no()
-                    if (currentQuestionIndex + 1 < phrases.length) {
-                        setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
-                    } else {
-                        setState({
-                            ...state,
-                            // phrases: _.shuffle(initialPhrases).slice(1, 6),
-                            currentQuestionIndex: currentQuestionIndex + 1,
-                            result: [...result, res],
-                            finished: true,
-                            gameState: 'result',
-                            chosenGame: 'phrases'
-                        })
-                    }
+
+
+                    checkState('phrases')
 
                     window.clearTimeout(timeout)
                 }, 500)
@@ -194,8 +187,6 @@ const Game = () => {
 
                 </li>
             })
-
-
 
 
             return (
@@ -268,7 +259,7 @@ const Game = () => {
             }
 
             const arrList = arr.map((item, index) => {
-                return <li key={item} style={{marginRight:4}}>
+                return <li key={item} style={{marginRight: 4}}>
                     <Button onClick={() => {
                         handleClick(index)
                     }}>{item}</Button>
@@ -279,7 +270,8 @@ const Game = () => {
                 return <li key={item}><Tag color="green" style={{
                     fontSize: '16px',
                     lineHeight: '18px',
-                    padding: '4px'}}>{item}</Tag></li>
+                    padding: '4px'
+                }}>{item}</Tag></li>
             })
 
 
@@ -287,7 +279,7 @@ const Game = () => {
                 <div style={{textAlign: "center"}}>
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
                     <h2>{language === ('rus' || 'tat') ? 'Повторить фразу' : 'Repeat again'}</h2>
-                    <Icon onClick={tell} component={PlayCircleOutlined} style={{ fontSize: '400%', color: '#12a4d9'}} />
+                    <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
                     <StyledResult>
                         {resultList}
                     </StyledResult>
@@ -350,7 +342,7 @@ const StyledNavMenu = styled.div`
 `
 
 const StyledGame = styled.div`
-padding: 5%;
+  padding: 5%;
   position: relative;
   height: 100vh;
   display: flex;
@@ -359,25 +351,26 @@ padding: 5%;
   justify-content: center;
   flex-grow: 1;
   background: #FEF5EF;
+
   .ant-divider-horizontal {
-  margin: 12px 0 !important;
+    margin: 12px 0 !important;
   }
 `
 
 const StyledResult = styled.ul`
-    min-width: 200px;
-    display: flex;
-    min-height: 40px;
-    flex-wrap: wrap;
-    margin-top: 12px;
-    // padding: 12px 0;
-    max-width: 300px;
+  min-width: 200px;
+  display: flex;
+  min-height: 40px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  // padding: 12px 0;
+  max-width: 300px;
 `
 const StyledUl = styled.ul`
-    min-width: 200px;
-    display: flex;
-    min-height: 104px;
-    flex-wrap: wrap;
-    padding: 12px 0;
-    max-width: 300px;
+  min-width: 200px;
+  display: flex;
+  min-height: 104px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  max-width: 300px;
 `

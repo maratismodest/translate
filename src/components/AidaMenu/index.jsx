@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {Menu, Dropdown, Button} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
-import {initialState} from "../Game";
+import {initialState} from "../Game/base";
 
 const AidaMenu = ({state, setState}) => {
     const {translate} = state;
