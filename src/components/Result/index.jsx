@@ -4,15 +4,17 @@ import Welcome from "../Welcome";
 
 const Result = ({state, setState}) => {
         const {
-            result, language, translate
+            result, language, translate, chosenGame
         } = state;
+
+        console.log("Result", state)
 
         const {repeat, resultText} = translate
         function footer() {
             return (
                 <>
                     <Button onClick={() => {
-                        setState({...state, currentQuestionIndex: 0, result: [], gameState: state.chosenGame})
+                        setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
                     }}>{repeat}</Button>
                     <Divider/>
                     <Button onClick={() => {

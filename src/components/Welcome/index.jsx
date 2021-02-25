@@ -2,21 +2,15 @@ import {Button, Divider} from "antd";
 import React from "react";
 
 const Welcome = ({state, setState}) => {
-    // console.log("Welcome")
+
     const handleWordsButton = () => {
-        // console.log("handleStartButton")
-        // console.log(state)
-        setState({...state, gameState: 'words'})
+        setState({...state, chosenGame: 'words', gameState: 'words'})
     }
     const handlePhrasesButton = () => {
-        // console.log("handleStartButton")
-        // console.log(state)
-        setState({...state, gameState: 'phrases'})
+        setState({...state, chosenGame: 'phrases', gameState: 'phrases'})
     }
     const handleDragAndDropButton = () => {
-        // console.log("handleStartButton")
-        // console.log(state)
-        setState({...state, gameState: 'dragAndDrop'})
+        setState({...state, chosenGame: 'dragAndDrop', gameState: 'dragAndDrop'})
     }
     return (
         <>

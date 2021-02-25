@@ -16,6 +16,7 @@ import {phrases} from "./phrases";
 import {YMInitializer} from 'react-yandex-metrika';
 import NavMenu from "../NavMenu";
 import {
+    initialState,
     phrasesEngTat,
     phrasesRusTat,
     phrasesTatEng,
@@ -25,17 +26,6 @@ import {
     wordsTatEng,
     wordsTatRus
 } from "./base";
-
-
-export const initialState = {
-    chosenGame: undefined,
-    gameState: 'welcome',
-    language: 'rus',
-    result: [],
-    finished: false,
-    currentQuestionIndex: 0,
-    translate: translateBase.rus
-}
 
 
 const Game = () => {
@@ -49,18 +39,19 @@ const Game = () => {
             currentAudio,
             gameState,
             language,
-            translate
+            translate,
+            chosenGame
         } = state;
 
-        function checkState(chosenGame) {
+        //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
+        function checkGameState(chosenGame, questionResult) {
             if (currentQuestionIndex + 1 < phrases.length) {
-                setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
+                setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, questionResult]})
             } else {
                 setState({
                     ...state,
-                    // phrases: _.shuffle(initialPhrases).slice(1, 6),
-                    currentQuestionIndex: currentQuestionIndex + 1,
-                    result: [...result, res],
+                    currentQuestionIndex: 0,
+                    result: [...result, questionResult],
                     finished: true,
                     gameState: 'result',
                     chosenGame: chosenGame
@@ -107,27 +98,24 @@ const Game = () => {
             }
         }, [gameState, language])
 
-        const Question = () => {
+        const Words = () => {
             const question = questions[currentQuestionIndex];
             const {options, questionText, correct, id: questionId} = question
             const shuffledOptions = _.shuffle(options)
-
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
+
             const handleClick = (id) => {
                 const timeout = window.setTimeout(() => {
                     id === correct ? yes() : no()
-                    const res = id === correct ? {
+                    const questionResult = id === correct ? {
                         correct: true,
                         id: questionId,
                         questionText: questionText
                     } : {correct: false, id: questionId, questionText: questionText}
-
-                    checkState('words')
-
+                    checkGameState(chosenGame, questionResult)
                     window.clearTimeout(timeout)
-                }, 500)
-
+                }, 300)
 
             }
 
@@ -137,7 +125,6 @@ const Game = () => {
                     <Button onClick={() => {
                         handleClick(id);
                     }} block>{text}</Button>
-
                 </li>
             })
 
@@ -161,23 +148,20 @@ const Game = () => {
 
             const handleClick = (id) => {
                 const timeout = window.setTimeout(() => {
-                    const res = id === correct ? {
+                    id === correct ? yes() : no()
+                    const questionResult = id === correct ? {
                         correct: true,
                         id: questionId,
                         questionText: questionText
                     } : {correct: false, id: questionId, questionText: questionText}
-
-                    id === correct ? yes() : no()
-
-
-                    checkState('phrases')
+                    checkGameState(chosenGame, questionResult)
 
                     window.clearTimeout(timeout)
-                }, 500)
+                }, 300)
 
 
             }
-            const Options = shuffledOptions.map((option, index) => {
+            const optionsList = shuffledOptions.map((option, index) => {
                 const {id, text} = option;
                 return <li key={id}>
                     <Button onClick={() => {
@@ -188,13 +172,12 @@ const Game = () => {
                 </li>
             })
 
-
             return (
                 <div style={{textAlign: "center"}}>
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
                     <Title>{questionText}</Title>
                     <ul style={{minWidth: '200px'}}>
-                        {Options}
+                        {optionsList}
                     </ul>
                 </div>
             )
@@ -208,54 +191,38 @@ const Game = () => {
             const randomArr = _.sample(phrases).questionText.split(' ');
             const [arr, setArr] = useState(_.shuffle(questionArr.concat(randomArr)));
             const [answer, setAnswer] = useState([]);
+
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
             const [tell] = useSound(audio);
+
             useEffect(() => {
                 tell()
             }, [tell])
 
             const handleClick = (index) => {
-
                 const currentWord = arr[index];
-
                 const copyAnswer = _.clone(answer);
                 copyAnswer.push(currentWord);
                 setAnswer(copyAnswer)
-
                 const resultArr = _.clone(arr)
                 resultArr.splice(index, 1)
                 setArr(resultArr);
-
 
                 if (answer.length + 1 === questionArr.length) {
 
                     const timeout = window.setTimeout(() => {
                         const final = copyAnswer.join(' ');
                         questionText === final ? yes() : no()
-                        const res = questionText === final ? {
+                        const questionResult = questionText === final ? {
                             correct: true,
                             id: questionId,
                             questionText: questionText
                         } : {correct: false, id: questionId, questionText: questionText}
-                        console.log("res", res)
-                        if (currentQuestionIndex + 1 < phrases.length) {
-                            setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, res]})
-                        } else {
-                            setState({
-                                ...state,
-                                // phrases: _.shuffle(initialPhrases).slice(1, 6),
-                                currentQuestionIndex: currentQuestionIndex + 1,
-                                result: [...result, res],
-                                finished: true,
-                                gameState: 'result',
-                                chosenGame: 'dragAndDrop'
-                            })
-                        }
+                        checkGameState(chosenGame, questionResult)
                         window.clearTimeout(timeout)
                     }, 500)
                 }
-
             }
 
             const arrList = arr.map((item, index) => {
@@ -297,9 +264,9 @@ const Game = () => {
                 case 'welcome':
                     return <Welcome state={state} setState={setState}/>
                 case 'words':
-                    return <Question/>
+                    return <Words state={state} setState={setState}/>
                 case 'phrases':
-                    return <Phrases/>
+                    return <Phrases state={state} setState={setState}/>
                 case 'result':
                     return <Result state={state} setState={setState}/>
                 case 'dragAndDrop':
