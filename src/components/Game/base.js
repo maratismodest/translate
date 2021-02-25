@@ -3,6 +3,26 @@ import {phrases} from "./phrases";
 import _ from "lodash";
 import sound from "../../sounds/sound.mp3";
 
+export const translateBase = {
+    rus: {
+        chooseLanguage: 'Язык',
+        repeat : 'Повторить',
+        resultText: 'Результат'
+    },
+    tat: {
+        chooseLanguage: 'Тел',
+        repeat : 'Кабат',
+        resultText: 'Нәтиҗә'
+    },
+    eng: {
+        chooseLanguage: 'Language',
+        repeat : 'Repeat',
+        resultText: 'Result'
+    }
+
+}
+
+
 function getLangWords(language = 'rus') {
     const resWords = words.map((item, index) => {
         return item[language];
@@ -107,69 +127,3 @@ export const phrasesRusTat = getPhrasesFirstSecond("rus", "tat")
 export const phrasesTatRus = getPhrasesFirstSecond("tat", "rus")
 export const phrasesTatEng = getPhrasesFirstSecond("tat", "eng")
 export const phrasesEngTat = getPhrasesFirstSecond("eng", "tat")
-// export const phrasesRusTat = phrases.map((item, index) => {
-//     const {tat, rus, audio} = item;
-//     return {
-//         id: index,
-//         questionText: rus,
-//         correct: 1,
-//         options: [
-//             {id: 1, text: tat},
-//             {id: 2, text: _.sample(tatPhrases)},
-//             {id: 3, text: _.sample(tatPhrases)},
-//             {id: 4, text: _.sample(tatPhrases)},
-//         ],
-//         audio: audio
-//     }
-//
-// })
-// export const phrasesTatRus = phrases.map((item, index) => {
-//     const {tat, rus, audio} = item;
-//     return {
-//         id: index,
-//         questionText: tat,
-//         correct: 1,
-//         options: [
-//             {id: 1, text: rus},
-//             {id: 2, text: _.sample(rusPhrases)},
-//             {id: 3, text: _.sample(rusPhrases)},
-//             {id: 4, text: _.sample(rusPhrases)},
-//         ],
-//         audio: audio
-//     }
-//
-// })
-//
-// export const phrasesTatEng = phrases.map((item, index) => {
-//     const {tat, rus, eng, audio} = item;
-//     return {
-//         id: index,
-//         questionText: tat,
-//         correct: 1,
-//         options: [
-//             {id: 1, text: eng},
-//             {id: 2, text: _.sample(engPhrases)},
-//             {id: 3, text: _.sample(engPhrases)},
-//             {id: 4, text: _.sample(engPhrases)},
-//         ],
-//         audio: audio
-//     }
-//
-// })
-// export const phrasesEngTat = phrases.map((item, index) => {
-//     const {tat, rus, eng, audio} = item;
-//     return {
-//         id: index,
-//         questionText: eng,
-//         correct: 1,
-//         options: [
-//             {id: 1, text: tat},
-//             {id: 2, text: _.sample(tatPhrases)},
-//             {id: 3, text: _.sample(tatPhrases)},
-//             {id: 4, text: _.sample(tatPhrases)},
-//         ],
-//         audio: audio
-//     }
-//
-// })
-
