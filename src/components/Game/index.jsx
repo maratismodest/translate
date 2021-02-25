@@ -19,31 +19,13 @@ import {
     phrasesEngTat,
     phrasesRusTat,
     phrasesTatEng,
-    phrasesTatRus,
+    phrasesTatRus, translateBase,
     wordsEngTat,
     wordsRusTat,
     wordsTatEng,
     wordsTatRus
 } from "./base";
 
-export const translateBase = {
-    rus: {
-        chooseLanguage: 'Язык',
-        repeat : 'Повторить',
-        resultText: 'Результат'
-    },
-    tat: {
-        chooseLanguage: 'Тел',
-        repeat : 'Кабат',
-        resultText: 'Нәтиҗә'
-    },
-    eng: {
-        chooseLanguage: 'Language',
-        repeat : 'Repeat',
-        resultText: 'Result'
-    }
-
-}
 
 export const initialState = {
     chosenGame: undefined,
@@ -303,8 +285,6 @@ const Game = () => {
 
             return (
                 <div style={{textAlign: "center"}}>
-                {/*// <div style={{textAlign: "center", display: 'flex',*/}
-                {/*//     flexDirection: 'column', alignItems: 'center'}}>*/}
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
                     <h2>{language === ('rus' || 'tat') ? 'Повторить фразу' : 'Repeat again'}</h2>
                     <Icon onClick={tell} component={PlayCircleOutlined} style={{ fontSize: '400%', color: '#12a4d9'}} />
