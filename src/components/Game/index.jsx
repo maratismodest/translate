@@ -124,7 +124,7 @@ const Game = () => {
             const optionsList = shuffledOptions.map((option, index) => {
                 const {id, text} = option;
                 return <li key={id}>
-                    <Button onClick={() => {
+                    <Button size={"large"} onClick={() => {
                         handleClick(id);
                     }} block>{text}</Button>
                 </li>
@@ -134,7 +134,7 @@ const Game = () => {
                 <div style={{textAlign: "center"}}>
                     <div>Вопрос {currentQuestionIndex + 1} из {questions.length}</div>
                     <Title>{questionText}</Title>
-                    <ul style={{minWidth: '200px'}}>
+                    <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                         {optionsList}
                     </ul>
                 </div>
@@ -166,7 +166,7 @@ const Game = () => {
             const optionsList = shuffledOptions.map((option, index) => {
                 const {id, text} = option;
                 return <li key={id}>
-                    <Button onClick={() => {
+                    <Button size={"large"} onClick={() => {
                         handleClick(id);
 
                     }} block>{text}</Button>
@@ -175,15 +175,17 @@ const Game = () => {
             })
 
             return (
-                <div style={{textAlign: "center"}}>
+                <StyledPhrase >
                     <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
                     <Title>{questionText}</Title>
-                    <ul style={{minWidth: '200px'}}>
+                    <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                         {optionsList}
                     </ul>
-                </div>
+                </StyledPhrase>
             )
         }
+
+
 
         const DragAndDrop = () => {
 
@@ -229,7 +231,7 @@ const Game = () => {
 
             const arrList = arr.map((item, index) => {
                 return <li key={item + index + arr.length} style={{marginRight: 4}}>
-                    <Button onClick={() => {
+                    <Button size={"large"} onClick={() => {
                         handleClick(index)
                     }}>{item}</Button>
                 </li>
@@ -350,3 +352,8 @@ const StyledUl = styled.ul`
   padding: 12px 0;
   //max-width: 300px;
 `
+export const StyledPhrase = styled.div`
+        display: flex;
+        flex-direction: column;
+       align-items: center;
+        `

@@ -108,16 +108,20 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
 
     const resWordsFirstSecond = words.map((item, index) => {
 
-        const secondArrClone = _.clone(secondArr)
+        let secondArrClone = _.clone(secondArr);
         const first = item[secondLanguage];
         const currentItemSecondLanguage = item[secondLanguage];
+
         const firstIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
+        // console.log("firstIndex",firstIndex)
         secondArrClone.splice(firstIndex, 1);
+
         const second = _.sample(secondArrClone);
-        const secondIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
+        const secondIndex = _.indexOf(secondArrClone, second);
+        // console.log("secondIndex",secondIndex)
         secondArrClone.splice(secondIndex, 1);
         const third = _.sample(secondArrClone);
-        const thirdIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
+        const thirdIndex = _.indexOf(secondArrClone, third);
         secondArrClone.splice(thirdIndex, 1);
         const fourth = _.sample(secondArrClone);
 
@@ -136,25 +140,11 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
     });
     return resWordsFirstSecond
 
-    // const resWordsFirstSecond = words.map((item, index) => {
-    //     return {
-    //         id: index,
-    //         questionText: item[firstLanguage],
-    //         correct: 1,
-    //         options: [
-    //             {id: 1, text: item[secondLanguage]},
-    //             {id: 2, text: _.sample(secondArr)},
-    //             {id: 3, text: _.sample(secondArr)},
-    //             {id: 4, text: _.sample(secondArr)},
-    //         ],
-    //         audio: sound
-    //     }
-    // });
-    // return resWordsFirstSecond
 }
 
 export const wordsRusTat = getWordsFirstSecond("rus", "tat")
 export const wordsTatRus = getWordsFirstSecond("tat", "rus")
+console.log("wordsTatRus",wordsTatRus)
 export const wordsTatEng = getWordsFirstSecond("tat", "eng")
 export const wordsEngTat = getWordsFirstSecond("eng", "tat")
 
@@ -176,25 +166,30 @@ function getPhrasesFirstSecond(firstLanguage, secondLanguage) {
 
 
     const resPhrasesFirstSecond = phrases.map((item, index) => {
-        const secondArrClone = _.clone(secondArr)
+        let secondArrClone = _.clone(secondArr)
 
         const {audio} = item;
         const first = item[secondLanguage];
         const currentItemSecondLanguage = item[secondLanguage];
 
         const firstIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
+        console.log("firstIndex", firstIndex)
         secondArrClone.splice(firstIndex, 1);
 
         const second = _.sample(secondArrClone);
-        const secondIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
+        const secondIndex = _.indexOf(secondArrClone, second);
+        console.log("secondIndex", secondIndex)
         secondArrClone.splice(secondIndex, 1);
 
 
         const third = _.sample(secondArrClone);
-        const thirdIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
+        const thirdIndex = _.indexOf(secondArrClone, third);
+        console.log("thirdIndex", thirdIndex)
         secondArrClone.splice(thirdIndex, 1);
 
         const fourth = _.sample(secondArrClone);
+        const fourthIndex = _.indexOf(secondArrClone, fourth);
+        console.log("fourthIndex", fourthIndex)
 
         return {
             id: index,
