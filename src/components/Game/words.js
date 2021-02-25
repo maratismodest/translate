@@ -167,7 +167,7 @@ export const words = [{
         eng: "Way"
     }, {
         tat: "Ара",
-        rus: "Рромежуток, расстояние",
+        rus: "Промежуток, расстояние",
         eng: "Distance"
     }, {
         tat: "Тел",
