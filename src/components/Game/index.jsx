@@ -222,17 +222,17 @@ const Game = () => {
                 console.log("handleAnswerClick")
                 // if (answer.length === questionArr.length) {
 
-                    const timeout = window.setTimeout(() => {
-                        const final = answer.join(' ');
-                        questionText === final ? yes() : no()
-                        const questionResult = questionText === final ? {
-                            correct: true,
-                            id: questionId,
-                            questionText: questionText
-                        } : {correct: false, id: questionId, questionText: questionText}
-                        checkGameState(chosenGame, questionResult)
-                        window.clearTimeout(timeout)
-                    }, 500)
+                const timeout = window.setTimeout(() => {
+                    const final = answer.join(' ');
+                    questionText === final ? yes() : no()
+                    const questionResult = questionText === final ? {
+                        correct: true,
+                        id: questionId,
+                        questionText: questionText
+                    } : {correct: false, id: questionId, questionText: questionText}
+                    checkGameState(chosenGame, questionResult)
+                    window.clearTimeout(timeout)
+                }, 500)
                 // }
             }
 
@@ -254,20 +254,23 @@ const Game = () => {
                 setArr(resultArr);
 
                 const copyAnswer = _.clone(answer);
-                copyAnswer.splice(index,1);
+                copyAnswer.splice(index, 1);
                 setAnswer(copyAnswer)
 
 
             }
             const resultList = answer.map((item, index) => {
-                return <li key={item + index + answer.length}><Tag color="green" style={{
-                    fontSize: '16px',
-                    lineHeight: '18px',
-                    padding: '6.4px 15px',
-                }}
-                                                                   onClick={() => {handleTagClick(index)
-                                                                   }}
-                >{item}</Tag></li>
+                return <li key={item + index + answer.length}>
+                    <Tag color="green"
+                         style={{
+                             fontSize: '16px',
+                             lineHeight: '18px',
+                             padding: '6.4px 15px',
+                         }}
+                         onClick={() => {
+                             handleTagClick(index)
+                         }}
+                    >{item}</Tag></li>
             })
 
 
@@ -312,10 +315,9 @@ const Game = () => {
                 <StyledMenu>
                     <AidaMenu state={state} setState={setState}/>
                 </StyledMenu>
-                <StyledNavMenu>
-                    <NavMenu state={state} setState={setState}/>
-                </StyledNavMenu>
-
+                {/*<StyledNavMenu>*/}
+                {/*    <NavMenu state={state} setState={setState}/>*/}
+                {/*</StyledNavMenu>*/}
                 {res()}
                 <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
             </StyledGame>
@@ -333,9 +335,9 @@ export const StyledMenu = styled.div`
 `
 
 const StyledQuestion = styled.div`
-    text-align: center;
-    width: 100%;
-    max-width: 350px;
+  text-align: center;
+  width: 100%;
+  max-width: 350px;
 `
 
 const StyledNavMenu = styled.div`
@@ -379,7 +381,7 @@ const StyledUl = styled.ul`
   //max-width: 300px;
 `
 export const StyledPhrase = styled.div`
-        display: flex;
-        flex-direction: column;
-       align-items: center;
-        `
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
