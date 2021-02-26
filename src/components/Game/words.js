@@ -105,11 +105,6 @@ export const words = [{
     eng: "Hello"
 },
     {
-        tat: "Ел",
-        rus: "Год, лет",
-        eng: "Year"
-    },
-    {
         tat: "Кеше",
         rus: "Человек",
         eng: "Human"
@@ -252,7 +247,7 @@ export const words = [{
     }, {
         tat: "Хуҗалык",
         rus: "Хозяйство",
-        eng: "Хозяйство"
+        eng: "Economy"
     }, {
         tat: "Мәсьәлә",
         rus: "Вопрос, проблема, задача",
