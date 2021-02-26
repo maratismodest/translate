@@ -79,15 +79,7 @@ export const translateBase = {
 }
 
 
-export const initialState = {
-    chosenGame: undefined,
-    gameState: 'welcome',
-    language: 'tat',
-    result: [],
-    finished: false,
-    currentQuestionIndex: 0,
-    translate: translateBase.rus
-}
+
 
 
 function getLangWords(language = 'rus') {
@@ -240,3 +232,14 @@ export const phrasesRusTat = getPhrasesFirstSecond("rus", "tat")
 export const phrasesTatRus = getPhrasesFirstSecond("tat", "rus")
 export const phrasesTatEng = getPhrasesFirstSecond("tat", "eng")
 export const phrasesEngTat = getPhrasesFirstSecond("eng", "tat")
+export const initialState = {
+    chosenGame: undefined,
+    gameState: 'welcome',
+    language: 'tat',
+    result: [],
+    finished: false,
+    currentQuestionIndex: 0,
+    translate: translateBase.rus,
+    // questions: _.shuffle(wordsTatRus).slice(1, 6),
+    // phrases: _.shuffle(phrasesTatRus).slice(1, 6),
+}

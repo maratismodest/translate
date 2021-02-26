@@ -28,6 +28,7 @@ import {
 } from "./base";
 
 
+
 const Game = () => {
         const [state, setState] = useState(initialState);
         const {
@@ -42,6 +43,7 @@ const Game = () => {
             translate,
             chosenGame
         } = state;
+
 
         //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
         function checkGameState(chosenGame, questionResult) {
@@ -142,9 +144,15 @@ const Game = () => {
         const Phrases = () => {
             const question = phrases[currentQuestionIndex];
             const {options, questionText, correct, id: questionId, audio} = question
-            const shuffledOptions = _.shuffle(options)
+            // const shuffledOptions = _.shuffle(options)
             const [yes] = useSound(sound);
             const [no] = useSound(wrong);
+            // const [tell] = useSound(audio)
+
+            // useEffect(()=>{
+            //     alert('res')
+            // },[])
+
 
             const handleClick = (id) => {
                 const timeout = window.setTimeout(() => {
@@ -161,7 +169,7 @@ const Game = () => {
 
 
             }
-            const optionsList = shuffledOptions.map((option, index) => {
+            const optionsList = options.map((option, index) => {
                 const {id, text} = option;
                 return <li key={id}>
                     <Button size={"large"} onClick={() => {
@@ -172,10 +180,13 @@ const Game = () => {
                 </li>
             })
 
+
+
+
             return (
                 <StyledPhrase>
                     <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
-                    <Title level={2}>{questionText}</Title>
+                    <Title level={2} >{questionText}</Title>
                     <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                         {optionsList}
                     </ul>

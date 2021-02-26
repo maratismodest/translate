@@ -11,13 +11,13 @@ const Welcome = ({state, setState}) => {
     console.log(words, phrases, dragAndDrop)
 
     const handleWordsButton = () => {
-        setState({...state, chosenGame: 'words', gameState: 'words'})
+        setState({...state, chosenGame: 'words', gameState: 'words',currentQuestionIndex:0})
     }
     const handlePhrasesButton = () => {
-        setState({...state, chosenGame: 'phrases', gameState: 'phrases'})
+        setState({...state, chosenGame: 'phrases', gameState: 'phrases', currentQuestionIndex:0})
     }
     const handleDragAndDropButton = () => {
-        setState({...state, chosenGame: 'dragAndDrop', gameState: 'dragAndDrop'})
+        setState({...state, chosenGame: 'dragAndDrop', gameState: 'dragAndDrop',currentQuestionIndex:0})
     }
     return (
         <>

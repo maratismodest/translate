@@ -44,6 +44,7 @@ import tatar_tele from '../../sounds/phrases/tatar_tele.mp3';
 import sinzes_kaida from '../../sounds/phrases/sinzes_kaida.mp3';
 import zinhar from '../../sounds/phrases/zinhar.mp3';
 
+
 export const phrases = [
     {tat: 'Сәлам!', rus: 'Привет!', eng: 'Hi' , audio: salam},
     {tat: 'Хәерле көн!', rus: 'Добрый день!',  eng: 'Good afternoon' ,audio: haerle_kon},
