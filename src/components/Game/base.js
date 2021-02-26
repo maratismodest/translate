@@ -79,9 +79,6 @@ export const translateBase = {
 }
 
 
-
-
-
 function getLangWords(language = 'rus') {
     const resWords = words.map((item, index) => {
         return item[language];
@@ -145,17 +142,17 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
         const thirdIndex = _.indexOf(secondArrClone, third);
         secondArrClone.splice(thirdIndex, 1);
         const fourth = _.sample(secondArrClone);
-
+        const shuffledOptions = _.shuffle([
+            {id: 1, text: first},
+            {id: 2, text: second},
+            {id: 3, text: third},
+            {id: 4, text: fourth},
+        ])
         return {
             id: index,
             questionText: item[firstLanguage],
             correct: 1,
-            options: [
-                {id: 1, text: first},
-                {id: 2, text: second},
-                {id: 3, text: third},
-                {id: 4, text: fourth},
-            ],
+            options: shuffledOptions,
             audio: sound
         }
     });
@@ -165,7 +162,7 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
 
 export const wordsRusTat = getWordsFirstSecond("rus", "tat")
 export const wordsTatRus = getWordsFirstSecond("tat", "rus")
-console.log("wordsTatRus",wordsTatRus)
+console.log("wordsTatRus", wordsTatRus)
 export const wordsTatEng = getWordsFirstSecond("tat", "eng")
 export const wordsEngTat = getWordsFirstSecond("eng", "tat")
 
@@ -211,17 +208,17 @@ function getPhrasesFirstSecond(firstLanguage, secondLanguage) {
         const fourth = _.sample(secondArrClone);
         const fourthIndex = _.indexOf(secondArrClone, fourth);
         console.log("fourthIndex", fourthIndex)
-
+        const shuffledOptions = _.shuffle([
+            {id: 1, text: first},
+            {id: 2, text: second},
+            {id: 3, text: third},
+            {id: 4, text: fourth},
+        ])
         return {
             id: index,
             questionText: item[firstLanguage],
             correct: 1,
-            options: [
-                {id: 1, text: first},
-                {id: 2, text: second},
-                {id: 3, text: third},
-                {id: 4, text: fourth},
-            ],
+            options: shuffledOptions,
             audio: audio
         }
     });
