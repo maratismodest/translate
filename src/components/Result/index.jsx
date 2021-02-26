@@ -1,5 +1,6 @@
 import React from 'react';
 import {List, Typography, Divider, Button} from 'antd';
+import styled from 'styled-components'
 import Welcome from "../Welcome";
 
 const Result = ({state, setState}) => {
@@ -9,17 +10,18 @@ const Result = ({state, setState}) => {
 
         console.log("Result", state)
 
-        const {repeat, resultText} = translate
+        const {repeat, resultText, wrong, right, mainPage} = translate;
+        console.log(translate)
         function footer() {
             return (
                 <>
-                    <Button onClick={() => {
+                    <Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
                     }}>{repeat}</Button>
                     <Divider/>
-                    <Button onClick={() => {
+                    <Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: 'welcome'})
-                    }}>{language === ('rus' || 'tat') ? 'Главное окно' : 'Main Page'}</Button>
+                    }}>{mainPage}</Button>
                 </>
 
             )
@@ -27,8 +29,7 @@ const Result = ({state, setState}) => {
         }
 
         return (
-            <div>
-                <List
+                <StyledList
                     header={<div>{resultText}</div>}
                     footer={footer()}
                     bordered
@@ -37,15 +38,20 @@ const Result = ({state, setState}) => {
                         const {correct, questionText} = item;
                         return (
                             <List.Item>
-                                <Typography.Text>{questionText} : {correct === true ? 'Верно/Correct' : 'Неверно/Wrong'}</Typography.Text>
+                                <Typography.Text>{questionText} : {correct === true ? right : wrong }</Typography.Text>
                             </List.Item>
                         )
                     }}
                 />
 
-            </div>
+
         );
     }
 ;
 
 export default Result;
+
+const StyledList = styled(List)`
+width: 100%;
+max-width: 350px;
+`

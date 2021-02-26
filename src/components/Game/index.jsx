@@ -130,8 +130,8 @@ const Game = () => {
 
             return (
                 <div style={{textAlign: "center"}}>
-                    <div>Вопрос {currentQuestionIndex + 1} из {questions.length}</div>
-                    <Title>{questionText}</Title>
+                    <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+                    <Title level={2}>{questionText}</Title>
                     <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                         {optionsList}
                     </ul>
@@ -174,8 +174,8 @@ const Game = () => {
 
             return (
                 <StyledPhrase>
-                    <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
-                    <Title>{questionText}</Title>
+                    <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+                    <Title level={2}>{questionText}</Title>
                     <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                         {optionsList}
                     </ul>
@@ -263,7 +263,7 @@ const Game = () => {
                 return <li key={item + index + answer.length}><Tag color="green" style={{
                     fontSize: '16px',
                     lineHeight: '18px',
-                    padding: '4px'
+                    padding: '6.4px 15px',
                 }}
                                                                    onClick={() => {handleTagClick(index)
                                                                    }}
@@ -273,8 +273,8 @@ const Game = () => {
 
             return (
                 <StyledQuestion>
-                    <div>Вопрос {currentQuestionIndex + 1} из {phrases.length}</div>
-                    <h2>{language === ('rus' || 'tat') ? 'Повторить фразу' : 'Repeat again'}</h2>
+                    <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+                    <Title level={2}>{translate.repeatAudio}</Title>
                     <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
                     <StyledResult>
                         {resultList}
@@ -283,7 +283,7 @@ const Game = () => {
                     <StyledUl>
                         {arrList}
                     </StyledUl>
-                    <Button size={'large'} type="primary" onClick={handleAnswerClick}>Проверить</Button>
+                    <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
                 </StyledQuestion>
             )
 
@@ -364,16 +364,16 @@ const StyledResult = styled.ul`
   min-width: 200px;
   display: flex;
   min-height: 40px;
-  flex-wrap: wrap;
-  margin-top: 12px;
+  // flex-wrap: wrap;
+  margin-top: 16px;
   // padding: 12px 0;
-  max-width: 300px;
+  max-width: 350px;
 `
 const StyledUl = styled.ul`
   width: auto;
   min-width: 200px;
   display: flex;
-  min-height: 104px;
+  min-height: 120px;
   flex-wrap: wrap;
   padding: 12px 0;
   //max-width: 300px;

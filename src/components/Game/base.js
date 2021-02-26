@@ -11,8 +11,13 @@ export const translateBase = {
         resultText: 'Результат',
         words: 'Слова',
         phrases: 'Фразы',
-        dragAndDrop: 'Собери'
-
+        dragAndDrop: 'Собери',
+        wrong: 'Неверно',
+        right: 'Верно',
+        mainPage: 'На главную',
+        check: 'Проверить',
+        repeatAudio: 'Повторить',
+        question: 'Вопрос',
     },
     tat: {
         chooseLanguage: 'Тел',
@@ -20,7 +25,13 @@ export const translateBase = {
         resultText: 'Нәтиҗә',
         words: 'Сүзләр',
         phrases: 'Гыйбарә',
-        dragAndDrop: 'Тупла'
+        dragAndDrop: 'Тупла',
+        wrong: 'Ялгыш',
+        right: 'Шулай',
+        mainPage: 'Кайтык',
+        check: 'Тикшер',
+        repeatAudio: 'Кабат',
+        question: 'Сорау',
     },
     eng: {
         chooseLanguage: 'Language',
@@ -28,7 +39,13 @@ export const translateBase = {
         resultText: 'Result',
         words: 'Words',
         phrases: 'Phrases',
-        dragAndDrop: 'DragAndDrop'
+        dragAndDrop: 'DragAndDrop',
+        wrong: 'Wrong',
+        right: 'Correct',
+        mainPage: 'Main Page',
+        check: 'Check',
+        repeatAudio: 'Repeat',
+        question: 'Question',
     },
     engtat: {
         chooseLanguage: 'Language',
@@ -36,7 +53,13 @@ export const translateBase = {
         resultText: 'Result',
         words: 'Words',
         phrases: 'Phrases',
-        dragAndDrop: 'DragAndDrop'
+        dragAndDrop: 'DragAndDrop',
+        wrong: 'Wrong',
+        right: 'Correct',
+        mainPage: 'Main Page',
+        check: 'Check',
+        repeatAudio: 'Repeat',
+        question: 'Question',
     },
     tateng: {
         chooseLanguage: 'Language',
@@ -44,7 +67,13 @@ export const translateBase = {
         resultText: 'Result',
         words: 'Words',
         phrases: 'Phrases',
-        dragAndDrop: 'DragAndDrop'
+        dragAndDrop: 'DragAndDrop',
+        wrong: 'Wrong',
+        right: 'Correct',
+        mainPage: 'Main Page',
+        check: 'Check',
+        repeatAudio: 'Repeat',
+        question: 'Question',
     }
 
 }
@@ -53,7 +82,7 @@ export const translateBase = {
 export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
-    language: 'rus',
+    language: 'tat',
     result: [],
     finished: false,
     currentQuestionIndex: 0,
