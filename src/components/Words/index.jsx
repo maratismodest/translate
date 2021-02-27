@@ -22,8 +22,8 @@ const Words = ({state, setState}) => {
     } = state;
     const question = questions[currentQuestionIndex];
     const {options, questionText, correct, id: questionId} = question
-    const shuffledOptions = _.shuffle(options)
-    // const shuffledOptions = options;
+    // const shuffledOptions = _.shuffle(options)
+    const shuffledOptions = options;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const history = useHistory();

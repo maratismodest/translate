@@ -1,5 +1,7 @@
 import _ from "lodash";
 import sound from "../../sounds/sound.mp3";
+import {words} from "./words";
+import {phrases} from "./phrases";
 
 
 export const translateBase = {

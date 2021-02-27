@@ -4,8 +4,8 @@ import wrong from "../../sounds/wrong.mp3";
 import {Button} from "antd";
 import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
-import {StyledPhrase} from "../Game";
 import {useHistory} from "react-router-dom";
+import {StyledPhrase} from "../Collect";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
