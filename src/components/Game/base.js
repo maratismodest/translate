@@ -162,7 +162,7 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
 
 export const wordsRusTat = getWordsFirstSecond("rus", "tat")
 export const wordsTatRus = getWordsFirstSecond("tat", "rus")
-console.log("wordsTatRus", wordsTatRus)
+// console.log("wordsTatRus", wordsTatRus)
 export const wordsTatEng = getWordsFirstSecond("tat", "eng")
 export const wordsEngTat = getWordsFirstSecond("eng", "tat")
 
@@ -191,23 +191,23 @@ function getPhrasesFirstSecond(firstLanguage, secondLanguage) {
         const currentItemSecondLanguage = item[secondLanguage];
 
         const firstIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
-        console.log("firstIndex", firstIndex)
+        // console.log("firstIndex", firstIndex)
         secondArrClone.splice(firstIndex, 1);
 
         const second = _.sample(secondArrClone);
         const secondIndex = _.indexOf(secondArrClone, second);
-        console.log("secondIndex", secondIndex)
+        // console.log("secondIndex", secondIndex)
         secondArrClone.splice(secondIndex, 1);
 
 
         const third = _.sample(secondArrClone);
         const thirdIndex = _.indexOf(secondArrClone, third);
-        console.log("thirdIndex", thirdIndex)
+        // console.log("thirdIndex", thirdIndex)
         secondArrClone.splice(thirdIndex, 1);
 
         const fourth = _.sample(secondArrClone);
         const fourthIndex = _.indexOf(secondArrClone, fourth);
-        console.log("fourthIndex", fourthIndex)
+        // console.log("fourthIndex", fourthIndex)
         const shuffledOptions = _.shuffle([
             {id: 1, text: first},
             {id: 2, text: second},
@@ -237,6 +237,6 @@ export const initialState = {
     finished: false,
     currentQuestionIndex: 0,
     translate: translateBase.rus,
-    // questions: _.shuffle(wordsTatRus).slice(1, 6),
-    // phrases: _.shuffle(phrasesTatRus).slice(1, 6),
+    questions: _.shuffle(wordsTatRus).slice(1, 6),
+    phrases: _.shuffle(phrasesTatRus).slice(1, 6),
 }
