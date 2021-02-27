@@ -3,26 +3,36 @@ import './App.css';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
+    Route, useLocation, useHistory,
 } from "react-router-dom";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
-    initialState
+    initialState, phrasesTatRus, wordsRusTat
 } from "./components/localBase/base";
 import Welcome from "./components/Welcome";
 import styled from "styled-components";
 import Words from "./components/Words";
 import Result from "./components/Result";
 import Phrases from "./components/Phrases";
-import Collect from "./components/Collect";
+import Collect, {StyledMenu} from "./components/Collect";
 import {YMInitializer} from "react-yandex-metrika";
+import AidaMenu from "./components/AidaMenu";
 
 function App() {
     const [state, setState] = useState(initialState);
+    const history = useHistory();
+    const {language} = state;
 
+    useEffect(() => {
+        // console.log("history",history)
+        history.push('/')
+    }, [language])
     return (
-        <Router>
+
             <StyledGame>
+                <StyledMenu>
+                    <AidaMenu state={state} setState={setState}/>
+                </StyledMenu>
                 <Switch>
                     <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
                     <Route path="/words" exact render={() => <Words state={state} setState={setState}/>}/>
@@ -32,7 +42,7 @@ function App() {
                 </Switch>
                 <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
             </StyledGame>
-        </Router>
+
     );
 }
 

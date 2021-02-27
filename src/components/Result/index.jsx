@@ -1,7 +1,6 @@
 import React from 'react';
 import {List, Typography, Divider, Button} from 'antd';
 import styled from 'styled-components'
-import Welcome from "../Welcome";
 import {Link} from "react-router-dom";
 
 const Result = ({state, setState}) => {
@@ -10,7 +9,7 @@ const Result = ({state, setState}) => {
         } = state;
         const {repeat, resultText, wrong, right, mainPage} = translate;
 
-        console.log(translate)
+        console.log("chosenGame", chosenGame)
         function footer() {
             return (
                 <>

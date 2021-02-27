@@ -1,44 +1,39 @@
+import React, {useState, useEffect} from "react";
 import useSound from "use-sound";
 import sound from "../../sounds/sound.mp3";
 import wrong from "../../sounds/wrong.mp3";
 import {Button} from "antd";
 import Title from "antd/es/typography/Title";
-import React from "react";
+
 import {useHistory} from "react-router-dom";
-import _ from 'styled-components'
+import _ from 'lodash'
+import {words} from "../localBase/words";
 
 const Words = ({state, setState}) => {
-    const {
-        currentQuestionIndex,
-        result,
-        words,
-        phrases,
-        finished,
-        currentAudio,
-        gameState,
-        language,
-        translate,
-        chosenGame
-    } = state;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const history = useHistory();
-    const questions = _.shuffle(words).slice(1, 6);
-    if (!questions) {
-        return <div>Load</div>
-    }
+
+    const {
+        words,
+        translate,
+        chosenGame,
+    } = state;
+
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [questions, setQuestions] = useState(_.shuffle(words).slice(0,5));
+    const [result, setResult] = useState([]);
+
+    console.log('translate', translate)
+
     const question = questions[currentQuestionIndex];
-
-    const {options, questionText, correct, id: questionId} = question
-    // const shuffledOptions = _.shuffle(options)
-    const shuffledOptions = options;
-
-
+    const {options, questionText, correct, id: questionId} = question;
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
         if (currentQuestionIndex + 1 < questions.length) {
-            setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, questionResult]})
+            setResult([...result, questionResult])
+            setCurrentQuestionIndex(currentQuestionIndex + 1)
         } else {
             history.push("/result");
             setState({
@@ -66,9 +61,9 @@ const Words = ({state, setState}) => {
 
     }
 
-    const optionsList = shuffledOptions.map((option, index) => {
+    const optionsList = options.map((option, index) => {
         const {id, text} = option;
-        return <li key={id}>
+        return <li key={id + text}>
             <Button size={"large"} onClick={() => {
                 handleClick(id);
             }} block>{text}</Button>
@@ -77,7 +72,7 @@ const Words = ({state, setState}) => {
 
     return (
         <div style={{textAlign: "center"}}>
-            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
             <Title level={2}>{questionText}</Title>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                 {optionsList}

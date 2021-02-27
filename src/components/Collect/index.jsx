@@ -12,33 +12,35 @@ import styled from "styled-components";
 const Collect = ({state, setState}) => {
 
     const history = useHistory();
+    const [yes] = useSound(sound);
+    const [no] = useSound(wrong);
+
     const {
-        currentQuestionIndex,
-        result,
         phrases,
         translate,
         chosenGame
     } = state;
 
-    const question = phrases[currentQuestionIndex];
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [questions, setQuestions] = useState(_.shuffle(phrases).slice(0,5));
+    const [result, setResult] = useState([]);
+
+    const question = questions[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question;
     const questionArr = questionText.split(' ');
     const phrasesClone = _.clone(phrases);
-
     const firstIndex = _.indexOf(phrasesClone, question);
     phrasesClone.splice(firstIndex, 1);
     const randomArr = _.sample(phrasesClone).questionText.split(' ');
     const [arr, setArr] = useState(_.shuffle(questionArr.concat(randomArr)));
     const [answer, setAnswer] = useState([]);
 
-    const [yes] = useSound(sound);
-    const [no] = useSound(wrong);
     const [tell] = useSound(audio);
 
     useEffect(() => {
         setArr(_.shuffle(questionArr.concat(randomArr)));
         setAnswer([])
-    }, [state])
+    }, [currentQuestionIndex])
     useEffect(() => {
         tell()
     }, [tell])
@@ -55,8 +57,9 @@ const Collect = ({state, setState}) => {
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
-        if (currentQuestionIndex + 1 < phrases.length) {
-            setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, questionResult]})
+        if (currentQuestionIndex + 1 < questions.length) {
+            setResult([...result, questionResult])
+            setCurrentQuestionIndex(currentQuestionIndex + 1)
         } else {
             history.push("/result");
             setState({
@@ -128,7 +131,7 @@ const Collect = ({state, setState}) => {
 
     return (
         <StyledQuestion>
-            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
             <Title level={2}>{translate.repeatAudio}</Title>
             <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
             <StyledResult>

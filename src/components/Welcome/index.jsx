@@ -2,6 +2,8 @@ import {Button, Divider} from "antd";
 import React from "react";
 import {translateBase} from '../localBase/base'
 import {Link} from "react-router-dom";
+import _ from 'lodash'
+import {words} from "../localBase/words";
 
 const Welcome = ({state, setState}) => {
     if (!state) {
@@ -9,8 +11,8 @@ const Welcome = ({state, setState}) => {
     }
     console.log("state", state)
     const {language} = state;
-    const {words, phrases, dragAndDrop} = translateBase[language];
-    console.log(words, phrases, dragAndDrop)
+    const {wordsText, phrases, dragAndDrop} = translateBase[language];
+    console.log(wordsText, phrases, dragAndDrop)
 
     const handleWordsButton = () => {
         setState({...state, chosenGame: 'words', gameState: 'words',currentQuestionIndex:0})
@@ -23,7 +25,7 @@ const Welcome = ({state, setState}) => {
     }
     return (
         <>
-            <Link to={'/words'}><Button size={"large"} onClick={handleWordsButton}>{words}</Button></Link>
+            <Link to={'/words'}><Button size={"large"} onClick={handleWordsButton}>{wordsText}</Button></Link>
             <Divider/>
             <Link to={'/phrases'}><Button size={"large"} onClick={handlePhrasesButton}>{phrases}</Button></Link>
             <Divider/>

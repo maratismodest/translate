@@ -6,29 +6,30 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
+import {useState} from "react";
+import _ from "lodash";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
+    const [yes] = useSound(sound);
+    const [no] = useSound(wrong);
+
     const {
-        currentQuestionIndex,
-        result,
-        questions,
         phrases,
-        finished,
-        currentAudio,
-        gameState,
-        language,
         translate,
         chosenGame
     } = state;
 
-    const question = phrases[currentQuestionIndex];
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [questions, setQuestions] = useState(_.shuffle(phrases).slice(0,5));
+    const [result, setResult] = useState([]);
+
+    const question = questions[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question
     const [tell] = useSound(audio)
     // const shuffledOptions = _.shuffle(options)
     const shuffledOptions = options;
-    const [yes] = useSound(sound);
-    const [no] = useSound(wrong);
+
 
 
     // useEffect(()=>{
@@ -38,8 +39,9 @@ const Phrases = ({state, setState}) => {
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
-        if (currentQuestionIndex + 1 < phrases.length) {
-            setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, questionResult]})
+        if (currentQuestionIndex + 1 < questions.length) {
+            setResult([...result, questionResult])
+            setCurrentQuestionIndex(currentQuestionIndex + 1)
         } else {
             history.push("/result");
             setState({
@@ -69,7 +71,7 @@ const Phrases = ({state, setState}) => {
     }
     const optionsList = shuffledOptions.map((option, index) => {
         const {id, text} = option;
-        return <li key={id}>
+        return <li key={id + text}>
             <Button size={"large"} onClick={() => {
                 handleClick(id);
 
@@ -84,7 +86,7 @@ const Phrases = ({state, setState}) => {
     return (
         <StyledPhrase>
 
-            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
 
             <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
