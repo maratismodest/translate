@@ -11,7 +11,7 @@ const Words = ({state, setState}) => {
     const {
         currentQuestionIndex,
         result,
-        questions,
+        words,
         phrases,
         finished,
         currentAudio,
@@ -20,18 +20,24 @@ const Words = ({state, setState}) => {
         translate,
         chosenGame
     } = state;
-    const question = questions[currentQuestionIndex];
-    const {options, questionText, correct, id: questionId} = question
-    // const shuffledOptions = _.shuffle(options)
-    const shuffledOptions = options;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const history = useHistory();
+    const questions = _.shuffle(words).slice(1, 6);
+    if (!questions) {
+        return <div>Load</div>
+    }
+    const question = questions[currentQuestionIndex];
+
+    const {options, questionText, correct, id: questionId} = question
+    // const shuffledOptions = _.shuffle(options)
+    const shuffledOptions = options;
+
 
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
-        if (currentQuestionIndex + 1 < phrases.length) {
+        if (currentQuestionIndex + 1 < questions.length) {
             setState({...state, currentQuestionIndex: currentQuestionIndex + 1, result: [...result, questionResult]})
         } else {
             history.push("/result");

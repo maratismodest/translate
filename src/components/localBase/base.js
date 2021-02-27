@@ -235,7 +235,9 @@ export const initialState = {
     result: [],
     finished: false,
     currentQuestionIndex: 0,
-    translate: translateBase.rus,
-    questions: _.shuffle(wordsTatRus).slice(1, 6),
-    phrases: _.shuffle(phrasesTatRus).slice(1, 6),
+    translate: translateBase.tat,
+    words: wordsTatRus,
+    phrases: phrasesTatRus,
+    // questions: _.shuffle(wordsTatRus).slice(1, 6),
+    // phrases: _.shuffle(phrasesTatRus).slice(1, 6),
 }
