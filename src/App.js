@@ -8,7 +8,7 @@ import {
 import React, {useState} from "react";
 import {
     initialState
-} from "./components/base";
+} from "./components/localBase/base";
 import Welcome from "./components/Welcome";
 import styled from "styled-components";
 import Words from "./components/Words";
