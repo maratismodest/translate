@@ -1,7 +1,7 @@
 import {words} from "./words";
 import {phrases} from "./phrases";
 import _ from "lodash";
-import sound from "../../sounds/sound.mp3";
+import sound from "../sounds/sound.mp3";
 
 
 export const translateBase = {
@@ -162,7 +162,6 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
 
 export const wordsRusTat = getWordsFirstSecond("rus", "tat")
 export const wordsTatRus = getWordsFirstSecond("tat", "rus")
-// console.log("wordsTatRus", wordsTatRus)
 export const wordsTatEng = getWordsFirstSecond("tat", "eng")
 export const wordsEngTat = getWordsFirstSecond("eng", "tat")
 

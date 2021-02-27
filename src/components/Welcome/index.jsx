@@ -1,6 +1,6 @@
 import {Button, Divider} from "antd";
 import React from "react";
-import {translateBase} from '../Game/base'
+import {translateBase} from '../base'
 import {Link} from "react-router-dom";
 
 const Welcome = ({state, setState}) => {
