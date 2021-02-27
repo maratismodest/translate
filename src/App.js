@@ -16,6 +16,7 @@ import styled from "styled-components";
 import Words from "./components/Words";
 import Result from "./components/Result";
 import Phrases from "./components/Phrases";
+import Collect from "./components/Collect";
 
 
 
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
                 <Route path="/words" exact render={() => <Words state={state} setState={setState}/>}/>
                 <Route path="/phrases" exact render={() => <Phrases state={state} setState={setState}/>}/>
+                <Route path="/collect" exact render={() => <Collect state={state} setState={setState}/>}/>
                 <Route path="/about" exact render={() => <About/>}/>
                 <Route path="/users" exact render={() => <Users/>}/>
                 <Route path="/result" exact render={() => <Result state={state} setState={setState}/>}/>

@@ -14,7 +14,7 @@ const Result = ({state, setState}) => {
         function footer() {
             return (
                 <>
-                    <Link to={'/words'}><Button size={'large'} onClick={() => {
+                    <Link to={`/${chosenGame}`}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
                     }}>{repeat}</Button></Link>
                     <Divider/>

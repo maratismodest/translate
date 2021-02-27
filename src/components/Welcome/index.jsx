@@ -9,11 +9,6 @@ const Welcome = ({state, setState}) => {
     }
     console.log("state", state)
     const {language} = state;
-    // return <div>Welcome</div>
-
-    // console.log("language", language)
-    // console.log("translateBase[language];", translateBase[language])
-    //
     const {words, phrases, dragAndDrop} = translateBase[language];
     console.log(words, phrases, dragAndDrop)
 
@@ -24,7 +19,7 @@ const Welcome = ({state, setState}) => {
         setState({...state, chosenGame: 'phrases', gameState: 'phrases', currentQuestionIndex:0})
     }
     const handleDragAndDropButton = () => {
-        setState({...state, chosenGame: 'dragAndDrop', gameState: 'dragAndDrop',currentQuestionIndex:0})
+        setState({...state, chosenGame: 'collect', gameState: 'collect',currentQuestionIndex:0})
     }
     return (
         <>
@@ -32,15 +27,8 @@ const Welcome = ({state, setState}) => {
             <Divider/>
             <Link to={'/phrases'}><Button size={"large"} onClick={handlePhrasesButton}>{phrases}</Button></Link>
             <Divider/>
-            <Button size={"large"} onClick={handleDragAndDropButton}>{dragAndDrop}</Button>
+            <Link to={'/collect'}><Button size={"large"} onClick={handleDragAndDropButton}>{dragAndDrop}</Button></Link>
         </>
-        // <>
-        //     <Link to={'/words'}><Button size={"large"} onClick={handleWordsButton}>{words}</Button></Link>
-        //     <Divider/>
-        //     <Button size={"large"} onClick={handlePhrasesButton}>{phrases}</Button>
-        //     <Divider/>
-        //     <Button size={"large"} onClick={handleDragAndDropButton}>{dragAndDrop}</Button>
-        // </>
 
     )
 }
