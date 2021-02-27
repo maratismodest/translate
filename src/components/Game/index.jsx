@@ -101,106 +101,106 @@ const Game = () => {
             }
         }, [gameState, language])
 
-        const Words = () => {
-            const question = questions[currentQuestionIndex];
-            const {options, questionText, correct, id: questionId} = question
-            // const shuffledOptions = _.shuffle(options)
-            const shuffledOptions = options;
-            const [yes] = useSound(sound);
-            const [no] = useSound(wrong);
+        // const Words = () => {
+        //     const question = questions[currentQuestionIndex];
+        //     const {options, questionText, correct, id: questionId} = question
+        //     // const shuffledOptions = _.shuffle(options)
+        //     const shuffledOptions = options;
+        //     const [yes] = useSound(sound);
+        //     const [no] = useSound(wrong);
+        //
+        //     const handleClick = (id) => {
+        //         const timeout = window.setTimeout(() => {
+        //             id === correct ? yes() : no()
+        //             const questionResult = id === correct ? {
+        //                 correct: true,
+        //                 id: questionId,
+        //                 questionText: questionText
+        //             } : {correct: false, id: questionId, questionText: questionText}
+        //             checkGameState(chosenGame, questionResult)
+        //             window.clearTimeout(timeout)
+        //         }, 300)
+        //
+        //     }
+        //
+        //     const optionsList = shuffledOptions.map((option, index) => {
+        //         const {id, text} = option;
+        //         return <li key={id}>
+        //             <Button size={"large"} onClick={() => {
+        //                 handleClick(id);
+        //             }} block>{text}</Button>
+        //         </li>
+        //     })
+        //
+        //     return (
+        //         <div style={{textAlign: "center"}}>
+        //             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+        //             <Title level={2}>{questionText}</Title>
+        //             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
+        //                 {optionsList}
+        //             </ul>
+        //         </div>
+        //     )
+        // }
 
-            const handleClick = (id) => {
-                const timeout = window.setTimeout(() => {
-                    id === correct ? yes() : no()
-                    const questionResult = id === correct ? {
-                        correct: true,
-                        id: questionId,
-                        questionText: questionText
-                    } : {correct: false, id: questionId, questionText: questionText}
-                    checkGameState(chosenGame, questionResult)
-                    window.clearTimeout(timeout)
-                }, 300)
-
-            }
-
-            const optionsList = shuffledOptions.map((option, index) => {
-                const {id, text} = option;
-                return <li key={id}>
-                    <Button size={"large"} onClick={() => {
-                        handleClick(id);
-                    }} block>{text}</Button>
-                </li>
-            })
-
-            return (
-                <div style={{textAlign: "center"}}>
-                    <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
-                    <Title level={2}>{questionText}</Title>
-                    <ul style={{minWidth: '200px', maxWidth: '350px'}}>
-                        {optionsList}
-                    </ul>
-                </div>
-            )
-        }
-
-        const Phrases = () => {
-
-            const question = phrases[currentQuestionIndex];
-            const {options, questionText, correct, id: questionId, audio} = question
-            const [tell] = useSound(audio)
-            // const shuffledOptions = _.shuffle(options)
-            const shuffledOptions = options;
-            const [yes] = useSound(sound);
-            const [no] = useSound(wrong);
-
-
-            // useEffect(()=>{
-            //     console.log("tell")
-            //     tell()
-            // },[tell])
-
-
-            const handleClick = (id) => {
-                const timeout = window.setTimeout(() => {
-                    id === correct ? yes() : no()
-                    const questionResult = id === correct ? {
-                        correct: true,
-                        id: questionId,
-                        questionText: questionText
-                    } : {correct: false, id: questionId, questionText: questionText}
-                    checkGameState(chosenGame, questionResult)
-
-                    window.clearTimeout(timeout)
-                }, 300)
-
-
-            }
-            const optionsList = shuffledOptions.map((option, index) => {
-                const {id, text} = option;
-                return <li key={id}>
-                    <Button size={"large"} onClick={() => {
-                        handleClick(id);
-
-                    }} block>{text}</Button>
-
-                </li>
-            })
-
-
-
-
-            return (
-                <StyledPhrase>
-
-                    <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
-
-                    <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
-                    <ul style={{minWidth: '200px', maxWidth: '350px'}}>
-                        {optionsList}
-                    </ul>
-                </StyledPhrase>
-            )
-        }
+        // const Phrases = () => {
+        //
+        //     const question = phrases[currentQuestionIndex];
+        //     const {options, questionText, correct, id: questionId, audio} = question
+        //     const [tell] = useSound(audio)
+        //     // const shuffledOptions = _.shuffle(options)
+        //     const shuffledOptions = options;
+        //     const [yes] = useSound(sound);
+        //     const [no] = useSound(wrong);
+        //
+        //
+        //     // useEffect(()=>{
+        //     //     console.log("tell")
+        //     //     tell()
+        //     // },[tell])
+        //
+        //
+        //     const handleClick = (id) => {
+        //         const timeout = window.setTimeout(() => {
+        //             id === correct ? yes() : no()
+        //             const questionResult = id === correct ? {
+        //                 correct: true,
+        //                 id: questionId,
+        //                 questionText: questionText
+        //             } : {correct: false, id: questionId, questionText: questionText}
+        //             checkGameState(chosenGame, questionResult)
+        //
+        //             window.clearTimeout(timeout)
+        //         }, 300)
+        //
+        //
+        //     }
+        //     const optionsList = shuffledOptions.map((option, index) => {
+        //         const {id, text} = option;
+        //         return <li key={id}>
+        //             <Button size={"large"} onClick={() => {
+        //                 handleClick(id);
+        //
+        //             }} block>{text}</Button>
+        //
+        //         </li>
+        //     })
+        //
+        //
+        //
+        //
+        //     return (
+        //         <StyledPhrase>
+        //
+        //             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {phrases.length}</Title>
+        //
+        //             <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
+        //             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
+        //                 {optionsList}
+        //             </ul>
+        //         </StyledPhrase>
+        //     )
+        // }
 
 
         const DragAndDrop = () => {
@@ -315,10 +315,10 @@ const Game = () => {
             switch (gameState) {
                 case 'welcome':
                     return <Welcome state={state} setState={setState}/>
-                case 'words':
-                    return <Words state={state} setState={setState}/>
-                case 'phrases':
-                    return <Phrases state={state} setState={setState}/>
+                // case 'words':
+                //     return <Words state={state} setState={setState}/>
+                // case 'phrases':
+                //     return <Phrases state={state} setState={setState}/>
                 case 'result':
                     return <Result state={state} setState={setState}/>
                 case 'dragAndDrop':

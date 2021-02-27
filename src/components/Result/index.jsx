@@ -2,26 +2,25 @@ import React from 'react';
 import {List, Typography, Divider, Button} from 'antd';
 import styled from 'styled-components'
 import Welcome from "../Welcome";
+import {Link} from "react-router-dom";
 
 const Result = ({state, setState}) => {
         const {
             result, language, translate, chosenGame
         } = state;
-
-        console.log("Result", state)
-
         const {repeat, resultText, wrong, right, mainPage} = translate;
+
         console.log(translate)
         function footer() {
             return (
                 <>
-                    <Button size={'large'} onClick={() => {
+                    <Link to={'/words'}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
-                    }}>{repeat}</Button>
+                    }}>{repeat}</Button></Link>
                     <Divider/>
-                    <Button size={'large'} onClick={() => {
+                    <Link to={'/'}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: 'welcome'})
-                    }}>{mainPage}</Button>
+                    }}>{mainPage}</Button></Link>
                 </>
 
             )

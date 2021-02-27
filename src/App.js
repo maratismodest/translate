@@ -14,18 +14,26 @@ import {initialState} from "./components/Game/base";
 import Welcome from "./components/Welcome";
 import styled from "styled-components";
 import Words from "./components/Words";
+import Result from "./components/Result";
+import Phrases from "./components/Phrases";
+
+
 
 
 function App() {
     const [state, setState] = useState(initialState);
+
+
     return (
         <Router>
             <StyledGame>
             <Switch>
                 <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
                 <Route path="/words" exact render={() => <Words state={state} setState={setState}/>}/>
+                <Route path="/phrases" exact render={() => <Phrases state={state} setState={setState}/>}/>
                 <Route path="/about" exact render={() => <About/>}/>
                 <Route path="/users" exact render={() => <Users/>}/>
+                <Route path="/result" exact render={() => <Result state={state} setState={setState}/>}/>
             </Switch>
             </StyledGame>
         </Router>

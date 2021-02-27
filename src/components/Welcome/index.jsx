@@ -28,9 +28,9 @@ const Welcome = ({state, setState}) => {
     }
     return (
         <>
-            <Link to={'/words'}><Button size={"large"}>{words}</Button></Link>
+            <Link to={'/words'}><Button size={"large"} onClick={handleWordsButton}>{words}</Button></Link>
             <Divider/>
-            <Button size={"large"} onClick={handlePhrasesButton}>{phrases}</Button>
+            <Link to={'/phrases'}><Button size={"large"} onClick={handlePhrasesButton}>{phrases}</Button></Link>
             <Divider/>
             <Button size={"large"} onClick={handleDragAndDropButton}>{dragAndDrop}</Button>
         </>
