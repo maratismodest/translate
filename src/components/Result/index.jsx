@@ -8,7 +8,7 @@ const Result = ({state, setState}) => {
             result, language, translate, chosenGame
         } = state;
         const {repeat, resultText, wrong, right, mainPage} = translate;
-
+        console.log("translate",translate)
         console.log("chosenGame", chosenGame)
         function footer() {
             return (

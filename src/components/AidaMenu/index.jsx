@@ -10,7 +10,7 @@ import {
     wordsEngTat,
     wordsTatEng,
     phrasesEngTat,
-    phrasesTatEng
+    phrasesTatEng, translateBase
 } from "../localBase/base";
 import {phrases} from "../localBase/phrases";
 import {Link} from "react-router-dom";
@@ -29,6 +29,7 @@ const AidaMenu = ({state, setState}) => {
                         language: 'tat',
                         words: wordsTatRus,
                         phrases: phrasesTatRus,
+                        translate: translateBase.tat,
                     })
                 }}>Татарский-Русский</a>
             </Menu.Item>
@@ -40,6 +41,7 @@ const AidaMenu = ({state, setState}) => {
                         language: 'rus',
                         words: wordsRusTat,
                         phrases: phrasesRusTat,
+                        translate: translateBase.rus,
                     })
                 }}>Русский-Татарский</a>
             </Menu.Item>
@@ -51,6 +53,7 @@ const AidaMenu = ({state, setState}) => {
                         language: 'tateng',
                         words: wordsTatEng,
                         phrases: phrasesTatEng,
+                        translate: translateBase.eng,
                     })
                 }}>Tatar-English</a>
             </Menu.Item>
@@ -62,6 +65,7 @@ const AidaMenu = ({state, setState}) => {
                         language: 'engtat',
                         words: wordsTatEng,
                         phrases: phrasesTatEng,
+                        translate: translateBase.eng,
                     })
                 }}>English-Tatar</a>
             </Menu.Item>
