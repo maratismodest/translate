@@ -36,14 +36,15 @@ function App() {
             </StyledMenu>
 
             <Switch>
-                {/*<Route path="/about" render={() => <h1>About</h1>}/>*/}
+
                 {/*<Route path="/" exact render={() => <h1>Home Page</h1>}/>*/}
 
-                <Route path="/about" exact render={() => <About state={state} setState={setState}/>}/>
-                <Route path="/words" exact render={() => <Words state={state} setState={setState}/>}/>
-                <Route path="/phrases" exact render={() => <Phrases state={state} setState={setState}/>}/>
-                <Route path="/collect" exact render={() => <Collect state={state} setState={setState}/>}/>
-                <Route path="/result" exact render={() => <Result state={state} setState={setState}/>}/>
+
+                <Route path={["/words", "/*/words"]}  render={() => <Words state={state} setState={setState}/>}/>
+                <Route path={["/phrases", "/*/phrases"]}  render={() => <Phrases state={state} setState={setState}/>}/>
+                <Route path={["/collect", "/*/collect"]}  render={() => <Collect state={state} setState={setState}/>}/>
+                <Route path={["/result", "/*/result"]}  render={() => <Result state={state} setState={setState}/>}/>
+                <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
                 <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
 
             </Switch>
