@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from "styled-components";
-import NavMenu from "../NavMenu";
+// import NavMenu from "../NavMenu";
 
 const About = ({state, setState}) => {
     return (
         <StyledGame>
-            <StyledNavMenu>
-                <NavMenu state={state} setState={setState}/>
-            </StyledNavMenu>
+            {/*<StyledNavMenu>*/}
+            {/*    <NavMenu state={state} setState={setState}/>*/}
+            {/*</StyledNavMenu>*/}
             Здравствуйте!<br/>
             Я делаю сайт\приложение для изучения татарского (в том числе для англоговорящих)<br/>
             <a href='https://chamala.ru'>https://chamala.ru</a><br/>
