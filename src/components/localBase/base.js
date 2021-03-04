@@ -89,6 +89,8 @@ function getLangWords(language = 'rus') {
 export const rusWords = getLangWords('rus')
 
 export const tatWords = getLangWords('tat')
+console.log(tatWords)
+console.log(JSON.stringify(tatWords))
 
 export const engWords = getLangWords('eng')
 

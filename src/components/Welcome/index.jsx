@@ -6,6 +6,7 @@ import Button from '../../ui/Button'
 import {StyledGame} from "../../App";
 import styled from 'styled-components'
 import {device} from "../responsiveStyled";
+import ReactLogo  from './welcome.svg'
 
 const Welcome = ({state, setState}) => {
     if (!state) {
@@ -15,6 +16,10 @@ const Welcome = ({state, setState}) => {
     const {language} = state;
     const {wordsText, phrases, dragAndDrop} = translateBase[language];
     console.log(wordsText, phrases, dragAndDrop)
+
+
+
+
 
     const handleWordsButton = () => {
         setState({...state, chosenGame: 'words', gameState: 'words', currentQuestionIndex: 0})
@@ -28,6 +33,7 @@ const Welcome = ({state, setState}) => {
     return (
 
         <StyledGame>
+            <img src={ReactLogo} alt="React Logo" width={230} />
             <StyledHeader>Выучи разговорные фразы
                 на татарском языке
                 в формате мини-игр</StyledHeader>
