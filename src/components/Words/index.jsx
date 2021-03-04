@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import useSound from "use-sound";
 import sound from "../../sounds/sound.mp3";
 import wrong from "../../sounds/wrong.mp3";
-import {Button} from "antd";
+import Button from "../../ui/Button";
 import Title from "antd/es/typography/Title";
 
 import {useHistory} from "react-router-dom";

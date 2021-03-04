@@ -1,9 +1,9 @@
 import React from 'react';
-import {List, Typography, Divider, Button} from 'antd';
+import {List, Typography, Divider} from 'antd';
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
 import {StyledGame} from "../../App";
-
+import Button from '../../ui/Button'
 const Result = ({state, setState}) => {
         const {
             result, language, translate, chosenGame
