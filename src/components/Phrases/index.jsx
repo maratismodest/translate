@@ -8,6 +8,7 @@ import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
 import {useState} from "react";
 import _ from "lodash";
+import {StyledGame} from "../../App";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
@@ -84,6 +85,7 @@ const Phrases = ({state, setState}) => {
 
 
     return (
+        <StyledGame>
         <StyledPhrase>
 
             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
@@ -93,6 +95,7 @@ const Phrases = ({state, setState}) => {
                 {optionsList}
             </ul>
         </StyledPhrase>
+            </StyledGame>
     )
 }
 

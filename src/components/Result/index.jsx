@@ -2,6 +2,7 @@ import React from 'react';
 import {List, Typography, Divider, Button} from 'antd';
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
+import {StyledGame} from "../../App";
 
 const Result = ({state, setState}) => {
         const {
@@ -27,6 +28,7 @@ const Result = ({state, setState}) => {
         }
 
         return (
+            <StyledGame>
                 <StyledList
                     header={<div>{resultText}</div>}
                     footer={footer()}
@@ -41,7 +43,7 @@ const Result = ({state, setState}) => {
                         )
                     }}
                 />
-
+            </StyledGame>
 
         );
     }

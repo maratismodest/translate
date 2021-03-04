@@ -8,6 +8,7 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
+import {StyledGame} from "../../App";
 
 const Collect = ({state, setState}) => {
 
@@ -22,7 +23,7 @@ const Collect = ({state, setState}) => {
     } = state;
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(_.shuffle(phrases).slice(0,5));
+    const [questions, setQuestions] = useState(_.shuffle(phrases).slice(0, 5));
     const [result, setResult] = useState([]);
 
     const question = questions[currentQuestionIndex];
@@ -130,25 +131,28 @@ const Collect = ({state, setState}) => {
 
 
     return (
-        <StyledQuestion>
-            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
-            <Title level={2}>{translate.repeatAudio}</Title>
-            <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
-            <StyledResult>
-                {resultList}
-            </StyledResult>
-            <Divider/>
-            <StyledUl>
-                {arrList}
-            </StyledUl>
-            <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
-        </StyledQuestion>
+        <StyledGame>
+            <StyledQuestion>
+                <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
+                <Title level={2}>{translate.repeatAudio}</Title>
+                <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
+                <StyledResult>
+                    {resultList}
+                </StyledResult>
+                <Divider/>
+                <StyledUl>
+                    {arrList}
+                </StyledUl>
+                <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
+            </StyledQuestion>
+        </StyledGame>
     )
 
 }
 export default Collect;
 
 export const StyledMenu = styled.div`
+  z-index: 1;
   position: absolute;
   right: 0;
   top: 0;
@@ -166,21 +170,21 @@ const StyledNavMenu = styled.div`
   top: 0;
 `
 
-const StyledGame = styled.div`
-  padding: 5%;
-  position: relative;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  background: #FEF5EF;
-
-  .ant-divider-horizontal {
-    margin: 12px 0 !important;
-  }
-`
+// const StyledGame = styled.div`
+//   padding: 5%;
+//   position: relative;
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   flex-grow: 1;
+//   background: #FEF5EF;
+//
+//   .ant-divider-horizontal {
+//     margin: 12px 0 !important;
+//   }
+// `
 
 const StyledResult = styled.ul`
   min-width: 200px;

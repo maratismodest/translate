@@ -8,6 +8,7 @@ import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
 import _ from 'lodash'
 import {words} from "../localBase/words";
+import {StyledGame} from "../../App";
 
 const Words = ({state, setState}) => {
     const [yes] = useSound(sound);
@@ -71,6 +72,7 @@ const Words = ({state, setState}) => {
     })
 
     return (
+        <StyledGame>
         <div style={{textAlign: "center"}}>
             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
             <Title level={2}>{questionText}</Title>
@@ -78,6 +80,7 @@ const Words = ({state, setState}) => {
                 {optionsList}
             </ul>
         </div>
+            </StyledGame>
     )
 }
 
