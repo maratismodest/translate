@@ -8,7 +8,8 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
-import {StyledGame} from "../../App";
+import { StyledGame} from "../../App";
+import {device} from "../responsiveStyled";
 
 const Collect = ({state, setState}) => {
 
@@ -154,8 +155,16 @@ export default Collect;
 export const StyledMenu = styled.div`
   z-index: 1;
   position: absolute;
-  right: 0;
-  top: 0;
+  @media ${device.desktop} {
+    right: 78px;
+    top: 45px;
+
+  }
+  @media ${device.laptop} {
+    right: 32px;
+    top: 25px;
+  }
+  
 `
 
 const StyledQuestion = styled.div`

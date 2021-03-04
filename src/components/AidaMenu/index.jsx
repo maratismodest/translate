@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Menu, Dropdown, Button} from 'antd';
+import {Menu, Dropdown} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
 import {
     initialState,
@@ -12,8 +12,8 @@ import {
     phrasesEngTat,
     phrasesTatEng, translateBase
 } from "../localBase/base";
-import {phrases} from "../localBase/phrases";
-import {Link} from "react-router-dom";
+import Button from '../../ui/Button'
+import styled from 'styled-components'
 
 const AidaMenu = ({state, setState}) => {
     const {translate} = state;
@@ -69,18 +69,21 @@ const AidaMenu = ({state, setState}) => {
                     })
                 }}>English-Tatar</a>
             </Menu.Item>
-            <Menu.Item key="4">
-                <Link to={'/'}>{translate.mainPage}</Link>
-            </Menu.Item>
         </Menu>
     );
 
     return (
         <Dropdown overlay={menu} trigger={['click']}>
-            <Button className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            <MenuButton className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                 {chooseLanguage}<DownOutlined/>
-            </Button>
+            </MenuButton>
         </Dropdown>
     )
 }
 export default AidaMenu;
+
+const MenuButton = styled(Button)`
+  border-radius: 38px;
+  height: 44px;
+  width: auto;
+`
