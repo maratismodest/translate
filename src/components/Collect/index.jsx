@@ -8,7 +8,7 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
-import { StyledGame} from "../../App";
+import {StyledGame} from "../../App";
 import {device} from "../responsiveStyled";
 
 const Collect = ({state, setState}) => {
@@ -23,14 +23,22 @@ const Collect = ({state, setState}) => {
         chosenGame
     } = state;
 
+    const {firstLanguage, secondLanguage} = phrases;
+    const first = _.shuffle(firstLanguage).slice(0, 5);
+    const shuffle = first;
+    // const second = _.shuffle(secondLanguage).slice(0,3);
+    // const shuffle = _.shuffle([...first, ...second])
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(_.shuffle(phrases).slice(0, 5));
+    const [questions, setQuestions] = useState(shuffle);
+
+
     const [result, setResult] = useState([]);
 
     const question = questions[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question;
     const questionArr = questionText.split(' ');
-    const phrasesClone = _.clone(phrases);
+    const phrasesClone = _.clone(firstLanguage);
     const firstIndex = _.indexOf(phrasesClone, question);
     phrasesClone.splice(firstIndex, 1);
     const randomArr = _.sample(phrasesClone).questionText.split(' ');
@@ -164,7 +172,7 @@ export const StyledMenu = styled.div`
     right: 32px;
     top: 25px;
   }
-  
+
 `
 
 const StyledQuestion = styled.div`

@@ -1,5 +1,5 @@
 import _ from "lodash";
-import sound from "../../sounds/sound.mp3";
+import sound from "../sounds/sound.mp3";
 import {words} from "./words";
 import {phrases} from "./phrases";
 
@@ -138,7 +138,7 @@ export function getWordsFirstSecond(firstLanguage, secondLanguage) {
 
 
     const resWordsFirstSecond = words.map((item, index) => {
-
+        const {audio} = item;
         let ArrClone = _.clone(secondArr);
         const first = item[secondLanguage];
         const currentItemSecondLanguage = item[secondLanguage];
@@ -165,11 +165,11 @@ export function getWordsFirstSecond(firstLanguage, secondLanguage) {
             questionText: item[firstLanguage],
             correct: 1,
             options: shuffledOptions,
-            audio: sound
+            audio: audio
         }
     });
     const resWordsSecondFirst = words.map((item, index) => {
-
+        const {audio} = item;
         let ArrClone = _.clone(firstArr);
         const first = item[firstLanguage];
         const currentItemSecondLanguage = item[firstLanguage];
@@ -196,7 +196,7 @@ export function getWordsFirstSecond(firstLanguage, secondLanguage) {
             questionText: item[secondLanguage],
             correct: 1,
             options: shuffledOptions,
-            audio: sound
+            audio: audio
         }
     });
     return {firstLanguage: resWordsFirstSecond, secondLanguage: resWordsSecondFirst}
@@ -205,7 +205,7 @@ export function getWordsFirstSecond(firstLanguage, secondLanguage) {
 
 export const wordsRusTat = getWordsFirstSecond("rus", "tat")
 export const wordsTatRus = getWordsFirstSecond("tat", "rus")
-console.log("wordsTatRus", wordsTatRus)
+
 export const wordsTatEng = getWordsFirstSecond("tat", "eng")
 export const wordsEngTat = getWordsFirstSecond("eng", "tat")
 

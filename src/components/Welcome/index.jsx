@@ -1,6 +1,6 @@
 import {Divider} from "antd";
 import React from "react";
-import {translateBase} from '../localBase/base'
+import {translateBase} from '../../localBase/base'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import {StyledGame} from "../../App";

@@ -8,7 +8,7 @@ import {
 import React, {useState, useEffect} from "react";
 import {
     initialState, phrasesTatRus, wordsRusTat
-} from "./components/localBase/base";
+} from "./localBase/base";
 import Welcome from "./components/Welcome";
 import styled from "styled-components";
 import Words from "./components/Words";
