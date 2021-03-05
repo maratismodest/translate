@@ -11,6 +11,7 @@ export default styled(Button)`
   color: #FFFFFF;
   font-family: Rubik;
   font-style: normal;
+  white-space: pre-line;
   @media ${device.desktop} {
     font-size: 22px;
     line-height: 26px;

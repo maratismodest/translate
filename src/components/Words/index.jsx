@@ -8,6 +8,8 @@ import Title from "antd/es/typography/Title";
 import {useHistory} from "react-router-dom";
 import _ from 'lodash'
 import {StyledGame} from "../../App";
+import Icon, {PlayCircleOutlined} from "@ant-design/icons";
+import {StyledPhrase} from "../Collect";
 
 const Words = ({state, setState}) => {
     const [yes] = useSound(sound);
@@ -34,8 +36,8 @@ const Words = ({state, setState}) => {
     console.log('translate', translate)
 
     const question = questions[currentQuestionIndex];
-    const {options, questionText, correct, id: questionId} = question;
-
+    const {options, questionText, correct, id: questionId, audio} = question;
+    const [tell] = useSound(audio);
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
         if (currentQuestionIndex + 1 < questions.length) {
@@ -81,7 +83,7 @@ const Words = ({state, setState}) => {
         <StyledGame>
         <div style={{textAlign: "center"}}>
             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
-            <Title level={2}>{questionText}</Title>
+            <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                 {optionsList}
             </ul>

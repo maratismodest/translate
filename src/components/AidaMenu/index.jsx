@@ -12,7 +12,7 @@ import {
     phrasesEngTat,
     phrasesTatEng, translateBase,
     getPhrasesFirstSecond, getWordsFirstSecond
-} from "../localBase/base";
+} from "../../localBase/base";
 import Button from '../../ui/Button'
 import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
