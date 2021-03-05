@@ -10,12 +10,15 @@ import {
     wordsEngTat,
     wordsTatEng,
     phrasesEngTat,
-    phrasesTatEng, translateBase
+    phrasesTatEng, translateBase,
+    getPhrasesFirstSecond, getWordsFirstSecond
 } from "../localBase/base";
 import Button from '../../ui/Button'
 import styled from 'styled-components'
+import {useHistory} from "react-router-dom";
 
 const AidaMenu = ({state, setState}) => {
+    const history = useHistory();
     const {translate} = state;
     const {chooseLanguage} = translate;
 
@@ -27,11 +30,12 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'tat',
-                        words: wordsTatRus,
-                        phrases: phrasesTatRus,
+                        words: getWordsFirstSecond('rus', 'tat'),
+                        phrases: getPhrasesFirstSecond('rus', 'tat'),
                         translate: translateBase.tat,
                     })
-                }}>Татарский-Русский</a>
+                    history.push('/')
+                }}>TA</a>
             </Menu.Item>
             <Menu.Item key="1">
                 <a onClick={e => {
@@ -39,35 +43,25 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'rus',
-                        words: wordsRusTat,
-                        phrases: phrasesRusTat,
+                        words: getWordsFirstSecond('rus', 'tat'),
+                        phrases: getPhrasesFirstSecond('rus', 'tat'),
                         translate: translateBase.rus,
                     })
-                }}>Русский-Татарский</a>
+                    history.push('/')
+                }}>RU</a>
             </Menu.Item>
             <Menu.Item key="2">
                 <a onClick={e => {
                     e.preventDefault();
                     setState({
                         ...state,
-                        language: 'tateng',
-                        words: wordsTatEng,
-                        phrases: phrasesTatEng,
+                        language: 'eng',
+                        words: getWordsFirstSecond('eng', 'tat'),
+                        phrases: getPhrasesFirstSecond('eng', 'tat'),
                         translate: translateBase.eng,
                     })
-                }}>Tatar-English</a>
-            </Menu.Item>
-            <Menu.Item key="3">
-                <a onClick={e => {
-                    e.preventDefault();
-                    setState({
-                        ...state,
-                        language: 'engtat',
-                        words: wordsTatEng,
-                        phrases: phrasesTatEng,
-                        translate: translateBase.eng,
-                    })
-                }}>English-Tatar</a>
+                    history.push('/')
+                }}>EN</a>
             </Menu.Item>
         </Menu>
     );

@@ -7,7 +7,6 @@ import Title from "antd/es/typography/Title";
 
 import {useHistory} from "react-router-dom";
 import _ from 'lodash'
-import {words} from "../localBase/words";
 import {StyledGame} from "../../App";
 
 const Words = ({state, setState}) => {
@@ -21,8 +20,15 @@ const Words = ({state, setState}) => {
         chosenGame,
     } = state;
 
+    console.log("words", words)
+
+    const {firstLanguage, secondLanguage} = words;
+    const first = _.shuffle(firstLanguage).slice(0,3);
+    const second = _.shuffle(secondLanguage).slice(0,3);
+    const shuffle = _.shuffle([...first, ...second])
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(_.shuffle(words).slice(0,5));
+    const [questions, setQuestions] = useState(shuffle);
     const [result, setResult] = useState([]);
 
     console.log('translate', translate)

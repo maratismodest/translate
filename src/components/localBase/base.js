@@ -87,11 +87,7 @@ function getLangWords(language = 'rus') {
 }
 
 export const rusWords = getLangWords('rus')
-
 export const tatWords = getLangWords('tat')
-console.log(tatWords)
-console.log(JSON.stringify(tatWords))
-
 export const engWords = getLangWords('eng')
 
 
@@ -109,8 +105,23 @@ export const tatPhrases = getLangPhrases('tat')
 export const engPhrases = getLangPhrases('eng')
 
 
-function getWordsFirstSecond(firstLanguage, secondLanguage) {
+export function getWordsFirstSecond(firstLanguage, secondLanguage) {
+    let firstArr = [];
     let secondArr = [];
+    switch (firstLanguage) {
+        case 'rus':
+            firstArr = rusWords;
+            break;
+        case 'tat':
+            firstArr = tatWords;
+            break;
+        case 'eng':
+            firstArr = engWords;
+            break;
+        default:
+            firstArr = undefined;
+    }
+
     switch (secondLanguage) {
         case 'rus':
             secondArr = rusWords;
@@ -128,22 +139,21 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
 
     const resWordsFirstSecond = words.map((item, index) => {
 
-        let secondArrClone = _.clone(secondArr);
+        let ArrClone = _.clone(secondArr);
         const first = item[secondLanguage];
         const currentItemSecondLanguage = item[secondLanguage];
 
-        const firstIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
-        // console.log("firstIndex",firstIndex)
-        secondArrClone.splice(firstIndex, 1);
+        const firstIndex = _.indexOf(ArrClone, currentItemSecondLanguage);
+        ArrClone.splice(firstIndex, 1);
 
-        const second = _.sample(secondArrClone);
-        const secondIndex = _.indexOf(secondArrClone, second);
-        // console.log("secondIndex",secondIndex)
-        secondArrClone.splice(secondIndex, 1);
-        const third = _.sample(secondArrClone);
-        const thirdIndex = _.indexOf(secondArrClone, third);
-        secondArrClone.splice(thirdIndex, 1);
-        const fourth = _.sample(secondArrClone);
+        const second = _.sample(ArrClone);
+        const secondIndex = _.indexOf(ArrClone, second);
+
+        ArrClone.splice(secondIndex, 1);
+        const third = _.sample(ArrClone);
+        const thirdIndex = _.indexOf(ArrClone, third);
+        ArrClone.splice(thirdIndex, 1);
+        const fourth = _.sample(ArrClone);
         const shuffledOptions = _.shuffle([
             {id: 1, text: first},
             {id: 2, text: second},
@@ -158,57 +168,23 @@ function getWordsFirstSecond(firstLanguage, secondLanguage) {
             audio: sound
         }
     });
-    return resWordsFirstSecond
+    const resWordsSecondFirst = words.map((item, index) => {
 
-}
+        let ArrClone = _.clone(firstArr);
+        const first = item[firstLanguage];
+        const currentItemSecondLanguage = item[firstLanguage];
 
-export const wordsRusTat = getWordsFirstSecond("rus", "tat")
-export const wordsTatRus = getWordsFirstSecond("tat", "rus")
-export const wordsTatEng = getWordsFirstSecond("tat", "eng")
-export const wordsEngTat = getWordsFirstSecond("eng", "tat")
+        const firstIndex = _.indexOf(ArrClone, currentItemSecondLanguage);
+        ArrClone.splice(firstIndex, 1);
 
-function getPhrasesFirstSecond(firstLanguage, secondLanguage) {
-    let secondArr = [];
-    switch (secondLanguage) {
-        case 'rus':
-            secondArr = rusPhrases;
-            break;
-        case 'tat':
-            secondArr = tatPhrases;
-            break;
-        case 'eng':
-            secondArr = engPhrases;
-            break;
-        default:
-            secondArr = undefined;
-    }
+        const second = _.sample(ArrClone);
+        const secondIndex = _.indexOf(ArrClone, second);
 
-
-    const resPhrasesFirstSecond = phrases.map((item, index) => {
-        let secondArrClone = _.clone(secondArr)
-
-        const {audio} = item;
-        const first = item[secondLanguage];
-        const currentItemSecondLanguage = item[secondLanguage];
-
-        const firstIndex = _.indexOf(secondArrClone, currentItemSecondLanguage);
-        // console.log("firstIndex", firstIndex)
-        secondArrClone.splice(firstIndex, 1);
-
-        const second = _.sample(secondArrClone);
-        const secondIndex = _.indexOf(secondArrClone, second);
-        // console.log("secondIndex", secondIndex)
-        secondArrClone.splice(secondIndex, 1);
-
-
-        const third = _.sample(secondArrClone);
-        const thirdIndex = _.indexOf(secondArrClone, third);
-        // console.log("thirdIndex", thirdIndex)
-        secondArrClone.splice(thirdIndex, 1);
-
-        const fourth = _.sample(secondArrClone);
-        const fourthIndex = _.indexOf(secondArrClone, fourth);
-        // console.log("fourthIndex", fourthIndex)
+        ArrClone.splice(secondIndex, 1);
+        const third = _.sample(ArrClone);
+        const thirdIndex = _.indexOf(ArrClone, third);
+        ArrClone.splice(thirdIndex, 1);
+        const fourth = _.sample(ArrClone);
         const shuffledOptions = _.shuffle([
             {id: 1, text: first},
             {id: 2, text: second},
@@ -217,13 +193,120 @@ function getPhrasesFirstSecond(firstLanguage, secondLanguage) {
         ])
         return {
             id: index,
+            questionText: item[secondLanguage],
+            correct: 1,
+            options: shuffledOptions,
+            audio: sound
+        }
+    });
+    return {firstLanguage: resWordsFirstSecond, secondLanguage: resWordsSecondFirst}
+
+}
+
+export const wordsRusTat = getWordsFirstSecond("rus", "tat")
+export const wordsTatRus = getWordsFirstSecond("tat", "rus")
+console.log("wordsTatRus", wordsTatRus)
+export const wordsTatEng = getWordsFirstSecond("tat", "eng")
+export const wordsEngTat = getWordsFirstSecond("eng", "tat")
+
+export function getPhrasesFirstSecond(firstLanguage, secondLanguage) {
+    let firstArr = [];
+    let secondArr = [];
+    switch (firstLanguage) {
+        case 'rus':
+            firstArr = rusWords;
+            break;
+        case 'tat':
+            firstArr = tatWords;
+            break;
+        case 'eng':
+            firstArr = engWords;
+            break;
+        default:
+            firstArr = undefined;
+    }
+
+    switch (secondLanguage) {
+        case 'rus':
+            secondArr = rusWords;
+            break;
+        case 'tat':
+            secondArr = tatWords;
+            break;
+        case 'eng':
+            secondArr = engWords;
+            break;
+        default:
+            secondArr = undefined;
+    }
+
+
+    const resWordsFirstSecond = phrases.map((item, index) => {
+
+        let ArrClone = _.clone(secondArr);
+        const first = item[secondLanguage];
+        const currentItemSecondLanguage = item[secondLanguage];
+
+        const firstIndex = _.indexOf(ArrClone, currentItemSecondLanguage);
+        ArrClone.splice(firstIndex, 1);
+
+        const second = _.sample(ArrClone);
+        const secondIndex = _.indexOf(ArrClone, second);
+
+        ArrClone.splice(secondIndex, 1);
+        const third = _.sample(ArrClone);
+        const thirdIndex = _.indexOf(ArrClone, third);
+        ArrClone.splice(thirdIndex, 1);
+        const fourth = _.sample(ArrClone);
+        const shuffledOptions = _.shuffle([
+            {id: 1, text: first},
+            {id: 2, text: second},
+            {id: 3, text: third},
+            {id: 4, text: fourth},
+        ])
+        const {audio} =  item;
+        return {
+            id: index,
             questionText: item[firstLanguage],
             correct: 1,
             options: shuffledOptions,
             audio: audio
         }
     });
-    return resPhrasesFirstSecond
+    const resWordsSecondFirst = phrases.map((item, index) => {
+
+        let ArrClone = _.clone(firstArr);
+        const first = item[firstLanguage];
+        const currentItemSecondLanguage = item[firstLanguage];
+
+        const firstIndex = _.indexOf(ArrClone, currentItemSecondLanguage);
+        ArrClone.splice(firstIndex, 1);
+
+        const second = _.sample(ArrClone);
+        const secondIndex = _.indexOf(ArrClone, second);
+
+        ArrClone.splice(secondIndex, 1);
+        const third = _.sample(ArrClone);
+        const thirdIndex = _.indexOf(ArrClone, third);
+        ArrClone.splice(thirdIndex, 1);
+        const fourth = _.sample(ArrClone);
+        const {audio} =  item;
+        const shuffledOptions = _.shuffle([
+            {id: 1, text: first},
+            {id: 2, text: second},
+            {id: 3, text: third},
+            {id: 4, text: fourth},
+        ])
+        return {
+            id: index,
+            questionText: item[secondLanguage],
+            correct: 1,
+            options: shuffledOptions,
+            audio: audio
+        }
+    });
+    return {firstLanguage: resWordsFirstSecond, secondLanguage: resWordsSecondFirst}
+
 }
 
 export const phrasesRusTat = getPhrasesFirstSecond("rus", "tat")
@@ -240,6 +323,4 @@ export const initialState = {
     translate: translateBase.tat,
     words: wordsTatRus,
     phrases: phrasesTatRus,
-    // questions: _.shuffle(wordsTatRus).slice(1, 6),
-    // phrases: _.shuffle(phrasesTatRus).slice(1, 6),
 }

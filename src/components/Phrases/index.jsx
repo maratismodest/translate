@@ -21,11 +21,17 @@ const Phrases = ({state, setState}) => {
         chosenGame
     } = state;
 
+    const {firstLanguage, secondLanguage} = phrases;
+    const first = _.shuffle(firstLanguage).slice(0,3);
+    const second = _.shuffle(secondLanguage).slice(0,3);
+    const shuffle = _.shuffle([...first, ...second])
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(_.shuffle(phrases).slice(0,5));
+    const [questions, setQuestions] = useState(shuffle);
     const [result, setResult] = useState([]);
 
     const question = questions[currentQuestionIndex];
+
     const {options, questionText, correct, id: questionId, audio} = question
     const [tell] = useSound(audio)
     // const shuffledOptions = _.shuffle(options)
