@@ -172,7 +172,7 @@ export const words = [
         eng: "Centre"
     }, {
         tat: "Исем",
-        rus: "Имя, название, наименование",
+        rus: "Имя, название",
         eng: "Name"
     }, {
         tat: "Нәтиҗә",
@@ -316,7 +316,7 @@ export const words = [
         eng: "Muslim"
     }, {
         tat: "Чор",
-        rus: "Период, этап, стадия, эпоха",
+        rus: "Период, этап, эпоха",
         eng: "Period"
     }, {
         tat: "Гамәл",

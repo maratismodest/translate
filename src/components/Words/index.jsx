@@ -2,12 +2,12 @@ import React, {useState, useEffect} from "react";
 import useSound from "use-sound";
 import sound from "../../sounds/sound.mp3";
 import wrong from "../../sounds/wrong.mp3";
-import {Button} from "antd";
+import Button from "../../ui/Button";
 import Title from "antd/es/typography/Title";
 
 import {useHistory} from "react-router-dom";
 import _ from 'lodash'
-import {words} from "../localBase/words";
+import {StyledGame} from "../../App";
 
 const Words = ({state, setState}) => {
     const [yes] = useSound(sound);
@@ -20,8 +20,15 @@ const Words = ({state, setState}) => {
         chosenGame,
     } = state;
 
+    console.log("words", words)
+
+    const {firstLanguage, secondLanguage} = words;
+    const first = _.shuffle(firstLanguage).slice(0,3);
+    const second = _.shuffle(secondLanguage).slice(0,3);
+    const shuffle = _.shuffle([...first, ...second])
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(_.shuffle(words).slice(0,5));
+    const [questions, setQuestions] = useState(shuffle);
     const [result, setResult] = useState([]);
 
     console.log('translate', translate)
@@ -71,6 +78,7 @@ const Words = ({state, setState}) => {
     })
 
     return (
+        <StyledGame>
         <div style={{textAlign: "center"}}>
             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
             <Title level={2}>{questionText}</Title>
@@ -78,6 +86,7 @@ const Words = ({state, setState}) => {
                 {optionsList}
             </ul>
         </div>
+            </StyledGame>
     )
 }
 

@@ -1,13 +1,14 @@
 import useSound from "use-sound";
 import sound from "../../sounds/sound.mp3";
 import wrong from "../../sounds/wrong.mp3";
-import {Button} from "antd";
+import Button from '../../ui/Button'
 import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
 import {useState} from "react";
 import _ from "lodash";
+import {StyledGame} from "../../App";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
@@ -20,11 +21,17 @@ const Phrases = ({state, setState}) => {
         chosenGame
     } = state;
 
+    const {firstLanguage, secondLanguage} = phrases;
+    const first = _.shuffle(firstLanguage).slice(0,3);
+    const second = _.shuffle(secondLanguage).slice(0,3);
+    const shuffle = _.shuffle([...first, ...second])
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(_.shuffle(phrases).slice(0,5));
+    const [questions, setQuestions] = useState(shuffle);
     const [result, setResult] = useState([]);
 
     const question = questions[currentQuestionIndex];
+
     const {options, questionText, correct, id: questionId, audio} = question
     const [tell] = useSound(audio)
     // const shuffledOptions = _.shuffle(options)
@@ -84,6 +91,7 @@ const Phrases = ({state, setState}) => {
 
 
     return (
+        <StyledGame>
         <StyledPhrase>
 
             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
@@ -93,6 +101,7 @@ const Phrases = ({state, setState}) => {
                 {optionsList}
             </ul>
         </StyledPhrase>
+            </StyledGame>
     )
 }
 
