@@ -317,6 +317,8 @@ export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
     language: 'tat',
+    firstLanguage: 'tat',
+    secondLanguage: 'rus',
     result: [],
     finished: false,
     currentQuestionIndex: 0,
