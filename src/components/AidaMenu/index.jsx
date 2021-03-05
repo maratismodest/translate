@@ -30,9 +30,11 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'tat',
-                        words: getWordsFirstSecond('rus', 'tat'),
-                        phrases: getPhrasesFirstSecond('rus', 'tat'),
+                        words: getWordsFirstSecond('tat', 'rus'),
+                        phrases: getPhrasesFirstSecond('tat', 'rus'),
                         translate: translateBase.tat,
+                        firstLanguage: 'tat',
+                        secondLanguage: 'rus',
                     })
                     history.push('/')
                 }}>TA</a>
@@ -43,9 +45,11 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'rus',
-                        words: getWordsFirstSecond('rus', 'tat'),
-                        phrases: getPhrasesFirstSecond('rus', 'tat'),
+                        words: getWordsFirstSecond('tat', 'rus'),
+                        phrases: getPhrasesFirstSecond('tat', 'rus'),
                         translate: translateBase.rus,
+                        firstLanguage: 'rus',
+                        secondLanguage: 'tat',
                     })
                     history.push('/')
                 }}>RU</a>
@@ -56,9 +60,11 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'eng',
-                        words: getWordsFirstSecond('eng', 'tat'),
-                        phrases: getPhrasesFirstSecond('eng', 'tat'),
+                        words: getWordsFirstSecond('tat', 'eng'),
+                        phrases: getPhrasesFirstSecond('tat', 'eng'),
                         translate: translateBase.eng,
+                        firstLanguage: 'eng',
+                        secondLanguage: 'tat',
                     })
                     history.push('/')
                 }}>EN</a>
