@@ -4,7 +4,7 @@ import {translateBase} from '../../localBase/base'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import styled from 'styled-components'
-import {device} from "../responsiveStyled";
+import {device} from "../../localBase/responsiveStyled";
 import ReactLogo from './welcome.svg'
 
 const Welcome = ({state, setState}) => {

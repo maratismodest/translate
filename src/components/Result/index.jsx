@@ -3,7 +3,7 @@ import {List, Typography, Divider} from 'antd';
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
-import {device} from "../responsiveStyled";
+import {device} from "../../localBase/responsiveStyled";
 import wellDone from './wellDone.svg'
 
 

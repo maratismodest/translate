@@ -8,7 +8,8 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
-import {device} from "../responsiveStyled";
+import {QuestionNumber} from "../Words";
+import {device} from "../../localBase/responsiveStyled";
 
 const Collect = ({state, setState}) => {
 
@@ -141,7 +142,6 @@ const Collect = ({state, setState}) => {
     return (
 
             <StyledQuestion>
-                <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
                 <Title level={2}>{translate.repeatAudio}</Title>
                 <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
                 <StyledResult>
@@ -152,6 +152,7 @@ const Collect = ({state, setState}) => {
                     {arrList}
                 </StyledUl>
                 <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
+                <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
             </StyledQuestion>
 
     )
@@ -163,8 +164,16 @@ export default Collect;
 
 const StyledQuestion = styled.div`
   text-align: center;
-  width: 100%;
-  max-width: 350px;
+  
+
+
+    @media ${device.desktop} {
+      width: 350px;
+  }
+    @media ${device.laptop} {
+      width: 350px;
+
+  }
 `
 
 const StyledNavMenu = styled.div`

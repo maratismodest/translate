@@ -17,7 +17,7 @@ import Phrases from "./components/Phrases";
 import Collect from "./components/Collect";
 import {YMInitializer} from "react-yandex-metrika";
 import AidaMenu from "./components/AidaMenu";
-import {device} from "./components/responsiveStyled";
+import {device} from "./localBase/responsiveStyled";
 
 function App() {
     const [state, setState] = useState(initialState);
