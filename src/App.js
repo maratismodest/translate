@@ -48,7 +48,11 @@ function App() {
 
             </Switch>
             </StyledMain>
-            <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
+            <div>Chamala 2021</div>
+            <div hidden>
+                <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
+            </div>
+
         </Game>
 
 
@@ -81,7 +85,7 @@ const Game =styled.div`
     padding-left: 32px;
     padding-right: 32px;
     padding-top: 22px;
-    padding-top: 22px;
+    padding-bottom: 22px;
   }
 `
 
@@ -122,6 +126,10 @@ const StyledMenu = styled.div`
 `
 
 const StyledMain = styled.div`
-    
+  //width: 100%;
+  //display: flex;
+  //flex-direction: column;
+  //align-items: center;
+  //justify-content: center;
 `
 

@@ -28,28 +28,27 @@ const Welcome = ({state, setState}) => {
     return (
 
 
-            <StyledWelcome>
-                <StyledWallPaper>
-                    <img src={ReactLogo} alt="Chamala" width={'100%'} />
+        <StyledWelcome>
+            <StyledWallPaper>
+                <img src={ReactLogo} alt="Chamala" width={'100%'}/>
 
-                </StyledWallPaper>
+            </StyledWallPaper>
+            <StyledWelcomeMenu>
+                <StyledHeader>Выучи разговорные фразы
+                    на татарском языке
+                    в формате мини-игр</StyledHeader>
                 <div>
-                    <StyledHeader>Выучи разговорные фразы
-                        на татарском языке
-                        в формате мини-игр</StyledHeader>
-                    <div>
-                        <Link to={'/words'}><Button size={"large"}
-                                                    onClick={handleWordsButton}>{wordsText}</Button></Link>
-                        <Divider/>
-                        <Link to={'/phrases'}><Button size={"large"}
-                                                      onClick={handlePhrasesButton}>{phrases}</Button></Link>
-                        <Divider/>
-                        <Link to={'/collect'}><Button size={"large"}
-                                                      onClick={handleDragAndDropButton}>{dragAndDrop}</Button></Link>
-                    </div>
+                    <Link to={'/words'}><Button size={"large"}
+                                                onClick={handleWordsButton}>{wordsText}</Button></Link>
+                    <Divider/>
+                    <Link to={'/phrases'}><Button size={"large"}
+                                                  onClick={handlePhrasesButton}>{phrases}</Button></Link>
+                    <Divider/>
+                    <Link to={'/collect'}><Button size={"large"}
+                                                  onClick={handleDragAndDropButton}>{dragAndDrop}</Button></Link>
                 </div>
-            </StyledWelcome>
-
+            </StyledWelcomeMenu>
+        </StyledWelcome>
 
 
     )
@@ -59,10 +58,32 @@ export default Welcome
 
 const StyledWelcome = styled.div`
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  @media ${device.desktop} {
+    flex-direction: flex;
+  }
+  @media ${device.laptop} {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const StyledWallPaper = styled.div`
-    max-width: 50%;
+  max-width: 50%;
+`
+
+const StyledWelcomeMenu = styled.div`
+  padding-left: 5%;
+  text-align: center;
+  @media ${device.desktop} {
+
+
+  }
+  @media ${device.laptop} {
+    padding-top: 30px;
+  }
+  
 `
 
 
@@ -86,7 +107,7 @@ const StyledHeader = styled.h2`
     font-size: 20px;
     line-height: 126%;
     padding-bottom: 30px;
-    max-width: 80%;
+    //max-width: 80%;
   }
 
 `
