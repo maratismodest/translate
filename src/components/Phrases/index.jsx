@@ -8,7 +8,7 @@ import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
 import {useState} from "react";
 import _ from "lodash";
-import {StyledGame} from "../../App";
+import {QuestionNumber} from "../Words";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
@@ -22,8 +22,8 @@ const Phrases = ({state, setState}) => {
     } = state;
 
     const {firstLanguage, secondLanguage} = phrases;
-    const first = _.shuffle(firstLanguage).slice(0,3);
-    const second = _.shuffle(secondLanguage).slice(0,3);
+    const first = _.shuffle(firstLanguage).slice(0, 3);
+    const second = _.shuffle(secondLanguage).slice(0, 3);
     const shuffle = _.shuffle([...first, ...second])
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -36,7 +36,6 @@ const Phrases = ({state, setState}) => {
     const [tell] = useSound(audio)
     // const shuffledOptions = _.shuffle(options)
     const shuffledOptions = options;
-
 
 
     // useEffect(()=>{
@@ -61,6 +60,7 @@ const Phrases = ({state, setState}) => {
             })
         }
     }
+
     const handleClick = (id) => {
         const timeout = window.setTimeout(() => {
             id === correct ? yes() : no()
@@ -88,20 +88,18 @@ const Phrases = ({state, setState}) => {
     })
 
 
-
-
     return (
-        <StyledGame>
+
         <StyledPhrase>
-
-            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
-
-            <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
+            <Title level={2} onClick={() => {
+                tell()
+            }}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                 {optionsList}
             </ul>
+            <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledPhrase>
-            </StyledGame>
+
     )
 }
 
