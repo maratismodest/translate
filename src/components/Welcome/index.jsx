@@ -60,6 +60,7 @@ const StyledWelcome = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   @media ${device.desktop} {
     flex-direction: flex;
   }
@@ -74,13 +75,14 @@ const StyledWallPaper = styled.div`
 `
 
 const StyledWelcomeMenu = styled.div`
-  padding-left: 5%;
+ 
   text-align: center;
   @media ${device.desktop} {
-
+    padding-left: 5%;
 
   }
   @media ${device.laptop} {
+    padding-left: 0;
     padding-top: 30px;
   }
   

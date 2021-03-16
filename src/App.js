@@ -34,24 +34,23 @@ function App() {
             </StyledHeader>
 
             <StyledMain>
-            <Switch>
+                <Switch>
 
-                {/*<Route path="/" exact render={() => <h1>Home Page</h1>}/>*/}
+                    {/*<Route path="/" exact render={() => <h1>Home Page</h1>}/>*/}
 
 
-                <Route path={["/words", "/*/words"]} render={() => <Words state={state} setState={setState}/>}/>
-                <Route path={["/phrases", "/*/phrases"]} render={() => <Phrases state={state} setState={setState}/>}/>
-                <Route path={["/collect", "/*/collect"]} render={() => <Collect state={state} setState={setState}/>}/>
-                <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState}/>}/>
-                <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
-                <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
+                    <Route path={["/words", "/*/words"]} render={() => <Words state={state} setState={setState}/>}/>
+                    <Route path={["/phrases", "/*/phrases"]}
+                           render={() => <Phrases state={state} setState={setState}/>}/>
+                    <Route path={["/collect", "/*/collect"]}
+                           render={() => <Collect state={state} setState={setState}/>}/>
+                    <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState}/>}/>
+                    <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
+                    <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
 
-            </Switch>
+                </Switch>
             </StyledMain>
-            <div>Chamala 2021</div>
-            <div hidden>
-                <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
-            </div>
+            <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
 
         </Game>
 
@@ -61,7 +60,7 @@ function App() {
 
 export default App;
 
-const Game =styled.div`
+const Game = styled.div`
   position: relative;
   height: 100vh;
   display: flex;
@@ -75,6 +74,7 @@ const Game =styled.div`
   .ant-divider-horizontal {
     margin: 12px 0 !important;
   }
+
   @media ${device.desktop} {
     padding-left: 60px;
     padding-right: 60px;
@@ -87,6 +87,7 @@ const Game =styled.div`
     padding-top: 22px;
     padding-bottom: 22px;
   }
+  
 `
 
 const StyledHeader = styled.div`
@@ -95,6 +96,7 @@ const StyledHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 
 const StyledLogo = styled.div`
@@ -126,10 +128,10 @@ const StyledMenu = styled.div`
 `
 
 const StyledMain = styled.div`
-  //width: 100%;
-  //display: flex;
-  //flex-direction: column;
-  //align-items: center;
-  //justify-content: center;
 `
 
+// @media ${device.desktop} {
+// }
+// @media ${device.laptop} {
+//
+// }

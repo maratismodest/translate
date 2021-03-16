@@ -7,9 +7,10 @@ import Title from "antd/es/typography/Title";
 
 import {useHistory} from "react-router-dom";
 import _ from 'lodash'
-import {StyledGame} from "../../App";
+import styled from "styled-components"
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {StyledPhrase} from "../Collect";
+import {device} from "../responsiveStyled";
 
 const Words = ({state, setState}) => {
     const [yes] = useSound(sound);
@@ -82,13 +83,33 @@ const Words = ({state, setState}) => {
     return (
 
         <div style={{textAlign: "center"}}>
-            <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
+
             <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                 {optionsList}
             </ul>
+            <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </div>
     )
 }
 
 export default Words;
+
+const QuestionNumber = styled.span`
+  font-size: 16px;
+  line-height: 126%;
+  color: var(--color-primary);
+  font-weight: normal;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+
+  @media ${device.desktop} {
+    bottom: 70px;
+  }
+  @media ${device.laptop} {
+    bottom: 32px;
+  }
+;
+`
