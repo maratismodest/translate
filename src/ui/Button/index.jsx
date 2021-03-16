@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {device} from "../../components/responsiveStyled";
 
 export default styled(Button)`
-  background: #718CCC;
+  background: var(--color-primary);
   border-radius: 48px;
   font-style: normal;
   font-weight: 500;

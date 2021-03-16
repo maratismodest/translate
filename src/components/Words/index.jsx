@@ -80,7 +80,7 @@ const Words = ({state, setState}) => {
     })
 
     return (
-        <StyledGame>
+
         <div style={{textAlign: "center"}}>
             <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
             <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
@@ -88,7 +88,6 @@ const Words = ({state, setState}) => {
                 {optionsList}
             </ul>
         </div>
-            </StyledGame>
     )
 }
 

@@ -14,7 +14,7 @@ import styled from "styled-components";
 import Words from "./components/Words";
 import Result from "./components/Result";
 import Phrases from "./components/Phrases";
-import Collect, {StyledMenu} from "./components/Collect";
+import Collect from "./components/Collect";
 import {YMInitializer} from "react-yandex-metrika";
 import AidaMenu from "./components/AidaMenu";
 import {device} from "./components/responsiveStyled";
@@ -24,18 +24,16 @@ function App() {
     const history = useHistory();
     const {language} = state;
 
-    // useEffect(() => {
-    //     // console.log("history",history)
-    //     history.push('/')
-    // }, [language])
     return (
+        <Game>
+            <StyledHeader>
+                <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
+                <StyledMenu>
+                    <AidaMenu state={state} setState={setState}/>
+                </StyledMenu>
+            </StyledHeader>
 
-        // <StyledGame>
-        <div style={{position: 'relative'}}>
-            <StyledMenu>
-                <AidaMenu state={state} setState={setState}/>
-            </StyledMenu>
-            <NavLink to={'/'}><StyledMain>Chamala</StyledMain></NavLink>
+            <StyledMain>
             <Switch>
 
                 {/*<Route path="/" exact render={() => <h1>Home Page</h1>}/>*/}
@@ -49,23 +47,54 @@ function App() {
                 <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
 
             </Switch>
+            </StyledMain>
             <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
-        </div>
+        </Game>
 
-        // </StyledGame>
 
     );
 }
 
 export default App;
 
-const StyledMain = styled.div`
-  z-index: 1;
-  position: absolute;
-  left: 60px;
-  top: 40px;
-  font-weight: bold;
+const Game =styled.div`
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  background: linear-gradient(91.77deg, #FFFFFF -16.35%, rgba(222, 222, 253, 0.77) 139.34%), #F3F2F9;
+  opacity: 0.8;
 
+  .ant-divider-horizontal {
+    margin: 12px 0 !important;
+  }
+  @media ${device.desktop} {
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 40px;
+    padding-bottom: 70px;
+  }
+  @media ${device.laptop} {
+    padding-left: 32px;
+    padding-right: 32px;
+    padding-top: 22px;
+    padding-top: 22px;
+  }
+`
+
+const StyledHeader = styled.div`
+  position: relative;
+  //border: 1px solid black;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`
+
+const StyledLogo = styled.div`
+  font-weight: bold;
   line-height: 133%;
   font-family: Rubik;
   font-style: normal;
@@ -77,23 +106,22 @@ const StyledMain = styled.div`
     font-size: 16px;
     left: 32px;
     top: 32px;
+`
+
+const StyledMenu = styled.div`
+  @media ${device.desktop} {
+    right: 78px;
+    top: 45px;
+
+  }
+  @media ${device.laptop} {
+    right: 32px;
+    top: 25px;
+  }
 
 `
 
-export const StyledGame = styled.div`
-  padding: 5%;
-  position: relative;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  background: linear-gradient(91.77deg, #FFFFFF -16.35%, rgba(222, 222, 253, 0.77) 139.34%), #F3F2F9;
-  opacity: 0.8;
-
-  .ant-divider-horizontal {
-    margin: 12px 0 !important;
-  }
+const StyledMain = styled.div`
+    
 `
 

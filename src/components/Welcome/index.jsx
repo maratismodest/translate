@@ -3,10 +3,9 @@ import React from "react";
 import {translateBase} from '../../localBase/base'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
-import {StyledGame} from "../../App";
 import styled from 'styled-components'
 import {device} from "../responsiveStyled";
-import ReactLogo  from './welcome.svg'
+import ReactLogo from './welcome.svg'
 
 const Welcome = ({state, setState}) => {
     if (!state) {
@@ -16,10 +15,6 @@ const Welcome = ({state, setState}) => {
     const {language} = state;
     const {wordsText, phrases, dragAndDrop} = translateBase[language];
     console.log(wordsText, phrases, dragAndDrop)
-
-
-
-
 
     const handleWordsButton = () => {
         setState({...state, chosenGame: 'words', gameState: 'words', currentQuestionIndex: 0})
@@ -32,23 +27,44 @@ const Welcome = ({state, setState}) => {
     }
     return (
 
-        <StyledGame>
-            <img src={ReactLogo} alt="React Logo" width={230} />
-            <StyledHeader>Выучи разговорные фразы
-                на татарском языке
-                в формате мини-игр</StyledHeader>
-            <Link to={'/words'}><Button size={"large"} onClick={handleWordsButton}>{wordsText}</Button></Link>
-            <Divider/>
-            <Link to={'/phrases'}><Button size={"large"} onClick={handlePhrasesButton}>{phrases}</Button></Link>
-            <Divider/>
-            <Link to={'/collect'}><Button size={"large"} onClick={handleDragAndDropButton}>{dragAndDrop}</Button></Link>
-        </StyledGame>
+
+            <StyledWelcome>
+                <StyledWallPaper>
+                    <img src={ReactLogo} alt="Chamala" width={'100%'} />
+
+                </StyledWallPaper>
+                <div>
+                    <StyledHeader>Выучи разговорные фразы
+                        на татарском языке
+                        в формате мини-игр</StyledHeader>
+                    <div>
+                        <Link to={'/words'}><Button size={"large"}
+                                                    onClick={handleWordsButton}>{wordsText}</Button></Link>
+                        <Divider/>
+                        <Link to={'/phrases'}><Button size={"large"}
+                                                      onClick={handlePhrasesButton}>{phrases}</Button></Link>
+                        <Divider/>
+                        <Link to={'/collect'}><Button size={"large"}
+                                                      onClick={handleDragAndDropButton}>{dragAndDrop}</Button></Link>
+                    </div>
+                </div>
+            </StyledWelcome>
+
 
 
     )
 }
 
 export default Welcome
+
+const StyledWelcome = styled.div`
+  width: 100%;
+`
+
+const StyledWallPaper = styled.div`
+    max-width: 50%;
+`
+
 
 const StyledHeader = styled.h2`
   margin: 0;

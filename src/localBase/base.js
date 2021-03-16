@@ -14,7 +14,7 @@ export const translateBase = {
         dragAndDrop: 'Собери',
         wrong: 'Неверно',
         right: 'Верно',
-        mainPage: 'На главную',
+        mainPage: 'Вернуться на главную',
         check: 'Проверить',
         repeatAudio: 'Повторить',
         question: 'Вопрос',
@@ -106,7 +106,7 @@ export const engPhrases = getLangPhrases('eng')
 
 function resList(firstLanguage, secondLanguage, firstArr, secondArr, base) {
     return base.map((item, index) => {
-        console.log("item: ", item)
+        // console.log("item: ", item)
         const {audio} = item;
         const questionText = item[firstLanguage];
         const properAnswer = item[secondLanguage];

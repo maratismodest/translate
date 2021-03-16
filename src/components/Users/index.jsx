@@ -10,7 +10,7 @@ export default () => {
     )
 }
 const StyledGame = styled.div`
-    padding: 5%;
+    resList
   position: relative;
   height: 100vh;
   display: flex;

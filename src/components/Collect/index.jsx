@@ -8,7 +8,6 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
-import {StyledGame} from "../../App";
 import {device} from "../responsiveStyled";
 
 const Collect = ({state, setState}) => {
@@ -140,7 +139,7 @@ const Collect = ({state, setState}) => {
 
 
     return (
-        <StyledGame>
+
             <StyledQuestion>
                 <Title level={5}>{translate.question} {currentQuestionIndex + 1} / {questions.length}</Title>
                 <Title level={2}>{translate.repeatAudio}</Title>
@@ -154,26 +153,13 @@ const Collect = ({state, setState}) => {
                 </StyledUl>
                 <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
             </StyledQuestion>
-        </StyledGame>
+
     )
 
 }
 export default Collect;
 
-export const StyledMenu = styled.div`
-  z-index: 1;
-  position: absolute;
-  @media ${device.desktop} {
-    right: 78px;
-    top: 45px;
 
-  }
-  @media ${device.laptop} {
-    right: 32px;
-    top: 25px;
-  }
-
-`
 
 const StyledQuestion = styled.div`
   text-align: center;
@@ -187,21 +173,6 @@ const StyledNavMenu = styled.div`
   top: 0;
 `
 
-// const StyledGame = styled.div`
-//   padding: 5%;
-//   position: relative;
-//   height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   flex-grow: 1;
-//   background: #FEF5EF;
-//
-//   .ant-divider-horizontal {
-//     margin: 12px 0 !important;
-//   }
-// `
 
 const StyledResult = styled.ul`
   min-width: 200px;

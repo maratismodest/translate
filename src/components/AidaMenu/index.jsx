@@ -30,8 +30,8 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'tat',
-                        words: getWordsFirstSecond('tat', 'rus'),
-                        phrases: getPhrasesFirstSecond('tat', 'rus'),
+                        words: wordsTatRus,
+                        phrases: phrasesTatRus,
                         translate: translateBase.tat,
                         firstLanguage: 'tat',
                         secondLanguage: 'rus',
@@ -45,8 +45,8 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'rus',
-                        words: getWordsFirstSecond('tat', 'rus'),
-                        phrases: getPhrasesFirstSecond('tat', 'rus'),
+                        words: wordsTatRus,
+                        phrases: phrasesTatRus,
                         translate: translateBase.rus,
                         firstLanguage: 'rus',
                         secondLanguage: 'tat',
@@ -60,8 +60,8 @@ const AidaMenu = ({state, setState}) => {
                     setState({
                         ...state,
                         language: 'eng',
-                        words: getWordsFirstSecond('tat', 'eng'),
-                        phrases: getPhrasesFirstSecond('tat', 'eng'),
+                        words: wordsTatEng,
+                        phrases: phrasesEngTat,
                         translate: translateBase.eng,
                         firstLanguage: 'eng',
                         secondLanguage: 'tat',
