@@ -9,8 +9,11 @@ import {useHistory} from "react-router-dom";
 import _ from 'lodash'
 import styled from "styled-components"
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
-import {StyledPhrase} from "../Collect";
 import {device} from "../../localBase/responsiveStyled";
+
+import play from '../../assets/play.svg'
+import Play from "../../ui/Play";
+import QuestionText from "../../ui/QuestionText";
 
 const Words = ({state, setState}) => {
     const [yes] = useSound(sound);
@@ -26,8 +29,8 @@ const Words = ({state, setState}) => {
     console.log("words", words)
 
     const {firstLanguage, secondLanguage} = words;
-    const first = _.shuffle(firstLanguage).slice(0,3);
-    const second = _.shuffle(secondLanguage).slice(0,3);
+    const first = _.shuffle(firstLanguage).slice(0, 3);
+    const second = _.shuffle(secondLanguage).slice(0, 3);
     const shuffle = _.shuffle([...first, ...second])
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -39,6 +42,7 @@ const Words = ({state, setState}) => {
     const question = questions[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question;
     const [tell] = useSound(audio);
+
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
         if (currentQuestionIndex + 1 < questions.length) {
@@ -83,7 +87,10 @@ const Words = ({state, setState}) => {
     return (
 
         <StyledWords>
-            <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
+            <div onClick={tell} style={{textAlign: 'center'}}>
+                <QuestionText title={questionText}/>
+                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+                </div>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                 {optionsList}
             </ul>
@@ -94,8 +101,25 @@ const Words = ({state, setState}) => {
 
 export default Words;
 
+export const PlayAgain = styled.span`
+  font-style: normal;
+  font-weight: 500;
+
+
+  text-decoration: underline;
+  color: var(--color-primary);
+  line-height: 133%;
+}
+  @media ${device.desktop} {
+    font-size: 24px;
+  
+  @media ${device.laptop} {
+    font-size: 16px;
+  };
+`
+
 const StyledWords = styled.div`
-    text-align: center;
+  text-align: center;
 `
 export const QuestionNumber = styled.span`
   font-size: 16px;
@@ -114,6 +138,5 @@ export const QuestionNumber = styled.span`
   }
   @media ${device.laptop} {
     bottom: 32px;
-  }
-;
+  };
 `

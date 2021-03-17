@@ -6,9 +6,11 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
-import {useState} from "react";
+import React, {useState} from "react";
 import _ from "lodash";
-import {QuestionNumber} from "../Words";
+import {PlayAgain, QuestionNumber} from "../Words";
+import QuestionText from "../../ui/QuestionText";
+import Play from "../../ui/Play";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
@@ -91,9 +93,10 @@ const Phrases = ({state, setState}) => {
     return (
 
         <StyledPhrase>
-            <Title level={2} onClick={() => {
-                tell()
-            }}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
+            <div onClick={tell} style={{textAlign: 'center'}}>
+                <QuestionText title={questionText}/>
+                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+            </div>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                 {optionsList}
             </ul>
