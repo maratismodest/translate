@@ -106,6 +106,8 @@ export const QuestionNumber = styled.span`
   left: 0;
   width: 100%;
   height: auto;
+  display: flex;
+  justify-content: center;
 
   @media ${device.desktop} {
     bottom: 70px;

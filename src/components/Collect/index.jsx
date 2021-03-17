@@ -18,30 +18,29 @@ const Collect = ({state, setState}) => {
     const [no] = useSound(wrong);
 
     const {
-        phrases,
         translate,
-        chosenGame
+        chosenGame,
+        collect
     } = state;
 
-    const {firstLanguage, secondLanguage} = phrases;
-    const first = _.shuffle(firstLanguage).slice(0, 5);
-    const shuffle = first;
-    // const second = _.shuffle(secondLanguage).slice(0,3);
-    // const shuffle = _.shuffle([...first, ...second])
+    const shuffle = _.shuffle(collect).slice(0, 5);
+    const collectClone = _.clone(collect);
 
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questions, setQuestions] = useState(shuffle);
-
-
     const [result, setResult] = useState([]);
 
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const question = questions[currentQuestionIndex];
-    const {options, questionText, correct, id: questionId, audio} = question;
-    const questionArr = questionText.split(' ');
-    const phrasesClone = _.clone(firstLanguage);
-    const firstIndex = _.indexOf(phrasesClone, question);
-    phrasesClone.splice(firstIndex, 1);
-    const randomArr = _.sample(phrasesClone).questionText.split(' ');
+    const {tat, audio} = question;
+
+    //удалить из клона массива фраз именно нашу фразу
+    const firstIndex = _.indexOf(collectClone, question);
+    collectClone.splice(firstIndex, 1);
+
+    console.log("question", question)
+
+    const questionArr = tat.split(' ');
+    const randomArr = _.sample(collectClone).tat.split(' ');
     const [arr, setArr] = useState(_.shuffle(questionArr.concat(randomArr)));
     const [answer, setAnswer] = useState([]);
 
@@ -89,12 +88,11 @@ const Collect = ({state, setState}) => {
 
         const timeout = window.setTimeout(() => {
             const final = answer.join(' ');
-            questionText === final ? yes() : no()
-            const questionResult = questionText === final ? {
+            tat === final ? yes() : no()
+            const questionResult = tat === final ? {
                 correct: true,
-                id: questionId,
-                questionText: questionText
-            } : {correct: false, id: questionId, questionText: questionText}
+                questionText: tat
+            } : {correct: false, id: tat, questionText: tat}
             checkGameState(chosenGame, questionResult)
             window.clearTimeout(timeout)
         }, 500)
@@ -141,19 +139,19 @@ const Collect = ({state, setState}) => {
 
     return (
 
-            <StyledQuestion>
-                <Title level={2}>{translate.repeatAudio}</Title>
-                <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
-                <StyledResult>
-                    {resultList}
-                </StyledResult>
-                <Divider/>
-                <StyledUl>
-                    {arrList}
-                </StyledUl>
-                <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
-                <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
-            </StyledQuestion>
+        <StyledQuestion>
+            <Title level={2}>{translate.repeatAudio}</Title>
+            <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
+            <StyledResult>
+                {resultList}
+            </StyledResult>
+            <Divider/>
+            <StyledUl>
+                {arrList}
+            </StyledUl>
+            <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
+            <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
+        </StyledQuestion>
 
     )
 
@@ -161,17 +159,15 @@ const Collect = ({state, setState}) => {
 export default Collect;
 
 
-
 const StyledQuestion = styled.div`
   text-align: center;
-  
 
 
-    @media ${device.desktop} {
-      width: 350px;
+  @media ${device.desktop} {
+    width: 350px;
   }
-    @media ${device.laptop} {
-      width: 350px;
+  @media ${device.laptop} {
+    width: 350px;
 
   }
 `

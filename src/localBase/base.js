@@ -160,9 +160,12 @@ export function getPhrasesFirstSecond(firstLanguage, secondLanguage, firstArr, s
 }
 
 export const phrasesRusTat = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
-export const phrasesTatRus = getPhrasesFirstSecond("tat", "rus", rusPhrases, tatPhrases, phrases)
-export const phrasesTatEng = getPhrasesFirstSecond("tat", "rus", tatPhrases, engPhrases, phrases)
-export const phrasesEngTat = getPhrasesFirstSecond("tat", "rus", engPhrases, tatPhrases, phrases)
+export const phrasesTatRus = getPhrasesFirstSecond("rus", "tat", rusPhrases, tatPhrases, phrases)
+export const phrasesTatEng = getPhrasesFirstSecond("tat", "eng", tatPhrases, engPhrases, phrases)
+export const phrasesEngTat = getPhrasesFirstSecond("eng", "rus", engPhrases, tatPhrases, phrases)
+
+export const collectPhrases = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
+
 export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
@@ -175,4 +178,5 @@ export const initialState = {
     translate: translateBase.tat,
     words: wordsTatRus,
     phrases: phrasesTatRus,
+    collect: phrases
 }
