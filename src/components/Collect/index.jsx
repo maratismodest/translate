@@ -8,8 +8,10 @@ import Title from "antd/es/typography/Title";
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
-import {QuestionNumber} from "../Words";
+import {PlayAgain, QuestionNumber} from "../Words";
 import {device} from "../../localBase/responsiveStyled";
+import QuestionText from "../../ui/QuestionText";
+import Play from "../../ui/Play";
 
 const Collect = ({state, setState}) => {
 
@@ -140,8 +142,10 @@ const Collect = ({state, setState}) => {
     return (
 
         <StyledQuestion>
-            <Title level={2}>{translate.repeatAudio}</Title>
-            <Icon onClick={tell} component={PlayCircleOutlined} style={{fontSize: '400%', color: '#12a4d9'}}/>
+            <div onClick={tell} style={{textAlign: 'center'}}>
+                {/*<QuestionText title={questionText}/>*/}
+                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+            </div>
             <StyledResult>
                 {resultList}
             </StyledResult>
