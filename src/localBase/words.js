@@ -508,7 +508,7 @@ export const words = [
     },
     {
         tat: "Дәрәҗә",
-        rus: "Звание, степень, уровень, авторитет",
+        rus: "Cтепень, уровень, авторитет",
         eng: "Level",
         audio: derezhe,
     },
