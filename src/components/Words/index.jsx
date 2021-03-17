@@ -9,8 +9,10 @@ import {useHistory} from "react-router-dom";
 import _ from 'lodash'
 import styled from "styled-components"
 import Icon, {PlayCircleOutlined} from "@ant-design/icons";
-import {StyledPhrase} from "../Collect";
 import {device} from "../../localBase/responsiveStyled";
+
+import play from '../../assets/play.svg'
+import Play from "../../ui/Play";
 
 const Words = ({state, setState}) => {
     const [yes] = useSound(sound);
@@ -83,7 +85,7 @@ const Words = ({state, setState}) => {
     return (
 
         <StyledWords>
-            <Title level={2} onClick={()=>{tell()}}><Icon onClick={tell} component={PlayCircleOutlined} style={{color: '#12a4d9'}}/> {questionText}</Title>
+            <Title level={2} onClick={()=>{tell()}}><Play onClick={tell} /> {questionText}</Title>
             <ul style={{minWidth: '200px', maxWidth: '350px'}}>
                 {optionsList}
             </ul>
