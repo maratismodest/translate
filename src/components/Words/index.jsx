@@ -1,21 +1,18 @@
 import React, {useState, useEffect} from "react";
 import useSound from "use-sound";
-import sound from "../../sounds/sound.mp3";
-import wrong from "../../sounds/wrong.mp3";
+import Sounds from '../../localBase/sounds'
 import Button from "../../ui/Button";
-import Title from "antd/es/typography/Title";
 
 import {useHistory} from "react-router-dom";
 import _ from 'lodash'
 import styled from "styled-components"
-import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {device} from "../../localBase/responsiveStyled";
 
-import play from '../../assets/play.svg'
 import Play from "../../ui/Play";
 import QuestionText from "../../ui/QuestionText";
 
 const Words = ({state, setState}) => {
+    const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const history = useHistory();
@@ -104,11 +101,10 @@ export default Words;
 export const PlayAgain = styled.span`
   font-style: normal;
   font-weight: 500;
-
-
   text-decoration: underline;
   color: var(--color-primary);
   line-height: 133%;
+  cursor: pointer;
 }
   @media ${device.desktop} {
     font-size: 24px;

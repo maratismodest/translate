@@ -1,18 +1,17 @@
 import React, {useEffect, useState} from "react";
 import _ from "lodash";
 import useSound from "use-sound";
-import sound from "../../sounds/sound.mp3";
-import wrong from "../../sounds/wrong.mp3";
-import { Divider, Tag} from "antd";
+import {Divider, Tag} from "antd";
 import Button from "../../ui/Button";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import {PlayAgain, QuestionNumber} from "../Words";
 import {device} from "../../localBase/responsiveStyled";
-import QuestionText from "../../ui/QuestionText";
 import Play from "../../ui/Play";
+import Sounds from '../../localBase/sounds'
 
 const Collect = ({state, setState}) => {
+    const {sound, wrong} = Sounds;
 
     const history = useHistory();
     const [yes] = useSound(sound);
@@ -37,8 +36,6 @@ const Collect = ({state, setState}) => {
     //удалить из клона массива фраз именно нашу фразу
     const firstIndex = _.indexOf(collectClone, question);
     collectClone.splice(firstIndex, 1);
-
-    console.log("question", question)
 
     const questionArr = tat.split(' ');
     const randomArr = _.sample(collectClone).tat.split(' ');
@@ -109,18 +106,17 @@ const Collect = ({state, setState}) => {
                      lineHeight: '18px',
                      padding: '6.4px 15px',
                      borderRadius: 12,
-                     border: '1px solid #718CCC'
+                     border: '1px solid #718CCC',
+                     cursor: "pointer"
                  }}
                  onClick={() => {
-                     handleClick(index)}}
-                     >{item}</Tag>
+                     handleClick(index)
+                 }}
+            >{item}</Tag>
         </li>
     })
 
     const handleTagClick = (index) => {
-        console.log(answer)
-        console.log(arr)
-
         const currentWord = answer[index];
         const resultArr = _.clone(arr)
         resultArr.push(currentWord)
@@ -140,7 +136,8 @@ const Collect = ({state, setState}) => {
                      fontSize: '16px',
                      lineHeight: '18px',
                      padding: '6.4px 15px',
-                     borderRadius: 12
+                     borderRadius: 12,
+                     cursor: "pointer"
                  }}
                  onClick={() => {
                      handleTagClick(index)
@@ -174,7 +171,10 @@ export default Collect;
 
 
 const StyledQuestion = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   @media ${device.desktop} {
     width: 350px;
   }
@@ -191,22 +191,20 @@ const StyledResult = styled.ul`
   box-sizing: border-box;
   box-shadow: inset -2px -1px 4px rgba(113, 140, 204, 0.1);
   border-radius: 28px;
-  min-width: 200px;
+  width: 90%;
   display: flex;
   min-height: 140px;
-  // flex-wrap: wrap;
+  flex-wrap: wrap;
   margin-top: 16px;
-  // padding: 12px 0;
   max-width: 350px;
   padding: 24px;
 `
 const StyledUl = styled.ul`
-  width: auto;
-  min-width: 200px;
+  width: 90%;
   display: flex;
   min-height: 120px;
   flex-wrap: wrap;
-  padding: 12px 0;
+  padding: 12px;
   //max-width: 300px;
 `
 export const StyledPhrase = styled.div`

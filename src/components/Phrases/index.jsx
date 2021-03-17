@@ -1,9 +1,7 @@
 import useSound from "use-sound";
-import sound from "../../sounds/sound.mp3";
-import wrong from "../../sounds/wrong.mp3";
+import Sounds from '../../localBase/sounds'
 import Button from '../../ui/Button'
-import Title from "antd/es/typography/Title";
-import Icon, {PlayCircleOutlined} from "@ant-design/icons";
+
 import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
 import React, {useState} from "react";
@@ -14,6 +12,7 @@ import Play from "../../ui/Play";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
+    const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
 
