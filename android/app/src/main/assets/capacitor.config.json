@@ -1,0 +1,8 @@
+{
+  "appId": "io.ionic.translate",
+  "appName": "translate",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
