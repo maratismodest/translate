@@ -11,9 +11,8 @@ import Play from "../../ui/Play";
 import Sounds from '../../localBase/sounds'
 
 const Collect = ({state, setState}) => {
-    const {sound, wrong} = Sounds;
-
     const history = useHistory();
+    const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
 
