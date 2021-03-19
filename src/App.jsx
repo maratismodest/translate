@@ -19,10 +19,10 @@ import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
 import {InitialStateInterface} from "./localBase/base"
 
-interface AppInterface {
-    state: InitialStateInterface
-    setState : Dispatch<SetStateAction<InitialStateInterface>>
-}
+// interface AppInterface {
+//     state: InitialStateInterface
+//     setState : Dispatch<SetStateAction<InitialStateInterface>>
+// }
 
 function App() {
     const [state, setState] = useState(initialState);

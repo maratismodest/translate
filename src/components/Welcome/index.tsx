@@ -1,18 +1,21 @@
 import {Divider} from "antd";
 import React from "react";
-import {translateBase} from '../../localBase/base'
+import {InitialStateInterface} from '../../localBase/base'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import ReactLogo from './welcome.svg'
 import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader} from './WelcomeStyles'
 
-const Welcome = ({state, setState} : {any, any}) => {
+
+const Welcome = ({state, setState}: { state: InitialStateInterface, setState: any }) => {
     if (!state) {
         return <div>Загрузка</div>
     }
     console.log("state", state)
-    const {language} = state;
-    const {wordsText, phrases, dragAndDrop} = translateBase[language];
+
+     const {translate} = state;
+    console.log("translate", translate)
+    const {wordsText, phrases, dragAndDrop} = translate;
     console.log(wordsText, phrases, dragAndDrop)
 
     const handleWordsButton = () => {
