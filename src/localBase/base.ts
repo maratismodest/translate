@@ -4,7 +4,6 @@ import {words} from "./words";
 import {phrases} from "./phrases";
 
 
-
 export const translateBase = {
     rus: {
         chooseLanguage: 'Язык',
@@ -167,7 +166,22 @@ export const phrasesEngTat = getPhrasesFirstSecond("eng", "rus", engPhrases, tat
 
 export const collectPhrases = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
 
-export const initialState = {
+export interface InitialStateInterface {
+    chosenGame: any
+    gameState: any
+    language: any
+    firstLanguage: any
+    secondLanguage: any
+    result: any
+    finished: any
+    currentQuestionIndex: any
+    translate: any
+    words: any
+    phrases: any
+    collect: any
+}
+
+export const initialState : InitialStateInterface = {
     chosenGame: undefined,
     gameState: 'welcome',
     language: 'tat',
