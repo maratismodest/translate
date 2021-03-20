@@ -5,10 +5,8 @@ import {
     Switch,
     Route, useLocation, useHistory, NavLink,
 } from "react-router-dom";
-import React, {useState, useEffect, Dispatch, SetStateAction} from "react";
-import {
-    initialState, phrasesTatRus, wordsRusTat
-} from "./localBase/base";
+import React, {useState} from "react";
+import {initialState} from "./localBase/base";
 import Welcome from "./components/Welcome";
 import Words from "./components/Words";
 import Result from "./components/Result";
@@ -17,12 +15,7 @@ import Collect from "./components/Collect";
 import {YMInitializer} from "react-yandex-metrika";
 import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
-import {InitialStateInterface} from "./localBase/base"
 
-// interface AppInterface {
-//     state: InitialStateInterface
-//     setState : Dispatch<SetStateAction<InitialStateInterface>>
-// }
 
 function App() {
     const [state, setState] = useState(initialState);

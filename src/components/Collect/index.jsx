@@ -39,13 +39,14 @@ const Collect = ({state, setState}) => {
 
     const questionseparated = tat.split(' ');
     const randomseparated = _.sample(collectClone).tat.split(' ');
-    const [separated, setSeparated] = useState(_.shuffle(questionseparated.concat(randomseparated)));
+    const randomseparated2 = _.sample(collectClone).tat.split(' ');
+    const [separated, setSeparated] = useState(_.shuffle(questionseparated.concat(randomseparated, randomseparated2)));
     const [answer, setAnswer] = useState([]);
 
     const [tell] = useSound(audio);
 
     useEffect(() => {
-        setSeparated(_.shuffle(questionseparated.concat(randomseparated)));
+        setSeparated(_.shuffle(questionseparated.concat(randomseparated, randomseparated2)));
         setAnswer([])
     }, [currentQuestionIndex])
     useEffect(() => {
@@ -98,7 +99,6 @@ const Collect = ({state, setState}) => {
     }
 
 
-
     const handleTagClick = (index) => {
         const currentWord = answer[index];
         setSeparated(_.clone(separated).push(currentWord));
@@ -130,14 +130,13 @@ const Collect = ({state, setState}) => {
     })
 
 
-
-
+    const {repeatAudio, check} = translate
     return (
 
         <StyledQuestion>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 {/*<QuestionText title={questionText}/>*/}
-                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
             </div>
             <StyledResult>
                 {resultList}
@@ -146,7 +145,7 @@ const Collect = ({state, setState}) => {
             <StyledUl>
                 {separatedList}
             </StyledUl>
-            <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
+            <Button size={'large'} type="primary" onClick={handleAnswerClick} disabled={answer.length > 0 ? false : true}>{check}</Button>
             <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledQuestion>
 
@@ -191,7 +190,6 @@ const StyledQuestion = styled.div`
 
   }
 `
-
 
 const StyledResult = styled.ul`
   background: #FFFFFF;

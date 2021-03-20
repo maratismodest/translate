@@ -15,7 +15,7 @@ const Welcome = ({state, setState}: { state: InitialStateInterface, setState: an
 
      const {translate} = state;
     console.log("translate", translate)
-    const {wordsText, phrases, dragAndDrop} = translate;
+    const {wordsText, phrases, dragAndDrop, welcomeText} = translate;
     console.log(wordsText, phrases, dragAndDrop)
 
     const handleWordsButton = () => {
@@ -36,9 +36,7 @@ const Welcome = ({state, setState}: { state: InitialStateInterface, setState: an
 
             </StyledWallPaper>
             <StyledWelcomeMenu>
-                <StyledHeader>Выучи разговорные фразы
-                    на татарском языке
-                    в формате мини-игр</StyledHeader>
+                <StyledHeader>{welcomeText}</StyledHeader>
                 <div>
                     <Link to={'/words'}><Button size={"large"}
                                                 onClick={handleWordsButton}>{wordsText}</Button></Link>

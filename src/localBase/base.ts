@@ -16,6 +16,8 @@ export interface LanguageInterface {
     check: string
     repeatAudio: string
     question: string
+    welcomeText: string
+    wellDone: string
 }
 
 export const translateBase : { [name: string]: LanguageInterface } = {
@@ -30,8 +32,10 @@ export const translateBase : { [name: string]: LanguageInterface } = {
         right: 'Верно',
         mainPage: 'Вернуться на главную',
         check: 'Проверить',
-        repeatAudio: 'Повторить',
+        repeatAudio: 'Воспроизвести',
         question: 'Вопрос',
+        welcomeText: 'Выучи разговорные фразы на татарском языке в формате мини-игр',
+        wellDone: 'Хорошая работа. Попробуй еще!'
     },
     tat: {
         chooseLanguage: 'Тел',
@@ -41,11 +45,13 @@ export const translateBase : { [name: string]: LanguageInterface } = {
         phrases: 'Гыйбарә',
         dragAndDrop: 'Тупла',
         wrong: 'Ялгыш',
-        right: 'Шулай',
+        right: 'Дөрес',
         mainPage: 'Кайтык',
         check: 'Тикшер',
-        repeatAudio: 'Кабат',
+        repeatAudio: 'Кабат тыңларга',
         question: 'Сорау',
+        welcomeText: 'Татар телен мини-уеннар форматында татар телен өйрәнү',
+        wellDone: 'Афәрин. Тагын уйнап кара!'
     },
     eng: {
         chooseLanguage: 'Language',
@@ -58,8 +64,10 @@ export const translateBase : { [name: string]: LanguageInterface } = {
         right: 'Correct',
         mainPage: 'Main Page',
         check: 'Check',
-        repeatAudio: 'Repeat',
+        repeatAudio: 'Replay',
         question: 'Question',
+        welcomeText: 'Learn spoken phrases in the Tatar language in the format of mini-games',
+        wellDone: 'Good job. Try again!'
     }
 }
 
@@ -90,14 +98,6 @@ export const rusPhrases = getLangPhrases('rus')
 export const tatPhrases = getLangPhrases('tat')
 
 export const engPhrases = getLangPhrases('eng')
-
-interface someLanguage {
-    audio: any
-    correct: number
-    id: number
-    options: Array<any>
-    questionText: string
-}
 
 
 function resList(firstLanguage: any, secondLanguage: any, firstArr: any, secondArr: any, base: any) {
@@ -143,10 +143,10 @@ export function getWordsFirstSecond(firstLanguage: any, secondLanguage: any, fir
 }
 
 export const wordsTatRus = getWordsFirstSecond("tat", "rus", tatWords, rusWords, words)
-export const wordsRusTat = getWordsFirstSecond("rus", "tat", rusWords, tatWords, words)
-
+// export const wordsRusTat = getWordsFirstSecond("rus", "tat", rusWords, tatWords, words)
 export const wordsTatEng = getWordsFirstSecond("tat", "eng", tatWords, engWords, words)
-export const wordsEngTat = getWordsFirstSecond("eng", "tat", engWords, tatWords, words)
+// console.log("wordsTatEng",wordsTatEng)
+// export const wordsEngTat = getWordsFirstSecond("eng", "tat", engWords, tatWords, words)
 
 export function getPhrasesFirstSecond(firstLanguage: any, secondLanguage: any, firstArr: any, secondArr: any, base: any) {
     const resListFirstSecond = resList(firstLanguage, secondLanguage, firstArr, secondArr, base)
@@ -158,9 +158,9 @@ export function getPhrasesFirstSecond(firstLanguage: any, secondLanguage: any, f
 export const phrasesRusTat = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
 export const phrasesTatRus = getPhrasesFirstSecond("rus", "tat", rusPhrases, tatPhrases, phrases)
 export const phrasesTatEng = getPhrasesFirstSecond("tat", "eng", tatPhrases, engPhrases, phrases)
-export const phrasesEngTat = getPhrasesFirstSecond("eng", "rus", engPhrases, tatPhrases, phrases)
+export const phrasesEngTat = getPhrasesFirstSecond("eng", "tat", engPhrases, tatPhrases, phrases)
 
-export const collectPhrases = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
+export const collectPhrasesTatRus = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
 
 export interface InitialStateInterface {
     chosenGame: any
@@ -180,13 +180,13 @@ export interface InitialStateInterface {
 export const initialState = {
     chosenGame: undefined,
     gameState: 'welcome',
-    language: 'tat',
+    language: 'rus',
     firstLanguage: 'tat',
     secondLanguage: 'rus',
     result: [],
     finished: false,
     currentQuestionIndex: 0,
-    translate: translateBase.tat,
+    translate: translateBase.rus,
     words: wordsTatRus,
     phrases: phrasesTatRus,
     collect: phrases

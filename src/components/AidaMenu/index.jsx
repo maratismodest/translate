@@ -25,21 +25,6 @@ const AidaMenu = ({state, setState}) => {
                     e.preventDefault();
                     setState({
                         ...state,
-                        language: 'tat',
-                        words: wordsTatRus,
-                        phrases: phrasesTatRus,
-                        translate: translateBase.tat,
-                        firstLanguage: 'tat',
-                        secondLanguage: 'rus',
-                    })
-                    history.push('/')
-                }}>TA</a>
-            </Menu.Item>
-            <Menu.Item key="1">
-                <a onClick={e => {
-                    e.preventDefault();
-                    setState({
-                        ...state,
                         language: 'rus',
                         words: wordsTatRus,
                         phrases: phrasesTatRus,
@@ -49,6 +34,21 @@ const AidaMenu = ({state, setState}) => {
                     })
                     history.push('/')
                 }}>RU</a>
+            </Menu.Item>
+            <Menu.Item key="1">
+                <a onClick={e => {
+                    e.preventDefault();
+                    setState({
+                        ...state,
+                        language: 'tat',
+                        words: wordsTatRus,
+                        phrases: phrasesTatRus,
+                        translate: translateBase.tat,
+                        firstLanguage: 'tat',
+                        secondLanguage: 'rus',
+                    })
+                    history.push('/')
+                }}>TA</a>
             </Menu.Item>
             <Menu.Item key="2">
                 <a onClick={e => {

@@ -25,6 +25,8 @@ const Words = ({state, setState}) => {
 
     console.log("words", words)
 
+    const {repeatAudio} = translate
+
     const {firstLanguage, secondLanguage} = words;
     const first = _.shuffle(firstLanguage).slice(0, 3);
     const second = _.shuffle(secondLanguage).slice(0, 3);
@@ -86,9 +88,9 @@ const Words = ({state, setState}) => {
         <StyledWords>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 <QuestionText title={questionText}/>
-                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
                 </div>
-            <ul style={{minWidth: '200px', maxWidth: '350px'}}>
+            <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
                 {optionsList}
             </ul>
             <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>

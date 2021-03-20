@@ -87,7 +87,7 @@ export const phrases = [
     {tat: 'Син нишлисең?', rus: 'Что ты делаешь?', eng: 'What are you doing?' , audio: sin_nishlisen},
     {tat: 'Минем телефон кайда?', rus: 'Где мой телефон?', eng: 'Where is my phone?' , audio: minem_telefon_kaida},
     {tat: 'Әйдә ашыйбыз', rus: 'Давай покушаем', eng: 'Let\'s eat' , audio: eide_ashybyz},
-    {tat: 'Әйдә киттек', rus: 'Давай пошли',  eng: 'Come on let\'s go' ,audio: eide_kittek},
+    {tat: 'Әйдә киттек', rus: 'Давай пошли',  eng: 'Come on, let\'s go' ,audio: eide_kittek},
     {tat: 'Рәхим итегез', rus: 'Добро пожаловать', eng: 'Welcome' , audio: rahim_itegez},
     {tat: 'Миңа апельсин кирәк', rus: 'Мне нужен апельсин',  eng: 'I need an orange' ,audio: mina_apelsin_kirek},
     {tat: 'Татар теле', rus: 'Татарский язык', eng: 'Tatar language' , audio: tatar_tele},
