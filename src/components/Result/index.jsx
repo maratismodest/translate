@@ -5,22 +5,20 @@ import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import {device} from "../../localBase/responsiveStyled";
 import wellDoneImage from './wellDone.svg'
+import i18n from "i18next";
 
 
 const Result = ({state, setState}) => {
         const {
-            result, language, translate, chosenGame
+            result, language, chosenGame
         } = state;
-        const {repeat, resultText, wrong, right, mainPage, wellDone} = translate;
-        console.log("translate", translate)
-        console.log("chosenGame", chosenGame)
 
 
         return (
             <ResultWrapper className={'test'}>
                 <ResultWrap>
                     <StyledList
-                        header={<Header>{resultText}:</Header>}
+                        header={<Header>{i18n.t("resultText")}:</Header>}
                         // footer={footer()}
                         // bordered
                         dataSource={result}
@@ -32,7 +30,7 @@ const Result = ({state, setState}) => {
                                 <List.Item style={{padding: 0, margin: 0}}>
                                     <Typography.Text>
                                         <QuestionText>{questionText}:&nbsp;</QuestionText>
-                                        <QuestionResult color={color}>{correct ? right : wrong}</QuestionResult>
+                                        <QuestionResult color={color}>{correct ? i18n.t("right") : i18n.t("wrong")}</QuestionResult>
                                     </Typography.Text>
                                 </List.Item>
                             )
@@ -44,17 +42,17 @@ const Result = ({state, setState}) => {
                     </StyledWallPaper>
                 </ResultWrap>
                 <ResultFooter>
-                    <TryAgain>{wellDone}</TryAgain>
+                    <TryAgain>{i18n.t("wellDone")}</TryAgain>
                     <Link to={`/${chosenGame}`}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
-                    }}>{repeat}</Button></Link>
-                    {/*<Divider/>*/}
+                    }}>{i18n.t("repeat")}</Button></Link>
+                    {/*<Divider/>*/}tr
                 </ResultFooter>
                 <StyledGetMain>
                     <Link to={'/'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: 'welcome'})
                     }}>
-                        {mainPage}</Link>
+                        {i18n.t("mainPage")}</Link>
                 </StyledGetMain>
             </ResultWrapper>
 

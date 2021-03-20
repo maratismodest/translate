@@ -10,6 +10,7 @@ import {device} from "../../localBase/responsiveStyled";
 
 import Play from "../../ui/Play";
 import QuestionText from "../../ui/QuestionText";
+import i18n from "i18next";
 
 const Words = ({state, setState}) => {
     const {sound, wrong} = Sounds;
@@ -19,13 +20,11 @@ const Words = ({state, setState}) => {
 
     const {
         words,
-        translate,
         chosenGame,
     } = state;
 
     console.log("words", words)
 
-    const {repeatAudio} = translate
 
     const {firstLanguage, secondLanguage} = words;
     const first = _.shuffle(firstLanguage).slice(0, 3);
@@ -36,7 +35,6 @@ const Words = ({state, setState}) => {
     const [questions, setQuestions] = useState(shuffle);
     const [result, setResult] = useState([]);
 
-    console.log('translate', translate)
 
     const question = questions[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question;
@@ -88,12 +86,12 @@ const Words = ({state, setState}) => {
         <StyledWords>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 <QuestionText title={questionText}/>
-                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
                 </div>
             <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
                 {optionsList}
             </ul>
-            <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
+            <QuestionNumber>{i18n.t("question")} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledWords>
     )
 }

@@ -9,6 +9,7 @@ import {PlayAgain, QuestionNumber} from "../Words";
 import {device} from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
 import Sounds from '../../localBase/sounds'
+import i18n from "i18next";
 
 const Collect = ({state, setState}) => {
     const history = useHistory();
@@ -17,7 +18,6 @@ const Collect = ({state, setState}) => {
     const [no] = useSound(wrong);
 
     const {
-        translate,
         chosenGame,
         collect
     } = state;
@@ -130,13 +130,12 @@ const Collect = ({state, setState}) => {
     })
 
 
-    const {repeatAudio, check} = translate
     return (
 
         <StyledQuestion>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 {/*<QuestionText title={questionText}/>*/}
-                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
             </div>
             <StyledResult>
                 {resultList}
@@ -145,8 +144,8 @@ const Collect = ({state, setState}) => {
             <StyledUl>
                 {separatedList}
             </StyledUl>
-            <Button size={'large'} type="primary" onClick={handleAnswerClick} disabled={answer.length > 0 ? false : true}>{check}</Button>
-            <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
+            <Button size={'large'} type="primary" onClick={handleAnswerClick} disabled={answer.length > 0 ? false : true}>{i18n.t("check")}</Button>
+            <QuestionNumber>{i18n.t("question")}&nbsp;{currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledQuestion>
 
     )

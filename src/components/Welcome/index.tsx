@@ -1,44 +1,17 @@
 import {Divider} from "antd";
 import React, {useEffect, useState} from "react";
-import {InitialStateInterface} from '../../localBase/base'
+import {InitialStateInterface, translateBaseI18} from '../../localBase/base'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import ReactLogo from './welcome.svg'
 import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader} from './WelcomeStyles'
 import i18n from "i18next";
 
-export const translateBaseI18 = {
-    eng: {
-        translation: {
-            "welcome": "English"
-        }
-    },
-    rus: {
-        translation: {
-            "welcome": "Русский"
-        }
-    }
-}
-
-
 const Welcome = ({state, setState}: { state: InitialStateInterface, setState: any }) => {
-
-    i18n.init({
-        resources: translateBaseI18,
-        lng: "rus"
-    });
-
 
     if (!state) {
         return <div>Загрузка</div>
     }
-    console.log("state", state)
-
-
-    const {translate} = state;
-    console.log("translate", translate)
-    const {wordsText, phrases, dragAndDrop, welcomeText} = translate;
-    console.log(wordsText, phrases, dragAndDrop)
 
     const handleWordsButton = () => {
         setState({...state, chosenGame: 'words', gameState: 'words', currentQuestionIndex: 0})
@@ -58,18 +31,17 @@ const Welcome = ({state, setState}: { state: InitialStateInterface, setState: an
 
             </StyledWallPaper>
             <StyledWelcomeMenu>
-                {/*<h2>{i18n.t('welcome')}</h2>*/}
-                <StyledHeader>{welcomeText}</StyledHeader>
+                <StyledHeader>{i18n.t("welcomeText")}</StyledHeader>
 
                 <div>
                     <Link to={'/words'}><Button size={"large"}
-                                                onClick={handleWordsButton}>{wordsText}</Button></Link>
+                                                onClick={handleWordsButton}>{i18n.t("wordsText")}</Button></Link>
                     <Divider/>
                     <Link to={'/phrases'}><Button size={"large"}
-                                                  onClick={handlePhrasesButton}>{phrases}</Button></Link>
+                                                  onClick={handlePhrasesButton}>{i18n.t("phrases")}</Button></Link>
                     <Divider/>
                     <Link to={'/collect'}><Button size={"large"}
-                                                  onClick={handleDragAndDropButton}>{dragAndDrop}</Button></Link>
+                                                  onClick={handleDragAndDropButton}>{i18n.t("dragAndDrop")}</Button></Link>
                 </div>
             </StyledWelcomeMenu>
         </StyledWelcome>

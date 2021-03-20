@@ -3,7 +3,7 @@ import _ from "lodash";
 import {words, WordsInterface} from "./words";
 import {phrases} from "./phrases";
 
-export interface LanguageInterface {
+export interface TranslationInterface {
     chooseLanguage: string
     repeat: string
     resultText: string
@@ -19,57 +19,68 @@ export interface LanguageInterface {
     welcomeText: string
     wellDone: string
 }
+interface LanguageInterface {
+    [name: string] : TranslationInterface
+}
 
-export const translateBase : { [name: string]: LanguageInterface } = {
-    rus: {
-        chooseLanguage: 'Язык',
-        repeat: 'Повторить',
-        resultText: 'Результат',
-        wordsText: 'Слова',
-        phrases: 'Фразы',
-        dragAndDrop: 'Собери',
-        wrong: 'Неверно',
-        right: 'Верно',
-        mainPage: 'Вернуться на главную',
-        check: 'Проверить',
-        repeatAudio: 'Воспроизвести',
-        question: 'Вопрос',
-        welcomeText: 'Выучи разговорные фразы на татарском языке в формате мини-игр',
-        wellDone: 'Хорошая работа. Попробуй еще!'
-    },
+
+export const translateBaseI18 : { [name: string]: LanguageInterface } = {
     tat: {
-        chooseLanguage: 'Тел',
-        repeat: 'Кабат',
-        resultText: 'Нәтиҗә',
-        wordsText: 'Сүзләр',
-        phrases: 'Гыйбарә',
-        dragAndDrop: 'Тупла',
-        wrong: 'Ялгыш',
-        right: 'Дөрес',
-        mainPage: 'Кайтык',
-        check: 'Тикшер',
-        repeatAudio: 'Кабат тыңларга',
-        question: 'Сорау',
-        welcomeText: 'Татар телен мини-уеннар форматында татар телен өйрәнү',
-        wellDone: 'Афәрин. Тагын уйнап кара!'
+        translation: {
+            chooseLanguage: 'Тел',
+            repeat: 'Кабат',
+            resultText: 'Нәтиҗә',
+            wordsText: 'Сүзләр',
+            phrases: 'Гыйбарә',
+            dragAndDrop: 'Тупла',
+            wrong: 'Ялгыш',
+            right: 'Дөрес',
+            mainPage: 'Кайтык',
+            check: 'Тикшер',
+            repeatAudio: 'Кабат тыңларга',
+            question: 'Сорау',
+            welcomeText: 'Татар телен мини-уеннар форматында татар телен өйрәнү',
+            wellDone: 'Афәрин. Тагын уйнап кара!'
+        }
     },
     eng: {
-        chooseLanguage: 'Language',
-        repeat: 'Repeat',
-        resultText: 'Result',
-        wordsText: 'Words',
-        phrases: 'Phrases',
-        dragAndDrop: 'Collect',
-        wrong: 'Wrong',
-        right: 'Correct',
-        mainPage: 'Main Page',
-        check: 'Check',
-        repeatAudio: 'Replay',
-        question: 'Question',
-        welcomeText: 'Learn spoken phrases in the Tatar language in the format of mini-games',
-        wellDone: 'Good job. Try again!'
+        translation: {
+            chooseLanguage: 'Language',
+            repeat: 'Repeat',
+            resultText: 'Result',
+            wordsText: 'Words',
+            phrases: 'Phrases',
+            dragAndDrop: 'Collect',
+            wrong: 'Wrong',
+            right: 'Correct',
+            mainPage: 'Main Page',
+            check: 'Check',
+            repeatAudio: 'Replay',
+            question: 'Question',
+            welcomeText: 'Learn spoken phrases in the Tatar language in the format of mini-games',
+            wellDone: 'Good job. Try again!'
+        }
+    },
+    rus: {
+        translation: {
+            chooseLanguage: 'Язык',
+            repeat: 'Повторить',
+            resultText: 'Результат',
+            wordsText: 'Слова',
+            phrases: 'Фразы',
+            dragAndDrop: 'Собери',
+            wrong: 'Неверно',
+            right: 'Верно',
+            mainPage: 'Вернуться на главную',
+            check: 'Проверить',
+            repeatAudio: 'Воспроизвести',
+            question: 'Вопрос',
+            welcomeText: 'Выучи разговорные фразы на татарском языке в формате мини-игр',
+            wellDone: 'Хорошая работа. Попробуй еще!'
+        }
     }
 }
+
 
 function getLangWords(language: string = 'rus') {
     return words.map((item: WordsInterface, index:number) => {
@@ -167,7 +178,6 @@ export interface InitialStateInterface {
     result: any
     finished: any
     currentQuestionIndex: any
-    translate: any
     words: Array<WordsInterface>
     phrases: any
     collect: any
@@ -182,7 +192,6 @@ export const initialState = {
     result: [],
     finished: false,
     currentQuestionIndex: 0,
-    translate: translateBase.rus,
     words: wordsTatRus,
     phrases: phrasesTatRus,
     collect: phrases
