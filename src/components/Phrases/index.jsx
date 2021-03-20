@@ -9,6 +9,7 @@ import _ from "lodash";
 import {PlayAgain, QuestionNumber} from "../Words";
 import QuestionText from "../../ui/QuestionText";
 import Play from "../../ui/Play";
+import i18n from "i18next";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
@@ -18,7 +19,6 @@ const Phrases = ({state, setState}) => {
 
     const {
         phrases,
-        translate,
         chosenGame
     } = state;
 
@@ -83,19 +83,18 @@ const Phrases = ({state, setState}) => {
         </li>
     })
 
-    const {repeatAudio} = translate
 
     return (
 
         <StyledPhrase>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 <QuestionText title={questionText}/>
-                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
             </div>
             <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
                 {optionsList}
             </ul>
-            <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
+            <QuestionNumber>{i18n.t("question")}&nbsp;{currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledPhrase>
 
     )

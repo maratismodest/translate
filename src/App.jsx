@@ -6,7 +6,7 @@ import {
     Route, useLocation, useHistory, NavLink,
 } from "react-router-dom";
 import React, {useState} from "react";
-import {initialState} from "./localBase/base";
+import {initialState, translateBaseI18} from "./localBase/base";
 import Welcome from "./components/Welcome";
 import Words from "./components/Words";
 import Result from "./components/Result";
@@ -15,10 +15,17 @@ import Collect from "./components/Collect";
 import {YMInitializer} from "react-yandex-metrika";
 import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
+import i18n from "i18next";
+
 
 
 function App() {
     const [state, setState] = useState(initialState);
+
+    i18n.init({
+        resources: translateBaseI18,
+        lng: state.language
+    });
 
     return (
         <Game>
@@ -52,3 +59,9 @@ function App() {
 
 export default App;
 
+// console.log("state", state)
+
+// i18n.init({
+//     resources: translateBaseI18,
+//     lng: state.language
+// });
