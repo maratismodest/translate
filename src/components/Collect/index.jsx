@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from "react";
 import _ from "lodash";
 import useSound from "use-sound";
-import sound from "../../sounds/sound.mp3";
-import wrong from "../../sounds/wrong.mp3";
-import { Divider, Tag} from "antd";
+import {Divider, Tag} from "antd";
 import Button from "../../ui/Button";
 import {useHistory} from "react-router-dom";
 import styled from "styled-components";
 import {PlayAgain, QuestionNumber} from "../Words";
 import {device} from "../../localBase/responsiveStyled";
-import QuestionText from "../../ui/QuestionText";
 import Play from "../../ui/Play";
+import Sounds from '../../localBase/sounds'
 
 const Collect = ({state, setState}) => {
-
     const history = useHistory();
+    const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
 
@@ -28,6 +26,7 @@ const Collect = ({state, setState}) => {
     const collectClone = _.clone(collect);
 
     const [questions, setQuestions] = useState(shuffle);
+
     const [result, setResult] = useState([]);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -38,17 +37,16 @@ const Collect = ({state, setState}) => {
     const firstIndex = _.indexOf(collectClone, question);
     collectClone.splice(firstIndex, 1);
 
-    console.log("question", question)
-
-    const questionArr = tat.split(' ');
-    const randomArr = _.sample(collectClone).tat.split(' ');
-    const [arr, setArr] = useState(_.shuffle(questionArr.concat(randomArr)));
+    const questionseparated = tat.split(' ');
+    const randomseparated = _.sample(collectClone).tat.split(' ');
+    const randomseparated2 = _.sample(collectClone).tat.split(' ');
+    const [separated, setSeparated] = useState(_.shuffle(questionseparated.concat(randomseparated, randomseparated2)));
     const [answer, setAnswer] = useState([]);
 
     const [tell] = useSound(audio);
 
     useEffect(() => {
-        setArr(_.shuffle(questionArr.concat(randomArr)));
+        setSeparated(_.shuffle(questionseparated.concat(randomseparated, randomseparated2)));
         setAnswer([])
     }, [currentQuestionIndex])
     useEffect(() => {
@@ -56,13 +54,13 @@ const Collect = ({state, setState}) => {
     }, [tell])
 
     const handleClick = (index) => {
-        const currentWord = arr[index];
+        const currentWord = separated[index];
         const copyAnswer = _.clone(answer);
         copyAnswer.push(currentWord);
         setAnswer(copyAnswer)
-        const resultArr = _.clone(arr)
-        resultArr.splice(index, 1)
-        setArr(resultArr);
+        const resultseparated = _.clone(separated)
+        resultseparated.splice(index, 1)
+        setSeparated(resultseparated);
     }
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
@@ -85,7 +83,7 @@ const Collect = ({state, setState}) => {
 
     const handleAnswerClick = () => {
         console.log("handleAnswerClick")
-        // if (answer.length === questionArr.length) {
+        // if (answer.length === questionseparated.length) {
 
         const timeout = window.setTimeout(() => {
             const final = answer.join(' ');
@@ -100,31 +98,10 @@ const Collect = ({state, setState}) => {
         // }
     }
 
-    const arrList = arr.map((item, index) => {
-        return <li key={item + index + arr.length} style={{marginRight: 4}}>
-            <Tag color="#FFFFFF"
-                 style={{
-                     color: '#718CCC',
-                     fontSize: '16px',
-                     lineHeight: '18px',
-                     padding: '6.4px 15px',
-                     borderRadius: 12,
-                     border: '1px solid #718CCC'
-                 }}
-                 onClick={() => {
-                     handleClick(index)}}
-                     >{item}</Tag>
-        </li>
-    })
 
     const handleTagClick = (index) => {
-        console.log(answer)
-        console.log(arr)
-
         const currentWord = answer[index];
-        const resultArr = _.clone(arr)
-        resultArr.push(currentWord)
-        setArr(resultArr);
+        setSeparated(_.clone(separated).push(currentWord));
 
         const copyAnswer = _.clone(answer);
         copyAnswer.splice(index, 1);
@@ -132,38 +109,43 @@ const Collect = ({state, setState}) => {
 
 
     }
+
     const resultList = answer.map((item, index) => {
         return <li key={item + index + answer.length}>
-            <Tag color="#E7E6F4"
-                 style={{
-                     color: '#718CCC',
-                     fontSize: '16px',
-                     lineHeight: '18px',
-                     padding: '6.4px 15px',
-                     borderRadius: 12
-                 }}
-                 onClick={() => {
-                     handleTagClick(index)
-                 }}
-            >{item}</Tag></li>
+            <StyledTagAnswer
+                onClick={() => {
+                    handleTagClick(index)
+                }}
+            >{item}</StyledTagAnswer></li>
+    })
+
+    const separatedList = separated.map((item, index) => {
+        return <li key={item + index + separated.length} style={{marginRight: 4}}>
+            <StyledTagOptions
+                onClick={() => {
+                    handleClick(index)
+                }}
+            >{item}</StyledTagOptions>
+        </li>
     })
 
 
+    const {repeatAudio, check} = translate
     return (
 
         <StyledQuestion>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 {/*<QuestionText title={questionText}/>*/}
-                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
             </div>
             <StyledResult>
                 {resultList}
             </StyledResult>
             <Divider/>
             <StyledUl>
-                {arrList}
+                {separatedList}
             </StyledUl>
-            <Button size={'large'} type="primary" onClick={handleAnswerClick}>{translate.check}</Button>
+            <Button size={'large'} type="primary" onClick={handleAnswerClick} disabled={answer.length > 0 ? false : true}>{check}</Button>
             <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledQuestion>
 
@@ -173,8 +155,33 @@ const Collect = ({state, setState}) => {
 export default Collect;
 
 
+const StyledTagAnswer = styled(Tag)`
+  background: #E7E6F4;
+  color: #718CCC;
+  font-size: 16px;
+  line-height: 18px;
+  padding: 6.4px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+`
+
+
+const StyledTagOptions = styled(Tag)`
+  background: #FFFFFF;
+  border: 1px solid #E7E6F4;
+  color: #718CCC;
+  font-size: 16px;
+  line-height: 18px;
+  padding: 6.4px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+`
+
 const StyledQuestion = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   @media ${device.desktop} {
     width: 350px;
   }
@@ -184,29 +191,26 @@ const StyledQuestion = styled.div`
   }
 `
 
-
 const StyledResult = styled.ul`
   background: #FFFFFF;
   border: 1px solid rgba(113, 140, 204, 0.1);
   box-sizing: border-box;
   box-shadow: inset -2px -1px 4px rgba(113, 140, 204, 0.1);
   border-radius: 28px;
-  min-width: 200px;
+  width: 90%;
   display: flex;
   min-height: 140px;
-  // flex-wrap: wrap;
+  flex-wrap: wrap;
   margin-top: 16px;
-  // padding: 12px 0;
   max-width: 350px;
   padding: 24px;
 `
 const StyledUl = styled.ul`
-  width: auto;
-  min-width: 200px;
+  width: 90%;
   display: flex;
   min-height: 120px;
   flex-wrap: wrap;
-  padding: 12px 0;
+  padding: 12px;
   //max-width: 300px;
 `
 export const StyledPhrase = styled.div`

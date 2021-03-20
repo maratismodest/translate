@@ -4,14 +4,14 @@ import styled from 'styled-components'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import {device} from "../../localBase/responsiveStyled";
-import wellDone from './wellDone.svg'
+import wellDoneImage from './wellDone.svg'
 
 
 const Result = ({state, setState}) => {
         const {
             result, language, translate, chosenGame
         } = state;
-        const {repeat, resultText, wrong, right, mainPage} = translate;
+        const {repeat, resultText, wrong, right, mainPage, wellDone} = translate;
         console.log("translate", translate)
         console.log("chosenGame", chosenGame)
 
@@ -39,12 +39,12 @@ const Result = ({state, setState}) => {
                         }}
                     />
                     <StyledWallPaper>
-                        <img src={wellDone} alt="Result" width={'100%'} height={'100%'}/>
+                        <img src={wellDoneImage} alt="Result" width={'100%'} height={'100%'}/>
 
                     </StyledWallPaper>
                 </ResultWrap>
                 <ResultFooter>
-                    <TryAgain>Неплохо. Попробуй еще!</TryAgain>
+                    <TryAgain>{wellDone}</TryAgain>
                     <Link to={`/${chosenGame}`}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
                     }}>{repeat}</Button></Link>

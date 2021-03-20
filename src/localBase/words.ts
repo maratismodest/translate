@@ -1,6 +1,4 @@
-import React from 'react';
-
-import suz from '../sounds/words/suz.mp3';
+import suz from '../sounds/words/suz.mp3'
 import bash from '../sounds/words/bash.mp3';
 import vakyt from '../sounds/words/vakyt.mp3';
 import halik from '../sounds/words/halik.mp3';
@@ -97,7 +95,14 @@ import useh from '../sounds/words/useh.mp3';
 import sorau from '../sounds/words/sorau.mp3';
 
 
-export const words = [
+export interface WordsInterface {
+    tat: string
+    rus: string
+    eng: string
+    audio: any
+}
+
+export const words : Array<WordsInterface> = [
     {
         tat: "Сәлам",
         rus: "Привет",
@@ -508,7 +513,7 @@ export const words = [
     },
     {
         tat: "Дәрәҗә",
-        rus: "Звание, степень, уровень, авторитет",
+        rus: "Cтепень, уровень, авторитет",
         eng: "Level",
         audio: derezhe,
     },

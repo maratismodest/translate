@@ -1,21 +1,18 @@
 import React, {useState, useEffect} from "react";
 import useSound from "use-sound";
-import sound from "../../sounds/sound.mp3";
-import wrong from "../../sounds/wrong.mp3";
+import Sounds from '../../localBase/sounds'
 import Button from "../../ui/Button";
-import Title from "antd/es/typography/Title";
 
 import {useHistory} from "react-router-dom";
 import _ from 'lodash'
 import styled from "styled-components"
-import Icon, {PlayCircleOutlined} from "@ant-design/icons";
 import {device} from "../../localBase/responsiveStyled";
 
-import play from '../../assets/play.svg'
 import Play from "../../ui/Play";
 import QuestionText from "../../ui/QuestionText";
 
 const Words = ({state, setState}) => {
+    const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const history = useHistory();
@@ -27,6 +24,8 @@ const Words = ({state, setState}) => {
     } = state;
 
     console.log("words", words)
+
+    const {repeatAudio} = translate
 
     const {firstLanguage, secondLanguage} = words;
     const first = _.shuffle(firstLanguage).slice(0, 3);
@@ -89,9 +88,9 @@ const Words = ({state, setState}) => {
         <StyledWords>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 <QuestionText title={questionText}/>
-                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
                 </div>
-            <ul style={{minWidth: '200px', maxWidth: '350px'}}>
+            <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
                 {optionsList}
             </ul>
             <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
@@ -104,11 +103,10 @@ export default Words;
 export const PlayAgain = styled.span`
   font-style: normal;
   font-weight: 500;
-
-
   text-decoration: underline;
   color: var(--color-primary);
   line-height: 133%;
+  cursor: pointer;
 }
   @media ${device.desktop} {
     font-size: 24px;

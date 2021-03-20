@@ -1,9 +1,7 @@
 import useSound from "use-sound";
-import sound from "../../sounds/sound.mp3";
-import wrong from "../../sounds/wrong.mp3";
+import Sounds from '../../localBase/sounds'
 import Button from '../../ui/Button'
-import Title from "antd/es/typography/Title";
-import Icon, {PlayCircleOutlined} from "@ant-design/icons";
+
 import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
 import React, {useState} from "react";
@@ -14,6 +12,7 @@ import Play from "../../ui/Play";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
+    const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
 
@@ -39,11 +38,6 @@ const Phrases = ({state, setState}) => {
     // const shuffledOptions = _.shuffle(options)
     const shuffledOptions = options;
 
-
-    // useEffect(()=>{
-    //     console.log("tell")
-    //     tell()
-    // },[tell])
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
@@ -89,15 +83,16 @@ const Phrases = ({state, setState}) => {
         </li>
     })
 
+    const {repeatAudio} = translate
 
     return (
 
         <StyledPhrase>
             <div onClick={tell} style={{textAlign: 'center'}}>
                 <QuestionText title={questionText}/>
-                <div><Play/>&nbsp;<PlayAgain>Воспроизвести</PlayAgain></div>
+                <div><Play/>&nbsp;<PlayAgain>{repeatAudio}</PlayAgain></div>
             </div>
-            <ul style={{minWidth: '200px', maxWidth: '350px'}}>
+            <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
                 {optionsList}
             </ul>
             <QuestionNumber>{translate.question} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>

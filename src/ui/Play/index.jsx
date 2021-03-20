@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {device} from "../../localBase/responsiveStyled";
 
 const StyledPlay = styled.img`
-
+  cursor: pointer;
   @media ${device.desktop} {
     width: 48px;
     height: 48px;
