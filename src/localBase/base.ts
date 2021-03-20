@@ -71,13 +71,14 @@ export const translateBase : { [name: string]: LanguageInterface } = {
     }
 }
 
-
 function getLangWords(language: string = 'rus') {
     return words.map((item: WordsInterface, index:number) => {
         const res : string = _.get(item,language)
         return res;
     });
 }
+
+
 
 export const rusWords = getLangWords('rus')
 export const tatWords = getLangWords('tat')
@@ -86,9 +87,7 @@ export const engWords = getLangWords('eng')
 
 function getLangPhrases(language = 'rus') {
     return phrases.map((item, index) => {
-        // console.log("item", item)
         const res : string = _.get(item,language)
-        // console.log("res", res)
         return res;
     });
 }
@@ -143,10 +142,7 @@ export function getWordsFirstSecond(firstLanguage: any, secondLanguage: any, fir
 }
 
 export const wordsTatRus = getWordsFirstSecond("tat", "rus", tatWords, rusWords, words)
-// export const wordsRusTat = getWordsFirstSecond("rus", "tat", rusWords, tatWords, words)
 export const wordsTatEng = getWordsFirstSecond("tat", "eng", tatWords, engWords, words)
-// console.log("wordsTatEng",wordsTatEng)
-// export const wordsEngTat = getWordsFirstSecond("eng", "tat", engWords, tatWords, words)
 
 export function getPhrasesFirstSecond(firstLanguage: any, secondLanguage: any, firstArr: any, secondArr: any, base: any) {
     const resListFirstSecond = resList(firstLanguage, secondLanguage, firstArr, secondArr, base)
