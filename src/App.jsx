@@ -17,11 +17,8 @@ import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
 import i18n from "i18next";
 
-
-
 function App() {
     const [state, setState] = useState(initialState);
-
     i18n.init({
         resources: translateBaseI18,
         lng: state.language

@@ -37,16 +37,16 @@ const Collect = ({state, setState}) => {
     const firstIndex = _.indexOf(collectClone, question);
     collectClone.splice(firstIndex, 1);
 
-    const questionseparated = tat.split(' ');
+    const questionSeparated = tat.split(' ');
     const randomseparated = _.sample(collectClone).tat.split(' ');
     const randomseparated2 = _.sample(collectClone).tat.split(' ');
-    const [separated, setSeparated] = useState(_.shuffle(questionseparated.concat(randomseparated, randomseparated2)));
+    const [separated, setSeparated] = useState(_.shuffle(questionSeparated.concat(randomseparated, randomseparated2)));
     const [answer, setAnswer] = useState([]);
 
     const [tell] = useSound(audio);
 
     useEffect(() => {
-        setSeparated(_.shuffle(questionseparated.concat(randomseparated, randomseparated2)));
+        setSeparated(_.shuffle(questionSeparated.concat(randomseparated, randomseparated2)));
         setAnswer([])
     }, [currentQuestionIndex])
     useEffect(() => {
@@ -74,21 +74,22 @@ const Collect = ({state, setState}) => {
 
     const handleAnswerClick = () => {
         console.log("handleAnswerClick")
-        // if (answer.length === questionseparated.length) {
 
         const timeout = window.setTimeout(() => {
             const final = answer.join(' ');
             tat === final ? yes() : no()
             const questionResult = tat === final ? {
                 correct: true,
-                questionText: tat
-            } : {correct: false, id: tat, questionText: tat}
+                questionText: tat,
+                chosenText: final
+            } : {correct: false, questionText: tat, chosenText: final}
             checkGameState(chosenGame, questionResult)
             window.clearTimeout(timeout)
         }, 500)
-        // }
+
     }
 
+    console.log(result)
 
     const handleTagClick = (index) => {
         const currentWord = answer[index];

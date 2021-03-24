@@ -12,6 +12,12 @@ export default styled(Button)`
   font-family: Rubik;
   font-style: normal;
   white-space: pre-line;
+  .red {
+    color: red;
+  }
+  .green {
+    color: green;
+  }
   @media ${device.desktop} {
     font-size: 22px;
     line-height: 26px;
@@ -25,5 +31,4 @@ export default styled(Button)`
     font-size: 16px;
     line-height: 19px;
   }
-
 `

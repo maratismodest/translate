@@ -4,7 +4,7 @@ import {InitialStateInterface, translateBaseI18} from '../../localBase/base'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import ReactLogo from './welcome.svg'
-import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader} from './WelcomeStyles'
+import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader, Buttons} from './WelcomeStyles'
 import i18n from "i18next";
 
 const Welcome = ({state, setState}: { state: InitialStateInterface, setState: any }) => {
@@ -33,7 +33,7 @@ const Welcome = ({state, setState}: { state: InitialStateInterface, setState: an
             <StyledWelcomeMenu>
                 <StyledHeader>{i18n.t("welcomeText")}</StyledHeader>
 
-                <div>
+                <Buttons>
                     <Link to={'/words'}><Button size={"large"}
                                                 onClick={handleWordsButton}>{i18n.t("wordsText")}</Button></Link>
                     <Divider/>
@@ -42,7 +42,7 @@ const Welcome = ({state, setState}: { state: InitialStateInterface, setState: an
                     <Divider/>
                     <Link to={'/collect'}><Button size={"large"}
                                                   onClick={handleDragAndDropButton}>{i18n.t("dragAndDrop")}</Button></Link>
-                </div>
+                </Buttons>
             </StyledWelcomeMenu>
         </StyledWelcome>
 

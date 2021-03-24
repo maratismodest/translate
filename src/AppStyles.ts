@@ -3,7 +3,7 @@ import {device} from "./localBase/responsiveStyled";
 
 export const Game = styled.div`
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +33,6 @@ export const Game = styled.div`
 
 export const StyledHeader = styled.div`
   position: relative;
-  //border: 1px solid black;
   width: 100%;
   display: flex;
   justify-content: space-between;

@@ -13,40 +13,34 @@ const Result = ({state, setState}) => {
             result, language, chosenGame
         } = state;
 
-
         return (
             <ResultWrapper className={'test'}>
                 <ResultWrap>
                     <StyledList
                         header={<Header>{i18n.t("resultText")}:</Header>}
-                        // footer={footer()}
-                        // bordered
                         dataSource={result}
                         renderItem={item => {
-                            const {correct, questionText} = item;
-                            // console.log("correct", correct)
+                            const {correct, questionText, chosenText} = item;
                             const color = correct ? `var(--color-green)` : `var(--color-red)`
                             return (
                                 <List.Item style={{padding: 0, margin: 0}}>
                                     <Typography.Text>
-                                        <QuestionText>{questionText}:&nbsp;</QuestionText>
+                                        <QuestionText>{questionText} - {chosenText}:&nbsp;</QuestionText>
                                         <QuestionResult color={color}>{correct ? i18n.t("right") : i18n.t("wrong")}</QuestionResult>
                                     </Typography.Text>
                                 </List.Item>
                             )
                         }}
                     />
-                    <StyledWallPaper>
-                        <img src={wellDoneImage} alt="Result" width={'100%'} height={'100%'}/>
-
-                    </StyledWallPaper>
+                    {/*<StyledWallPaper>*/}
+                    {/*    <img src={wellDoneImage} alt="Result" width={'100%'} height={'100%'}/>*/}
+                    {/*</StyledWallPaper>*/}
                 </ResultWrap>
                 <ResultFooter>
                     <TryAgain>{i18n.t("wellDone")}</TryAgain>
                     <Link to={`/${chosenGame}`}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
                     }}>{i18n.t("repeat")}</Button></Link>
-                    {/*<Divider/>*/}tr
                 </ResultFooter>
                 <StyledGetMain>
                     <Link to={'/'} onClick={() => {
@@ -74,20 +68,13 @@ const ResultWrapper = styled.div`
   }
   @media ${device.laptop} {
     min-width: auto;
-
-
   }
-
 `
-
 const ResultWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-
 `
-
 const StyledWallPaper = styled.div`
   max-width: 50%;
 `
@@ -99,7 +86,7 @@ const StyledList = styled(List)`
     max-width: 500px;
   }
   @media ${device.laptop} {
-    max-width: 50%;
+    max-width: 100%;
 
 
   }

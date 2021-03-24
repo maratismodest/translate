@@ -6,13 +6,14 @@ import {useHistory} from "react-router-dom";
 import {StyledPhrase} from "../Collect";
 import React, {useState} from "react";
 import _ from "lodash";
-import {PlayAgain, QuestionNumber} from "../Words";
+import {PlayAgain, QuestionNumber, questionResultInterface} from "../Words";
 import QuestionText from "../../ui/QuestionText";
 import Play from "../../ui/Play";
 import i18n from "i18next";
 
 const Phrases = ({state, setState}) => {
     const history = useHistory();
+    const [answer, setAnswer] = useState('_');
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
@@ -41,9 +42,10 @@ const Phrases = ({state, setState}) => {
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame, questionResult) {
+        console.log("questionResult", questionResult)
         if (currentQuestionIndex + 1 < questions.length) {
-            setResult([...result, questionResult])
             setCurrentQuestionIndex(currentQuestionIndex + 1)
+            setResult(prevState => [...prevState, questionResult]);
         } else {
             history.push("/result");
             setState({
@@ -58,20 +60,57 @@ const Phrases = ({state, setState}) => {
     }
 
     const handleClick = (id) => {
+        const correctText = _.find(options, {id: 1}).text
+        const chosenText = _.find(options, {id: id}).text;
+        id === correct ? setAnswer('_') : setAnswer(`Правильный ответ:${correctText}`);
         const timeout = window.setTimeout(() => {
             id === correct ? yes() : no()
             const questionResult = id === correct ? {
                 correct: true,
                 id: questionId,
-                questionText: questionText
-            } : {correct: false, id: questionId, questionText: questionText}
+                questionText,
+                correctText,
+                chosenText
+            } : {correct: false, id: questionId, questionText, correctText,chosenText}
             checkGameState(chosenGame, questionResult)
-
+            setAnswer('_');
             window.clearTimeout(timeout)
         }, 300)
-
-
     }
+
+    // //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
+    // function checkGameState(chosenGame, questionResult) {
+    //     if (currentQuestionIndex + 1 < questions.length) {
+    //         setResult([...result, questionResult])
+    //         setCurrentQuestionIndex(currentQuestionIndex + 1)
+    //     } else {
+    //         history.push("/result");
+    //         setState({
+    //             ...state,
+    //             currentQuestionIndex: 0,
+    //             result: [...result, questionResult],
+    //             finished: true,
+    //             gameState: 'result',
+    //             chosenGame: chosenGame
+    //         })
+    //     }
+    // }
+    //
+    // const handleClick = (id) => {
+    //     const timeout = window.setTimeout(() => {
+    //         id === correct ? yes() : no()
+    //         const questionResult = id === correct ? {
+    //             correct: true,
+    //             id: questionId,
+    //             questionText: questionText
+    //         } : {correct: false, id: questionId, questionText: questionText}
+    //         checkGameState(chosenGame, questionResult)
+    //
+    //         window.clearTimeout(timeout)
+    //     }, 300)
+    // }
+
+
     const optionsList = shuffledOptions.map((option, index) => {
         const {id, text} = option;
         return <li key={id + text}>
