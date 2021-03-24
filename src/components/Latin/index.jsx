@@ -48,11 +48,11 @@ const Latin = () => {
 
         for (var i = 0; i < input.length; i++){
             switch (input[i]) {
-                case "3":
-                   output=output + "q1"
+                case "Ә":
+                   output=output + "Ä"
                     break;
-                case "4":
-                    output=output + "q2"
+                case "ә":
+                    output=output + "ä"
                     break;
                 case "5":
                     output=output + "q3"
