@@ -1,70 +1,5 @@
 import React, {useState} from "react";
-
-const translate = [
-
-    {tat: 'A', lat: 'Ä'},
-    {tat: 'a', lat: 'ä'},
-    {tat: 'Б', lat: 'B'},
-    {tat: 'б', lat: 'b'},
-    {tat: 'В', lat: '1'},
-    {tat: 'в', lat: '1'},
-    {tat: 'Г', lat: '1'},
-    {tat: 'г', lat: '1'},
-    {tat: 'Д', lat: '1'},
-    {tat: 'д', lat: '1'},
-    {tat: 'Е', lat: '1'},
-    {tat: 'е', lat: '1'},
-    {tat: 'Ж', lat: '1'},
-    {tat: 'ж', lat: '1'},
-    {tat: 'З', lat: '1'},
-    {tat: 'з', lat: '1'},
-    {tat: 'И', lat: '1'},
-    {tat: 'и', lat: '1'},
-    {tat: 'Й', lat: '1'},
-    {tat: 'й', lat: '1'},
-    {tat: 'К', lat: '1'},
-    {tat: 'к', lat: '1'},
-    {tat: 'Л', lat: '1'},
-    {tat: 'л', lat: '1'},
-    {tat: 'М', lat: '1'},
-    {tat: 'м', lat: '1'},
-    {tat: 'Н', lat: '1'},
-    {tat: 'н', lat: '1'},
-    {tat: 'О', lat: '1'},
-    {tat: 'о', lat: '1'},
-    {tat: 'П', lat: '1'},
-    {tat: 'п', lat: '1'},
-    {tat: 'Р', lat: '1'},
-    {tat: 'р', lat: '1'},
-    {tat: 'С', lat: '1'},
-    {tat: 'с', lat: '1'},
-    {tat: 'Т', lat: '1'},
-    {tat: 'т', lat: '1'},
-    {tat: 'У', lat: '1'},
-    {tat: 'у', lat: '1'},
-    {tat: 'Ф', lat: '1'},
-    {tat: 'ф', lat: '1'},
-    {tat: 'Х', lat: '1'},
-    {tat: 'х', lat: '1'},
-    {tat: 'Ц', lat: '1'},
-    {tat: 'ц', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-    {tat: '1', lat: '1'},
-
+const test = {
     // Aa - Aa
     // Ää - Әә
     // Bb - Бб
@@ -94,7 +29,76 @@ const translate = [
     // Şş - Шш
     // Yy - Йй
     // Iı - Ыы
+}
+const translate = [
+    {tat: 'A', lat: 'Ä'},
+    {tat: 'a', lat: 'ä'},
+    {tat: 'Б', lat: 'B'},
+    {tat: 'б', lat: 'b'},
+    {tat: 'В', lat: 'V'},
+    {tat: 'в', lat: 'v'},
+    {tat: 'Г', lat: 'G'},
+    {tat: 'г', lat: 'g'},
+    {tat: 'Д', lat: 'D'},
+    {tat: 'д', lat: 'd'},
+    {tat: 'Е', lat: 'E'},
+    {tat: 'е', lat: 'e'},
+    {tat: 'Ж', lat: 'J'},
+    {tat: 'ж', lat: 'j'},
+    {tat: 'З', lat: 'Z'},
+    {tat: 'з', lat: 'z'},
+    {tat: 'И', lat: 'I'},
+    {tat: 'и', lat: 'i'},
+    {tat: 'Й', lat: 'Y'},
+    {tat: 'й', lat: 'y'},
+    {tat: 'К', lat: 'K'},
+    {tat: 'к', lat: 'k'},
+    {tat: 'Л', lat: 'L'},
+    {tat: 'л', lat: 'l'},
+    {tat: 'М', lat: 'M'},
+    {tat: 'м', lat: 'm'},
+    {tat: 'Н', lat: 'N'},
+    {tat: 'н', lat: 'n'},
+    {tat: 'О', lat: 'O'},
+    {tat: 'о', lat: 'o'},
+    {tat: 'П', lat: 'P'},
+    {tat: 'п', lat: 'p'},
+    {tat: 'Р', lat: 'R'},
+    {tat: 'р', lat: 'r'},
+    {tat: 'С', lat: 'S'},
+    {tat: 'с', lat: 's'},
+    {tat: 'Т', lat: 'T'},
+    {tat: 'т', lat: 't'},
+    {tat: 'У', lat: 'U'},
+    {tat: 'у', lat: 'u'},
+    {tat: 'Ф', lat: 'F'},
+    {tat: 'ф', lat: 'f'},
+    {tat: 'Х', lat: 'H'},
+    {tat: 'х', lat: 'h'},
+    {tat: 'Ц', lat: 'Ts'},
+    {tat: 'ц', lat: 'ts'},
+    {tat: 'Ч', lat: 'C'},
+    {tat: 'ч', lat: 'c'},
+    {tat: 'Ш', lat: 'Ş'},
+    {tat: 'ш', lat: 'ş'},
+    {tat: 'Ы', lat: 'I'},
+    {tat: 'ы', lat: 'ı'},
+    {tat: 'Э', lat: 'E'},
+    {tat: 'э', lat: 'e'},
+    {tat: 'Ю', lat: 'Iu'},
+    {tat: 'ю', lat: 'iu'},
+    {tat: 'Я', lat: 'Ia'},
+    {tat: 'я', lat: 'ia'},
+    {tat: 'Ә', lat: 'Ä'},
+    {tat: 'ә', lat: 'ä'},
+    {tat: 'Ө', lat: 'Ö'},
+    {tat: 'ө', lat: 'ö'},
+    {tat: 'ң', lat: 'ñ'},
+    {tat: 'Җ', lat: 'J'},
+    {tat: 'җ', lat: 'j'},
 ]
+
+
 const Latin = () => {
     // console.log("latin")
     const [first, setFirst] = useState('')
@@ -103,31 +107,28 @@ const Latin = () => {
     const handleFirst = (e)=>{
         const income = e.target.value;
         console.log(income)
+        let result = '';
 
-        var input = income;
-        let output = ''
+        for (let char of income) {
+            const getLetter = translate.find(latin => latin.tat === char)
+            const letter = getLetter ? getLetter.lat : char
+            console.log("letter",letter)
+            result = result + letter
+        }
 
-        console.log("input",input.length)
+        console.log("result",result)
 
-        for (var i = 0; i < input.length; i++){
-            switch (input[i]) {
-                case "Ә":
-                   output=output + "Ä"
-                    break;
-                case "ә":
-                    output=output + "ä"
-                    break;
-
-                default:
-                    output=output + input[i]
-            }
-        };
-
-        console.log("output", output)
+        // const res = arrayOfStrings.map((item)=>{
+        //     const letter = translate.find(latin => latin.tat === item)
+        //     console.log("letter",letter)
+        //     return letter
+        // })
+        // console.log("res",res)
 
 
         setFirst(e.target.value)
-        setSecond(output)
+        setSecond(result)
+
     }
     const handleSecond = (e)=>{
         setSecond(e.target.value)

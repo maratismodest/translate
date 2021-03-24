@@ -25,6 +25,24 @@ interface LanguageInterface {
 
 
 export const translateBaseI18 : { [name: string]: LanguageInterface } = {
+    lat: {
+        translation: {
+            chooseLanguage: 'Tel',
+            repeat: 'Kаbаt',
+            resultText: 'Nätijä',
+            wordsText: 'Sүzlär',
+            phrases: 'Gıybаrä',
+            dragAndDrop: 'Tupla',
+            wrong: 'Ialgış',
+            right: 'Döres',
+            mainPage: 'Kаytık',
+            check: 'Tikşer',
+            repeatAudio: 'Kаbаt tıñlаrgа',
+            question: 'Sorau',
+            welcomeText: 'Tаtаr telen mini-uennаr formаtındа tаtаr telen öyränү',
+            wellDone: 'Аfärin. Tаgın uynаp kаrа!'
+        }
+    },
     tat: {
         translation: {
             chooseLanguage: 'Тел',
