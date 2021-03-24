@@ -19,9 +19,18 @@ export const StyledWallPaper = styled.div`
   max-width: 50%;
 `
 
+export const Buttons = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media ${device.desktop} {
+    align-items: flex-start;
+  }
+  @media ${device.laptop} {
+    align-items: center;
+  }
+`
+
 export const StyledWelcomeMenu = styled.div`
- 
-  text-align: center;
   @media ${device.desktop} {
     padding-left: 5%;
 
@@ -30,19 +39,15 @@ export const StyledWelcomeMenu = styled.div`
     padding-left: 0;
     padding-top: 30px;
   }
-  
 `
-
 
 export const StyledHeader = styled.h2`
   margin: 0;
   padding: 0;
-  font-family: Rubik;
   font-style: normal;
   font-weight: 500;
   color: #718CCC;
   max-width: 618px;
-  text-align: center;
 
   @media ${device.desktop} {
     font-size: 46px;
@@ -54,7 +59,6 @@ export const StyledHeader = styled.h2`
     font-size: 20px;
     line-height: 126%;
     padding-bottom: 30px;
-    //max-width: 80%;
   }
 
 `

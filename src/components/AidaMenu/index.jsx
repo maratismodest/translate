@@ -1,24 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import {Menu, Dropdown} from 'antd';
-import {DownOutlined} from '@ant-design/icons';
 import {
     phrasesTatRus,
     wordsTatRus,
     wordsTatEng,
     phrasesEngTat,
-    translateBase,
 } from "../../localBase/base";
 import Button from '../../ui/Button'
 import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
-import world from './world.svg'
 import i18n from "i18next";
+import Icon from "../Icon";
 
 const AidaMenu = ({state, setState}) => {
     const history = useHistory();
+    const [color, setColor] = useState('white')
 
     const menu = (
-        <Menu>
+        <Menu style={{textAlign: 'center'}}>
             <Menu.Item key="0">
                 <a onClick={e => {
                     e.preventDefault();
@@ -66,8 +65,8 @@ const AidaMenu = ({state, setState}) => {
 
     return (
         <Dropdown overlay={menu} trigger={['click']}>
-            <MenuButton className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                <img src={world} alt="world" style={{paddingRight: 8}}/>{i18n.t("chooseLanguage")}
+            <MenuButton>
+                <Icon icon={'world'} style={{marginRight: 8}} fill={color}/>{i18n.t("chooseLanguage")}
             </MenuButton>
         </Dropdown>
     )

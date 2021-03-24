@@ -178,7 +178,7 @@ export interface InitialStateInterface {
     result: any
     finished: any
     currentQuestionIndex: any
-    words: Array<WordsInterface>
+    words: any
     phrases: any
     collect: any
 }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Dispatch, SetStateAction} from "react";
 import useSound from "use-sound";
 import Sounds from '../../localBase/sounds'
 import Button from "../../ui/Button";
@@ -11,19 +11,26 @@ import {device} from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
 import QuestionText from "../../ui/QuestionText";
 import i18n from "i18next";
+import {InitialStateInterface} from "../../localBase/base";
 
-const Words = ({state, setState}) => {
+
+interface WordsInterface {
+    state: InitialStateInterface
+    setState: Dispatch<SetStateAction<InitialStateInterface>>
+}
+const Words = ({state, setState} : WordsInterface) => {
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const history = useHistory();
+
+
 
     const {
         words,
         chosenGame,
     } = state;
 
-    console.log("words", words)
 
 
     const {firstLanguage, secondLanguage} = words;
@@ -41,9 +48,9 @@ const Words = ({state, setState}) => {
     const [tell] = useSound(audio);
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
-    function checkGameState(chosenGame, questionResult) {
+    function checkGameState(chosenGame : string, questionResult: any) {
         if (currentQuestionIndex + 1 < questions.length) {
-            setResult([...result, questionResult])
+            setResult([...result?, questionResult])
             setCurrentQuestionIndex(currentQuestionIndex + 1)
         } else {
             history.push("/result");
@@ -58,7 +65,7 @@ const Words = ({state, setState}) => {
         }
     }
 
-    const handleClick = (id) => {
+    const handleClick = (id: number) => {
         const timeout = window.setTimeout(() => {
             id === correct ? yes() : no()
             const questionResult = id === correct ? {
@@ -72,7 +79,7 @@ const Words = ({state, setState}) => {
 
     }
 
-    const optionsList = options.map((option, index) => {
+    const optionsList = options.map((option: any, index: number) => {
         const {id, text} = option;
         return <li key={id + text}>
             <Button size={"large"} onClick={() => {
