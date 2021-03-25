@@ -1,10 +1,9 @@
 import React from 'react';
-import {List, Typography, Divider} from 'antd';
+import {List, Typography} from 'antd';
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import {device} from "../../localBase/responsiveStyled";
-import wellDoneImage from './wellDone.svg'
 import i18n from "i18next";
 
 
