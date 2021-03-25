@@ -60,21 +60,36 @@ const AidaMenu = ({state, setState}) => {
                     history.push('/')
                 }}>EN</a>
             </Menu.Item>
-        </Menu>
-    );
+                <Menu.Item key="3">
+                    <a onClick={e => {
+                        e.preventDefault();
+                        setState({
+                            ...state,
+                            language: 'lat',
+                            words: wordsTatEng,
+                            phrases: phrasesEngTat,
+                            firstLanguage: 'eng',
+                            secondLanguage: 'tat',
+                        })
+                        history.push('/')
+                    }}>LA</a>
+                </Menu.Item>
 
-    return (
-        <Dropdown overlay={menu} trigger={['click']}>
-            <MenuButton>
-                <Icon icon={'world'} style={{marginRight: 8}} fill={color}/>{i18n.t("chooseLanguage")}
-            </MenuButton>
-        </Dropdown>
-    )
+        </Menu>
+);
+
+return (
+    <Dropdown overlay={menu} trigger={['click']}>
+        <MenuButton>
+            <Icon icon={'world'} style={{marginRight: 8}} fill={color}/>{i18n.t("chooseLanguage")}
+        </MenuButton>
+    </Dropdown>
+)
 }
 export default AidaMenu;
 
 const MenuButton = styled(Button)`
-  border-radius: 38px;
-  height: 44px;
-  width: auto;
+border-radius: 38px;
+height: 44px;
+width: auto;
 `

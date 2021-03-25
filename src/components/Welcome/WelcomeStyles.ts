@@ -59,6 +59,7 @@ export const StyledHeader = styled.h2`
     font-size: 20px;
     line-height: 126%;
     padding-bottom: 30px;
+    text-align: center;
   }
 
 `
