@@ -16,13 +16,14 @@ import {YMInitializer} from "react-yandex-metrika";
 import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
 import i18n from "i18next";
+import Latin from "./components/Latin";
 
 function App() {
     const [state, setState] = useState(initialState);
     i18n.init({
         resources: translateBaseI18,
         lng: state.language
-    });
+    }).then(r => console.log(r));
 
     return (
         <Game>
@@ -42,6 +43,7 @@ function App() {
                            render={() => <Collect state={state} setState={setState}/>}/>
                     <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState}/>}/>
                     <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
+                    <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
                     <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
 
                 </Switch>

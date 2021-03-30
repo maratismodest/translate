@@ -1,32 +1,41 @@
 import React from 'react';
-import {List, Typography, Divider} from 'antd';
+import {List, Typography} from 'antd';
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import {device} from "../../localBase/responsiveStyled";
-import wellDoneImage from './wellDone.svg'
 import i18n from "i18next";
+import {StateInterface} from "../../localBase/interfaces";
 
 
-const Result = ({state, setState}) => {
+interface ResultItemInterface {
+    chosenText: string
+    correct: boolean
+    correctText: string
+    id: number
+    questionText: string
+}
+
+const Result = ({state, setState}: StateInterface) => {
         const {
             result, language, chosenGame
         } = state;
-
+        // console.log("result",result)
         return (
             <ResultWrapper className={'test'}>
                 <ResultWrap>
                     <StyledList
                         header={<Header>{i18n.t("resultText")}:</Header>}
                         dataSource={result}
-                        renderItem={item => {
+                        renderItem={(item: any) => {
                             const {correct, questionText, chosenText} = item;
                             const color = correct ? `var(--color-green)` : `var(--color-red)`
                             return (
                                 <List.Item style={{padding: 0, margin: 0}}>
                                     <Typography.Text>
                                         <QuestionText>{questionText} - {chosenText}:&nbsp;</QuestionText>
-                                        <QuestionResult color={color}>{correct ? i18n.t("right") : i18n.t("wrong")}</QuestionResult>
+                                        <QuestionResult
+                                            color={color}>{correct ? i18n.t("right") : i18n.t("wrong")}</QuestionResult>
                                     </Typography.Text>
                                 </List.Item>
                             )

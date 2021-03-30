@@ -11,10 +11,11 @@ import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
 import i18n from "i18next";
 import Icon from "../Icon";
+import {StateInterface} from "../../localBase/interfaces";
 
-const AidaMenu = ({state, setState}) => {
+const AidaMenu = ({state, setState}: StateInterface) => {
     const history = useHistory();
-    const [color, setColor] = useState('white')
+    const [color, setColor] = useState<string>('white')
 
     const menu = (
         <Menu style={{textAlign: 'center'}}>
@@ -60,6 +61,21 @@ const AidaMenu = ({state, setState}) => {
                     history.push('/')
                 }}>EN</a>
             </Menu.Item>
+            <Menu.Item key="3">
+                <a onClick={e => {
+                    e.preventDefault();
+                    setState({
+                        ...state,
+                        language: 'lat',
+                        words: wordsTatEng,
+                        phrases: phrasesEngTat,
+                        firstLanguage: 'eng',
+                        secondLanguage: 'tat',
+                    })
+                    history.push('/')
+                }}>LA</a>
+            </Menu.Item>
+
         </Menu>
     );
 

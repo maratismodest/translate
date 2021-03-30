@@ -9,7 +9,7 @@ export interface TranslationInterface {
     resultText: string
     wordsText: string
     phrases: string
-    dragAndDrop:string
+    dragAndDrop: string
     wrong: string
     right: string
     mainPage: string
@@ -19,12 +19,31 @@ export interface TranslationInterface {
     welcomeText: string
     wellDone: string
 }
+
 interface LanguageInterface {
-    [name: string] : TranslationInterface
+    [name: string]: TranslationInterface
 }
 
 
-export const translateBaseI18 : { [name: string]: LanguageInterface } = {
+export const translateBaseI18: { [name: string]: LanguageInterface } = {
+    lat: {
+        translation: {
+            chooseLanguage: 'Tel',
+            repeat: 'Kаbаt',
+            resultText: 'Nätijä',
+            wordsText: 'Sүzlär',
+            phrases: 'Gıybаrä',
+            dragAndDrop: 'Tupla',
+            wrong: 'Ialgış',
+            right: 'Döres',
+            mainPage: 'Kаytık',
+            check: 'Tikşer',
+            repeatAudio: 'Kаbаt tıñlаrgа',
+            question: 'Sorau',
+            welcomeText: 'Tаtаr telen mini-uennаr formаtındа öyränү',
+            wellDone: 'Аfärin. Tаgın uynаp kаrа!'
+        }
+    },
     tat: {
         translation: {
             chooseLanguage: 'Тел',
@@ -39,7 +58,7 @@ export const translateBaseI18 : { [name: string]: LanguageInterface } = {
             check: 'Тикшер',
             repeatAudio: 'Кабат тыңларга',
             question: 'Сорау',
-            welcomeText: 'Татар телен мини-уеннар форматында татар телен өйрәнү',
+            welcomeText: 'Татар телен мини-уеннар форматында өйрәнү',
             wellDone: 'Афәрин. Тагын уйнап кара!'
         }
     },
@@ -83,12 +102,11 @@ export const translateBaseI18 : { [name: string]: LanguageInterface } = {
 
 
 function getLangWords(language: string = 'rus') {
-    return words.map((item: WordsInterface, index:number) => {
-        const res : string = _.get(item,language)
+    return words.map((item: WordsInterface, index: number) => {
+        const res: string = _.get(item, language)
         return res;
     });
 }
-
 
 
 export const rusWords = getLangWords('rus')
@@ -98,7 +116,7 @@ export const engWords = getLangWords('eng')
 
 function getLangPhrases(language = 'rus') {
     return phrases.map((item, index) => {
-        const res : string = _.get(item,language)
+        const res: string = _.get(item, language)
         return res;
     });
 }
@@ -169,22 +187,23 @@ export const phrasesEngTat = getPhrasesFirstSecond("eng", "tat", engPhrases, tat
 
 export const collectPhrasesTatRus = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
 
+
 export interface InitialStateInterface {
-    chosenGame: any
-    gameState: any
-    language: any
-    firstLanguage: any
-    secondLanguage: any
-    result: any
-    finished: any
+    chosenGame: string
+    gameState: 'welcome' | 'words' | 'phrases' | 'collect' | 'result'
+    language: 'rus' | 'tat' | 'eng' | 'lat'
+    firstLanguage: 'rus' | 'tat' | 'eng' | 'lat'
+    secondLanguage: 'rus' | 'tat' | 'eng' | 'lat'
+    result: Array<any>
+    finished: boolean
     currentQuestionIndex: any
     words: any
     phrases: any
     collect: any
 }
 
-export const initialState = {
-    chosenGame: undefined,
+export const initialState: InitialStateInterface = {
+    chosenGame: '',
     gameState: 'welcome',
     language: 'rus',
     firstLanguage: 'tat',
