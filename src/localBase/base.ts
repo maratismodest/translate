@@ -187,14 +187,15 @@ export const phrasesEngTat = getPhrasesFirstSecond("eng", "tat", engPhrases, tat
 
 export const collectPhrasesTatRus = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
 
+
 export interface InitialStateInterface {
     chosenGame: string
-    gameState: any
-    language: any
-    firstLanguage: any
-    secondLanguage: any
-    result: any
-    finished: any
+    gameState: 'welcome' | 'words' | 'phrases' | 'collect' | 'result'
+    language: 'rus' | 'tat' | 'eng' | 'lat'
+    firstLanguage: 'rus' | 'tat' | 'eng' | 'lat'
+    secondLanguage: 'rus' | 'tat' | 'eng' | 'lat'
+    result: Array<any>
+    finished: boolean
     currentQuestionIndex: any
     words: any
     phrases: any
