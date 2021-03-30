@@ -10,8 +10,9 @@ import {PlayAgain, QuestionNumber, questionResultInterface} from "../Words";
 import QuestionText from "../../ui/QuestionText";
 import Play from "../../ui/Play";
 import i18n from "i18next";
+import {StateInterface} from "../../localBase/interfaces";
 
-const Phrases = ({state, setState}) => {
+const Phrases = ({state, setState}: StateInterface) => {
     const history = useHistory();
     const [answer, setAnswer] = useState('_');
     const {sound, wrong} = Sounds;
@@ -30,7 +31,7 @@ const Phrases = ({state, setState}) => {
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questions, setQuestions] = useState(shuffle);
-    const [result, setResult] = useState([]);
+    const [result, setResult] = useState<Array<any>>([]);
 
     const question = questions[currentQuestionIndex];
 
@@ -41,7 +42,7 @@ const Phrases = ({state, setState}) => {
 
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
-    function checkGameState(chosenGame, questionResult) {
+    function checkGameState(chosenGame: any, questionResult: any) {
         console.log("questionResult", questionResult)
         if (currentQuestionIndex + 1 < questions.length) {
             setCurrentQuestionIndex(currentQuestionIndex + 1)
@@ -59,7 +60,7 @@ const Phrases = ({state, setState}) => {
         }
     }
 
-    const handleClick = (id) => {
+    const handleClick = (id: number) => {
         const correctText = _.find(options, {id: 1}).text
         const chosenText = _.find(options, {id: id}).text;
         id === correct ? setAnswer('_') : setAnswer(`Правильный ответ:${correctText}`);
@@ -71,7 +72,7 @@ const Phrases = ({state, setState}) => {
                 questionText,
                 correctText,
                 chosenText
-            } : {correct: false, id: questionId, questionText, correctText,chosenText}
+            } : {correct: false, id: questionId, questionText, correctText, chosenText}
             checkGameState(chosenGame, questionResult)
             setAnswer('_');
             window.clearTimeout(timeout)
@@ -111,7 +112,7 @@ const Phrases = ({state, setState}) => {
     // }
 
 
-    const optionsList = shuffledOptions.map((option, index) => {
+    const optionsList = shuffledOptions.map((option: any, index: number) => {
         const {id, text} = option;
         return <li key={id + text}>
             <Button size={"large"} onClick={() => {
@@ -126,7 +127,7 @@ const Phrases = ({state, setState}) => {
     return (
 
         <StyledPhrase>
-            <div onClick={tell} style={{textAlign: 'center'}}>
+            <div onClick={() => tell()} style={{textAlign: 'center'}}>
                 <QuestionText title={questionText}/>
                 <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
             </div>
