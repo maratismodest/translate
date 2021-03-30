@@ -53,7 +53,7 @@ const Words = ({state, setState}: WordsInterface) => {
 
     const question = questions[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question;
-    const [tell] = useSound(audio);
+    const [tell, {duration}] = useSound(audio);
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame: string, questionResult: questionResultInterface) {
@@ -106,17 +106,18 @@ const Words = ({state, setState}: WordsInterface) => {
         </li>
     })
 
-
+    const timer = Math.floor(duration || 1000);
     return (
 
         <StyledWords>
             <div
                 onClick={() => {
+                    console.log(Math.floor(duration || 1000));
                     setDisabled(true)
                     tell();
                     setTimeout(() => {
                         setDisabled(false)
-                    }, 1000)
+                    }, timer)
                 }} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >
                 <QuestionText title={questionText}/>

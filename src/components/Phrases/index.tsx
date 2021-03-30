@@ -34,12 +34,10 @@ const Phrases = ({state, setState}: StateInterface) => {
     const [questions, setQuestions] = useState(shuffle);
     const [result, setResult] = useState<Array<questionResultInterface>>([]);
 
-    console.log("result", result)
-
     const question = questions[currentQuestionIndex];
 
     const {options, questionText, correct, id: questionId, audio} = question
-    const [tell] = useSound(audio)
+    const [tell, {duration}] = useSound(audio)
     // const shuffledOptions = _.shuffle(options)
     const shuffledOptions = options;
 
@@ -93,7 +91,7 @@ const Phrases = ({state, setState}: StateInterface) => {
         </li>
     })
 
-
+    const timer = Math.floor(duration || 1000);
     return (
 
         <StyledPhrase>
@@ -102,7 +100,7 @@ const Phrases = ({state, setState}: StateInterface) => {
                 tell();
                 setTimeout(() => {
                     setDisabled(false)
-                }, 1000)
+                }, timer)
 
             }} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >

@@ -17,6 +17,7 @@ const Collect = ({state, setState}: StateInterface) => {
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
+    const [disabled, setDisabled] = useState(false)
 
     const {
         chosenGame,
@@ -44,7 +45,8 @@ const Collect = ({state, setState}: StateInterface) => {
     const [separated, setSeparated] = useState(_.shuffle(questionSeparated.concat(randomseparated, randomseparated2)));
     const [answer, setAnswer] = useState<Array<any>>([]);
 
-    const [tell] = useSound(audio);
+    const [tell, {duration}] = useSound(audio)
+    const timer = Math.floor(duration || 1000);
 
     useEffect(() => {
         setSeparated(_.shuffle(questionSeparated.concat(randomseparated, randomseparated2)));
@@ -137,7 +139,16 @@ const Collect = ({state, setState}: StateInterface) => {
     return (
 
         <StyledQuestion>
-            <div onClick={() => tell()} style={{textAlign: 'center'}}>
+            <div
+                onClick={() => {
+                    console.log(Math.floor(duration || 1000));
+                    setDisabled(true)
+                    tell();
+                    setTimeout(() => {
+                        setDisabled(false)
+                    }, timer)
+                }} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
+            >
                 {/*<QuestionText title={questionText}/>*/}
                 <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
             </div>
