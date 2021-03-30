@@ -10,8 +10,9 @@ import {device} from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
 import Sounds from '../../localBase/sounds'
 import i18n from "i18next";
+import {StateInterface} from "../../localBase/interfaces";
 
-const Collect = ({state, setState}) => {
+const Collect = ({state, setState}: StateInterface) => {
     const history = useHistory();
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
@@ -27,7 +28,7 @@ const Collect = ({state, setState}) => {
 
     const [questions, setQuestions] = useState(shuffle);
 
-    const [result, setResult] = useState([]);
+    const [result, setResult] = useState<Array<any>>([]);
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const question = questions[currentQuestionIndex];
@@ -41,7 +42,7 @@ const Collect = ({state, setState}) => {
     const randomseparated = _.sample(collectClone).tat.split(' ');
     const randomseparated2 = _.sample(collectClone).tat.split(' ');
     const [separated, setSeparated] = useState(_.shuffle(questionSeparated.concat(randomseparated, randomseparated2)));
-    const [answer, setAnswer] = useState([]);
+    const [answer, setAnswer] = useState<Array<any>>([]);
 
     const [tell] = useSound(audio);
 
@@ -55,9 +56,9 @@ const Collect = ({state, setState}) => {
 
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
-    function checkGameState(chosenGame, questionResult) {
+    function checkGameState(chosenGame: string, questionResult: QuestionResultInterface) {
         if (currentQuestionIndex + 1 < questions.length) {
-            setResult([...result, questionResult])
+            setResult(prevState => [...prevState, questionResult])
             setCurrentQuestionIndex(currentQuestionIndex + 1)
         } else {
             history.push("/result");
@@ -70,6 +71,12 @@ const Collect = ({state, setState}) => {
                 chosenGame: chosenGame
             })
         }
+    }
+
+    interface QuestionResultInterface {
+        correct: boolean,
+        questionText: string
+        chosenText: string
     }
 
     const handleAnswerClick = () => {
@@ -91,7 +98,7 @@ const Collect = ({state, setState}) => {
 
     console.log(result)
 
-    const handleTagClick = (index) => {
+    const handleTagClick = (index: number) => {
         const currentWord = answer[index];
         setSeparated(separated => [...separated, currentWord]);
         const copyAnswer = _.clone(answer);
@@ -99,9 +106,9 @@ const Collect = ({state, setState}) => {
         setAnswer(copyAnswer)
     }
 
-    const handleClick = (index) => {
+    const handleClick = (index: number) => {
         const currentWord = separated[index];
-        setAnswer(answer => [...answer, currentWord])
+        setAnswer(prevState => [...prevState, currentWord])
         const resultSeparated = _.clone(separated)
         resultSeparated.splice(index, 1)
         setSeparated(resultSeparated);
@@ -130,7 +137,7 @@ const Collect = ({state, setState}) => {
     return (
 
         <StyledQuestion>
-            <div onClick={tell} style={{textAlign: 'center'}}>
+            <div onClick={() => tell()} style={{textAlign: 'center'}}>
                 {/*<QuestionText title={questionText}/>*/}
                 <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
             </div>

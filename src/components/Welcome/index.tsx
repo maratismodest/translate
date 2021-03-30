@@ -1,13 +1,15 @@
 import {Divider} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {InitialStateInterface, translateBaseI18} from '../../localBase/base'
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import ReactLogo from './welcome.svg'
 import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader, Buttons} from './WelcomeStyles'
 import i18n from "i18next";
+import {StateInterface} from "../../localBase/interfaces";
 
-const Welcome = ({state, setState}: { state: InitialStateInterface, setState: any }) => {
+
+const Welcome = ({state, setState}: StateInterface) => {
 
     if (!state) {
         return <div>Загрузка</div>

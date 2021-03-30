@@ -23,7 +23,7 @@ function App() {
     i18n.init({
         resources: translateBaseI18,
         lng: state.language
-    });
+    }).then(r => console.log(r));
 
     return (
         <Game>
@@ -43,7 +43,7 @@ function App() {
                            render={() => <Collect state={state} setState={setState}/>}/>
                     <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState}/>}/>
                     <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
-                    <Route path={["/latin", "/*/latin"]} render={() => <Latin />}/>
+                    <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
                     <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
 
                 </Switch>

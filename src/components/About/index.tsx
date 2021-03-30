@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from "styled-components";
+import {StateInterface} from "../../localBase/interfaces";
 // import NavMenu from "../NavMenu";
 
-const About = ({state, setState}) => {
+const About = ({state, setState} : StateInterface) => {
     return (
         <StyledGame>
             {/*<StyledNavMenu>*/}
