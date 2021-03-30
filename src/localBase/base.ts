@@ -9,7 +9,7 @@ export interface TranslationInterface {
     resultText: string
     wordsText: string
     phrases: string
-    dragAndDrop:string
+    dragAndDrop: string
     wrong: string
     right: string
     mainPage: string
@@ -19,12 +19,13 @@ export interface TranslationInterface {
     welcomeText: string
     wellDone: string
 }
+
 interface LanguageInterface {
-    [name: string] : TranslationInterface
+    [name: string]: TranslationInterface
 }
 
 
-export const translateBaseI18 : { [name: string]: LanguageInterface } = {
+export const translateBaseI18: { [name: string]: LanguageInterface } = {
     lat: {
         translation: {
             chooseLanguage: 'Tel',
@@ -101,12 +102,11 @@ export const translateBaseI18 : { [name: string]: LanguageInterface } = {
 
 
 function getLangWords(language: string = 'rus') {
-    return words.map((item: WordsInterface, index:number) => {
-        const res : string = _.get(item,language)
+    return words.map((item: WordsInterface, index: number) => {
+        const res: string = _.get(item, language)
         return res;
     });
 }
-
 
 
 export const rusWords = getLangWords('rus')
@@ -116,7 +116,7 @@ export const engWords = getLangWords('eng')
 
 function getLangPhrases(language = 'rus') {
     return phrases.map((item, index) => {
-        const res : string = _.get(item,language)
+        const res: string = _.get(item, language)
         return res;
     });
 }
@@ -188,7 +188,7 @@ export const phrasesEngTat = getPhrasesFirstSecond("eng", "tat", engPhrases, tat
 export const collectPhrasesTatRus = getPhrasesFirstSecond("tat", "rus", tatPhrases, rusPhrases, phrases)
 
 export interface InitialStateInterface {
-    chosenGame: any
+    chosenGame: string
     gameState: any
     language: any
     firstLanguage: any
@@ -201,8 +201,8 @@ export interface InitialStateInterface {
     collect: any
 }
 
-export const initialState = {
-    chosenGame: undefined,
+export const initialState: InitialStateInterface = {
+    chosenGame: '',
     gameState: 'welcome',
     language: 'rus',
     firstLanguage: 'tat',
