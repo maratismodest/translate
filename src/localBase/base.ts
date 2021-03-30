@@ -39,7 +39,7 @@ export const translateBaseI18 : { [name: string]: LanguageInterface } = {
             check: 'Tikşer',
             repeatAudio: 'Kаbаt tıñlаrgа',
             question: 'Sorau',
-            welcomeText: 'Tаtаr telen mini-uennаr formаtındа tаtаr telen öyränү',
+            welcomeText: 'Tаtаr telen mini-uennаr formаtındа öyränү',
             wellDone: 'Аfärin. Tаgın uynаp kаrа!'
         }
     },
@@ -57,7 +57,7 @@ export const translateBaseI18 : { [name: string]: LanguageInterface } = {
             check: 'Тикшер',
             repeatAudio: 'Кабат тыңларга',
             question: 'Сорау',
-            welcomeText: 'Татар телен мини-уеннар форматында татар телен өйрәнү',
+            welcomeText: 'Татар телен мини-уеннар форматында өйрәнү',
             wellDone: 'Афәрин. Тагын уйнап кара!'
         }
     },
