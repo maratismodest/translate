@@ -82,23 +82,21 @@ const Collect = ({state, setState}: StateInterface) => {
     }
 
     const handleAnswerClick = () => {
-        console.log("handleAnswerClick")
-
-        const timeout = window.setTimeout(() => {
-            const final = answer.join(' ');
-            tat === final ? yes() : no()
-            const questionResult = tat === final ? {
-                correct: true,
-                questionText: tat,
-                chosenText: final
-            } : {correct: false, questionText: tat, chosenText: final}
+        // console.log("handleAnswerClick")
+        const final = answer.join(' ');
+        tat === final ? yes() : no()
+        const questionResult = tat === final ? {
+            correct: true,
+            questionText: tat,
+            chosenText: final
+        } : {correct: false, questionText: tat, chosenText: final}
+        setTimeout(() => {
             checkGameState(chosenGame, questionResult)
-            window.clearTimeout(timeout)
-        }, 500)
+        }, 1000)
 
     }
 
-    console.log(result)
+    // console.log(result)
 
     const handleTagClick = (index: number) => {
         const currentWord = answer[index];

@@ -11,6 +11,7 @@ import QuestionText from "../../ui/QuestionText";
 import Play from "../../ui/Play";
 import i18n from "i18next";
 import {OptionInterface, StateInterface} from "../../localBase/interfaces";
+import styled from "styled-components";
 
 const Phrases = ({state, setState}: StateInterface) => {
     const history = useHistory();
@@ -64,20 +65,18 @@ const Phrases = ({state, setState}: StateInterface) => {
     const handleClick = (id: number) => {
         const correctText = _.find(options, {id: 1}).text
         const chosenText = _.find(options, {id: id}).text;
+        id === correct ? yes() : no()
         id === correct ? setAnswer('_') : setAnswer(`Правильный ответ:${correctText}`);
-        const timeout = window.setTimeout(() => {
-            id === correct ? yes() : no()
-            const questionResult = id === correct ? {
-                correct: true,
-                id: questionId,
-                questionText,
-                correctText,
-                chosenText
-            } : {correct: false, id: questionId, questionText, correctText, chosenText}
+        const questionResult = id === correct ? {
+            correct: true,
+            id: questionId,
+            questionText,
+            correctText,
+            chosenText
+        } : {correct: false, id: questionId, questionText, correctText, chosenText}
+        setTimeout(() => {
             checkGameState(chosenGame, questionResult)
-            setAnswer('_');
-            window.clearTimeout(timeout)
-        }, 300)
+        }, 1500)
     }
 
     const optionsList = shuffledOptions.map((option: OptionInterface, index: number) => {
@@ -110,6 +109,7 @@ const Phrases = ({state, setState}: StateInterface) => {
             <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
                 {optionsList}
             </ul>
+            <StyledRightAnswer>{answer}</StyledRightAnswer>
             <QuestionNumber>{i18n.t("question")}&nbsp;{currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledPhrase>
 
@@ -117,3 +117,7 @@ const Phrases = ({state, setState}: StateInterface) => {
 }
 
 export default Phrases;
+
+const StyledRightAnswer = styled.span`
+  color: var(--color-red);
+`

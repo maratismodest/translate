@@ -57,7 +57,7 @@ const Words = ({state, setState}: WordsInterface) => {
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame: string, questionResult: questionResultInterface) {
-        console.log("questionResult", questionResult)
+        // console.log("questionResult", questionResult)
         if (currentQuestionIndex + 1 < questions.length) {
             setCurrentQuestionIndex(currentQuestionIndex + 1)
             setResult(prevState => [...prevState, questionResult]);
@@ -79,25 +79,23 @@ const Words = ({state, setState}: WordsInterface) => {
     const handleClick = (id: number) => {
         const correctText = _.find(options, {id: 1}).text
         const chosenText = _.find(options, {id: id}).text;
+        id === correct ? yes() : no()
         id === correct ? setAnswer('_') : setAnswer(`Правильный ответ:${correctText}`);
-        const timeout = window.setTimeout(() => {
-            id === correct ? yes() : no()
-            const questionResult = id === correct ? {
-                correct: true,
-                id: questionId,
-                questionText,
-                correctText,
-                chosenText
-            } : {correct: false, id: questionId, questionText, correctText, chosenText}
+        const questionResult = id === correct ? {
+            correct: true,
+            id: questionId,
+            questionText,
+            correctText,
+            chosenText
+        } : {correct: false, id: questionId, questionText, correctText, chosenText}
+        setTimeout(() => {
             checkGameState(chosenGame, questionResult)
-            setAnswer('_');
-            window.clearTimeout(timeout)
-        }, 300)
+        }, 1500)
     }
 
 
     const optionsList = options.map((option: OptionInterface, index: number) => {
-        console.log("option", option)
+        // console.log("option", option)
         const {id, text} = option;
         return <li key={id + text}>
             <Button size={"large"} onClick={() => {
