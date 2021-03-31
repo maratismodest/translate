@@ -72,6 +72,7 @@ const Words = ({state, setState}: WordsInterface) => {
                 chosenGame: chosenGame
             })
         }
+        setAnswer('_')
     }
 
     const [answer, setAnswer] = useState('_');
@@ -105,18 +106,21 @@ const Words = ({state, setState}: WordsInterface) => {
     })
 
     const timer = Math.floor(duration || 1000);
+
+    const delayFunc = () => {
+        setDisabled(true)
+        tell();
+        setTimeout(() => {
+            setDisabled(false)
+        }, timer)
+    }
     return (
 
         <StyledWords>
             <div
-                onClick={() => {
-                    console.log(Math.floor(duration || 1000));
-                    setDisabled(true)
-                    tell();
-                    setTimeout(() => {
-                        setDisabled(false)
-                    }, timer)
-                }} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
+                onClick={_.debounce(delayFunc, timer, {
+                    'leading': true})}
+                style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >
                 <QuestionText title={questionText}/>
                 <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
@@ -134,6 +138,8 @@ const Words = ({state, setState}: WordsInterface) => {
 export default Words;
 const StyledRightAnswer = styled.span`
   color: var(--color-red);
+  font-size: 16px;
+  line-height: 18px;
 `
 
 export const PlayAgain = styled.span`

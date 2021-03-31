@@ -45,6 +45,8 @@ const Collect = ({state, setState}: StateInterface) => {
     const [separated, setSeparated] = useState(_.shuffle(questionSeparated.concat(randomseparated, randomseparated2)));
     const [answer, setAnswer] = useState<Array<any>>([]);
 
+    const [hint, setHint] = useState('-')
+
     const [tell, {duration}] = useSound(audio)
     const timer = Math.floor(duration || 1000);
 
@@ -73,6 +75,7 @@ const Collect = ({state, setState}: StateInterface) => {
                 chosenGame: chosenGame
             })
         }
+        setHint('_')
     }
 
     interface QuestionResultInterface {
@@ -85,6 +88,7 @@ const Collect = ({state, setState}: StateInterface) => {
         // console.log("handleAnswerClick")
         const final = answer.join(' ');
         tat === final ? yes() : no()
+        tat === final ? setHint('_') : setHint(`Правильный ответ:${tat}`);
         const questionResult = tat === final ? {
             correct: true,
             questionText: tat,
@@ -134,18 +138,19 @@ const Collect = ({state, setState}: StateInterface) => {
     })
 
 
+    const delayFunc = () => {
+        setDisabled(true)
+        tell();
+        setTimeout(() => {
+            setDisabled(false)
+        }, timer)
+    }
+
     return (
 
         <StyledQuestion>
             <div
-                onClick={() => {
-                    console.log(Math.floor(duration || 1000));
-                    setDisabled(true)
-                    tell();
-                    setTimeout(() => {
-                        setDisabled(false)
-                    }, timer)
-                }} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
+                onClick={delayFunc} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >
                 {/*<QuestionText title={questionText}/>*/}
                 <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
@@ -154,11 +159,14 @@ const Collect = ({state, setState}: StateInterface) => {
                 {resultList}
             </StyledResult>
             <Divider/>
+            <StyledRightAnswer>{hint}</StyledRightAnswer>
             <StyledUl>
                 {separatedList}
             </StyledUl>
+
             <Button size={'large'} type="primary" onClick={handleAnswerClick}
                     disabled={answer.length > 0 ? false : true}>{i18n.t("check")}</Button>
+
             <QuestionNumber>{i18n.t("question")}&nbsp;{currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledQuestion>
 
@@ -167,7 +175,11 @@ const Collect = ({state, setState}: StateInterface) => {
 }
 export default Collect;
 
-
+const StyledRightAnswer = styled.span`
+  color: var(--color-red);
+  font-size: 16px;
+  line-height: 18px;
+`
 const StyledTagAnswer = styled(Tag)`
   background: #E7E6F4;
   color: #718CCC;

@@ -91,17 +91,18 @@ const Phrases = ({state, setState}: StateInterface) => {
     })
 
     const timer = Math.floor(duration || 1000);
+
+    const delayFunc = () => {
+        setDisabled(true)
+        tell();
+        setTimeout(() => {
+            setDisabled(false)
+        }, timer)
+    }
     return (
 
         <StyledPhrase>
-            <div onClick={(event) => {
-                setDisabled(true)
-                tell();
-                setTimeout(() => {
-                    setDisabled(false)
-                }, timer)
-
-            }} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
+            <div onClick={delayFunc} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >
                 <QuestionText title={questionText}/>
                 <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
@@ -120,4 +121,6 @@ export default Phrases;
 
 const StyledRightAnswer = styled.span`
   color: var(--color-red);
+  font-size: 16px;
+  line-height: 18px;
 `
