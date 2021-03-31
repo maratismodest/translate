@@ -8,6 +8,27 @@ import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader, Buttons
 import i18n from "i18next";
 import {StateInterface} from "../../localBase/interfaces";
 
+import {
+    EmailShareButton, FacebookIcon,
+    FacebookShareButton,
+    HatenaShareButton,
+    InstapaperShareButton,
+    LineShareButton,
+    LinkedinShareButton,
+    LivejournalShareButton,
+    MailruShareButton,
+    OKShareButton,
+    PinterestShareButton,
+    PocketShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TumblrShareButton,
+    TwitterShareButton,
+    ViberShareButton, VKIcon,
+    VKShareButton,
+    WhatsappShareButton,
+    WorkplaceShareButton
+} from "react-share";
 
 const Welcome = ({state, setState}: StateInterface) => {
 

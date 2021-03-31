@@ -31,12 +31,12 @@ const Words = ({state, setState}: WordsInterface) => {
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const [disabled, setDisabled] = useState(false)
+    const [currentQuestionResult, setCurrentQuestionResult] = useState<any>();
 
     const {
         words,
         chosenGame,
     } = state;
-
 
     const {firstLanguage, secondLanguage} = words;
     const first = _.shuffle(firstLanguage).slice(0, 3);
@@ -46,7 +46,7 @@ const Words = ({state, setState}: WordsInterface) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const questions = useRef(shuffle);
     const [result, setResult] = useState<Array<questionResultInterface>>([]);
-
+    // console.log("result", result)
 
     const question = questions.current[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question;
@@ -74,9 +74,8 @@ const Words = ({state, setState}: WordsInterface) => {
 
     const [answer, setAnswer] = useState('_');
 
-    const [questionResult, setQuestionResult] = useState<any>();
     const handleClick = (id: number) => {
-        if (questionResult) {
+        if (currentQuestionResult) {
             return
         }
         const correctText = _.find(options, {id: 1}).text
@@ -89,7 +88,7 @@ const Words = ({state, setState}: WordsInterface) => {
             chosenText
         } : {correct: false, id: questionId, questionText, correctText, chosenText}
 
-        setQuestionResult(questionResultObject)
+        setCurrentQuestionResult(questionResultObject)
         if (id === correct) {
             yes()
         } else {
@@ -98,9 +97,9 @@ const Words = ({state, setState}: WordsInterface) => {
         }
 
         setTimeout(() => {
-            checkGameState(chosenGame, questionResult)
+            checkGameState(chosenGame, questionResultObject)
             setAnswer('_')
-            setQuestionResult(undefined)
+            setCurrentQuestionResult(null);
         }, id === correct ? 300 : 1500)
 
     }
@@ -113,7 +112,7 @@ const Words = ({state, setState}: WordsInterface) => {
             <Button size={"large"} onClick={() => {
                 handleClick(id);
             }} block
-                    // disabled={disabled}
+                // disabled={disabled}
             ><span>{text}</span></Button>
         </li>
     })
