@@ -1,5 +1,4 @@
 import React, {useState, useEffect, Dispatch, SetStateAction, useRef} from "react";
-import {useDebounce} from 'use-debounce';
 import useSound from "use-sound";
 import Sounds from '../../localBase/sounds'
 import Button from "../../ui/Button";
@@ -12,8 +11,6 @@ import QuestionText from "../../ui/QuestionText";
 import i18n from "i18next";
 import {InitialStateInterface} from "../../localBase/base";
 import {OptionInterface} from "../../localBase/interfaces";
-import {useThrottle, useThrottleCallback} from '@react-hook/throttle'
-import {Input} from "antd";
 
 
 interface WordsInterface {
