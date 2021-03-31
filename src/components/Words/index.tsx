@@ -72,26 +72,40 @@ const Words = ({state, setState}: WordsInterface) => {
                 chosenGame: chosenGame
             })
         }
-        setAnswer('_')
+
     }
 
     const [answer, setAnswer] = useState('_');
 
+    const [questionResult, setQuestionResult] = useState<any>();
     const handleClick = (id: number) => {
+        if (questionResult) {
+            return
+        }
         const correctText = _.find(options, {id: 1}).text
         const chosenText = _.find(options, {id: id}).text;
-        id === correct ? yes() : no()
-        id === correct ? setAnswer('_') : setAnswer(`Правильный ответ:${correctText}`);
-        const questionResult = id === correct ? {
+        const questionResultObject = id === correct ? {
             correct: true,
             id: questionId,
             questionText,
             correctText,
             chosenText
         } : {correct: false, id: questionId, questionText, correctText, chosenText}
+
+        setQuestionResult(questionResultObject)
+        if (id === correct) {
+            yes()
+        } else {
+            no();
+            setAnswer(`Правильный ответ:${correctText}`);
+        }
+
         setTimeout(() => {
             checkGameState(chosenGame, questionResult)
-        }, 1500)
+            setAnswer('_')
+            setQuestionResult(undefined)
+        }, id === correct ? 300 : 1500)
+
     }
 
 
@@ -101,7 +115,9 @@ const Words = ({state, setState}: WordsInterface) => {
         return <li key={id + text}>
             <Button size={"large"} onClick={() => {
                 handleClick(id);
-            }} block><span>{text}</span></Button>
+            }} block
+                    // disabled={disabled}
+            ><span>{text}</span></Button>
         </li>
     })
 
@@ -119,7 +135,8 @@ const Words = ({state, setState}: WordsInterface) => {
         <StyledWords>
             <div
                 onClick={_.debounce(delayFunc, timer, {
-                    'leading': true})}
+                    'leading': true
+                })}
                 style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >
                 <QuestionText title={questionText}/>

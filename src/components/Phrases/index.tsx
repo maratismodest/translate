@@ -20,6 +20,7 @@ const Phrases = ({state, setState}: StateInterface) => {
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
+    const [questionResult, setQuestionResult] = useState<any>();
 
     const {
         phrases,
@@ -63,20 +64,33 @@ const Phrases = ({state, setState}: StateInterface) => {
     }
 
     const handleClick = (id: number) => {
+        if (questionResult) {
+            return
+        }
+
         const correctText = _.find(options, {id: 1}).text
         const chosenText = _.find(options, {id: id}).text;
-        id === correct ? yes() : no()
-        id === correct ? setAnswer('_') : setAnswer(`Правильный ответ:${correctText}`);
-        const questionResult = id === correct ? {
+        const questionResultObject = id === correct ? {
             correct: true,
             id: questionId,
             questionText,
             correctText,
             chosenText
         } : {correct: false, id: questionId, questionText, correctText, chosenText}
+        setQuestionResult(questionResultObject)
+        if (id === correct) {
+            yes()
+        } else {
+            no();
+            setAnswer(`Правильный ответ:${correctText}`);
+        }
+
         setTimeout(() => {
             checkGameState(chosenGame, questionResult)
-        }, 1500)
+            setAnswer('_')
+            setQuestionResult(undefined)
+        }, id === correct ? 300 : 1500)
+
     }
 
     const optionsList = shuffledOptions.map((option: OptionInterface, index: number) => {
