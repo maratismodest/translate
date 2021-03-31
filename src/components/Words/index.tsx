@@ -26,10 +26,10 @@ export interface questionResultInterface {
 }
 
 const Words = ({state, setState}: WordsInterface) => {
+    const history = useHistory();
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
-    const history = useHistory();
     const [disabled, setDisabled] = useState(false)
 
     const {
@@ -44,18 +44,18 @@ const Words = ({state, setState}: WordsInterface) => {
     const shuffle = _.shuffle([...first, ...second])
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(shuffle);
+    const questions = useRef(shuffle);
     const [result, setResult] = useState<Array<questionResultInterface>>([]);
 
 
-    const question = questions[currentQuestionIndex];
+    const question = questions.current[currentQuestionIndex];
     const {options, questionText, correct, id: questionId, audio} = question;
     const [tell, {duration}] = useSound(audio);
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame: string, questionResult: questionResultInterface) {
         // console.log("questionResult", questionResult)
-        if (currentQuestionIndex + 1 < questions.length) {
+        if (currentQuestionIndex + 1 < questions.current.length) {
             setCurrentQuestionIndex(currentQuestionIndex + 1)
             setResult(prevState => [...prevState, questionResult]);
         } else {
@@ -131,9 +131,7 @@ const Words = ({state, setState}: WordsInterface) => {
 
         <StyledWords>
             <div
-                onClick={_.debounce(delayFunc, timer, {
-                    'leading': true
-                })}
+                onClick={delayFunc}
                 style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >
                 <QuestionText title={questionText}/>
@@ -144,7 +142,7 @@ const Words = ({state, setState}: WordsInterface) => {
                 {optionsList}
             </ul>
             <StyledRightAnswer>{answer}</StyledRightAnswer>
-            <QuestionNumber>{i18n.t("question")} {currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
+            <QuestionNumber>{i18n.t("question")} {currentQuestionIndex + 1} / {questions.current.length}</QuestionNumber>
         </StyledWords>
     )
 }
