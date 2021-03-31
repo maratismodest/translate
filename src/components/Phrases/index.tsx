@@ -45,7 +45,7 @@ const Phrases = ({state, setState}: StateInterface) => {
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame: string, questionResult: questionResultInterface) {
-        console.log("questionResult", questionResult)
+        // console.log("questionResult", questionResult)
         if (currentQuestionIndex + 1 < questions.length) {
             setCurrentQuestionIndex(currentQuestionIndex + 1)
             setResult(prevState => [...prevState, questionResult]);

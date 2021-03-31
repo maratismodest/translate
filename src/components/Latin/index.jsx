@@ -106,17 +106,17 @@ const Latin = () => {
 
     const handleFirst = (e)=>{
         const income = e.target.value;
-        console.log(income)
+        // console.log(income)
         let result = '';
 
         for (let char of income) {
             const getLetter = translate.find(latin => latin.tat === char)
             const letter = getLetter ? getLetter.lat : char
-            console.log("letter",letter)
+            // console.log("letter",letter)
             result = result + letter
         }
 
-        console.log("result",result)
+        // console.log("result",result)
 
         // const res = arrayOfStrings.map((item)=>{
         //     const letter = translate.find(latin => latin.tat === item)
