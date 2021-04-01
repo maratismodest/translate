@@ -20,6 +20,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-i18next": "^11.8.10",
+    "react-onesignal": "^1.7.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "react-share": "^4.4.0",
