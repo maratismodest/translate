@@ -1,0 +1,16 @@
+{
+  "name": "Chamala",
+  "short_name": "Chamala",
+  "description": "Учи татарский играючи!",
+  "start_url": "https://chamala.ru",
+  "display": "standalone",
+  "orientation": "any",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "https://chamala.ru/assets/logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

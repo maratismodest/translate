@@ -11,40 +11,30 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
     <link rel='manifest' href='/manifest.json'>
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-       <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-        <script>
-          window.OneSignal = window.OneSignal || [];
-          OneSignal.push(function() {
-            OneSignal.init({
-              appId: "d1e68e99-b1fd-4cc5-9d46-51074f259c10",
-              safari_web_id: "web.onesignal.auto.2473987d-7114-4e84-8494-f768208d432f",
-            });
-          });
-        </script>
     <title>Chamala</title>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+                appId: "b344f64d-2550-4162-8cb3-151ca59f0c50",
+            });
+        });
+    </script>
 </head>
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
-<!--<sript type="module">-->
-<!--    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';-->
-
-<!--    const el = document.createElement('pwa-update');-->
-<!--    document.body.appendChild(el);-->
-<!--</sript>-->
 <script>
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/pwabuilder-sw.js')
-            .then(function(registration) {
+            .then(function (registration) {
                 console.log('Registration successful, scope is:', registration.scope);
             })
-            .catch(function(error) {
+            .catch(function (error) {
                 console.log('Service worker registration failed, error:', error);
             });
     }
