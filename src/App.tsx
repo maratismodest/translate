@@ -17,7 +17,7 @@ import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
 import i18n from "i18next";
 import Latin from "./components/Latin";
-import OneSignal from 'react-onesignal';
+
 
 function App() {
     const [state, setState] = useState(initialState);
@@ -25,7 +25,7 @@ function App() {
         resources: translateBaseI18,
         lng: state.language
     }).then(r => console.log(r));
-    OneSignal.initialize('d57a7b20-ae24-46cb-b0e3-f156a6e91a41', {});
+
 
     return (
         <Game>

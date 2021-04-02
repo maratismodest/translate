@@ -27,6 +27,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 
+
 <!--    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>-->
 <!--    <script>-->
 <!--      window.OneSignal = window.OneSignal || [];-->
@@ -38,6 +39,15 @@
 <!--      });-->
 <!--    </script>-->
     <title>Chamala</title>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+      window.OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "d1e68e99-b1fd-4cc5-9d46-51074f259c10",
+        });
+      });
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -52,11 +62,11 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  <script type="module">
-    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+<!--  <script type="module">-->
+<!--    import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';-->
 
-    const el = document.createElement('pwa-update');
-    document.body.appendChild(el);
-  </script>
+<!--    const el = document.createElement('pwa-update');-->
+<!--    document.body.appendChild(el);-->
+<!--  </script>-->
   </body>
 </html>
