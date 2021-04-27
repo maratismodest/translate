@@ -17,18 +17,22 @@ import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
 import i18n from "i18next";
 import Latin from "./components/Latin";
-import withFirebaseAuth from 'react-with-firebase-auth'
 import firebase from "firebase/app";
-import 'firebase/auth';
-import firebaseConfig from './firebaseConfig';
+import "firebase/analytics";
+import "firebase/auth";
+import "firebase/firestore";
+import firebaseConfig from "./firebaseConfig";
+import withFirebaseAuth from "react-with-firebase-auth";
+import styled from "styled-components";
+import Login from "./components/Login";
+
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
-function App({ user,
-                 signOut,
-                 signInWithGoogle}) {
-    console.log("withFirebaseAuth",withFirebaseAuth)
+function App(props) {
+        const { user,
+            signOut,
+            signInWithGoogle} = props
 
-    console.log(firebaseApp)
     const [state, setState] = useState(initialState);
     i18n.init({
         resources: translateBaseI18,
@@ -37,21 +41,10 @@ function App({ user,
 
     return (
         <Game>
-            <header className="App-header">
-                {/*<img src={logo} className="App-logo" alt="logo" />*/}
-                {
-                    user
-                        ? <p>Hello, {user.displayName}</p>
-                        : <p>Please sign in.</p>
-                }
-                {
-                    user
-                        ? <button onClick={signOut}>Sign out</button>
-                        : <button onClick={signInWithGoogle}>Sign in with Google</button>
-                }
-            </header>
+
             <StyledHeader>
                 <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
+                <NavLink to={'/login'}><StyledLogo>Login</StyledLogo></NavLink>
                 <StyledMenu>
                     <AidaMenu state={state} setState={setState}/>
                 </StyledMenu>
@@ -67,7 +60,9 @@ function App({ user,
                     <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState}/>}/>
                     <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
                     <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
+                    <Route path="/login" render={() => <Login {...props} />}/>
                     <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
+
 
                 </Switch>
             </StyledMain>
@@ -86,11 +81,12 @@ const providers = {
 
 export default withFirebaseAuth({firebaseAppAuth,providers}
 )(App);
-// export default App;
 
-// console.log("state", state)
-
-// i18n.init({
-//     resources: translateBaseI18,
-//     lng: state.language
-// });
+const StyledLogin = styled.div`
+  color: #718CCC;
+  display: flex;
+  width: min-content;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`

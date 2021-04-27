@@ -1,0 +1,21 @@
+[debug] [2021-04-27T21:01:08.586Z] ----------------------------------------------------------------------
+[debug] [2021-04-27T21:01:08.589Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\marat\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-04-27T21:01:08.589Z] CLI Version:   9.10.0
+[debug] [2021-04-27T21:01:08.589Z] Platform:      win32
+[debug] [2021-04-27T21:01:08.589Z] Node Version:  v12.18.3
+[debug] [2021-04-27T21:01:08.590Z] Time:          Wed Apr 28 2021 00:01:08 GMT+0300 (GMT+03:00)
+[debug] [2021-04-27T21:01:08.590Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-04-27T21:01:08.598Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-04-27T21:01:08.598Z] > authorizing via signed-in user (maratismodest@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\marat\Documents\GitHub\translate
+
