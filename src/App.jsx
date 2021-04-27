@@ -81,12 +81,3 @@ const providers = {
 
 export default withFirebaseAuth({firebaseAppAuth,providers}
 )(App);
-
-const StyledLogin = styled.div`
-  color: #718CCC;
-  display: flex;
-  width: min-content;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-`
