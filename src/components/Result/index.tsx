@@ -6,6 +6,8 @@ import Button from '../../ui/Button'
 import {device} from "../../localBase/responsiveStyled";
 import i18n from "i18next";
 import {StateInterface} from "../../localBase/interfaces";
+import {FacebookIcon, FacebookShareButton, VKIcon, VKShareButton} from "react-share";
+import {StyledWelcome} from "../Welcome/WelcomeStyles";
 
 
 interface ResultItemInterface {
@@ -46,11 +48,33 @@ const Result = ({state, setState}: StateInterface) => {
                     {/*</StyledWallPaper>*/}
                 </ResultWrap>
                 <ResultFooter>
-                    <TryAgain>{i18n.t("wellDone")}</TryAgain>
+                    <TryAgainWrap>
+                        <TryAgain>{i18n.t("wellDone")}</TryAgain>
+                        <div style={{paddingLeft: 8}}>
+                            <FacebookShareButton
+                                url={'https://chamala.ru'}
+                                title="Chamala"
+                                quote={'Пожалуйста, поделитесь ссылкой на сайт! Вы поможете его продвижению'}
+
+                            >
+                                <FacebookIcon round size = "2.5rem"/>
+                            </FacebookShareButton>
+
+                            <VKShareButton
+                                url={'https://chamala.ru'}
+                                title="Chamala"
+                                image="https://chamala.ru/sharePicture.png"
+
+                            >
+                                <VKIcon round size = "2.5rem"/>
+                            </VKShareButton>
+                        </div>
+                      </TryAgainWrap>
                     <Link to={`/${chosenGame}`}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
                     }}>{i18n.t("repeat")}</Button></Link>
                 </ResultFooter>
+
                 <StyledGetMain>
                     <Link to={'/'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: 'welcome'})
@@ -174,13 +198,16 @@ const TryAgain = styled.span`
   font-size: 24px;
   line-height: 28px;
   color: var(--color-primary);
+  `
 
-
+const TryAgainWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   @media ${device.desktop} {
     padding-bottom: 40px;
   }
   @media ${device.laptop} {
     padding-bottom: 20px;
   }
-
 `

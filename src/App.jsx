@@ -17,8 +17,22 @@ import AidaMenu from "./components/AidaMenu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
 import i18n from "i18next";
 import Latin from "./components/Latin";
+import firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/auth";
+import "firebase/firestore";
+import firebaseConfig from "./firebaseConfig";
+import withFirebaseAuth from "react-with-firebase-auth";
+import styled from "styled-components";
+import Login from "./components/Login";
 
-function App() {
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+function App(props) {
+        const { user,
+            signOut,
+            signInWithGoogle} = props
+
     const [state, setState] = useState(initialState);
     i18n.init({
         resources: translateBaseI18,
@@ -27,8 +41,10 @@ function App() {
 
     return (
         <Game>
+
             <StyledHeader>
                 <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
+                <NavLink to={'/login'}><StyledLogo>Login</StyledLogo></NavLink>
                 <StyledMenu>
                     <AidaMenu state={state} setState={setState}/>
                 </StyledMenu>
@@ -44,7 +60,9 @@ function App() {
                     <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState}/>}/>
                     <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
                     <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
+                    <Route path="/login" render={() => <Login {...props} />}/>
                     <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
+
 
                 </Switch>
             </StyledMain>
@@ -56,11 +74,19 @@ function App() {
     );
 }
 
-export default App;
+const firebaseAppAuth = firebaseApp.auth();
+const providers = {
+    googleProvider: new firebase.auth.GoogleAuthProvider(),
+};
 
-// console.log("state", state)
+export default withFirebaseAuth({firebaseAppAuth,providers}
+)(App);
 
-// i18n.init({
-//     resources: translateBaseI18,
-//     lng: state.language
-// });
+const StyledLogin = styled.div`
+  color: #718CCC;
+  display: flex;
+  width: min-content;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`

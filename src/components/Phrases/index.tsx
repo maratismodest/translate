@@ -1,28 +1,41 @@
+import React, {useState, useEffect, Dispatch, SetStateAction, useRef} from "react";
 import useSound from "use-sound";
 import Sounds from '../../localBase/sounds'
-import Button from '../../ui/Button'
-
+import Button from "../../ui/Button";
 import {useHistory} from "react-router-dom";
-import {StyledPhrase} from "../Collect";
-import React, {useRef, useState} from "react";
-import _ from "lodash";
-import {PlayAgain, QuestionNumber, questionResultInterface} from "../Words";
-import QuestionText from "../../ui/QuestionText";
+import _ from 'lodash'
+import styled from "styled-components"
+import {device} from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
+import QuestionText from "../../ui/QuestionText";
 import i18n from "i18next";
-import {OptionInterface, StateInterface} from "../../localBase/interfaces";
+import {InitialStateInterface} from "../../localBase/base";
+import {OptionInterface} from "../../localBase/interfaces";
 
-const Phrases = ({state, setState}: StateInterface) => {
+
+interface WordsInterface {
+    state: InitialStateInterface
+    setState: Dispatch<SetStateAction<InitialStateInterface>>
+}
+
+export interface questionResultInterface {
+    correct: boolean
+    id: number
+    questionText: string
+    correctText: string
+}
+
+const Phrases = ({state, setState}: WordsInterface) => {
     const history = useHistory();
-    const [answer, setAnswer] = useState('_');
-    const [disabled, setDisabled] = useState(false)
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
+    const [disabled, setDisabled] = useState(false)
+    const [currentQuestionResult, setCurrentQuestionResult] = useState<any>();
 
     const {
         phrases,
-        chosenGame
+        chosenGame,
     } = state;
 
     const {firstLanguage, secondLanguage} = phrases;
@@ -31,21 +44,18 @@ const Phrases = ({state, setState}: StateInterface) => {
     const shuffle = _.shuffle([...first, ...second])
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [questions, setQuestions] = useState(shuffle);
+    const questions = useRef(shuffle);
     const [result, setResult] = useState<Array<questionResultInterface>>([]);
 
-    const question = questions[currentQuestionIndex];
 
-    const {options, questionText, correct, id: questionId, audio} = question
-    const [tell, {duration}] = useSound(audio)
-    // const shuffledOptions = _.shuffle(options)
-    const shuffledOptions = options;
-
+    const question = questions.current[currentQuestionIndex];
+    const {options, questionText, correct, id: questionId, audio} = question;
+    const [tell, {duration}] = useSound(audio);
 
     //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
     function checkGameState(chosenGame: string, questionResult: questionResultInterface) {
-        console.log("questionResult", questionResult)
-        if (currentQuestionIndex + 1 < questions.length) {
+        // console.log("questionResult", questionResult)
+        if (currentQuestionIndex + 1 < questions.current.length) {
             setCurrentQuestionIndex(currentQuestionIndex + 1)
             setResult(prevState => [...prevState, questionResult]);
         } else {
@@ -59,61 +69,129 @@ const Phrases = ({state, setState}: StateInterface) => {
                 chosenGame: chosenGame
             })
         }
+
     }
+
+    const [answer, setAnswer] = useState('_');
 
     const handleClick = (id: number) => {
+        if (currentQuestionResult) {
+            return
+        }
         const correctText = _.find(options, {id: 1}).text
         const chosenText = _.find(options, {id: id}).text;
-        id === correct ? setAnswer('_') : setAnswer(`Правильный ответ:${correctText}`);
-        const timeout = window.setTimeout(() => {
-            id === correct ? yes() : no()
-            const questionResult = id === correct ? {
-                correct: true,
-                id: questionId,
-                questionText,
-                correctText,
-                chosenText
-            } : {correct: false, id: questionId, questionText, correctText, chosenText}
-            checkGameState(chosenGame, questionResult)
-            setAnswer('_');
-            window.clearTimeout(timeout)
-        }, 300)
+        const questionResultObject = id === correct ? {
+            correct: true,
+            id: questionId,
+            questionText,
+            correctText,
+            chosenText
+        } : {correct: false, id: questionId, questionText, correctText, chosenText}
+
+        setCurrentQuestionResult(questionResultObject)
+        if (id === correct) {
+            yes()
+        } else {
+            no();
+            setAnswer(`Правильный ответ:${correctText}`);
+        }
+
+        setTimeout(() => {
+            checkGameState(chosenGame, questionResultObject)
+            setAnswer('_')
+            setCurrentQuestionResult(null);
+        }, id === correct ? 300 : 1500)
+
     }
 
-    const optionsList = shuffledOptions.map((option: OptionInterface, index: number) => {
+
+    const optionsList = options.map((option: OptionInterface, index: number) => {
+        // console.log("option", option)
         const {id, text} = option;
         return <li key={id + text}>
             <Button size={"large"} onClick={() => {
                 handleClick(id);
-
-            }} block>{text}</Button>
-
+            }} block
+                // disabled={disabled}
+            ><span>{text}</span></Button>
         </li>
     })
 
     const timer = Math.floor(duration || 1000);
+
+    const delayFunc = () => {
+        setDisabled(true)
+        tell();
+        setTimeout(() => {
+            setDisabled(false)
+        }, timer)
+    }
     return (
 
-        <StyledPhrase>
-            <div onClick={(event) => {
-                setDisabled(true)
-                tell();
-                setTimeout(() => {
-                    setDisabled(false)
-                }, timer)
-
-            }} style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
+        <StyledWords>
+            <div
+                onClick={delayFunc}
+                style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
             >
                 <QuestionText title={questionText}/>
                 <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
             </div>
+
             <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
                 {optionsList}
             </ul>
-            <QuestionNumber>{i18n.t("question")}&nbsp;{currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
-        </StyledPhrase>
-
+            <StyledRightAnswer>{answer}</StyledRightAnswer>
+            <QuestionNumber>{i18n.t("question")} {currentQuestionIndex + 1} / {questions.current.length}</QuestionNumber>
+        </StyledWords>
     )
 }
 
 export default Phrases;
+const StyledRightAnswer = styled.span`
+  color: var(--color-red);
+  font-size: 16px;
+  line-height: 18px;
+`
+
+export const PlayAgain = styled.span`
+  font-style: normal;
+  font-weight: 500;
+  text-decoration: underline;
+  color: var(--color-primary);
+  line-height: 133%;
+  cursor: pointer;
+}
+
+@media ${device.desktop} {
+  font-size: 24px;
+}
+
+@media ${device.laptop} {
+  font-size: 16px;
+}
+`
+
+const StyledWords = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+export const QuestionNumber = styled.span`
+  font-size: 16px;
+  line-height: 126%;
+  color: var (-color-primary);
+  font-weight: normal;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+
+  @media ${device.desktop} {
+    bottom: 70px;
+  }
+  @media ${device.laptop} {
+    bottom: 32px;
+  };
+`
