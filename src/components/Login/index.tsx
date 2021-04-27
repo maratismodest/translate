@@ -7,6 +7,9 @@ const Login = ({
                    signInWithGoogle
                }: any) => {
     if (user) {
+        console.log(user.displayName)
+        console.log(user.email)
+        console.log(user.uid)
         return (
             <StyledWelcome>
                 <p>Здравствуйте,&nbsp;{user.displayName}</p>
