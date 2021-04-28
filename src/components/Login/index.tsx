@@ -3,7 +3,7 @@ import styled from "styled-components";
 import axios from 'axios'
 import {useHistory} from "react-router-dom";
 import Button from '../../ui/Button';
-
+import GoogleButton from 'react-google-button'
 const Login = ({
                    user,
                    signInWithGoogle
@@ -36,7 +36,11 @@ const Login = ({
     return (
         <StyledLogin>
             <p>Войти</p>
-            <Button onClick={signInWithGoogle}>Google</Button>
+            {/*<Button onClick={signInWithGoogle}>Google</Button>*/}
+            <GoogleButton
+                label='Чамала!'
+                onClick={signInWithGoogle }
+            />
         </StyledLogin>
     )
 }
