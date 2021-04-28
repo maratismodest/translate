@@ -1,37 +1,15 @@
 import {Divider} from "antd";
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {InitialStateInterface, translateBaseI18} from '../../localBase/base'
+import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import ReactLogo from './welcome.svg'
 import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader, Buttons} from './WelcomeStyles'
 import i18n from "i18next";
-import {StateInterface} from "../../localBase/interfaces";
 
-import {
-    EmailShareButton, FacebookIcon,
-    FacebookShareButton,
-    HatenaShareButton,
-    InstapaperShareButton,
-    LineShareButton,
-    LinkedinShareButton,
-    LivejournalShareButton,
-    MailruShareButton,
-    OKShareButton,
-    PinterestShareButton,
-    PocketShareButton,
-    RedditShareButton,
-    TelegramShareButton,
-    TumblrShareButton,
-    TwitterShareButton,
-    ViberShareButton, VKIcon,
-    VKShareButton,
-    WhatsappShareButton,
-    WorkplaceShareButton
-} from "react-share";
+import AppContext from "../../AppContext";
 
-const Welcome = ({state, setState}: StateInterface) => {
-
+const Welcome = () => {
+    const {state, setState} = useContext(AppContext)
     if (!state) {
         return <div>Загрузка</div>
     }

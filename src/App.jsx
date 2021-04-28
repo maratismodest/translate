@@ -23,15 +23,18 @@ import "firebase/auth";
 import "firebase/firestore";
 import firebaseConfig from "./firebaseConfig";
 import withFirebaseAuth from "react-with-firebase-auth";
-import styled from "styled-components";
+import AppContext from "./AppContext";
 import Login from "./components/Login";
 
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+
 function App(props) {
-        const { user,
-            signOut,
-            signInWithGoogle} = props
+    const {
+        user,
+        signOut,
+        signInWithGoogle
+    } = props
 
     const [state, setState] = useState(initialState);
     i18n.init({
@@ -39,37 +42,42 @@ function App(props) {
         lng: state.language
     }).then(r => console.log(r));
 
+    const context = {
+        state,
+        setState
+    }
     return (
-        <Game>
+        <AppContext.Provider value={context}>
+            <Game>
+                <StyledHeader>
+                    <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
+                    <NavLink to={'/login'}><StyledLogo>Login</StyledLogo></NavLink>
+                    <StyledMenu>
+                        <AidaMenu state={state} setState={setState}/>
+                    </StyledMenu>
+                </StyledHeader>
 
-            <StyledHeader>
-                <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
-                <NavLink to={'/login'}><StyledLogo>Login</StyledLogo></NavLink>
-                <StyledMenu>
-                    <AidaMenu state={state} setState={setState}/>
-                </StyledMenu>
-            </StyledHeader>
-
-            <StyledMain>
-                <Switch>
-                    <Route path={["/words", "/*/words"]} render={() => <Words state={state} setState={setState}/>}/>
-                    <Route path={["/phrases", "/*/phrases"]}
-                           render={() => <Phrases state={state} setState={setState}/>}/>
-                    <Route path={["/collect", "/*/collect"]}
-                           render={() => <Collect state={state} setState={setState}/>}/>
-                    <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState} {...props}/>}/>
-                    <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
-                    <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
-                    <Route path="/login" render={() => <Login {...props} />}/>
-                    <Route path="/" exact render={() => <Welcome state={state} setState={setState}/>}/>
+                <StyledMain>
+                    <Switch>
+                        <Route path={["/words", "/*/words"]} render={() => <Words />}/>
+                        <Route path={["/phrases", "/*/phrases"]}
+                               render={() => <Phrases />}/>
+                        <Route path={["/collect", "/*/collect"]}
+                               render={() => <Collect/>}/>
+                        <Route path={["/result", "/*/result"]}
+                               render={() => <Result  {...props}/>}/>
+                        <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
+                        <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
+                        <Route path="/login" render={() => <Login {...props} />}/>
+                        <Route path="/" exact render={() => <Welcome/>}/>
 
 
-                </Switch>
-            </StyledMain>
-            <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
+                    </Switch>
+                </StyledMain>
+                <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
 
-        </Game>
-
+            </Game>
+        </AppContext.Provider>
 
     );
 }
@@ -79,5 +87,5 @@ const providers = {
     googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
 
-export default withFirebaseAuth({firebaseAppAuth,providers}
+export default withFirebaseAuth({firebaseAppAuth, providers}
 )(App);

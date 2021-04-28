@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Dispatch, SetStateAction, useRef} from "react";
+import React, {useState, useEffect, Dispatch, SetStateAction, useRef, useContext} from "react";
 import useSound from "use-sound";
 import Sounds from '../../localBase/sounds'
 import Button from "../../ui/Button";
@@ -11,6 +11,7 @@ import QuestionText from "../../ui/QuestionText";
 import i18n from "i18next";
 import {InitialStateInterface} from "../../localBase/base";
 import {OptionInterface} from "../../localBase/interfaces";
+import AppContext from "../../AppContext";
 
 
 interface WordsInterface {
@@ -25,7 +26,8 @@ export interface questionResultInterface {
     correctText: string
 }
 
-const Phrases = ({state, setState}: WordsInterface) => {
+const Phrases = () => {
+    const {state, setState} = useContext(AppContext)
     const history = useHistory();
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);

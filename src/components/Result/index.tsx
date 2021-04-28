@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {List, Typography} from 'antd';
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
@@ -9,6 +9,7 @@ import {StateInterface} from "../../localBase/interfaces";
 import {FacebookIcon, FacebookShareButton, VKIcon, VKShareButton} from "react-share";
 import {StyledWelcome} from "../Welcome/WelcomeStyles";
 import axios from "axios";
+import AppContext from "../../AppContext";
 
 
 interface ResultItemInterface {
@@ -20,11 +21,11 @@ interface ResultItemInterface {
 }
 
 const Result = ({
-                    state, setState,
                     user,
                     signOut,
                     signInWithGoogle
                 }: any) => {
+    const {state, setState} = useContext(AppContext)
         const {
             result, language, chosenGame
         } = state;

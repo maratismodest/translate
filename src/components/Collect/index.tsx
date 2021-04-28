@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import _ from "lodash";
 import useSound from "use-sound";
 import {Divider, Tag} from "antd";
@@ -11,8 +11,10 @@ import Play from "../../ui/Play";
 import Sounds from '../../localBase/sounds'
 import i18n from "i18next";
 import {StateInterface} from "../../localBase/interfaces";
+import AppContext from "../../AppContext";
 
-const Collect = ({state, setState}: StateInterface) => {
+const Collect = () => {
+    const {state, setState} = useContext(AppContext)
     const history = useHistory();
     const {sound, wrong} = Sounds;
     const [yes] = useSound(sound);
