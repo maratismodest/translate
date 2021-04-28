@@ -1,11 +1,10 @@
-
 import {Button} from "antd";
 import styled from "styled-components";
 import {device} from "../../localBase/responsiveStyled";
 
 export default styled(Button)`
   background: var(--color-primary);
-  border-radius: 48px;
+  border-radius: 40px;
   font-style: normal;
   font-weight: 500;
   color: #FFFFFF;
@@ -22,12 +21,12 @@ export default styled(Button)`
     font-size: 22px;
     line-height: 26px;
     width: 250px;
-    height: 70px;
+    height: 68px;
 
   }
   @media ${device.laptop} {
-    width: 220px;
-    height: 54px;
+    width: 200px;
+    height: 44px;
     font-size: 16px;
     line-height: 19px;
   }

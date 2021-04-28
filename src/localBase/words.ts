@@ -177,7 +177,7 @@ export const words : Array<WordsInterface> = [
     },
     {
         tat: "Хезмәт",
-        rus: "Труд, служба, работа",
+        rus: "Служба, работа",
         eng: "Labor",
         audio: hezmat,
     },
@@ -207,7 +207,7 @@ export const words : Array<WordsInterface> = [
     },
     {
         tat: "Кыз",
-        rus: "Девочка, девушка, дочь",
+        rus: "Девочка/девушка, дочь",
         eng: "Girl",
         audio: kyz,
     },
@@ -249,7 +249,7 @@ export const words : Array<WordsInterface> = [
     },
     {
         tat: "Чара",
-        rus: "Мера, средство, мероприятие",
+        rus: "Средство, мероприятие",
         eng: "Event",
         audio: chara,
     },
@@ -267,7 +267,7 @@ export const words : Array<WordsInterface> = [
     },
     {
         tat: "Хәл",
-        rus: "Состояние, положение, сила",
+        rus: "Состояние, сила",
         eng: "State",
         audio: hel,
     },
@@ -327,7 +327,7 @@ export const words : Array<WordsInterface> = [
     },
     {
         tat: "Мәсьәлә",
-        rus: "Вопрос, проблема, задача",
+        rus: "Вопрос, проблема",
         eng: "Question",
         audio: mesele,
     },
@@ -375,13 +375,13 @@ export const words : Array<WordsInterface> = [
     },
     {
         tat: "Ул",
-        rus: "Он, она, оно / сын",
+        rus: "Он/она/оно, сын",
         eng: "he,she,it,son",
         audio: ul,
     },
     {
         tat: "Егет",
-        rus: "Парень, молодой человек",
+        rus: "Парень",
         eng: "Guy",
         audio: eget,
     },
@@ -627,8 +627,8 @@ export const words : Array<WordsInterface> = [
     },
     {
         tat: "Исәп",
-        rus: "Численность, счёт, расчёт",
-        eng: "Number, account, calculation",
+        rus: "Численность, счёт",
+        eng: "Number, account",
         audio: isep,
     },
     {

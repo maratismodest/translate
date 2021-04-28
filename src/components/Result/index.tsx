@@ -36,7 +36,7 @@ const Result = ({
 
         async function addCount(id: string) {
             const rightAnswers = _.filter(result, {correct: true});
-            const wrongAnswers = _.filter(result, {correct: true});
+            const wrongAnswers = _.filter(result, {correct: false});
             console.log("правильные ответы", rightAnswers)
             console.log("НЕправильные ответы", wrongAnswers)
             try {

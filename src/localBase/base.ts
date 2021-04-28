@@ -52,9 +52,9 @@ export const translateBaseI18: { [name: string]: LanguageInterface } = {
     },
     tat: {
         translation: {
-            user: 'User',
-            login: 'Login',
-            settings: 'Settings',
+            user: 'Личный кабинет',
+            login: 'Войти',
+            settings: 'Настройки',
             chooseLanguage: 'Тел',
             repeat: 'Кабат',
             resultText: 'Нәтиҗә',
@@ -94,9 +94,9 @@ export const translateBaseI18: { [name: string]: LanguageInterface } = {
     },
     rus: {
         translation: {
-            user: 'User',
-            login: 'Login',
-            settings: 'Settings',
+            user: 'Личный кабинет',
+            login: 'Войти',
+            settings: 'Настройки',
             chooseLanguage: 'Язык',
             repeat: 'Повторить',
             resultText: 'Результат',
