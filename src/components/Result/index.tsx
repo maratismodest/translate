@@ -10,14 +10,13 @@ import axios from "axios";
 import AppContext from "../../AppContext";
 
 import _ from 'lodash'
+
 const Result = ({
-                    user,
-                    signOut,
-                    signInWithGoogle
+                    user
                 }: any) => {
-    const {state, setState} = useContext(AppContext)
+        const {state, setState} = useContext(AppContext)
         const {
-            result, language, chosenGame
+            result, chosenGame
         } = state;
 
 
@@ -36,16 +35,19 @@ const Result = ({
 
 
         async function addCount(id: string) {
-            const rightAnswers = _.filter(result, {correct : true});
-            const wrongAnswers = _.filter(result, {correct : true});
+            const rightAnswers = _.filter(result, {correct: true});
+            const wrongAnswers = _.filter(result, {correct: true});
             console.log("правильные ответы", rightAnswers)
             console.log("НЕправильные ответы", wrongAnswers)
             try {
                 const current = db[id];
-                const updated = {...current, count: current.count + 1, correct: current.correct + rightAnswers.length, mistake: current.mistake + wrongAnswers.length };
-                console.log(updated)
+                const updated = {
+                    ...current,
+                    count: current.count + 1,
+                    correct: current.correct + rightAnswers.length,
+                    mistake: current.mistake + wrongAnswers.length
+                };
                 const res = await axios.put(`https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`, updated);
-
                 return res
             } catch (error) {
                 console.log(error);
@@ -54,7 +56,6 @@ const Result = ({
 
         useEffect(() => {
             getInfo().then((res) => {
-                console.log(res)
                 setDb(res.data)
             })
         }, [])
@@ -64,13 +65,12 @@ const Result = ({
         }
         if (user) {
             addCount(user.uid).then((res) => {
-                console.log(res);
                 console.log('added Count')
             })
         }
 
         return (
-            <ResultWrapper className={'test'}>
+            <ResultWrapper>
                 <ResultWrap>
                     <StyledList
                         header={<Header>{i18n.t("resultText")}:</Header>}

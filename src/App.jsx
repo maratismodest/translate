@@ -48,7 +48,7 @@ function App(props) {
                 <StyledHeader>
                     <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
                     <StyledMenu>
-                        <AidaMenu state={state} setState={setState}/>
+                        <AidaMenu {...props}/>
                     </StyledMenu>
                 </StyledHeader>
 

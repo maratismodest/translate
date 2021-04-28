@@ -12,17 +12,25 @@ import {useHistory} from "react-router-dom";
 import i18n from "i18next";
 import AppContext from "../../AppContext";
 
-const AidaMenu = () => {
-   const  {state, setState} = useContext(AppContext)
+const AidaMenu = ({
+                      user,
+                      signInWithGoogle
+                  }: any) => {
+    const {state, setState} = useContext(AppContext)
     const history = useHistory();
 
+    console.log("user",user)
     const menu = (
         <Menu style={{textAlign: 'center'}}>
-            <Menu.Item key="1">
-                <a onClick={e => {
+            <Menu.Item key="0">
+                {user ? <a onClick={e => {
+                    e.preventDefault();
+                    history.push('/user')
+                }}>{i18n.t("user")}</a> : <a onClick={e => {
                     e.preventDefault();
                     history.push('/login')
                 }}>{i18n.t("login")}</a>
+                }
             </Menu.Item>
             <Menu.Item key="1">
                 <a onClick={e => {
@@ -87,7 +95,7 @@ const AidaMenu = () => {
     return (
         <Dropdown overlay={menu} trigger={['click']}>
             <MenuButton>
-             {i18n.t("settings")}
+                {i18n.t("settings")}
                 {/*<Icon icon={'world'} style={{marginRight: 8}} fill={color}/>{i18n.t("settings")}*/}
             </MenuButton>
         </Dropdown>
