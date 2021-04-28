@@ -3,7 +3,7 @@ import './App.css';
 import {
     BrowserRouter as Router,
     Switch,
-    Route, useLocation, useHistory, NavLink,
+    Route, NavLink,
 } from "react-router-dom";
 import React, {useState} from "react";
 import {initialState, translateBaseI18} from "./localBase/base";
@@ -25,22 +25,18 @@ import firebaseConfig from "./firebaseConfig";
 import withFirebaseAuth from "react-with-firebase-auth";
 import AppContext from "./AppContext";
 import Login from "./components/Login";
+import User from "./components/User";
 
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 function App(props) {
-    const {
-        user,
-        signOut,
-        signInWithGoogle
-    } = props
 
     const [state, setState] = useState(initialState);
     i18n.init({
         resources: translateBaseI18,
         lng: state.language
-    }).then(r => console.log(r));
+    }).then();
 
     const context = {
         state,
@@ -51,7 +47,6 @@ function App(props) {
             <Game>
                 <StyledHeader>
                     <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
-                    <NavLink to={'/login'}><StyledLogo>Login</StyledLogo></NavLink>
                     <StyledMenu>
                         <AidaMenu state={state} setState={setState}/>
                     </StyledMenu>
@@ -69,6 +64,7 @@ function App(props) {
                         <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
                         <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
                         <Route path="/login" render={() => <Login {...props} />}/>
+                        <Route path="/user" render={() => <User {...props} />}/>
                         <Route path="/" exact render={() => <Welcome/>}/>
 
 

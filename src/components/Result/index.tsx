@@ -5,21 +5,11 @@ import {Link} from "react-router-dom";
 import Button from '../../ui/Button'
 import {device} from "../../localBase/responsiveStyled";
 import i18n from "i18next";
-import {StateInterface} from "../../localBase/interfaces";
 import {FacebookIcon, FacebookShareButton, VKIcon, VKShareButton} from "react-share";
-import {StyledWelcome} from "../Welcome/WelcomeStyles";
 import axios from "axios";
 import AppContext from "../../AppContext";
 
-
-interface ResultItemInterface {
-    chosenText: string
-    correct: boolean
-    correctText: string
-    id: number
-    questionText: string
-}
-
+import _ from 'lodash'
 const Result = ({
                     user,
                     signOut,
@@ -35,7 +25,6 @@ const Result = ({
 
         async function getInfo() {
             try {
-                // const res = await axios.get(replaceURL(url));
                 const res = await axios.get(`https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json`);
                 console.log('res', res);
                 return res
@@ -45,17 +34,21 @@ const Result = ({
             }
         }
 
+
         async function addCount(id: string) {
+            const rightAnswers = _.filter(result, {correct : true});
+            const wrongAnswers = _.filter(result, {correct : true});
+            console.log("правильные ответы", rightAnswers)
+            console.log("НЕправильные ответы", wrongAnswers)
             try {
-                const current = db[user.uid];
-                const updated = {...current, count: current.count + 1};
+                const current = db[id];
+                const updated = {...current, count: current.count + 1, correct: current.correct + rightAnswers.length, mistake: current.mistake + wrongAnswers.length };
                 console.log(updated)
                 const res = await axios.put(`https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`, updated);
-                console.log('res', res);
+
                 return res
             } catch (error) {
                 console.log(error);
-                throw new Error(error);
             }
         }
 
@@ -63,7 +56,6 @@ const Result = ({
             getInfo().then((res) => {
                 console.log(res)
                 setDb(res.data)
-
             })
         }, [])
 
@@ -71,11 +63,9 @@ const Result = ({
             return <div>Loader</div>
         }
         if (user) {
-            console.log(user)
             addCount(user.uid).then((res) => {
                 console.log(res);
                 console.log('added Count')
-                // window.location.reload();
             })
         }
 
@@ -85,11 +75,11 @@ const Result = ({
                     <StyledList
                         header={<Header>{i18n.t("resultText")}:</Header>}
                         dataSource={result}
-                        renderItem={(item: any) => {
+                        renderItem={(item: any, index) => {
                             const {correct, questionText, chosenText} = item;
                             const color = correct ? `var(--color-green)` : `var(--color-red)`
                             return (
-                                <List.Item style={{padding: 0, margin: 0}}>
+                                <List.Item style={{padding: 0, margin: 0}} key={index}>
                                     <Typography.Text>
                                         <QuestionText>{questionText} - {chosenText}:&nbsp;</QuestionText>
                                         <QuestionResult
@@ -99,9 +89,6 @@ const Result = ({
                             )
                         }}
                     />
-                    {/*<StyledWallPaper>*/}
-                    {/*    <img src={wellDoneImage} alt="Result" width={'100%'} height={'100%'}/>*/}
-                    {/*</StyledWallPaper>*/}
                 </ResultWrap>
                 <ResultFooter>
                     <TryAgainWrap>

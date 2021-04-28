@@ -18,6 +18,8 @@ export interface TranslationInterface {
     question: string
     welcomeText: string
     wellDone: string
+    settings: string
+    login: string
 }
 
 interface LanguageInterface {
@@ -28,6 +30,8 @@ interface LanguageInterface {
 export const translateBaseI18: { [name: string]: LanguageInterface } = {
     lat: {
         translation: {
+            login: 'Login',
+            settings: 'Settings',
             chooseLanguage: 'Tel',
             repeat: 'Kаbаt',
             resultText: 'Nätijä',
@@ -46,6 +50,8 @@ export const translateBaseI18: { [name: string]: LanguageInterface } = {
     },
     tat: {
         translation: {
+            login: 'Login',
+            settings: 'Settings',
             chooseLanguage: 'Тел',
             repeat: 'Кабат',
             resultText: 'Нәтиҗә',
@@ -64,6 +70,8 @@ export const translateBaseI18: { [name: string]: LanguageInterface } = {
     },
     eng: {
         translation: {
+            login: 'Login',
+            settings: 'Settings',
             chooseLanguage: 'Language',
             repeat: 'Repeat',
             resultText: 'Result',
@@ -82,6 +90,8 @@ export const translateBaseI18: { [name: string]: LanguageInterface } = {
     },
     rus: {
         translation: {
+            login: 'Login',
+            settings: 'Settings',
             chooseLanguage: 'Язык',
             repeat: 'Повторить',
             resultText: 'Результат',

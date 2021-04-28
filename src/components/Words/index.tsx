@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Dispatch, SetStateAction, useRef, useContext} from "react";
+import React, {useState, useRef, useContext} from "react";
 import useSound from "use-sound";
 import Sounds from '../../localBase/sounds'
 import Button from "../../ui/Button";
@@ -9,15 +9,8 @@ import {device} from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
 import QuestionText from "../../ui/QuestionText";
 import i18n from "i18next";
-import {InitialStateInterface} from "../../localBase/base";
 import {OptionInterface} from "../../localBase/interfaces";
 import AppContext from "../../AppContext";
-
-
-interface WordsInterface {
-    state: InitialStateInterface
-    setState: Dispatch<SetStateAction<InitialStateInterface>>
-}
 
 export interface questionResultInterface {
     correct: boolean
@@ -108,13 +101,11 @@ const Words = () => {
 
 
     const optionsList = options.map((option: OptionInterface, index: number) => {
-        // console.log("option", option)
         const {id, text} = option;
         return <li key={id + text}>
             <Button size={"large"} onClick={() => {
                 handleClick(id);
             }} block
-                // disabled={disabled}
             ><span>{text}</span></Button>
         </li>
     })
