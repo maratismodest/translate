@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {List, Typography} from 'antd';
 import styled from 'styled-components'
 import {Link} from "react-router-dom";
@@ -8,6 +8,7 @@ import i18n from "i18next";
 import {StateInterface} from "../../localBase/interfaces";
 import {FacebookIcon, FacebookShareButton, VKIcon, VKShareButton} from "react-share";
 import {StyledWelcome} from "../Welcome/WelcomeStyles";
+import axios from "axios";
 
 
 interface ResultItemInterface {
@@ -18,11 +19,65 @@ interface ResultItemInterface {
     questionText: string
 }
 
-const Result = ({state, setState}: StateInterface) => {
+const Result = ({
+                    state, setState,
+                    user,
+                    signOut,
+                    signInWithGoogle
+                }: any) => {
         const {
             result, language, chosenGame
         } = state;
-        // console.log("result",result)
+
+
+        const [db, setDb] = useState<any>(null);
+
+        async function getInfo() {
+            try {
+                // const res = await axios.get(replaceURL(url));
+                const res = await axios.get(`https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json`);
+                console.log('res', res);
+                return res
+            } catch (error) {
+                console.log(error);
+                throw new Error(error);
+            }
+        }
+
+        async function addCount(id: string) {
+            try {
+                const current = db[user.uid];
+                const updated = {...current, count: current.count + 1};
+                console.log(updated)
+                const res = await axios.put(`https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`, updated);
+                console.log('res', res);
+                return res
+            } catch (error) {
+                console.log(error);
+                throw new Error(error);
+            }
+        }
+
+        useEffect(() => {
+            getInfo().then((res) => {
+                console.log(res)
+                setDb(res.data)
+
+            })
+        }, [])
+
+        if (!user) {
+            return <div>Loader</div>
+        }
+        if (user) {
+            console.log(user)
+            addCount(user.uid).then((res) => {
+                console.log(res);
+                console.log('added Count')
+                // window.location.reload();
+            })
+        }
+
         return (
             <ResultWrapper className={'test'}>
                 <ResultWrap>
@@ -57,7 +112,7 @@ const Result = ({state, setState}: StateInterface) => {
                                 quote={'Пожалуйста, поделитесь ссылкой на сайт! Вы поможете его продвижению'}
 
                             >
-                                <FacebookIcon round size = "2.5rem"/>
+                                <FacebookIcon round size="2.5rem"/>
                             </FacebookShareButton>
 
                             <VKShareButton
@@ -66,10 +121,10 @@ const Result = ({state, setState}: StateInterface) => {
                                 image="https://chamala.ru/sharePicture.png"
 
                             >
-                                <VKIcon round size = "2.5rem"/>
+                                <VKIcon round size="2.5rem"/>
                             </VKShareButton>
                         </div>
-                      </TryAgainWrap>
+                    </TryAgainWrap>
                     <Link to={`/${chosenGame}`}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
                     }}>{i18n.t("repeat")}</Button></Link>
@@ -198,7 +253,7 @@ const TryAgain = styled.span`
   font-size: 24px;
   line-height: 28px;
   color: var(--color-primary);
-  `
+`
 
 const TryAgainWrap = styled.div`
   display: flex;

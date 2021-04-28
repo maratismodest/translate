@@ -57,7 +57,7 @@ function App(props) {
                            render={() => <Phrases state={state} setState={setState}/>}/>
                     <Route path={["/collect", "/*/collect"]}
                            render={() => <Collect state={state} setState={setState}/>}/>
-                    <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState}/>}/>
+                    <Route path={["/result", "/*/result"]} render={() => <Result state={state} setState={setState} {...props}/>}/>
                     <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
                     <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
                     <Route path="/login" render={() => <Login {...props} />}/>
