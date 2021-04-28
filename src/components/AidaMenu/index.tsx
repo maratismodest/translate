@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
 import {Menu, Dropdown} from 'antd';
 import {
     phrasesTatRus,
@@ -10,16 +10,29 @@ import Button from '../../ui/Button'
 import styled from 'styled-components'
 import {useHistory} from "react-router-dom";
 import i18n from "i18next";
-import Icon from "../Icon";
-import {StateInterface} from "../../localBase/interfaces";
+import AppContext from "../../AppContext";
 
-const AidaMenu = ({state, setState}: StateInterface) => {
+const AidaMenu = ({
+                      user,
+                      signInWithGoogle
+                  }: any) => {
+    const {state, setState} = useContext(AppContext)
     const history = useHistory();
-    const [color, setColor] = useState<string>('white')
 
+    console.log("user",user)
     const menu = (
         <Menu style={{textAlign: 'center'}}>
             <Menu.Item key="0">
+                {user ? <a onClick={e => {
+                    e.preventDefault();
+                    history.push('/user')
+                }}>{i18n.t("user")}</a> : <a onClick={e => {
+                    e.preventDefault();
+                    history.push('/login')
+                }}>{i18n.t("login")}</a>
+                }
+            </Menu.Item>
+            <Menu.Item key="1">
                 <a onClick={e => {
                     e.preventDefault();
                     setState({
@@ -33,7 +46,7 @@ const AidaMenu = ({state, setState}: StateInterface) => {
                     history.push('/')
                 }}>RU</a>
             </Menu.Item>
-            <Menu.Item key="1">
+            <Menu.Item key="2">
                 <a onClick={e => {
                     e.preventDefault();
                     setState({
@@ -47,7 +60,7 @@ const AidaMenu = ({state, setState}: StateInterface) => {
                     history.push('/')
                 }}>TA</a>
             </Menu.Item>
-            <Menu.Item key="2">
+            <Menu.Item key="3">
                 <a onClick={e => {
                     e.preventDefault();
                     setState({
@@ -61,7 +74,7 @@ const AidaMenu = ({state, setState}: StateInterface) => {
                     history.push('/')
                 }}>EN</a>
             </Menu.Item>
-            <Menu.Item key="3">
+            <Menu.Item key="4">
                 <a onClick={e => {
                     e.preventDefault();
                     setState({
@@ -82,7 +95,8 @@ const AidaMenu = ({state, setState}: StateInterface) => {
     return (
         <Dropdown overlay={menu} trigger={['click']}>
             <MenuButton>
-                <Icon icon={'world'} style={{marginRight: 8}} fill={color}/>{i18n.t("chooseLanguage")}
+                {i18n.t("settings")}
+                {/*<Icon icon={'world'} style={{marginRight: 8}} fill={color}/>{i18n.t("settings")}*/}
             </MenuButton>
         </Dropdown>
     )

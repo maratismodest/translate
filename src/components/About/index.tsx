@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from "styled-components";
 import {StateInterface} from "../../localBase/interfaces";
+import AppContext from "../../AppContext";
 // import NavMenu from "../NavMenu";
 
-const About = ({state, setState} : StateInterface) => {
+const About = () => {
+    const {state, setState} = useContext(AppContext)
     return (
         <StyledGame>
             {/*<StyledNavMenu>*/}

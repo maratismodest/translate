@@ -9,7 +9,7 @@ export const Game = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-grow: 1;
-  background: linear-gradient(91.77deg, #FFFFFF -16.35%, rgba(222, 222, 253, 0.77) 139.34%), #F3F2F9;
+  //background: linear-gradient(91.77deg, #FFFFFF -16.35%, rgba(222, 222, 253, 0.77) 139.34%), #F3F2F9;
   opacity: 0.8;
 
   .ant-divider-horizontal {

@@ -21,6 +21,7 @@
     "lodash": "^4.17.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-google-button": "^0.7.2",
     "react-i18next": "^11.8.10",
     "react-onesignal": "^1.7.0",
     "react-router-dom": "^5.2.0",
@@ -61,6 +62,7 @@
   "devDependencies": {
     "@capacitor/cli": "^2.4.6",
     "@types/lodash": "^4.14.168",
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "prettier": "2.2.1"
   }
 }
