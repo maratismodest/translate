@@ -12,6 +12,7 @@ import i18n from "i18next";
 import {InitialStateInterface} from "../../localBase/base";
 import {OptionInterface} from "../../localBase/interfaces";
 import AppContext from "../../AppContext";
+import {StyledRightAnswer} from "../Words";
 
 
 interface WordsInterface {
@@ -98,11 +99,11 @@ const Phrases = () => {
             setAnswer(`Правильный ответ:${correctText}`);
         }
 
-        setTimeout(() => {
-            checkGameState(chosenGame, questionResultObject)
-            setAnswer('_')
-            setCurrentQuestionResult(null);
-        }, id === correct ? 300 : 1500)
+        // setTimeout(() => {
+        //     checkGameState(chosenGame, questionResultObject)
+        //     setAnswer('_')
+        //     setCurrentQuestionResult(null);
+        // }, id === correct ? 300 : 1500)
 
     }
 
@@ -112,6 +113,9 @@ const Phrases = () => {
         const {id, text} = option;
         return <li key={id + text}>
             <Button size={"large"} onClick={() => {
+                if (currentQuestionResult){
+                    return;
+                }
                 handleClick(id);
             }} block
                 // disabled={disabled}
@@ -128,6 +132,12 @@ const Phrases = () => {
             setDisabled(false)
         }, timer)
     }
+    const handleNext = () =>{
+        console.log("handleNext")
+        checkGameState(chosenGame, currentQuestionResult)
+        setAnswer('_')
+        setCurrentQuestionResult(null);
+    }
     return (
 
         <StyledWords>
@@ -143,17 +153,13 @@ const Phrases = () => {
                 {optionsList}
             </ul>
             <StyledRightAnswer>{answer}</StyledRightAnswer>
+            <Button style={{background: '#00ff00'}} disabled={currentQuestionResult ? false : true} onClick={handleNext}>Далее</Button>
             <QuestionNumber>{i18n.t("question")} {currentQuestionIndex + 1} / {questions.current.length}</QuestionNumber>
         </StyledWords>
     )
 }
 
 export default Phrases;
-const StyledRightAnswer = styled.span`
-  color: var(--color-red);
-  font-size: 16px;
-  line-height: 18px;
-`
 
 export const PlayAgain = styled.span`
   font-style: normal;

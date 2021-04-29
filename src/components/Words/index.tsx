@@ -91,11 +91,11 @@ const Words = () => {
             setAnswer(`Правильный ответ:${correctText}`);
         }
 
-        setTimeout(() => {
-            checkGameState(chosenGame, questionResultObject)
-            setAnswer('_')
-            setCurrentQuestionResult(null);
-        }, id === correct ? 300 : 1500)
+        // setTimeout(() => {
+        //     checkGameState(chosenGame, questionResultObject)
+        //     setAnswer('_')
+        //     setCurrentQuestionResult(null);
+        // }, id === correct ? 300 : 1500)
 
     }
 
@@ -103,7 +103,10 @@ const Words = () => {
     const optionsList = options.map((option: OptionInterface, index: number) => {
         const {id, text} = option;
         return <li key={id + text}>
-            <Button size={"large"} onClick={() => {
+            <Button size={"large"}  onClick={() => {
+                if (currentQuestionResult){
+                    return;
+                }
                 handleClick(id);
             }} block
             ><span>{text}</span></Button>
@@ -118,6 +121,12 @@ const Words = () => {
         setTimeout(() => {
             setDisabled(false)
         }, timer)
+    }
+    const handleNext = () =>{
+        console.log("handleNext")
+        checkGameState(chosenGame, currentQuestionResult)
+        setAnswer('_')
+        setCurrentQuestionResult(null);
     }
     return (
 
@@ -134,13 +143,16 @@ const Words = () => {
                 {optionsList}
             </ul>
             <StyledRightAnswer>{answer}</StyledRightAnswer>
+            <Button style={{background: '#00ff00'}} disabled={currentQuestionResult ? false : true} onClick={handleNext}>Далее</Button>
             <QuestionNumber>{i18n.t("question")} {currentQuestionIndex + 1} / {questions.current.length}</QuestionNumber>
         </StyledWords>
     )
 }
 
 export default Words;
-const StyledRightAnswer = styled.span`
+export const StyledRightAnswer = styled.span`
+  padding-top: 10px;
+  padding-bottom: 10px;
   color: var(--color-red);
   font-size: 16px;
   line-height: 18px;
