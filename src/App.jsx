@@ -6,14 +6,15 @@ import {
     Route, NavLink,
 } from "react-router-dom";
 import React, {useState} from "react";
-import {initialState, translateBaseI18} from "./localBase/base";
+import {initialState} from "./localBase/base";
+import {translateBaseI18} from './localBase/translate'
 import Welcome from "./components/Welcome";
 import Words from "./components/Words";
 import Result from "./components/Result";
 import Phrases from "./components/Phrases";
 import Collect from "./components/Collect";
 import {YMInitializer} from "react-yandex-metrika";
-import AidaMenu from "./components/AidaMenu";
+import Menu from "./components/Menu";
 import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
 import i18n from "i18next";
 import Latin from "./components/Latin";
@@ -48,7 +49,7 @@ function App(props) {
                 <StyledHeader>
                     <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
                     <StyledMenu>
-                        <AidaMenu {...props}/>
+                        <Menu {...props}/>
                     </StyledMenu>
                 </StyledHeader>
 
