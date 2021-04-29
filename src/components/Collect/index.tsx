@@ -165,10 +165,8 @@ const Collect = () => {
             <StyledUl>
                 {separatedList}
             </StyledUl>
-
             <Button size={'large'} type="primary" onClick={handleAnswerClick}
                     disabled={answer.length > 0 ? false : true}>{i18n.t("check")}</Button>
-
             <QuestionNumber>{i18n.t("question")}&nbsp;{currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledQuestion>
 
