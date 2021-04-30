@@ -13,7 +13,6 @@ import GoogleButton from "react-google-button";
 import { initialState } from "../../localBase/base";
 
 const Result = ({ user, signInWithGoogle }: any) => {
-  const history = useHistory();
   const { state, setState } = useContext(AppContext);
   const { result, chosenGame } = state;
 
@@ -104,13 +103,11 @@ const Result = ({ user, signInWithGoogle }: any) => {
         </TryAgainWrap>
         <Link to={`/${chosenGame}`}>
           <Button
-            size={"large"}
             onClick={() => {
               setState({
                 ...initialState,
                 gameState: chosenGame,
               });
-              // history.push(`/${chosenGame}`);
             }}
           >
             {i18n.t("repeat")}
