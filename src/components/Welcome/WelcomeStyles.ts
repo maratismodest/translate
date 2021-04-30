@@ -12,11 +12,11 @@ export const StyledWelcome = styled.div`
   }
 `;
 
-export const StyledWallPaper = styled.div`
+export const WelcomeWallPaper = styled.div`
   max-width: 50%;
 `;
 
-export const Buttons = styled.div`
+export const WelcomeButtons = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -25,7 +25,7 @@ export const Buttons = styled.div`
   }
 `;
 
-export const StyledWelcomeMenu = styled.div`
+export const WelcomeMenu = styled.div`
   padding-left: 5%;
   @media ${device.laptop} {
     padding-left: 0;
@@ -33,7 +33,7 @@ export const StyledWelcomeMenu = styled.div`
   }
 `;
 
-export const StyledHeader = styled.h2`
+export const WelcomeHeader = styled.h2`
   margin: 0;
   padding: 0;
   font-style: normal;
