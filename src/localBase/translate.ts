@@ -52,7 +52,7 @@ export const translateBaseI18: { [name: string]: LanguageInterface } = {
     tat: {
         translation: {
             menu: 'Menu',
-            user: 'Личный кабинет',
+            user: 'Профиль',
             login: 'Войти',
             settings: 'Настройки',
             chooseLanguage: 'Тел',

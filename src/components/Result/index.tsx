@@ -10,9 +10,11 @@ import axios from "axios";
 import AppContext from "../../AppContext";
 
 import _ from 'lodash'
+import GoogleButton from "react-google-button";
+
 
 const Result = ({
-                    user
+                    user, signInWithGoogle
                 }: any) => {
         const {state, setState} = useContext(AppContext)
         const {
@@ -60,9 +62,7 @@ const Result = ({
             })
         }, [])
 
-        if (!user) {
-            return <div>Loader</div>
-        }
+
         if (user) {
             addCount(user.uid).then((res) => {
                 console.log('added Count')
@@ -93,25 +93,37 @@ const Result = ({
                 <ResultFooter>
                     <TryAgainWrap>
                         <TryAgain>{i18n.t("wellDone")}</TryAgain>
-                        <div style={{paddingLeft: 8}}>
-                            <FacebookShareButton
-                                url={'https://chamala.ru'}
-                                title="Chamala"
-                                quote={'Пожалуйста, поделитесь ссылкой на сайт! Вы поможете его продвижению'}
-
-                            >
-                                <FacebookIcon round size="2.5rem"/>
-                            </FacebookShareButton>
-
-                            <VKShareButton
-                                url={'https://chamala.ru'}
-                                title="Chamala"
-                                image="https://chamala.ru/sharePicture.png"
-
-                            >
-                                <VKIcon round size="2.5rem"/>
-                            </VKShareButton>
+                        <div>
+                            {!user ?
+                                <div style={{textAlign: 'center'}}>
+                                    <Login>Зайди в личный кабинет, чтобы знать свой прогресс! </Login>
+                                    <GoogleButton
+                                        onClick={signInWithGoogle}
+                                        label='Чамала!'
+                                    />
+                                </div>
+                                : null}
                         </div>
+                        {/*<div style={{paddingLeft: 8}}>*/}
+
+                        {/*    <FacebookShareButton*/}
+                        {/*        url={'https://chamala.ru'}*/}
+                        {/*        title="Chamala"*/}
+                        {/*        quote={'Пожалуйста, поделитесь ссылкой на сайт! Вы поможете его продвижению'}*/}
+
+                        {/*    >*/}
+                        {/*        <FacebookIcon round size="2.5rem"/>*/}
+                        {/*    </FacebookShareButton>*/}
+
+                        {/*    <VKShareButton*/}
+                        {/*        url={'https://chamala.ru'}*/}
+                        {/*        title="Chamala"*/}
+                        {/*        image="https://chamala.ru/sharePicture.png"*/}
+
+                        {/*    >*/}
+                        {/*        <VKIcon round size="2.5rem"/>*/}
+                        {/*    </VKShareButton>*/}
+                        {/*</div>*/}
                     </TryAgainWrap>
                     <Link to={`/${chosenGame}`}><Button size={'large'} onClick={() => {
                         setState({...state, currentQuestionIndex: 0, result: [], gameState: chosenGame})
@@ -151,9 +163,6 @@ const ResultWrap = styled.div`
   align-items: center;
   justify-content: space-between;
 `
-const StyledWallPaper = styled.div`
-  max-width: 50%;
-`
 
 const StyledList = styled(List)`
   width: 100%;
@@ -169,6 +178,15 @@ const StyledList = styled(List)`
 
 `
 
+const Login = styled.span`
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-primary);
+`
+
+
 const ResultFooter = styled.div`
   display: flex;
   flex-direction: column;
@@ -178,7 +196,7 @@ const ResultFooter = styled.div`
     padding-top: 50px;
   }
   @media ${device.laptop} {
-    padding-top: 40px;
+    padding-top: 20px;
   }
 
 `
@@ -205,18 +223,18 @@ const StyledGetMain = styled.div`
   font-size: 20px;
   line-height: 24px;
   text-decoration: underline;
-  position: absolute;
-  left: 0;
+  //position: absolute;
+  //left: 0;
   width: 100%;
   height: auto;
-  bottom: 0;
+  //bottom: 0;
   display: flex;
   justify-content: center;
   @media ${device.desktop} {
-    padding-bottom: 70px;
+    //padding-bottom: 70px;
   }
   @media ${device.laptop} {
-    padding-bottom: 32px;
+    //padding-bottom: 32px;
 
   }
 `
@@ -237,6 +255,7 @@ const QuestionResult = styled.span`
 
 `
 const TryAgain = styled.span`
+  text-align: center;
   font-weight: 500;
   font-size: 24px;
   line-height: 28px;
@@ -245,8 +264,9 @@ const TryAgain = styled.span`
 
 const TryAgainWrap = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   @media ${device.desktop} {
     padding-bottom: 40px;
   }

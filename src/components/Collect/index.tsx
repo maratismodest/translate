@@ -10,7 +10,6 @@ import {device} from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
 import Sounds from '../../localBase/sounds'
 import i18n from "i18next";
-import {StateInterface} from "../../localBase/interfaces";
 import AppContext from "../../AppContext";
 
 const Collect = () => {
@@ -20,7 +19,7 @@ const Collect = () => {
     const [yes] = useSound(sound);
     const [no] = useSound(wrong);
     const [disabled, setDisabled] = useState(false)
-
+    const [questionResult, setQuestionResult] = useState<any>();
     const {
         chosenGame,
         collect
@@ -77,7 +76,8 @@ const Collect = () => {
                 chosenGame: chosenGame
             })
         }
-        setHint('_')
+        setQuestionResult('')
+        setHint('-')
     }
 
     interface QuestionResultInterface {
@@ -87,19 +87,16 @@ const Collect = () => {
     }
 
     const handleAnswerClick = () => {
-        // console.log("handleAnswerClick")
         const final = answer.join(' ');
         tat === final ? yes() : no()
-        tat === final ? setHint('_') : setHint(`Правильный ответ:${tat}`);
+        tat === final ? setHint('-') : setHint(`Правильный ответ:${tat}`);
+
         const questionResult = tat === final ? {
             correct: true,
             questionText: tat,
             chosenText: final
         } : {correct: false, questionText: tat, chosenText: final}
-        setTimeout(() => {
-            checkGameState(chosenGame, questionResult)
-        }, 1000)
-
+        setQuestionResult(questionResult)
     }
 
     // console.log(result)
@@ -148,6 +145,12 @@ const Collect = () => {
         }, timer)
     }
 
+    const handleNext = () => {
+        checkGameState(chosenGame, questionResult)
+
+    }
+
+
     return (
 
         <StyledQuestion>
@@ -165,8 +168,13 @@ const Collect = () => {
             <StyledUl>
                 {separatedList}
             </StyledUl>
-            <Button size={'large'} type="primary" onClick={handleAnswerClick}
-                    disabled={answer.length > 0 ? false : true}>{i18n.t("check")}</Button>
+            {questionResult ?  <Button style={{background: '#00ff00'}} disabled={!questionResult}
+                                       onClick={handleNext}>Далее</Button> :
+                <Button size={'large'} type="primary" onClick={handleAnswerClick}
+                        disabled={answer.length > 0 ? false : true}>{i18n.t("check")}</Button>
+            }
+
+
             <QuestionNumber>{i18n.t("question")}&nbsp;{currentQuestionIndex + 1} / {questions.length}</QuestionNumber>
         </StyledQuestion>
 

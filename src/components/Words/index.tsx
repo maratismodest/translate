@@ -67,7 +67,7 @@ const Words = () => {
 
     }
 
-    const [answer, setAnswer] = useState('_');
+    const [answer, setAnswer] = useState('-');
 
     const handleClick = (id: number) => {
         if (currentQuestionResult) {
@@ -125,7 +125,7 @@ const Words = () => {
     const handleNext = () =>{
         console.log("handleNext")
         checkGameState(chosenGame, currentQuestionResult)
-        setAnswer('_')
+        setAnswer('-')
         setCurrentQuestionResult(null);
     }
     return (
@@ -156,6 +156,7 @@ export const StyledRightAnswer = styled.span`
   color: var(--color-red);
   font-size: 16px;
   line-height: 18px;
+  text-align: center;
 `
 
 export const PlayAgain = styled.span`

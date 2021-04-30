@@ -75,7 +75,7 @@ const Phrases = () => {
 
     }
 
-    const [answer, setAnswer] = useState('_');
+    const [answer, setAnswer] = useState('-');
 
     const handleClick = (id: number) => {
         if (currentQuestionResult) {
@@ -135,7 +135,7 @@ const Phrases = () => {
     const handleNext = () =>{
         console.log("handleNext")
         checkGameState(chosenGame, currentQuestionResult)
-        setAnswer('_')
+        setAnswer('-')
         setCurrentQuestionResult(null);
     }
     return (
