@@ -5,6 +5,7 @@ import Button from '../../ui/Button'
 import ReactLogo from './welcome.svg'
 import {StyledWelcome, StyledWallPaper, StyledWelcomeMenu, StyledHeader, Buttons} from './WelcomeStyles'
 import i18n from "i18next";
+import {Button as ButtonTT} from '@material-ui/core'
 
 import AppContext from "../../AppContext";
 
@@ -33,6 +34,7 @@ const Welcome = () => {
             </StyledWallPaper>
             <StyledWelcomeMenu>
                 <StyledHeader>{i18n.t("welcomeText")}</StyledHeader>
+                <ButtonTT>test</ButtonTT>
 
                 <Buttons>
                     <Link to={'/words'}><Button size={"large"}

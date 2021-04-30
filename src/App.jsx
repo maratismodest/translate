@@ -1,21 +1,28 @@
-import 'antd/dist/antd.css';
-import './App.css';
+import "antd/dist/antd.css";
+import "./App.css";
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route, NavLink,
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
 } from "react-router-dom";
-import React, {useState} from "react";
-import {initialState} from "./localBase/base";
-import {translateBaseI18} from './localBase/translate'
+import React, { useState } from "react";
+import { initialState } from "./localBase/base";
+import { translateBaseI18 } from "./localBase/translate";
 import Welcome from "./components/Welcome";
 import Words from "./components/Words";
 import Result from "./components/Result";
 import Phrases from "./components/Phrases";
 import Collect from "./components/Collect";
-import {YMInitializer} from "react-yandex-metrika";
+import { YMInitializer } from "react-yandex-metrika";
 import Menu from "./components/Menu";
-import {Game, StyledHeader, StyledMenu, StyledMain, StyledLogo} from "./AppStyles"
+import {
+  Game,
+  StyledHeader,
+  StyledMenu,
+  StyledMain,
+  StyledLogo,
+} from "./AppStyles";
 import i18n from "i18next";
 import Latin from "./components/Latin";
 import firebase from "firebase/app";
@@ -27,62 +34,107 @@ import withFirebaseAuth from "react-with-firebase-auth";
 import AppContext from "./AppContext";
 import Login from "./components/Login";
 import User from "./components/User";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider, withStyles } from "@material-ui/core";
+import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 
+const customBreakpointValues = {
+  values: {
+    xs: 0,
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200,
+  },
+};
+
+const breakpoints = createBreakpoints({ ...customBreakpointValues });
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
+const theme = createMuiTheme({
+  breakpoints: {
+    ...customBreakpointValues,
+  },
+  overrides: {
+    MuiButton: {
+      root: {
+        padding: "10px",
+        color: "red",
+        [breakpoints.down("lg")]: {
+          padding: "20px",
+          color: "blue",
+        },
+      },
+    },
+  },
+});
+
 function App(props) {
+  const [state, setState] = useState(initialState);
+  i18n
+    .init({
+      resources: translateBaseI18,
+      lng: state.language,
+    })
+    .then();
 
-    const [state, setState] = useState(initialState);
-    i18n.init({
-        resources: translateBaseI18,
-        lng: state.language
-    }).then();
+  const context = {
+    state,
+    setState,
+  };
+  return (
+    <AppContext.Provider value={context}>
+      <ThemeProvider theme={theme}>
+        <Game>
+          <StyledHeader>
+            <NavLink to={"/"}>
+              <StyledLogo>Chamala</StyledLogo>
+            </NavLink>
+            <StyledMenu>
+              <Menu {...props} />
+            </StyledMenu>
+          </StyledHeader>
 
-    const context = {
-        state,
-        setState
-    }
-    return (
-        <AppContext.Provider value={context}>
-            <Game>
-                <StyledHeader>
-                    <NavLink to={'/'}><StyledLogo>Chamala</StyledLogo></NavLink>
-                    <StyledMenu>
-                        <Menu {...props}/>
-                    </StyledMenu>
-                </StyledHeader>
-
-                <StyledMain>
-                    <Switch>
-                        <Route path={["/words", "/*/words"]} render={() => <Words />}/>
-                        <Route path={["/phrases", "/*/phrases"]}
-                               render={() => <Phrases />}/>
-                        <Route path={["/collect", "/*/collect"]}
-                               render={() => <Collect/>}/>
-                        <Route path={["/result", "/*/result"]}
-                               render={() => <Result  {...props}/>}/>
-                        <Route path={["/about", "/*/about"]} render={() => <h1>About</h1>}/>
-                        <Route path={["/latin", "/*/latin"]} render={() => <Latin/>}/>
-                        <Route path="/login" render={() => <Login {...props} />}/>
-                        <Route path="/user" render={() => <User {...props} />}/>
-                        <Route path="/" exact render={() => <Welcome/>}/>
-
-
-                    </Switch>
-                </StyledMain>
-                <YMInitializer accounts={[72761164]} options={{webvisor: true}} version="2"/>
-
-            </Game>
-        </AppContext.Provider>
-
-    );
+          <StyledMain>
+            <Switch>
+              <Route path={["/words", "/*/words"]} render={() => <Words />} />
+              <Route
+                path={["/phrases", "/*/phrases"]}
+                render={() => <Phrases />}
+              />
+              <Route
+                path={["/collect", "/*/collect"]}
+                render={() => <Collect />}
+              />
+              <Route
+                path={["/result", "/*/result"]}
+                render={() => <Result {...props} />}
+              />
+              <Route
+                path={["/about", "/*/about"]}
+                render={() => <h1>About</h1>}
+              />
+              <Route path={["/latin", "/*/latin"]} render={() => <Latin />} />
+              <Route path="/login" render={() => <Login {...props} />} />
+              <Route path="/user" render={() => <User {...props} />} />
+              <Route path="/" exact render={() => <Welcome />} />
+            </Switch>
+          </StyledMain>
+          <YMInitializer
+            accounts={[72761164]}
+            options={{ webvisor: true }}
+            version="2"
+          />
+        </Game>
+      </ThemeProvider>
+    </AppContext.Provider>
+  );
 }
 
 const firebaseAppAuth = firebaseApp.auth();
 const providers = {
-    googleProvider: new firebase.auth.GoogleAuthProvider(),
+  googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
 
-export default withFirebaseAuth({firebaseAppAuth, providers}
-)(App);
+export default withFirebaseAuth({ firebaseAppAuth, providers })(App);
