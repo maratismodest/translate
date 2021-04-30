@@ -12,7 +12,7 @@ const StyledQuestionText = styled.h4`
     line-height: 133%;
   }
   @media ${device.laptop} {
-    font-size: 36px;
+    font-size: 28px;
     line-height: 122%;
   }
 `

@@ -2,8 +2,10 @@ import React, {useEffect} from "react";
 import styled from "styled-components";
 import axios from 'axios'
 import {useHistory} from "react-router-dom";
-import Button from '../../ui/Button';
+import { Typography, Space } from 'antd';
 import GoogleButton from 'react-google-button'
+
+const { Text, Link } = Typography;
 const Login = ({
                    user,
                    signInWithGoogle
