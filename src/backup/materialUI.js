@@ -38,38 +38,6 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider, withStyles } from "@material-ui/core";
 import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 
-const customBreakpointValues = {
-  values: {
-    xs: 0,
-    sm: 576,
-    md: 768,
-    lg: 992,
-    xl: 1200,
-  },
-};
-
-const breakpoints = createBreakpoints({ ...customBreakpointValues });
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
-const theme = createMuiTheme({
-  breakpoints: {
-    ...customBreakpointValues,
-  },
-  overrides: {
-    MuiButton: {
-      root: {
-        padding: "10px",
-        color: "red",
-        [breakpoints.down("lg")]: {
-          padding: "20px",
-          color: "blue",
-        },
-      },
-    },
-  },
-});
-
 function App(props) {
   const [state, setState] = useState(initialState);
   i18n
