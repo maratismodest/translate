@@ -1,155 +1,174 @@
-import React, {useState, useRef, useContext} from "react";
+import React, { useContext, useRef, useState } from "react";
 import useSound from "use-sound";
-import Sounds from '../../localBase/sounds'
+import Sounds from "../../localBase/sounds";
 import Button from "../../ui/Button";
-import {useHistory} from "react-router-dom";
-import _ from 'lodash'
-import styled from "styled-components"
-import {device} from "../../localBase/responsiveStyled";
+import { useHistory } from "react-router-dom";
+import _ from "lodash";
+import styled from "styled-components";
+import { device } from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
 import QuestionText from "../../ui/QuestionText";
 import i18n from "i18next";
-import {OptionInterface} from "../../localBase/interfaces";
+import { OptionInterface } from "../../localBase/interfaces";
 import AppContext from "../../AppContext";
 
 export interface questionResultInterface {
-    correct: boolean
-    id: number
-    questionText: string
-    correctText: string
+  correct: boolean;
+  id: number;
+  questionText: string;
+  correctText: string;
+}
+
+interface CurrentQuestionResultInterface {
+  correct: boolean;
+  id: number;
+  questionText: string;
+  correctText: string;
+  chosenText: string;
 }
 
 const Words = () => {
-    const {state, setState} = useContext(AppContext)
-    const history = useHistory();
-    const {sound, wrong} = Sounds;
-    const [yes] = useSound(sound);
-    const [no] = useSound(wrong);
-    const [disabled, setDisabled] = useState(false)
-    const [currentQuestionResult, setCurrentQuestionResult] = useState<any>();
+  const history = useHistory();
 
-    const {
-        words,
-        chosenGame,
-    } = state;
+  const { state, setState } = useContext(AppContext);
+  const { words, chosenGame } = state;
+  const { firstLanguage, secondLanguage } = words;
+  const first = _.shuffle(firstLanguage).slice(0, 3);
+  const second = _.shuffle(secondLanguage).slice(0, 3);
+  const shuffle = _.shuffle([...first, ...second]);
+  const questions = useRef(shuffle);
 
-    const {firstLanguage, secondLanguage} = words;
-    const first = _.shuffle(firstLanguage).slice(0, 3);
-    const second = _.shuffle(secondLanguage).slice(0, 3);
-    const shuffle = _.shuffle([...first, ...second])
+  const [answer, setAnswer] = useState("-");
 
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const questions = useRef(shuffle);
-    const [result, setResult] = useState<Array<questionResultInterface>>([]);
-    // console.log("result", result)
+  const { soundCorrect, soundWrong } = Sounds;
+  const [success] = useSound(soundCorrect);
+  const [mistake] = useSound(soundWrong);
 
-    const question = questions.current[currentQuestionIndex];
-    const {options, questionText, correct, id: questionId, audio} = question;
-    const [tell, {duration}] = useSound(audio);
+  const [disabled, setDisabled] = useState(false);
 
-    //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
-    function checkGameState(chosenGame: string, questionResult: questionResultInterface) {
-        // console.log("questionResult", questionResult)
-        if (currentQuestionIndex + 1 < questions.current.length) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1)
-            setResult(prevState => [...prevState, questionResult]);
-        } else {
-            history.push("/result");
-            setState({
-                ...state,
-                currentQuestionIndex: 0,
-                result: [...result, questionResult],
-                finished: true,
-                gameState: 'result',
-                chosenGame: chosenGame
-            })
-        }
+  const [currentQuestionResult, setCurrentQuestionResult] = useState<
+    CurrentQuestionResultInterface | any
+  >(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
+  const [result, setResult] = useState<Array<questionResultInterface>>([]);
+
+  const question = questions.current[currentQuestionIndex];
+  const { options, questionText, correct, id: questionId, audio } = question;
+  const [tell, { duration }] = useSound(audio);
+
+  function checkGameState(
+    chosenGame: string,
+    questionResult: questionResultInterface
+  ) {
+    if (currentQuestionIndex + 1 < questions.current.length) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setResult((prevState) => [...prevState, questionResult]);
+    } else {
+      history.push("/result");
+      setState({
+        ...state,
+        result: [...result, questionResult],
+        chosenGame: "words",
+      });
+    }
+  }
+
+  const handleClick = (id: number) => {
+    if (currentQuestionResult) {
+      return;
     }
 
-    const [answer, setAnswer] = useState('-');
+    const correctText = _.find(options, { id: 1 }).text;
+    const chosenText = _.find(options, { id: id }).text;
 
-    const handleClick = (id: number) => {
-        if (currentQuestionResult) {
-            return
-        }
-        const correctText = _.find(options, {id: 1}).text
-        const chosenText = _.find(options, {id: id}).text;
-        const questionResultObject = id === correct ? {
-            correct: true,
-            id: questionId,
-            questionText,
-            correctText,
-            chosenText
-        } : {correct: false, id: questionId, questionText, correctText, chosenText}
-
-        setCurrentQuestionResult(questionResultObject)
-        if (id === correct) {
-            yes()
-        } else {
-            no();
-            setAnswer(`Правильный ответ:${correctText}`);
-        }
-
-        // setTimeout(() => {
-        //     checkGameState(chosenGame, questionResultObject)
-        //     setAnswer('_')
-        //     setCurrentQuestionResult(null);
-        // }, id === correct ? 300 : 1500)
-
+    if (id === correct) {
+      success();
+    } else {
+      mistake();
+      setAnswer(`Правильный ответ:${correctText}`);
     }
 
+    const questionResultObject = {
+      correct: id === correct,
+      id: questionId,
+      questionText,
+      correctText,
+      chosenText,
+    };
 
-    const optionsList = options.map((option: OptionInterface, index: number) => {
-        const {id, text} = option;
-        return <li key={id + text}>
-            <Button size={"large"}  onClick={() => {
-                if (currentQuestionResult){
-                    return;
-                }
-                handleClick(id);
-            }} block
-            ><span>{text}</span></Button>
-        </li>
-    })
+    setCurrentQuestionResult(questionResultObject);
+  };
 
-    const timer = Math.floor(duration || 1000);
-
-    const delayFunc = () => {
-        setDisabled(true)
-        tell();
-        setTimeout(() => {
-            setDisabled(false)
-        }, timer)
-    }
-    const handleNext = () =>{
-        console.log("handleNext")
-        checkGameState(chosenGame, currentQuestionResult)
-        setAnswer('-')
-        setCurrentQuestionResult(null);
-    }
+  const optionsList = options.map((option: OptionInterface, index: number) => {
+    const { id, text } = option;
     return (
+      <li key={id + text}>
+        <Button
+          onClick={() => {
+            currentQuestionResult
+              ? console.log("уже выбран вариант")
+              : handleClick(id);
+          }}
+        >
+          <span>{text}</span>
+        </Button>
+      </li>
+    );
+  });
 
-        <StyledWords>
-            <div
-                onClick={delayFunc}
-                style={{textAlign: 'center', pointerEvents: disabled ? 'none' : 'auto'}}
-            >
-                <QuestionText title={questionText}/>
-                <div><Play/>&nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain></div>
-            </div>
+  const timer = Math.floor(duration || 1000);
 
-            <ul style={{minWidth: 200, maxWidth: 350, paddingTop: 16}}>
-                {optionsList}
-            </ul>
-            <StyledRightAnswer>{answer}</StyledRightAnswer>
-            <Button style={{background: '#00ff00'}} disabled={currentQuestionResult ? false : true} onClick={handleNext}>Далее</Button>
-            <QuestionNumber>{i18n.t("question")} {currentQuestionIndex + 1} / {questions.current.length}</QuestionNumber>
-        </StyledWords>
-    )
-}
+  const delayFunc = () => {
+    setDisabled(true);
+    tell();
+    setTimeout(() => {
+      setDisabled(false);
+    }, timer);
+  };
+
+  const handleNext = () => {
+    checkGameState(chosenGame, currentQuestionResult);
+    setAnswer("-");
+    setCurrentQuestionResult(null);
+  };
+
+  return (
+    <StyledWords>
+      <div
+        onClick={delayFunc}
+        style={{
+          textAlign: "center",
+          pointerEvents: disabled ? "none" : "auto",
+        }}
+      >
+        <QuestionText title={questionText} />
+        <div>
+          <Play />
+          &nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain>
+        </div>
+      </div>
+
+      <StyledOptionsList>{optionsList}</StyledOptionsList>
+      <StyledRightAnswer>{answer}</StyledRightAnswer>
+      <Button green disabled={!currentQuestionResult} onClick={handleNext}>
+        Далее
+      </Button>
+      <QuestionNumber>
+        {i18n.t("question")} {currentQuestionIndex + 1} /{" "}
+        {questions.current.length}
+      </QuestionNumber>
+    </StyledWords>
+  );
+};
 
 export default Words;
+
+export const StyledOptionsList = styled.ul`
+  min-width: 200px;
+  max-width: 350px;
+  padding-top: 16px;
+`;
 export const StyledRightAnswer = styled.span`
   padding-top: 10px;
   padding-bottom: 10px;
@@ -157,7 +176,7 @@ export const StyledRightAnswer = styled.span`
   font-size: 16px;
   line-height: 18px;
   text-align: center;
-`
+`;
 
 export const PlayAgain = styled.span`
   font-style: normal;
@@ -175,13 +194,13 @@ export const PlayAgain = styled.span`
 @media ${device.laptop} {
   font-size: 16px;
 }
-`
+`;
 
 const StyledWords = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 export const QuestionNumber = styled.span`
   font-size: 16px;
   line-height: 126%;
@@ -199,5 +218,5 @@ export const QuestionNumber = styled.span`
   }
   @media ${device.laptop} {
     bottom: 32px;
-  };
-`
+  } ;
+`;
