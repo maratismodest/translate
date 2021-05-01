@@ -34,6 +34,7 @@ import withFirebaseAuth from "react-with-firebase-auth";
 import AppContext from "./AppContext";
 import Login from "./components/Login";
 import User from "./components/User";
+import Word from "./components/Word";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 function App(props: any) {
@@ -64,6 +65,7 @@ function App(props: any) {
 
         <StyledMain>
           <Switch>
+            <Route path={["/word", "/*/word"]} render={() => <Word />} />
             <Route path={["/words", "/*/words"]} render={() => <Words />} />
             <Route
               path={["/phrases", "/*/phrases"]}

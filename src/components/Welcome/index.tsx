@@ -32,12 +32,16 @@ const Welcome = () => {
             <Button>{i18n.t("wordsText")}</Button>
           </Link>
           <Divider />
+          <Link to={"/word"}>
+            <Button>Собери слово</Button>
+          </Link>
+          <Divider />
           <Link to={"/phrases"}>
             <Button>{i18n.t("phrases")}</Button>
           </Link>
           <Divider />
           <Link to={"/collect"}>
-            <Button>{i18n.t("dragAndDrop")}</Button>
+            <Button>Собери фразу</Button>
           </Link>
         </WelcomeButtons>
       </WelcomeMenu>

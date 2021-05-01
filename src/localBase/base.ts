@@ -189,6 +189,7 @@ export interface InitialStateInterface {
   collect: any;
   initialQuestionIndex?: 0;
   answer: string;
+  word: any;
 }
 
 export const initialState: InitialStateInterface = {
@@ -201,6 +202,7 @@ export const initialState: InitialStateInterface = {
   finished: false,
   currentQuestionIndex: 0,
   initialQuestionIndex: 0,
+  word: words,
   words: wordsTatRus,
   phrases: phrasesTatRus,
   collect: phrases,

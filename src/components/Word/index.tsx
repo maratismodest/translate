@@ -12,7 +12,7 @@ import AppContext from "../../AppContext";
 import Sounds from "../../localBase/sounds";
 import useSound from "use-sound";
 
-const Collect = () => {
+const Word = () => {
   const history = useHistory();
   const { state, setState } = useContext(AppContext);
 
@@ -21,10 +21,10 @@ const Collect = () => {
   const [no] = useSound(soundWrong);
   const [disabled, setDisabled] = useState(false);
   const [questionResult, setQuestionResult] = useState<any>();
-  const { chosenGame, collect } = state;
+  const { chosenGame, word } = state;
 
-  const shuffle = _.shuffle(collect).slice(0, 5);
-  const collectClone = _.clone(collect);
+  const shuffle = _.shuffle(word).slice(0, 5);
+  const collectClone = _.clone(word);
 
   const [questions, setQuestions] = useState(shuffle);
 
@@ -38,12 +38,10 @@ const Collect = () => {
   const firstIndex = _.indexOf(collectClone, question);
   collectClone.splice(firstIndex, 1);
 
-  const questionSeparated = tat.split(" ");
-  const randomseparated = _.sample(collectClone).tat.split(" ");
-  const randomseparated2 = _.sample(collectClone).tat.split(" ");
-  const [separated, setSeparated] = useState(
-    _.shuffle(questionSeparated.concat(randomseparated, randomseparated2))
-  );
+  const questionSeparated = tat.split("");
+  console.log("questionSeparated", questionSeparated);
+  const randomseparated = _.sample(collectClone).tat.split("");
+  const [separated, setSeparated] = useState(randomseparated);
   const [answer, setAnswer] = useState<Array<any>>([]);
 
   const [hint, setHint] = useState("-");
@@ -52,9 +50,7 @@ const Collect = () => {
   const timer = Math.floor(duration || 1000);
 
   useEffect(() => {
-    setSeparated(
-      _.shuffle(questionSeparated.concat(randomseparated, randomseparated2))
-    );
+    setSeparated(_.shuffle(questionSeparated.concat(randomseparated)));
     setAnswer([]);
   }, [currentQuestionIndex]);
   useEffect(() => {
@@ -91,7 +87,7 @@ const Collect = () => {
   }
 
   const handleAnswerClick = () => {
-    const final = answer.join(" ");
+    const final = answer.join("");
     tat === final ? yes() : no();
     tat === final ? setHint("-") : setHint(`Правильный ответ:${tat}`);
 
@@ -108,7 +104,7 @@ const Collect = () => {
 
   const handleTagClick = (index: number) => {
     const currentWord = answer[index];
-    setSeparated((separated) => [...separated, currentWord]);
+    setSeparated((separated: any) => [...separated, currentWord]);
     const copyAnswer = _.clone(answer);
     copyAnswer.splice(index, 1);
     setAnswer(copyAnswer);
@@ -136,7 +132,7 @@ const Collect = () => {
     );
   });
 
-  const separatedList = separated.map((item, index) => {
+  const separatedList = separated.map((item: any, index: number) => {
     return (
       <li key={item + index + separated.length} style={{ marginRight: 4 }}>
         <StyledTagOptions
@@ -200,7 +196,7 @@ const Collect = () => {
     </StyledQuestion>
   );
 };
-export default Collect;
+export default Word;
 
 const StyledRightAnswer = styled.span`
   padding-top: 10px;
@@ -260,7 +256,7 @@ const StyledResult = styled.ul`
 const StyledUl = styled.ul`
   width: 90%;
   display: flex;
-  min-height: 120px;
+  min-height: 50px;
   flex-wrap: wrap;
   padding: 12px;
   //max-width: 300px;
