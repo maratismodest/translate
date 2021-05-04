@@ -2,15 +2,19 @@ import React, { useContext, useRef, useState } from "react";
 import useSound from "use-sound";
 import Sounds from "../../localBase/sounds";
 import Button from "../../ui/Button";
+import Slab from "../../ui/Slab";
+import Header from "../../ui/Header";
+import Text from "../../ui/Text";
+
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
-import styled from "styled-components";
-import { device } from "../../localBase/responsiveStyled";
-import Play from "../../ui/Play";
-import QuestionText from "../../ui/QuestionText";
 import i18n from "i18next";
 import { OptionInterface } from "../../localBase/interfaces";
 import AppContext from "../../AppContext";
+import Icon from "../../ui/Icon";
+import styled from "styled-components";
+import { StyledBody } from "../Welcome/WelcomeStyles";
+import { Progress } from "antd";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -69,7 +73,7 @@ const Words = () => {
       setState({
         ...state,
         result: [...result, questionResult],
-        chosenGame: "phrases",
+        chosenGame: "words",
       });
     }
   }
@@ -103,15 +107,16 @@ const Words = () => {
   const optionsList = options.map((option: OptionInterface, index: number) => {
     const { id, text } = option;
     return (
-      <li key={id + text}>
+      <li key={id + text} style={{ marginBottom: 10 }}>
         <Button
+          normal
           onClick={() => {
             currentQuestionResult
               ? console.log("уже выбран вариант")
               : handleClick(id);
           }}
         >
-          <span>{text}</span>
+          {text}
         </Button>
       </li>
     );
@@ -135,88 +140,36 @@ const Words = () => {
 
   return (
     <StyledWords>
-      <div
-        onClick={delayFunc}
-        style={{
-          textAlign: "center",
-          pointerEvents: disabled ? "none" : "auto",
-        }}
-      >
-        <QuestionText title={questionText} />
-        <div>
-          <Play />
-          &nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain>
-        </div>
-      </div>
+      <Slab onClick={delayFunc} big>
+        <Header level={2}>{questionText}</Header>
+        <Icon icon="play" size={24} className={"play"} />
+      </Slab>
 
-      <StyledOptionsList>{optionsList}</StyledOptionsList>
-      <StyledRightAnswer>{answer}</StyledRightAnswer>
-      <Button green disabled={!currentQuestionResult} onClick={handleNext}>
+      <ul style={{ marginTop: 16 }}>{optionsList}</ul>
+      <div>{answer}</div>
+      <Button disabled={!currentQuestionResult} onClick={handleNext}>
         Далее
       </Button>
-      <QuestionNumber>
-        {i18n.t("question")} {currentQuestionIndex + 1} /{" "}
-        {questions.current.length}
-      </QuestionNumber>
+      <ProgressBlock>
+        <Progress
+          percent={(currentQuestionIndex * 100) / questions.current.length}
+          showInfo={false}
+          strokeColor={"#0F8012"}
+        />
+        <Text green>
+          {i18n.t("question")} {currentQuestionIndex + 1} /{" "}
+          {questions.current.length}
+        </Text>
+      </ProgressBlock>
     </StyledWords>
   );
 };
 
 export default Words;
 
-export const StyledOptionsList = styled.ul`
-  min-width: 200px;
-  max-width: 350px;
-  padding-top: 16px;
-`;
-export const StyledRightAnswer = styled.span`
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: var(--color-red);
-  font-size: 16px;
-  line-height: 18px;
-  text-align: center;
-`;
-
-export const PlayAgain = styled.span`
-  font-style: normal;
-  font-weight: 500;
-  text-decoration: underline;
-  color: var(--color-primary);
-  line-height: 133%;
-  cursor: pointer;
-}
-
-@media ${device.desktop} {
-  font-size: 24px;
-}
-
-@media ${device.laptop} {
-  font-size: 16px;
-}
-`;
-
-const StyledWords = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-export const QuestionNumber = styled.span`
-  font-size: 16px;
-  line-height: 126%;
-  color: var (-color-primary);
-  font-weight: normal;
-  position: absolute;
-  left: 0;
+const ProgressBlock = styled.div`
   width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-
-  @media ${device.desktop} {
-    bottom: 70px;
-  }
-  @media ${device.laptop} {
-    bottom: 32px;
-  } ;
+  text-align: left;
 `;
+
+const StyledWords = styled(StyledBody)``;

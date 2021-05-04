@@ -1,125 +1,189 @@
-import React, {useContext} from "react";
-import {Menu,Dropdown} from 'antd';
-import {
-    phrasesTatRus,
-    wordsTatRus,
-    wordsTatEng,
-    phrasesEngTat,
-} from "../../localBase/base";
-import Button from '../../ui/Button'
-import styled from 'styled-components'
-import {useHistory} from "react-router-dom";
-import i18n from "i18next";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import AppContext from "../../AppContext";
-import './styles.scss';
-import { LoginOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import "./styles.scss";
+import { MenuOutlined } from "@ant-design/icons";
 
+import Text from "../../ui/Text";
+import Icon from "../../ui/Icon";
+export default ({ user }: any) => {
+  const history = useHistory();
+  const { state, setState } = useContext(AppContext);
+  const [mainMenuVisible, setMainMenuVisible] = useState(false);
+  const [languageVisible, setLanguageVisible] = useState(false);
 
-const { SubMenu } = Menu;
+  const MainMenuList: MenuInterface[] = [
+    {
+      text: "На главную",
+      cb: () => {
+        history.push("/");
+      },
+    },
+    {
+      text: user ? "Профиль" : "Логин",
+      cb: () => {
+        history.push(user ? "/user" : "/login");
+      },
+    },
+    {
+      text: "Языки",
+      cb: () => {
+        console.log("test");
+        setLanguageVisible(true);
+      },
+    },
+  ];
 
-export default ({
-                      user
-                  }: any) => {
-    const {state, setState} = useContext(AppContext)
-    const history = useHistory();
-    const menu = (
-        <Menu style={{textAlign: 'center'}}>
-            <MenuItem key="0" icon={<LoginOutlined />}>
-                {user ? <a onClick={e => {
-                    e.preventDefault();
-                    history.push('/user')
-                }}>{i18n.t("user")}</a> : <a onClick={e => {
-                    e.preventDefault();
-                    history.push('/login')
-                }}>{i18n.t("login")}</a>
-                }
-            </MenuItem>
-            <SubMenu key="sub1" icon={<AppstoreOutlined />} title="Язык">
-                <MenuItem key="1">
-                    <a onClick={e => {
-                        e.preventDefault();
-                        setState({
-                            ...state,
-                            language: 'rus',
-                            words: wordsTatRus,
-                            phrases: phrasesTatRus,
-                            firstLanguage: 'rus',
-                            secondLanguage: 'tat',
-                        })
-                        history.push('/')
-                    }}>RU</a>
-                </MenuItem>
-                <MenuItem key="2">
-                    <a onClick={e => {
-                        e.preventDefault();
-                        setState({
-                            ...state,
-                            language: 'tat',
-                            words: wordsTatRus,
-                            phrases: phrasesTatRus,
-                            firstLanguage: 'tat',
-                            secondLanguage: 'rus',
-                        })
-                        history.push('/')
-                    }}>TA</a>
-                </MenuItem>
-                <MenuItem key="3">
-                    <a onClick={e => {
-                        e.preventDefault();
-                        setState({
-                            ...state,
-                            language: 'eng',
-                            words: wordsTatEng,
-                            phrases: phrasesEngTat,
-                            firstLanguage: 'eng',
-                            secondLanguage: 'tat',
-                        })
-                        history.push('/')
-                    }}>EN</a>
-                </MenuItem>
-                <MenuItem key="4">
-                    <a onClick={e => {
-                        e.preventDefault();
-                        setState({
-                            ...state,
-                            language: 'lat',
-                            words: wordsTatEng,
-                            phrases: phrasesEngTat,
-                            firstLanguage: 'eng',
-                            secondLanguage: 'tat',
-                        })
-                        history.push('/')
-                    }}>LA</a>
-                </MenuItem>
-            </SubMenu>
+  const LanguageMenuList: MenuInterface[] = [
+    {
+      text: "Русский",
+      cb: () => {
+        setState({
+          ...state,
+          language: "rus",
+          firstLanguage: "tat",
+          secondLanguage: "rus",
+        });
+        history.push("/");
+      },
+    },
+    {
+      text: "English",
+      cb: () => {
+        setState({
+          ...state,
+          language: "eng",
+          firstLanguage: "tat",
+          secondLanguage: "eng",
+        });
+        history.push("/");
+      },
+    },
+    {
+      text: "Татарча",
+      cb: () => {
+        setState({
+          ...state,
+          language: "tat",
+          firstLanguage: "tat",
+          secondLanguage: "rus",
+        });
+        history.push("/");
+      },
+    },
+    {
+      text: "Latin",
+      cb: () => {
+        setState({
+          ...state,
+          language: "lat",
+          firstLanguage: "tat",
+          secondLanguage: "rus",
+        });
+        history.push("/");
+      },
+    },
+  ];
 
-        </Menu>
-    );
+  return (
+    <>
+      <MenuOutlined
+        style={{ fontSize: 24 }}
+        onClick={() => {
+          console.log("cb");
+          setMainMenuVisible(true);
+          setState({ ...state, menuClosed: false });
+        }}
+      />
 
-    return (
-        <Dropdown overlay={menu} trigger={['click']} >
+      {mainMenuVisible ? (
+        <StyledMenu
+          arr={MainMenuList}
+          visible={mainMenuVisible}
+          setVisible={setMainMenuVisible}
+        />
+      ) : null}
+      {languageVisible ? (
+        <StyledMenu
+          arr={LanguageMenuList}
+          visible={languageVisible}
+          setVisible={setLanguageVisible}
+        />
+      ) : null}
+    </>
+  );
+};
 
-            <MenuButton>
-               {i18n.t("menu")} <SettingOutlined />
-            </MenuButton>
-        </Dropdown>
-    )
+interface MenuInterface {
+  text: string;
+  cb: () => void;
 }
 
-const MenuButton = styled(Button)`
-  border-radius: 38px;
-  height: 44px;
-  width: auto;
-  min-width: 150px;
+interface StyledMenuInterface {
+  arr: MenuInterface[];
+  visible: boolean;
+  setVisible: any;
+  user?: any;
+  className?: any;
+}
+
+const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
+  const res = arr.map((item, index) => {
+    const { text, cb } = item;
+    return (
+      <li
+        key={index}
+        style={{
+          marginBottom: 16,
+        }}
+      >
+        <Text
+          huge
+          onClick={() => {
+            setVisible(false);
+            cb();
+          }}
+        >
+          {text}
+        </Text>
+      </li>
+    );
+  });
+  return (
+    <Styled className={"menu"}>
+      <ul>{res}</ul>
+      <Close>
+        <Icon
+          icon={"close"}
+          siz={32}
+          onClick={() => {
+            setVisible(false);
+          }}
+        />
+      </Close>
+    </Styled>
+  );
+};
+
+const Close = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 16px;
+`;
+
+const Styled = styled.div`
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  top: 0;
+  min-height: 350px;
+  width: 300px;
+  max-width: 80%;
+  background: #ffffff;
+  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.1);
+  border-radius: 0 0 0 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-`
-
-const MenuItem = styled(Menu.Item)`
-    padding: 10px;
-    min-width: 100px;
-    text-align: center;
-  font-size: 20px;
-  line-height: 24px;
-`
+`;

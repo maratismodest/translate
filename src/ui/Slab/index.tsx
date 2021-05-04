@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default styled(Button)<Partial<Props>>`
-  background: var(--color-green);
+  background: var(--color-white);
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
@@ -30,12 +30,27 @@ export default styled(Button)<Partial<Props>>`
   border: none;
 
   color: var(--color-white);
-  width: 262px;
-  height: 52px;
+  width: 140px;
+  height: 140px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background: #ffffff;
+  border: 1px solid rgba(11, 65, 12, 0.2);
+  box-sizing: border-box;
+  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.08);
+  border-radius: 14px;
   outline: none;
   box-shadow: none;
   &:active {
-    background-color: #272f5a;
+    background-color: var(--color-white);
+  }
+  .play {
+    position: absolute;
+    top: 12px;
+    right: 12px;
   }
   &:hover {
     background: var(--color-darkgreen);
@@ -43,22 +58,30 @@ export default styled(Button)<Partial<Props>>`
   }
 
   &:focus {
-    background: rgba(15, 128, 18, 0.07);
-    border: 1px solid #0f8012;
-    box-sizing: border-box;
-    box-shadow: inset 0px 5px 13px rgba(3, 32, 4, 0.02);
-    border-radius: 25px;
-    color: var(--color-green);
+    background-color: var(--color-white);
+    color: var(--color-black);
   }
 
   &:disabled {
     background: var(--color-grey);
   }
 
+  .selected {
+    background: rgba(15, 128, 18, 0.07);
+    border: 1px solid #0f8012;
+    box-sizing: border-box;
+    box-shadow: inset 0px 5px 13px rgba(3, 32, 4, 0.02);
+  }
+
   ${(props) =>
     props.small &&
     css`
       width: 232px;
+    `}
+  ${(props) =>
+    props.big &&
+    css`
+      width: 100%;
     `}
   ${(props) =>
     props.medium &&
