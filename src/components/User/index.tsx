@@ -73,15 +73,4 @@ const User = ({ user, signOut }: any) => {
 };
 export default User;
 
-const StyledLogin = styled.div`
-  color: #718ccc;
-  display: flex;
-  width: min-content;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-`;
-
-const StyledUser = styled(StyledBody)`
-  text-align: left;
-`;
+const StyledUser = styled(StyledBody)``;

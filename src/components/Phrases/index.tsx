@@ -107,7 +107,7 @@ const Words = () => {
   const optionsList = options.map((option: OptionInterface, index: number) => {
     const { id, text } = option;
     return (
-      <li key={id + text}>
+      <li key={id + text} style={{ marginBottom: 10 }}>
         <Button
           normal
           onClick={() => {

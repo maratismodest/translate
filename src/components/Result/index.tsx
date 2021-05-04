@@ -3,7 +3,6 @@ import { List, Typography } from "antd";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import Button from "../../ui/Button";
-import { device } from "../../localBase/responsiveStyled";
 import i18n from "i18next";
 import axios from "axios";
 import AppContext from "../../AppContext";
@@ -11,6 +10,10 @@ import AppContext from "../../AppContext";
 import _ from "lodash";
 import GoogleButton from "react-google-button";
 import { initialState } from "../../localBase/base";
+import { StyledBody } from "../Welcome/WelcomeStyles";
+import Header from "../../ui/Header";
+import Text from "../../ui/Text";
+import Icon from "../../ui/Icon";
 
 const Result = ({ user, signInWithGoogle }: any) => {
   const { state, setState } = useContext(AppContext);
@@ -64,43 +67,46 @@ const Result = ({ user, signInWithGoogle }: any) => {
   }
 
   return (
-    <ResultWrapper>
-      <ResultWrap>
-        <StyledList
-          header={<Header>{i18n.t("resultText")}:</Header>}
-          dataSource={result}
-          renderItem={(item: any, index) => {
-            const { correct, questionText, chosenText } = item;
-            const color = correct ? `var(--color-green)` : `var(--color-red)`;
-            return (
-              <List.Item style={{ padding: 0, margin: 0 }} key={index}>
-                <Typography.Text>
-                  <QuestionText>
-                    {questionText} - {chosenText}:&nbsp;
-                  </QuestionText>
-                  <QuestionResult color={color}>
-                    {correct ? i18n.t("right") : i18n.t("wrong")}
-                  </QuestionResult>
-                </Typography.Text>
-              </List.Item>
-            );
-          }}
-        />
-      </ResultWrap>
-      <ResultFooter>
-        <TryAgainWrap>
-          <TryAgain>{i18n.t("wellDone")}</TryAgain>
+    <StyledResult>
+      <Header>{i18n.t("resultText")}:</Header>
+      <ul>
+        {result.map((item: any, index: number) => {
+          const { correct, questionText, chosenText, correctText } = item;
+          console.log(item);
+          return (
+            <ResultLi key={index}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Header level={3}>{questionText}: </Header>
+                <Text large color={correct ? "green" : "red"}>
+                  {chosenText}
+                </Text>
+                <Icon icon={correct} />
+              </div>
+              {correct ? null : (
+                <Text green>Правильный ответ: {correctText}</Text>
+              )}
+            </ResultLi>
+          );
+        })}
+      </ul>
+      <div>
+        <div style={{ marginBottom: 16 }}>
+          <Header level={4}>{i18n.t("wellDone")}</Header>
           <div>
             {!user ? (
               <div style={{ textAlign: "center" }}>
-                <Login>
-                  Зайди в личный кабинет, чтобы знать свой прогресс!{" "}
-                </Login>
+                <div>Зайди в личный кабинет, чтобы знать свой прогресс! </div>
                 <GoogleButton onClick={signInWithGoogle} label="Чамала!" />
               </div>
             ) : null}
           </div>
-        </TryAgainWrap>
+        </div>
         <Link to={`/${chosenGame}`}>
           <Button
             onClick={() => {
@@ -113,131 +119,33 @@ const Result = ({ user, signInWithGoogle }: any) => {
             {i18n.t("repeat")}
           </Button>
         </Link>
-      </ResultFooter>
+      </div>
 
-      <StyledGetMain>
-        <Link
-          to={"/"}
-          onClick={() => {
-            setState({
-              ...initialState,
-              gameState: "welcome",
-            });
-          }}
-        >
+      <Link
+        to={"/"}
+        onClick={() => {
+          setState({
+            ...initialState,
+            gameState: "welcome",
+          });
+        }}
+      >
+        <Text underline large>
           {i18n.t("mainPage")}
-        </Link>
-      </StyledGetMain>
-    </ResultWrapper>
+        </Text>
+      </Link>
+    </StyledResult>
   );
 };
 export default Result;
 
-const ResultWrapper = styled.div`
+const StyledResult = styled(StyledBody)`
+  width: 100%;
+`;
+
+const ResultLi = styled.li`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  min-width: 500px;
-  @media ${device.laptop} {
-    min-width: auto;
-  }
-`;
-const ResultWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const StyledList = styled(List)`
-  width: 100%;
-  max-width: 500px;
-  @media ${device.laptop} {
-    max-width: 100%;
-  }
-`;
-
-const Login = styled.span`
-  text-align: center;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--color-primary);
-`;
-
-const ResultFooter = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 50px;
-
-  @media ${device.laptop} {
-    padding-top: 20px;
-  }
-`;
-
-const Header = styled.h2`
-  color: var(--color-primary);
-  font-weight: 500;
-  font-size: 46px;
-  line-height: 133%;
-  @media ${device.laptop} {
-    font-size: 20px;
-    line-height: 126%;
-  }
-`;
-
-const StyledGetMain = styled.div`
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 24px;
-  text-decoration: underline;
-  //position: absolute;
-  //left: 0;
-  width: 100%;
-  height: auto;
-  //bottom: 0;
-  display: flex;
-  justify-content: center;
-
-  //padding-bottom: 70px;
-
-  @media ${device.laptop} {
-    //padding-bottom: 32px;
-  }
-`;
-
-const QuestionText = styled.span`
-  color: var(--color-primary);
-  opacity: 0.8;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-`;
-
-const QuestionResult = styled.span`
-  color: ${(props) => props.color || "black"};
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 24px;
-`;
-const TryAgain = styled.span`
-  text-align: center;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 28px;
-  color: var(--color-primary);
-`;
-
-const TryAgainWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  @media ${device.desktop} {
-    padding-bottom: 40px;
-  }
-  @media ${device.laptop} {
-    padding-bottom: 20px;
-  }
+  align-items: baseline;
+  margin-bottom: 10px;
 `;

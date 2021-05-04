@@ -4,7 +4,7 @@ import Sounds from "../../localBase/sounds";
 import Button from "../../ui/Button";
 import Slab from "../../ui/Slab";
 import Header from "../../ui/Header";
-import Text from "../../ui/Text";
+import ProgressBlock from "../../ui/ProgressBlock";
 
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
@@ -107,7 +107,7 @@ const Words = () => {
   const optionsList = options.map((option: OptionInterface, index: number) => {
     const { id, text } = option;
     return (
-      <li key={id + text}>
+      <li key={id + text} style={{ marginBottom: 10 }}>
         <Button
           normal
           onClick={() => {
@@ -150,26 +150,14 @@ const Words = () => {
       <Button disabled={!currentQuestionResult} onClick={handleNext}>
         Далее
       </Button>
-      <ProgressBlock>
-        <Progress
-          percent={(currentQuestionIndex * 100) / questions.current.length}
-          showInfo={false}
-          strokeColor={"#0F8012"}
-        />
-        <Text green>
-          {i18n.t("question")} {currentQuestionIndex + 1} /{" "}
-          {questions.current.length}
-        </Text>
-      </ProgressBlock>
+      <ProgressBlock
+        length={questions.current.length}
+        currentQuestionIndex={currentQuestionIndex}
+      />
     </StyledWords>
   );
 };
 
 export default Words;
-
-const ProgressBlock = styled.div`
-  width: 100%;
-  text-align: left;
-`;
 
 const StyledWords = styled(StyledBody)``;

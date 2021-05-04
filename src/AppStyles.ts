@@ -6,6 +6,7 @@ export const Game = styled.div`
   flex-flow: column;
   height: 100%;
   min-height: 100vh;
+  background: var(--color-lightgrey);
 `;
 
 export const StyledHeader = styled.div`
