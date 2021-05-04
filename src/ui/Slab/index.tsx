@@ -30,8 +30,8 @@ export default styled(Button)<Partial<Props>>`
   border: none;
 
   color: var(--color-white);
-  width: 262px;
-  height: 52px;
+  width: 140px;
+  height: 140px;
   outline: none;
   box-shadow: none;
   //&:active {

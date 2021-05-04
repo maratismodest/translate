@@ -1,52 +1,23 @@
 import styled from "styled-components";
 import { device } from "../../localBase/responsiveStyled";
+import Header from "../../ui/Header";
 
 export const StyledWelcome = styled.div`
-  width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  @media ${device.laptop} {
-    flex-direction: column;
-    align-items: center;
-  }
+  justify-content: space-evenly;
+  flex-grow: 1;
+  text-align: center;
 `;
 
 export const WelcomeWallPaper = styled.div`
   max-width: 50%;
-`;
-
-export const WelcomeButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   @media ${device.laptop} {
-    align-items: center;
+    max-width: 90%;
   }
 `;
 
-export const WelcomeMenu = styled.div`
-  padding-left: 5%;
-  @media ${device.laptop} {
-    padding-left: 0;
-    padding-top: 30px;
-  }
-`;
-
-export const WelcomeHeader = styled.h2`
-  margin: 0;
-  padding: 0;
-  font-style: normal;
-  font-weight: 500;
-  color: #718ccc;
-  max-width: 618px;
-  font-size: 46px;
-  line-height: 133%;
-  padding-bottom: 75px;
-  @media ${device.laptop} {
-    font-size: 20px;
-    line-height: 126%;
-    padding-bottom: 30px;
-    text-align: center;
-  }
+export const WelcomeHeader = styled(Header)`
+  text-align: center;
 `;

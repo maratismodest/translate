@@ -1,11 +1,6 @@
 import "antd/dist/antd.css";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-} from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import React, { useState } from "react";
 import { initialState } from "./localBase/base";
 import { translateBaseI18 } from "./localBase/translate";
@@ -14,15 +9,8 @@ import Words from "./components/Words";
 import Result from "./components/Result";
 import Phrases from "./components/Phrases";
 import Collect from "./components/Collect";
-import { YMInitializer } from "react-yandex-metrika";
 import Menu from "./components/Menu";
-import {
-  Game,
-  StyledHeader,
-  StyledMenu,
-  StyledMain,
-  StyledLogo,
-} from "./AppStyles";
+import { Game, StyledHeader, StyledLogo, StyledMain } from "./AppStyles";
 import i18n from "i18next";
 import Latin from "./components/Latin";
 import firebase from "firebase/app";
@@ -35,8 +23,12 @@ import AppContext from "./AppContext";
 import Login from "./components/Login";
 import User from "./components/User";
 import Word from "./components/Word";
+import PickGame from "./components/PickGame";
+import { parseSDKVersion } from "@ionic/cli/lib/integrations/cordova/android";
+import { YMInitializer } from "react-yandex-metrika";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+
 function App(props: any) {
   const [state, setState] = useState(initialState);
   i18n
@@ -56,11 +48,11 @@ function App(props: any) {
       <Game>
         <StyledHeader>
           <NavLink to={"/"}>
-            <StyledLogo>Chamala</StyledLogo>
+            <StyledLogo level={2} bold color={"green"}>
+              Chamala
+            </StyledLogo>
           </NavLink>
-          <StyledMenu>
-            <Menu {...props} />
-          </StyledMenu>
+          <Menu {...props} />
         </StyledHeader>
 
         <StyledMain>
@@ -86,6 +78,11 @@ function App(props: any) {
             <Route path={["/latin", "/*/latin"]} render={() => <Latin />} />
             <Route path="/login" render={() => <Login {...props} />} />
             <Route path="/user" render={() => <User {...props} />} />
+            <Route
+              path="/pickgame"
+              exact
+              render={() => <PickGame {...props} />}
+            />
             <Route path="/" exact render={() => <Welcome />} />
           </Switch>
         </StyledMain>
