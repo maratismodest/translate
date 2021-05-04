@@ -7,7 +7,6 @@ import { MenuOutlined } from "@ant-design/icons";
 
 import Text from "../../ui/Text";
 import Icon from "../../ui/Icon";
-
 export default ({ user }: any) => {
   const history = useHistory();
   const { state, setState } = useContext(AppContext);
@@ -94,8 +93,10 @@ export default ({ user }: any) => {
         onClick={() => {
           console.log("cb");
           setMainMenuVisible(true);
+          setState({ ...state, menuClosed: false });
         }}
       />
+
       {mainMenuVisible ? (
         <StyledMenu
           arr={MainMenuList}
@@ -124,6 +125,7 @@ interface StyledMenuInterface {
   visible: boolean;
   setVisible: any;
   user?: any;
+  className?: any;
 }
 
 const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
@@ -149,7 +151,7 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
     );
   });
   return (
-    <Styled>
+    <Styled className={"menu"}>
       <ul>{res}</ul>
       <Close>
         <Icon
@@ -172,6 +174,7 @@ const Close = styled.div`
 
 const Styled = styled.div`
   position: absolute;
+  z-index: 1000;
   right: 0;
   top: 0;
   min-height: 350px;

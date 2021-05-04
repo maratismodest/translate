@@ -1,11 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./welcome.svg";
-import {
-  StyledWelcome,
-  WelcomeHeader,
-  WelcomeWallPaper,
-} from "./WelcomeStyles";
+import { StyledWelcome, WelcomeWallPaper } from "./WelcomeStyles";
 import i18n from "i18next";
 import Button from "../../ui/Button";
 import Header from "../../ui/Header";

@@ -13,22 +13,19 @@ import Menu from "./components/Menu";
 import { Game, StyledHeader, StyledLogo, StyledMain } from "./AppStyles";
 import i18n from "i18next";
 import Latin from "./components/Latin";
-import firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
-import firebaseConfig from "./firebaseConfig";
+import "firebase/storage";
 import withFirebaseAuth from "react-with-firebase-auth";
 import AppContext from "./AppContext";
 import Login from "./components/Login";
 import User from "./components/User";
 import Word from "./components/Word";
-import PickGame from "./components/PickGame";
-import { parseSDKVersion } from "@ionic/cli/lib/integrations/cordova/android";
 import { YMInitializer } from "react-yandex-metrika";
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
+import firebase from "firebase/app";
+import { Spin } from "antd";
+import { app } from "./base";
 function App(props: any) {
   const [state, setState] = useState(initialState);
   i18n
@@ -41,7 +38,11 @@ function App(props: any) {
   const context = {
     state,
     setState,
+    app,
   };
+  if (!app) {
+    return <Spin />;
+  }
 
   return (
     <AppContext.Provider value={context}>
@@ -78,11 +79,7 @@ function App(props: any) {
             <Route path={["/latin", "/*/latin"]} render={() => <Latin />} />
             <Route path="/login" render={() => <Login {...props} />} />
             <Route path="/user" render={() => <User {...props} />} />
-            <Route
-              path="/pickgame"
-              exact
-              render={() => <PickGame {...props} />}
-            />
+            <Route path="/" exact render={() => <Welcome />} />
             <Route path="/" exact render={() => <Welcome />} />
           </Switch>
         </StyledMain>
@@ -96,7 +93,7 @@ function App(props: any) {
   );
 }
 
-const firebaseAppAuth = firebaseApp.auth();
+const firebaseAppAuth = app.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
