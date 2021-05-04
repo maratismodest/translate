@@ -10,6 +10,7 @@ interface Props {
   green?: boolean;
   color?: string;
   onClick?: any;
+  huge?: boolean;
 }
 
 export default styled(Text)<Partial<Props>>`
@@ -44,6 +45,12 @@ export default styled(Text)<Partial<Props>>`
       css`
         font-size: 16px;
         line-height: 19px;
+      `}
+    ${(props) =>
+      props.huge &&
+      css`
+        font-size: 20px;
+        line-height: 24px;
       `}
     ${(props) =>
       props.green &&

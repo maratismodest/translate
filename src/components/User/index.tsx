@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import Button from "../../ui/Button";
 import Text from "../../ui/Text";
 import Header from "../../ui/Header";
-const User = ({ user, signOut }: any) => {
+import Tukai from "../../assets/tukai.png";
+import { Modal, Spin } from "antd";
+import { initialState } from "../../localBase/base";
+import i18n from "i18next";
+const User = ({ user, signOut, state, setState }: any) => {
   const [db, setDb] = useState<any>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const history = useHistory();
 
   async function getInfo() {
@@ -43,7 +48,7 @@ const User = ({ user, signOut }: any) => {
   }, []);
 
   if (!db) {
-    return <div>Загрузка</div>;
+    return <Spin />;
   }
   if (!user) {
     history.push("/login");
@@ -58,17 +63,61 @@ const User = ({ user, signOut }: any) => {
       return null;
     });
   }
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
-    <StyledUser>
-      <Text>Здравствуйте,&nbsp;{user.displayName}</Text>
-      <Text>Ваш ID: {user.uid}</Text>
-      <Header level={3}>Ваша статистика</Header>
-      <Text>Количество игр: {currentUser.count}</Text>
-      <Text>Количество правильных ответов:{currentUser.correct} </Text>
-      <Text>Количество неправильных ответов:{currentUser.mistake} </Text>
-      <hr />
-      <Button onClick={signOut}>Выйти</Button>
-    </StyledUser>
+    <>
+      <StyledUser>
+        <Text>{user.displayName}</Text>
+        {/*<Text>Ваш ID: {user.uid}</Text>*/}
+
+        <Text>Количество игр: {currentUser.count}</Text>
+        <Text>Количество правильных ответов:{currentUser.correct} </Text>
+        <Text>Количество неправильных ответов:{currentUser.mistake} </Text>
+        <hr />
+        <Button onClick={showModal}>Настройки</Button>
+        <Button onClick={showModal} style={{ alignSelf: "center" }}>
+          Уровень
+        </Button>
+        <Link
+          to={"/"}
+          onClick={() => {
+            setState({
+              ...initialState,
+              gameState: "welcome",
+            });
+          }}
+        >
+          <Text underline large>
+            {i18n.t("mainPage")}
+          </Text>
+        </Link>
+      </StyledUser>
+      <Modal
+        title="Ваш уровень"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="ОК"
+        cancelText="Отмена"
+        centered
+      >
+        <img src={Tukai} width={"100%"} />
+        <Text huge>Тукай одобряет!</Text>
+        <Text>Ваш уровень: {currentUser.level}</Text>
+      </Modal>
+    </>
   );
 };
 export default User;
