@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default styled(Button)<Partial<Props>>`
-  background: var(--color-green);
+  background: var(--color-white);
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
@@ -32,19 +32,34 @@ export default styled(Button)<Partial<Props>>`
   color: var(--color-white);
   width: 140px;
   height: 140px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background: #ffffff;
+  border: 1px solid rgba(11, 65, 12, 0.2);
+  box-sizing: border-box;
+  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.08);
+  border-radius: 14px;
   outline: none;
   box-shadow: none;
-  //&:active {
-  //  background-color: #272f5a;
-  //}
+  &:active {
+    background-color: var(--color-white);
+  }
+  .play {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+  }
   &:hover {
     background: var(--color-darkgreen);
     color: var(--color-white);
   }
 
   &:focus {
-    background: var(--color-darkgreen);
-    color: var(--color-white);
+    background-color: var(--color-white);
+    color: var(--color-black);
   }
 
   &:disabled {
@@ -62,6 +77,11 @@ export default styled(Button)<Partial<Props>>`
     props.small &&
     css`
       width: 232px;
+    `}
+  ${(props) =>
+    props.big &&
+    css`
+      width: 100%;
     `}
   ${(props) =>
     props.medium &&

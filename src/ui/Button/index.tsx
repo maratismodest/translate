@@ -34,28 +34,25 @@ export default styled(Button)<Partial<Props>>`
   height: 52px;
   outline: none;
   box-shadow: none;
-  //&:active {
-  //  background-color: #272f5a;
-  //}
+  &:active {
+    background-color: #272f5a;
+  }
   &:hover {
     background: var(--color-darkgreen);
     color: var(--color-white);
   }
 
   &:focus {
-    background: var(--color-darkgreen);
-    color: var(--color-white);
-  }
-
-  &:disabled {
-    background: var(--color-grey);
-  }
-
-  .selected {
     background: rgba(15, 128, 18, 0.07);
     border: 1px solid #0f8012;
     box-sizing: border-box;
     box-shadow: inset 0px 5px 13px rgba(3, 32, 4, 0.02);
+    border-radius: 25px;
+    color: var(--color-green);
+  }
+
+  &:disabled {
+    background: var(--color-grey);
   }
 
   ${(props) =>

@@ -4,7 +4,6 @@ import { Divider, Tag } from "antd";
 import Button from "../../ui/Button";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { PlayAgain, QuestionNumber } from "../Words";
 import { device } from "../../localBase/responsiveStyled";
 import Play from "../../ui/Play";
 import i18n from "i18next";
@@ -169,7 +168,7 @@ const Word = () => {
       >
         <div>
           <Play />
-          &nbsp;<PlayAgain>{i18n.t("repeatAudio")}</PlayAgain>
+          &nbsp;<div>{i18n.t("repeatAudio")}</div>
         </div>
       </div>
       <StyledResult>{resultList}</StyledResult>
@@ -189,10 +188,10 @@ const Word = () => {
         </Button>
       )}
 
-      <QuestionNumber>
+      <div>
         {i18n.t("question")}&nbsp;{currentQuestionIndex + 1} /{" "}
         {questions.length}
-      </QuestionNumber>
+      </div>
     </StyledQuestion>
   );
 };
