@@ -15,32 +15,12 @@ const Login = ({ user, signInWithGoogle, signInWithEmailAndPassword }: any) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [show, setShow] = useState("login");
-  console.log("user", user);
+
   const history = useHistory();
-
-  async function getInfo() {
-    try {
-      const res = await axios.get(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json`
-      );
-      return res;
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
+  if (user) {
+    history.push("/user");
+    return null;
   }
-
-  useEffect(() => {
-    getInfo().then((res) => {
-      console.log(res);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      history.push("/user");
-    }
-  }, [user]);
 
   const handleSubmit = async (values: any) => {
     console.log(email, password);
