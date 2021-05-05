@@ -26,6 +26,7 @@ import { YMInitializer } from "react-yandex-metrika";
 import firebase from "firebase/app";
 import { Spin } from "antd";
 import { app } from "./base";
+import PickGame from "./components/PickGame";
 function App(props: any) {
   const [state, setState] = useState(initialState);
   i18n
@@ -79,7 +80,7 @@ function App(props: any) {
             <Route path={["/latin", "/*/latin"]} render={() => <Latin />} />
             <Route path="/login" render={() => <Login {...props} />} />
             <Route path="/user" render={() => <User {...props} />} />
-            <Route path="/" exact render={() => <Welcome />} />
+            <Route path="/pickgame" exact render={() => <PickGame />} />
             <Route path="/" exact render={() => <Welcome />} />
           </Switch>
         </StyledMain>
@@ -96,6 +97,7 @@ function App(props: any) {
 const firebaseAppAuth = app.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
+  signInWithEmailAndPassword: new firebase.auth.EmailAuthProvider(),
 };
 
 export default withFirebaseAuth({ firebaseAppAuth, providers })(App);
