@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import AppContext from "../../AppContext";
@@ -13,6 +13,21 @@ export default ({ user }: any) => {
   const [mainMenuVisible, setMainMenuVisible] = useState(false);
   const [languageVisible, setLanguageVisible] = useState(false);
 
+  document.addEventListener("click", function (e: any) {
+    console.log(e.target.closest("#languages"));
+    const languages = e.target.closest("#languages");
+    if (languages) {
+      return;
+    }
+    if (mainMenuVisible || languageVisible) {
+      const menu = e.target.closest("#menu");
+      if (!menu) {
+        setMainMenuVisible(false);
+        setLanguageVisible(false);
+      }
+    }
+    return;
+  });
   const MainMenuList: MenuInterface[] = [
     {
       text: "На главную",
@@ -28,8 +43,8 @@ export default ({ user }: any) => {
     },
     {
       text: "Языки",
+      id: "languages",
       cb: () => {
-        console.log("test");
         setLanguageVisible(true);
       },
     },
@@ -87,16 +102,14 @@ export default ({ user }: any) => {
   ];
 
   return (
-    <>
+    <div id="menu">
       <MenuOutlined
         style={{ fontSize: 24 }}
         onClick={() => {
-          console.log("cb");
           setMainMenuVisible(true);
           setState({ ...state, menuClosed: false });
         }}
       />
-
       {mainMenuVisible ? (
         <StyledMenu
           arr={MainMenuList}
@@ -111,13 +124,14 @@ export default ({ user }: any) => {
           setVisible={setLanguageVisible}
         />
       ) : null}
-    </>
+    </div>
   );
 };
 
 interface MenuInterface {
   text: string;
   cb: () => void;
+  id?: string;
 }
 
 interface StyledMenuInterface {
@@ -130,12 +144,13 @@ interface StyledMenuInterface {
 
 const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
   const res = arr.map((item, index) => {
-    const { text, cb } = item;
+    const { text, cb, id } = item;
     return (
       <li
-        key={index}
+        id={id ? id : undefined}
         style={{
           marginBottom: 16,
+          cursor: "pointer",
         }}
       >
         <Text

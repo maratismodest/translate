@@ -11,10 +11,11 @@ import AppContext from "../../AppContext";
 import Tukai from "./../../assets/tukai.png";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
+import { getInfo } from "../../api";
 
 const User = ({ user, signOut }: any) => {
   const { state, setState, app } = useContext(AppContext);
-  const [stats, setStats] = useState(false);
+  const [stats, setStats] = useState(true);
 
   const [fileUrl, setFileUrl] = useState(null);
   const [db, setDb] = useState<any>(null);
@@ -38,21 +39,14 @@ const User = ({ user, signOut }: any) => {
     }
   }
 
-  async function getInfo() {
-    try {
-      const res = await axios.get(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json`
-      );
-      return res;
-    } catch (error) {
-      console.log(error);
-      throw new Error(error);
-    }
-  }
-
   async function addUser(id: string) {
     try {
-      const updated = { count: 0, correct: 0, mistake: 0 };
+      const updated = {
+        count: 0,
+        correct: 0,
+        mistake: 0,
+        avatar: "https://chamala.ru/static/media/tukai.361b9ae4.png",
+      };
       const res = await axios.put(
         `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
         updated
@@ -66,24 +60,27 @@ const User = ({ user, signOut }: any) => {
 
   useEffect(() => {
     getInfo().then((res) => {
-      setDb(res.data);
+      setDb(res);
     });
   }, []);
 
   if (!db) {
-    return <Spin />;
+    return (
+      <StyledBody>
+        <Spin />
+      </StyledBody>
+    );
   }
-  if (!user) {
+  if (!user && db) {
     history.push("/login");
     return null;
   }
 
   const currentUser = db[user.uid];
+
   if (!currentUser) {
     addUser(user.uid).then((res) => {
-      console.log(res);
-      window.location.reload();
-      return null;
+      return window.location.reload();
     });
   }
 
@@ -111,29 +108,29 @@ const User = ({ user, signOut }: any) => {
     });
   };
 
+  const handleClick = () => {
+    const upload = document.getElementById("upload");
+    console.log(upload);
+    if (upload) {
+      upload.click();
+    }
+  };
+
   return (
     <>
       <StyledUser>
         {/*<Text>Ваш ID: {user.uid}</Text>*/}
         <div>
-          <div
-            style={{
-              borderRadius: "50%",
-              overflow: "hidden",
-              width: 115,
-              height: 115,
-              margin: "0 auto",
-            }}
-          >
+          <Avatar onClick={handleClick}>
             {currentUser.avatar ? (
               <img src={currentUser.avatar} width={115} height={115} />
             ) : (
               <div>Нет изображения</div>
             )}
-          </div>
+          </Avatar>
 
           <Header level={2}>{user.displayName}</Header>
-          <input type="file" onChange={onFileChange} />
+          <input id="upload" type="file" onChange={onFileChange} hidden />
         </div>
 
         <Buttons>
@@ -194,6 +191,23 @@ const User = ({ user, signOut }: any) => {
 export default User;
 
 const StyledUser = styled(StyledBody)``;
+
+const Avatar = styled.div`
+  border-radius: 50%;
+  border: 1px solid black;
+  overflow: hidden;
+  width: 115px;
+  height: 115px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+  img {
+    object-fit: cover;
+    object-position: center;
+  }
+  &:hover {
+    opacity: 0.5;
+  }
+`;
 const Stats = styled.div`
   background: #ffffff;
   box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.08);
@@ -214,7 +228,7 @@ const Buttons = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin-top: 16px;
   button {
     margin-bottom: 10px;
   }
