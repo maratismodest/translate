@@ -15,6 +15,7 @@ interface Props {
 
 export default styled(Text)<Partial<Props>>`
   &&& {
+    display: block;
     color: var(--color-black);
     font-style: normal;
     font-weight: normal;

@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { Typography } from "antd";
+import { Form, Input } from "antd";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import Button from "../../ui/Button";
+import Header from "../../ui/Header";
+import Text from "../../ui/Text";
 import { app } from "../../base";
+import { GoogleOutlined } from "@ant-design/icons";
 
-const { Text, Link } = Typography;
 const Login = ({ user, signInWithGoogle, signInWithEmailAndPassword }: any) => {
-  const [email, setEmail] = useState("test@test.ru");
-  const [password, setPassword] = useState("12345678");
-  const [displayName, setDisplayName] = useState("Marat");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [show, setShow] = useState("login");
   console.log("user", user);
   const history = useHistory();
 
@@ -40,102 +42,170 @@ const Login = ({ user, signInWithGoogle, signInWithEmailAndPassword }: any) => {
     }
   }, [user]);
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(email, password);
+  const handleSubmit = async (values: any) => {
+    console.log(email, password);
+    try {
+      const { user } = await signInWithEmailAndPassword(email, password);
+      return user;
+    } catch (error) {
+      console.log(error);
+      setError("Error Signing up with email and password");
+    }
   };
 
-  const createUserWithEmailAndPasswordHandler = async (
-    event: any,
-    email: string,
-    password: string
-  ) => {
-    event.preventDefault();
+  const createUserWithEmailAndPasswordHandler = async (values: any) => {
     try {
-      const { user } = await app
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      return await app.auth().createUserWithEmailAndPassword(email, password);
     } catch (error) {
-      setError("Error Signing up with email and password");
+      setError("Ошибка при создании учетной записи, перепроверьте данные");
     }
 
     setEmail("");
     setPassword("");
-    setDisplayName("");
+  };
+
+  const sendResetEmail = (event: any) => {
+    app
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        // setEmailHasBeenSent(true);
+        setTimeout(() => {
+          // setEmailHasBeenSent(false);
+        }, 3000);
+      })
+      .catch(() => {
+        setError("Error resetting password");
+      });
   };
 
   return (
     <StyledLogin>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={email}
-          onChange={(event: any) => {
-            setEmail(event.target.value);
-          }}
-        />
-        <input
-          value={password}
-          onChange={(event: any) => {
-            setPassword(event.target.value);
-          }}
-        />
-        <button type={"submit"}>OK</button>
-      </form>
+      {show === "login" ? (
+        <>
+          <Form onFinish={handleSubmit}>
+            <Header style={{ marginBottom: 30 }}>Вход</Header>
+            <StyledInput
+              value={email}
+              placeholder={"Логин"}
+              onChange={(event: any) => {
+                setEmail(event.target.value);
+              }}
+            />
+            <StyledInput
+              value={password}
+              placeholder={"Пароль"}
+              onChange={(event: any) => {
+                setPassword(event.target.value);
+              }}
+            />
+            <Text
+              style={{ marginBottom: 30 }}
+              onClick={() => {
+                setShow("reset");
+              }}
+            >
+              Забыли пароль?
+            </Text>
+            <Text large color={"red"} style={{ marginBottom: 10 }}>
+              {error}
+            </Text>
+            <Button htmlType="submit">Войти</Button>
+          </Form>
+          <div style={{ marginTop: 10 }}>
+            <Text>или войти с помощью:</Text>
+            <GoogleOutlined
+              onClick={signInWithGoogle}
+              style={{ fontSize: "32px" }}
+            />
+          </div>
+          <Text
+            style={{ margin: "auto 0" }}
+            onClick={() => {
+              setShow("register");
+            }}
+          >
+            Нет аккаунта? Зарегистрироваться
+          </Text>
+        </>
+      ) : null}
 
-      <form className="">
-        <label htmlFor="displayName" className="block">
-          Display Name:
-        </label>
-        <input
-          type="text"
-          className="my-1 p-1 w-full "
-          name="displayName"
-          value={displayName}
-          placeholder="E.g: Faruq"
-          id="displayName"
-          onChange={(event: any) => {
-            setDisplayName(event.target.value);
-          }}
-        />
-        <label htmlFor="userEmail" className="block">
-          Email:
-        </label>
-        <input
-          type="email"
-          className="my-1 p-1 w-full"
-          name="userEmail"
-          value={email}
-          placeholder="E.g: faruq123@gmail.com"
-          id="userEmail"
-          onChange={(event: any) => {
-            setEmail(event.target.value);
-          }}
-        />
-        <label htmlFor="userPassword" className="block">
-          Password:
-        </label>
-        <input
-          type="password"
-          className="mt-1 mb-3 p-1 w-full"
-          name="userPassword"
-          value={password}
-          placeholder="Your Password"
-          id="userPassword"
-          onChange={(event: any) => {
-            setPassword(event.target.value);
-          }}
-        />
-        <button
-          className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
-          onClick={(event) => {
-            createUserWithEmailAndPasswordHandler(event, email, password);
-          }}
-        >
-          Sign up
-        </button>
-      </form>
+      {show === "reset" ? (
+        <>
+          <Form onFinish={sendResetEmail}>
+            <Header style={{ marginBottom: 30 }}>Сбросить пароль</Header>
+            <StyledInput
+              value={email}
+              placeholder={"Логин"}
+              onChange={(event: any) => {
+                setEmail(event.target.value);
+              }}
+            />
 
-      {/*<Button onClick={signInWithGoogle}>Google</Button>*/}
+            <Text large color={"red"} style={{ marginBottom: 10 }}>
+              {error}
+            </Text>
+            <Button htmlType="submit">Сбросить</Button>
+          </Form>
+          <div style={{ marginTop: 10 }}>
+            <Text>или войти с помощью:</Text>
+            <GoogleOutlined
+              onClick={signInWithGoogle}
+              style={{ fontSize: "32px" }}
+            />
+          </div>
+          <Text
+            style={{ margin: "auto 0" }}
+            onClick={() => {
+              setShow("login");
+            }}
+          >
+            Вспомнили пароль? Войти
+          </Text>
+        </>
+      ) : null}
+
+      {show === "register" ? (
+        <>
+          <Form onFinish={createUserWithEmailAndPasswordHandler}>
+            <Header style={{ marginBottom: 30 }}>Регистрация</Header>
+            <StyledInput
+              value={email}
+              placeholder={"Логин"}
+              onChange={(event: any) => {
+                setEmail(event.target.value);
+              }}
+            />
+            <StyledInput
+              value={password}
+              placeholder={"Пароль"}
+              onChange={(event: any) => {
+                setPassword(event.target.value);
+              }}
+            />
+
+            <Text large color={"red"} style={{ marginBottom: 10 }}>
+              {error}
+            </Text>
+            <Button htmlType="submit">Зарегистрироваться</Button>
+          </Form>
+          <div style={{ marginTop: 10 }}>
+            <Text>или войти с помощью:</Text>
+            <GoogleOutlined
+              onClick={signInWithGoogle}
+              style={{ fontSize: "32px" }}
+            />
+          </div>
+          <Text
+            style={{ margin: "auto 0" }}
+            onClick={() => {
+              setShow("login");
+            }}
+          >
+            Есть аккаунт? Войти
+          </Text>
+        </>
+      ) : null}
     </StyledLogin>
   );
 };
@@ -148,4 +218,13 @@ const StyledLogin = styled(StyledBody)`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+`;
+
+const StyledInput = styled(Input)`
+  background: rgba(92, 92, 92, 0.05);
+  border: 1px solid rgba(11, 65, 12, 0.2);
+  border-radius: 10px;
+  height: 50px;
+  margin-bottom: 10px;
+  max-width: 300px;
 `;
