@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import { Tag } from "antd";
 import Button from "../../ui/Button";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -10,6 +9,8 @@ import Sounds from "../../localBase/sounds";
 import useSound from "use-sound";
 import Icon from "../../ui/Icon";
 import Text from "../../ui/Text";
+import Header from "../../ui/Header";
+import { Tag } from "../../ui/Tag";
 import ProgressBlock from "../../ui/ProgressBlock";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 
@@ -126,13 +127,14 @@ const Collect = () => {
   const resultList = answer.map((item, index) => {
     return (
       <AnswerLi key={item + index + answer.length}>
-        <Answer
+        <Tag
+          green
           onClick={() => {
             handleTagClick(index);
           }}
         >
           <Text>{item}</Text>
-        </Answer>
+        </Tag>
       </AnswerLi>
     );
   });
@@ -140,13 +142,13 @@ const Collect = () => {
   const separatedList = separated.map((item, index) => {
     return (
       <OptionLi key={item + index + separated.length}>
-        <Option
+        <Tag
           onClick={() => {
             handleClick(index);
           }}
         >
           <Text>{item}</Text>
-        </Option>
+        </Tag>
       </OptionLi>
     );
   });
@@ -174,7 +176,7 @@ const Collect = () => {
         <Circle>
           <Icon icon={"play"} size={16} />
         </Circle>
-        {i18n.t("repeatAudio")}
+        <Header>{i18n.t("repeatAudio")}</Header>
       </Repeat>
 
       <Result>{resultList}</Result>
@@ -183,7 +185,7 @@ const Collect = () => {
       <RightAnswer>{hint}</RightAnswer>
       {questionResult ? (
         <Button green disabled={!questionResult} onClick={handleNext}>
-          Далее
+          {i18n.t("next")}
         </Button>
       ) : (
         <Button
@@ -218,15 +220,6 @@ const Result = styled.ul`
   flex-wrap: wrap;
 `;
 
-const Answer = styled(Tag)`
-  background: var(--color-lemon);
-  border: 1px solid rgba(11, 65, 12, 0.2);
-  box-sizing: border-box;
-  border-radius: 6px;
-  padding: 6px 20px;
-  color: #000000;
-`;
-
 const AnswerLi = styled.li`
   margin-right: 10px;
   margin-bottom: 10px;
@@ -242,14 +235,7 @@ const OptionLi = styled.li`
   margin-right: 10px;
   margin-bottom: 10px;
 `;
-const Option = styled(Tag)`
-  background: #ffffff;
-  border: 1px solid rgba(11, 65, 12, 0.2);
-  box-sizing: border-box;
-  border-radius: 6px;
-  padding: 6px 20px;
-  color: #000000;
-`;
+
 const Circle = styled.div`
   border: 1px solid;
   border-radius: 50%;

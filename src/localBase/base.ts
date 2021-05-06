@@ -13,6 +13,7 @@ function getLangWords(language: string = "rus") {
 export const rusWords = getLangWords("rus");
 export const tatWords = getLangWords("tat");
 export const engWords = getLangWords("eng");
+export const latWords = getLangWords("lat");
 
 function getLangPhrases(language = "rus") {
   return phrases.map((item, index) => {
@@ -26,6 +27,8 @@ export const rusPhrases = getLangPhrases("rus");
 export const tatPhrases = getLangPhrases("tat");
 
 export const engPhrases = getLangPhrases("eng");
+
+export const latPhrases = getLangPhrases("lat");
 
 function resList(
   firstLanguage: any,
@@ -110,6 +113,21 @@ export const wordsTatEng = getWordsFirstSecond(
   engWords,
   words
 );
+export const wordsLatEng = getWordsFirstSecond(
+  "lat",
+  "eng",
+  latWords,
+  engWords,
+  words
+);
+
+export const wordsLatLat = getWordsFirstSecond(
+  "lat",
+  "lat",
+  latWords,
+  latWords,
+  words
+);
 
 export function getPhrasesFirstSecond(
   firstLanguage: any,
@@ -159,11 +177,26 @@ export const phrasesTatEng = getPhrasesFirstSecond(
   engPhrases,
   phrases
 );
+
+export const phrasesLatEng = getPhrasesFirstSecond(
+  "tat",
+  "lat",
+  latPhrases,
+  engPhrases,
+  phrases
+);
 export const phrasesEngTat = getPhrasesFirstSecond(
   "eng",
   "tat",
   engPhrases,
   tatPhrases,
+  phrases
+);
+export const phrasesLatLat = getPhrasesFirstSecond(
+  "lat",
+  "lat",
+  latPhrases,
+  latPhrases,
   phrases
 );
 
@@ -172,6 +205,13 @@ export const collectPhrasesTatRus = getPhrasesFirstSecond(
   "rus",
   tatPhrases,
   rusPhrases,
+  phrases
+);
+export const collectPhrasesLatLat = getPhrasesFirstSecond(
+  "lat",
+  "lat",
+  latPhrases,
+  latPhrases,
   phrases
 );
 
