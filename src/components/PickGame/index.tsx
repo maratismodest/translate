@@ -56,10 +56,6 @@ const StyledSlabs = styled.div`
   justify-content: space-around;
   button {
     margin-bottom: 20px;
-    margin-right: 20px;
-    //display: flex;
-    //flex-direction: column;
-    //align-items: center;
-    //justify-content: space-evenly;
+    margin-right: 10px;
   }
 `;
