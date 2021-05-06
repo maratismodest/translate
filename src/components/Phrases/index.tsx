@@ -36,6 +36,7 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext);
   const { phrases, chosenGame } = state;
+  console.log("phrases", phrases);
   const { firstLanguage, secondLanguage } = phrases;
   const first = _.shuffle(firstLanguage).slice(0, 3);
   const second = _.shuffle(secondLanguage).slice(0, 3);
