@@ -15,6 +15,7 @@
     "antd": "^4.12.3",
     "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.3",
+    "file-saver": "^2.0.5",
     "firebase": "^8.4.2",
     "i18next": "^19.9.2",
     "install": "^0.13.0",

@@ -7,6 +7,15 @@ import { MenuOutlined } from "@ant-design/icons";
 
 import Text from "../../ui/Text";
 import Icon from "../../ui/Icon";
+import {
+  phrasesLatEng,
+  phrasesLatLat,
+  phrasesTatRus,
+  wordsLatEng,
+  wordsLatLat,
+  wordsTatRus,
+} from "../../localBase/base";
+import i18n from "i18next";
 export default ({ user }: any) => {
   const history = useHistory();
   const { state, setState } = useContext(AppContext);
@@ -30,19 +39,19 @@ export default ({ user }: any) => {
   });
   const MainMenuList: MenuInterface[] = [
     {
-      text: "На главную",
+      text: i18n.t("home"),
       cb: () => {
         history.push("/");
       },
     },
     {
-      text: user ? "Профиль" : "Логин",
+      text: user ? i18n.t("profile") : i18n.t("login"),
       cb: () => {
         history.push(user ? "/user" : "/login");
       },
     },
     {
-      text: "Языки",
+      text: i18n.t("languages"),
       id: "languages",
       cb: () => {
         setLanguageVisible(true);
@@ -59,6 +68,8 @@ export default ({ user }: any) => {
           language: "rus",
           firstLanguage: "tat",
           secondLanguage: "rus",
+          words: wordsTatRus,
+          phrases: phrasesTatRus,
         });
         history.push("/");
       },
@@ -69,8 +80,10 @@ export default ({ user }: any) => {
         setState({
           ...state,
           language: "eng",
-          firstLanguage: "tat",
+          firstLanguage: "lat",
           secondLanguage: "eng",
+          words: wordsLatEng,
+          phrases: phrasesLatEng,
         });
         history.push("/");
       },
@@ -83,6 +96,8 @@ export default ({ user }: any) => {
           language: "tat",
           firstLanguage: "tat",
           secondLanguage: "rus",
+          words: wordsTatRus,
+          phrases: phrasesTatRus,
         });
         history.push("/");
       },
@@ -93,8 +108,10 @@ export default ({ user }: any) => {
         setState({
           ...state,
           language: "lat",
-          firstLanguage: "tat",
-          secondLanguage: "rus",
+          firstLanguage: "lat",
+          secondLanguage: "lat",
+          words: wordsLatLat,
+          phrases: phrasesLatLat,
         });
         history.push("/");
       },

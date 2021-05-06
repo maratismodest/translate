@@ -1,9 +1,6 @@
 import play from "../../assets/play.svg";
-
-
-import {Button} from "antd";
 import styled from "styled-components";
-import {device} from "../../localBase/responsiveStyled";
+import { device } from "../../localBase/responsiveStyled";
 
 const StyledPlay = styled.img`
   cursor: pointer;
@@ -15,9 +12,9 @@ const StyledPlay = styled.img`
     width: 36px;
     height: 36px;
   }
-`
+`;
 const Play = () => {
-    return <StyledPlay src={play}/>
-}
+  return <StyledPlay src={play} />;
+};
 
 export default Play;

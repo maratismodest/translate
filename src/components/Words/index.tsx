@@ -14,7 +14,6 @@ import AppContext from "../../AppContext";
 import Icon from "../../ui/Icon";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
-import { Progress } from "antd";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -35,8 +34,9 @@ const Words = () => {
   const history = useHistory();
 
   const { state, setState } = useContext(AppContext);
-  const { words, chosenGame } = state;
+  const { words, chosenGame, allWords } = state;
   const { firstLanguage, secondLanguage } = words;
+
   const first = _.shuffle(firstLanguage).slice(0, 3);
   const second = _.shuffle(secondLanguage).slice(0, 3);
   const shuffle = _.shuffle([...first, ...second]);
@@ -148,7 +148,7 @@ const Words = () => {
       <ul style={{ marginTop: 16 }}>{optionsList}</ul>
       <div>{answer}</div>
       <Button disabled={!currentQuestionResult} onClick={handleNext}>
-        Далее
+        {i18n.t("next")}
       </Button>
       <ProgressBlock
         length={questions.current.length}

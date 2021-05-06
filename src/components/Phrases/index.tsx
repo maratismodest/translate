@@ -148,7 +148,7 @@ const Words = () => {
       <ul style={{ marginTop: 16 }}>{optionsList}</ul>
       <div>{answer}</div>
       <Button disabled={!currentQuestionResult} onClick={handleNext}>
-        Далее
+        {i18n.t("next")}
       </Button>
       <ProgressBlock>
         <Progress

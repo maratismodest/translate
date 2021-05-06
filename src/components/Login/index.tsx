@@ -9,6 +9,7 @@ import Header from "../../ui/Header";
 import Text from "../../ui/Text";
 import { app } from "../../base";
 import { GoogleOutlined } from "@ant-design/icons";
+import i18n from "i18next";
 
 const Login = ({ user, signInWithGoogle, signInWithEmailAndPassword }: any) => {
   const [email, setEmail] = useState("");
@@ -64,17 +65,17 @@ const Login = ({ user, signInWithGoogle, signInWithEmailAndPassword }: any) => {
       {show === "login" ? (
         <>
           <Form onFinish={handleSubmit}>
-            <Header style={{ marginBottom: 30 }}>Вход</Header>
+            <Header style={{ marginBottom: 30 }}>{i18n.t("login")}</Header>
             <StyledInput
               value={email}
-              placeholder={"Логин"}
+              placeholder={i18n.t("login")}
               onChange={(event: any) => {
                 setEmail(event.target.value);
               }}
             />
             <StyledInput
               value={password}
-              placeholder={"Пароль"}
+              placeholder={i18n.t("password")}
               onChange={(event: any) => {
                 setPassword(event.target.value);
               }}
@@ -85,12 +86,12 @@ const Login = ({ user, signInWithGoogle, signInWithEmailAndPassword }: any) => {
                 setShow("reset");
               }}
             >
-              Забыли пароль?
+              {i18n.t("forgotPassword")}
             </Text>
             <Text large color={"red"} style={{ marginBottom: 10 }}>
               {error}
             </Text>
-            <Button htmlType="submit">Войти</Button>
+            <Button htmlType="submit">{i18n.t("login")}</Button>
           </Form>
           <div style={{ marginTop: 10 }}>
             <Text>или войти с помощью:</Text>

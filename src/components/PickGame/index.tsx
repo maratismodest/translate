@@ -6,12 +6,13 @@ import Header from "../../ui/Header";
 import styled from "styled-components";
 import Word from "./word.svg";
 import Phrase from "./phrase.svg";
+import Button from "../../ui/Button";
 
 const PickGame = () => {
   return (
     <div>
       <Header level={2} bold>
-        Выбери мини-игру:
+        {i18n.t("pickGame")}
       </Header>
       <StyledSlabs>
         <Link to={"/words"}>
@@ -24,7 +25,7 @@ const PickGame = () => {
         <Link to={"/word"}>
           <Slab normal>
             <img src={Word} />
-            Собери слово
+            {i18n.t("collectWord")}
           </Slab>
         </Link>
 
@@ -38,7 +39,7 @@ const PickGame = () => {
         <Link to={"/collect"}>
           <Slab normal>
             <img src={Phrase} />
-            Собери фразу
+            {i18n.t("collectPhrase")}
           </Slab>
         </Link>
       </StyledSlabs>
@@ -55,6 +56,7 @@ const StyledSlabs = styled.div`
   justify-content: space-around;
   button {
     margin-bottom: 20px;
+    margin-right: 20px;
     //display: flex;
     //flex-direction: column;
     //align-items: center;
