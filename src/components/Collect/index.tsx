@@ -23,7 +23,7 @@ const Collect = () => {
   const [no] = useSound(soundWrong);
   const [disabled, setDisabled] = useState(false);
   const [questionResult, setQuestionResult] = useState<any>();
-  const { chosenGame, collect } = state;
+  const { chosenGame, collect, firstLanguage } = state;
 
   const shuffle = _.shuffle(collect).slice(0, 5);
   const collectClone = _.clone(collect);
@@ -34,15 +34,16 @@ const Collect = () => {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const question = questions[currentQuestionIndex];
-  const { tat, audio } = question;
+  const { tat, lat, audio } = question;
 
   //удалить из клона массива фраз именно нашу фразу
   const firstIndex = _.indexOf(collectClone, question);
   collectClone.splice(firstIndex, 1);
 
-  const questionSeparated = tat.split(" ");
-  const randomseparated = _.sample(collectClone).tat.split(" ");
-  const randomseparated2 = _.sample(collectClone).tat.split(" ");
+  const questionSeparated = question[firstLanguage].split(" ");
+  const randomseparated = _.sample(collectClone)[firstLanguage].split(" ");
+  const randomseparated2 = _.sample(collectClone)[firstLanguage].split(" ");
+
   const [separated, setSeparated] = useState(
     _.shuffle(questionSeparated.concat(randomseparated, randomseparated2))
   );
@@ -94,11 +95,13 @@ const Collect = () => {
 
   const handleAnswerClick = () => {
     const final = answer.join(" ");
-    tat === final ? yes() : no();
-    tat === final ? setHint("-") : setHint(`Правильный ответ:${tat}`);
+    question[firstLanguage] === final ? yes() : no();
+    question[firstLanguage] === final
+      ? setHint("-")
+      : setHint(`Правильный ответ:${question[firstLanguage]}`);
 
     const questionResult: QuestionResultInterface =
-      tat === final
+      question[firstLanguage] === final
         ? {
             correct: true,
             questionText: tat,

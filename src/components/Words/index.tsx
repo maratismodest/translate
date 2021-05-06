@@ -140,8 +140,17 @@ const Words = () => {
 
   return (
     <StyledWords>
-      <Slab onClick={delayFunc} big>
-        <Header level={2}>{questionText}</Header>
+      <Slab
+        onClick={delayFunc}
+        style={{
+          pointerEvents: disabled ? "none" : "auto",
+        }}
+        big
+      >
+        <Header level={2}>
+          {state.firstLanguage === "lat" ? "Qabat" : questionText}
+        </Header>
+
         <Icon icon="play" size={24} className={"play"} />
       </Slab>
 

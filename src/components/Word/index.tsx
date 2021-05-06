@@ -19,12 +19,14 @@ const Collect = () => {
   const history = useHistory();
   const { state, setState } = useContext(AppContext);
 
+  console.log(state);
+
   const { soundCorrect, soundWrong } = Sounds;
   const [yes] = useSound(soundCorrect);
   const [no] = useSound(soundWrong);
   const [disabled, setDisabled] = useState(false);
   const [questionResult, setQuestionResult] = useState<any>();
-  const { chosenGame, word, language } = state;
+  const { chosenGame, word, language, firstLanguage } = state;
 
   const shuffle = _.shuffle(word).slice(0, 5);
   const collectClone = _.clone(word);
@@ -41,10 +43,11 @@ const Collect = () => {
   const firstIndex = _.indexOf(collectClone, question);
   collectClone.splice(firstIndex, 1);
 
-  const questionSeparated = tat.split("");
+  const questionSeparated = question[firstLanguage].split("");
   console.log("questionSeparated", questionSeparated);
-  const randomseparated = _.sample(collectClone).tat.split("");
-  const [separated, setSeparated] = useState(randomseparated);
+  const randomseparated = _.sample(collectClone)[firstLanguage].split("");
+
+  const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
 
   const [hint, setHint] = useState("-");
@@ -54,6 +57,7 @@ const Collect = () => {
 
   useEffect(() => {
     setSeparated(_.shuffle(questionSeparated.concat(randomseparated)));
+    // setSeparated(_.shuffle(questionSeparated));
     setAnswer([]);
   }, [currentQuestionIndex]);
   useEffect(() => {
@@ -91,17 +95,23 @@ const Collect = () => {
 
   const handleAnswerClick = () => {
     const final = answer.join("");
-    tat === final ? yes() : no();
-    tat === final ? setHint("-") : setHint(`Правильный ответ:${tat}`);
+    question[firstLanguage] === final ? yes() : no();
+    question[firstLanguage] === final
+      ? setHint("-")
+      : setHint(`Правильный ответ:${question[firstLanguage]}`);
 
     const questionResult: QuestionResultInterface =
-      tat === final
+      question[firstLanguage] === final
         ? {
             correct: true,
-            questionText: tat,
+            questionText: question[firstLanguage],
             chosenText: final,
           }
-        : { correct: false, questionText: tat, chosenText: final };
+        : {
+            correct: false,
+            questionText: question[firstLanguage],
+            chosenText: final,
+          };
     setQuestionResult(questionResult);
   };
 
@@ -130,7 +140,7 @@ const Collect = () => {
           }}
           green
         >
-          <Text small>{item}</Text>
+          <Text>{item}</Text>
         </Tag>
       </AnswerLi>
     );
@@ -144,7 +154,7 @@ const Collect = () => {
             handleClick(index);
           }}
         >
-          <Text small>{item}</Text>
+          <Text>{item}</Text>
         </Tag>
       </OptionLi>
     );

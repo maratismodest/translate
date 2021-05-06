@@ -94,4 +94,5 @@ const translate: TranslateInterface[] = [
   { tat: "ң", lat: "ñ" },
   { tat: "Җ", lat: "J" },
   { tat: "җ", lat: "j" },
+  { tat: "ь", lat: "" },
 ];
