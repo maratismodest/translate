@@ -20,6 +20,7 @@ interface Props {
 }
 
 export default styled(Button)<Partial<Props>>`
+  max-width: 380px;
   background: var(--color-white);
   font-family: Roboto;
   font-style: normal;
@@ -53,8 +54,11 @@ export default styled(Button)<Partial<Props>>`
     right: 12px;
   }
   &:hover {
-    background: var(--color-darkgreen);
+    background: var(--color-green);
     color: var(--color-white);
+    h2 {
+      color: var(--color-white) !important;
+    }
   }
 
   &:focus {

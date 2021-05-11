@@ -6,7 +6,6 @@ import Header from "../../ui/Header";
 import styled from "styled-components";
 import Word from "./word.svg";
 import Phrase from "./phrase.svg";
-import Button from "../../ui/Button";
 
 const PickGame = () => {
   return (

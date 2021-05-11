@@ -7,17 +7,10 @@ import { MenuOutlined } from "@ant-design/icons";
 
 import Text from "../../ui/Text";
 import Icon from "../../ui/Icon";
-import {
-  phrasesLatEng,
-  phrasesLatLat,
-  phrasesTatRus,
-  wordsLatEng,
-  wordsLatLat,
-  wordsTatRus,
-} from "../../localBase/base";
 import i18n from "i18next";
+import { MenuInterface, StyledMenuInterface } from "./menuBase";
 
-export default ({ user }: any) => {
+export default ({ user, LanguageMenuList }: any) => {
   const history = useHistory();
   const { state, setState } = useContext(AppContext);
   const [mainMenuVisible, setMainMenuVisible] = useState(false);
@@ -38,6 +31,7 @@ export default ({ user }: any) => {
     }
     return;
   });
+
   const MainMenuList: MenuInterface[] = [
     {
       text: i18n.t("home"),
@@ -56,65 +50,6 @@ export default ({ user }: any) => {
       id: "languages",
       cb: () => {
         setLanguageVisible(true);
-      },
-    },
-  ];
-
-  const LanguageMenuList: MenuInterface[] = [
-    {
-      text: "Русский",
-      cb: () => {
-        setState({
-          ...state,
-          language: "rus",
-          firstLanguage: "tat",
-          secondLanguage: "rus",
-          words: wordsTatRus,
-          phrases: phrasesTatRus,
-        });
-        history.push("/");
-      },
-    },
-    {
-      text: "English",
-      cb: () => {
-        setState({
-          ...state,
-          language: "eng",
-          firstLanguage: "lat",
-          secondLanguage: "eng",
-          words: wordsLatEng,
-          phrases: phrasesLatEng,
-        });
-        history.push("/");
-      },
-    },
-    {
-      text: "Татарча",
-      cb: () => {
-        setState({
-          ...state,
-          language: "tat",
-          firstLanguage: "tat",
-          secondLanguage: "rus",
-          words: wordsTatRus,
-          phrases: phrasesTatRus,
-        });
-        history.push("/");
-      },
-    },
-    {
-      text: "Latin",
-      cb: () => {
-        setState({
-          ...state,
-          language: "lat",
-          firstLanguage: "lat",
-          secondLanguage: "lat",
-          words: wordsLatLat,
-          phrases: phrasesLatLat,
-        });
-        history.push("/");
       },
     },
   ];
@@ -145,20 +80,6 @@ export default ({ user }: any) => {
     </div>
   );
 };
-
-interface MenuInterface {
-  text: string;
-  cb: () => void;
-  id?: string;
-}
-
-interface StyledMenuInterface {
-  arr: MenuInterface[];
-  visible: boolean;
-  setVisible: any;
-  user?: any;
-  className?: any;
-}
 
 const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
   const res = arr.map((item, index) => {

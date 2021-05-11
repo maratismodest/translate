@@ -1,25 +1,84 @@
-import React from "react";
+import React, { useContext } from "react";
 import { isMobile } from "react-device-detect";
 import MobileMenu from "./MobileMenu";
 import { DesktopMenu } from "./DesktopMenu";
-import { slide as Menu } from "react-burger-menu";
 import "./styles.scss";
+import {
+  phrasesLatEng,
+  phrasesLatLat,
+  phrasesTatRus,
+  wordsLatEng,
+  wordsLatLat,
+  wordsTatRus,
+} from "../../localBase/base";
+import { MenuInterface } from "./menuBase";
+import AppContext from "../../AppContext";
+import { useHistory } from "react-router-dom";
 export default ({ user }: any) => {
-  console.log(isMobile);
-  return isMobile ? <MobileMenu user={user} /> : <DesktopMenu />;
-  //   <Menu right>
-  //     <a id="home" className="menu-item" href="/">
-  //       Home
-  //     </a>
-  //     <a id="about" className="menu-item" href="/about">
-  //       About
-  //     </a>
-  //     <a id="contact" className="menu-item" href="/contact">
-  //       Contact
-  //     </a>
-  //     <a onClick={showSettings} className="menu-item--small" href="">
-  //       Settings
-  //     </a>
-  //   </Menu>
-  // );
+  const { state, setState } = useContext(AppContext);
+  const history = useHistory();
+  const LanguageMenuList: MenuInterface[] = [
+    {
+      text: "Русский",
+      cb: () => {
+        setState({
+          ...state,
+          language: "rus",
+          firstLanguage: "tat",
+          secondLanguage: "rus",
+          words: wordsTatRus,
+          phrases: phrasesTatRus,
+        });
+        history.push("/");
+      },
+    },
+    {
+      text: "English",
+      cb: () => {
+        setState({
+          ...state,
+          language: "eng",
+          firstLanguage: "lat",
+          secondLanguage: "eng",
+          words: wordsLatEng,
+          phrases: phrasesLatEng,
+        });
+        history.push("/");
+      },
+    },
+    {
+      text: "Татарча",
+      cb: () => {
+        setState({
+          ...state,
+          language: "tat",
+          firstLanguage: "tat",
+          secondLanguage: "rus",
+          words: wordsTatRus,
+          phrases: phrasesTatRus,
+        });
+        history.push("/");
+      },
+    },
+    {
+      text: "Latin",
+      cb: () => {
+        setState({
+          ...state,
+          language: "lat",
+          firstLanguage: "lat",
+          secondLanguage: "lat",
+          words: wordsLatLat,
+          phrases: phrasesLatLat,
+        });
+        history.push("/");
+      },
+    },
+  ];
+
+  return isMobile ? (
+    <MobileMenu user={user} LanguageMenuList={LanguageMenuList} />
+  ) : (
+    <DesktopMenu LanguageMenuList={LanguageMenuList} />
+  );
 };
