@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import { Tag } from "../../ui/Tag";
+import Tag from "../../ui/Tag";
 import Button from "../../ui/Button";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";

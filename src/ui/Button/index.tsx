@@ -19,7 +19,8 @@ interface Props {
   normal?: boolean;
 }
 
-export default styled(Button)<Partial<Props>>`
+export default styled.button<Partial<Props>>`
+  cursor: pointer;
   background: var(--color-green);
   font-family: Roboto;
   font-style: normal;
@@ -38,7 +39,8 @@ export default styled(Button)<Partial<Props>>`
     background-color: #272f5a;
   }
   &:hover {
-    background: var(--color-darkgreen);
+    transition: 0.3s ease-in-out;
+    background: var(--color-green);
     color: var(--color-white);
   }
 

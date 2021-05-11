@@ -10,7 +10,7 @@ import useSound from "use-sound";
 import Icon from "../../ui/Icon";
 import Text from "../../ui/Text";
 import Header from "../../ui/Header";
-import { Tag } from "../../ui/Tag";
+import Tag from "../../ui/Tag";
 import ProgressBlock from "../../ui/ProgressBlock";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 

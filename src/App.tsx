@@ -47,17 +47,18 @@ function App(props: any) {
 
   return (
     <AppContext.Provider value={context}>
-      <Game>
+      <Game id="App">
+        {/*<Menu />*/}
         <StyledHeader>
           <NavLink to={"/"}>
             <StyledLogo level={2} bold color={"green"}>
               Chamala
             </StyledLogo>
           </NavLink>
-          <Menu {...props} />
+          <Menu />
         </StyledHeader>
 
-        <StyledMain>
+        <StyledMain id="page-wrap">
           <Switch>
             <Route path={["/word", "/*/word"]} render={() => <Word />} />
             <Route path={["/words", "/*/words"]} render={() => <Words />} />
