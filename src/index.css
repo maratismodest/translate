@@ -40,3 +40,6 @@ li {
 .mb-40 {
     margin-bottom: 40px !important;
 }
+#page-wrap {
+    overflow: auto;
+}
