@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default styled(Title)<Partial<Props>>`
-  &&& {
+  && {
     font-family: Roboto;
     font-style: normal;
     padding: 0;

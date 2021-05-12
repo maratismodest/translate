@@ -9,10 +9,11 @@ import Text from "../../ui/Text";
 import Icon from "../../ui/Icon";
 import i18n from "i18next";
 import { MenuInterface, StyledMenuInterface } from "./menuBase";
+import { push } from "react-burger-menu";
 
 export default ({ user, LanguageMenuList }: any) => {
   const history = useHistory();
-  const { state, setState } = useContext(AppContext);
+  const { state, setState, setModalVisible } = useContext(AppContext);
   const [mainMenuVisible, setMainMenuVisible] = useState(false);
   const [languageVisible, setLanguageVisible] = useState(false);
 
@@ -42,7 +43,7 @@ export default ({ user, LanguageMenuList }: any) => {
     {
       text: user ? i18n.t("profile") : i18n.t("login"),
       cb: () => {
-        history.push(user ? "/user" : "/login");
+        user ? history.push("/user") : setModalVisible(true);
       },
     },
     {

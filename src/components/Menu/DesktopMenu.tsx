@@ -8,7 +8,7 @@ import "./styles.scss";
 const { SubMenu } = Menu;
 
 export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
-  const { state, setState } = useContext(AppContext);
+  const { state, setState, setModalVisible } = useContext(AppContext);
   const [menuState, setMenuState] = useState({ current: "mail" });
   const history = useHistory();
   const handleClick = (e: any) => {
@@ -22,7 +22,7 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
       mode="horizontal"
       style={{ background: "none", border: "none" }}
     >
-      <Menu.Item key="login" onClick={() => history.push("/login")}>
+      <Menu.Item key="login" onClick={() => setModalVisible(true)}>
         {i18n.t("login")}
       </Menu.Item>
       <Menu.Item key="profile" onClick={() => history.push("/user")}>

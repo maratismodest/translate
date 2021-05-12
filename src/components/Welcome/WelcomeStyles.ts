@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Header from "../../ui/Header";
 
 export const DesktopWelcome = styled.div`
   display: flex;
@@ -7,9 +6,29 @@ export const DesktopWelcome = styled.div`
   justify-content: space-evenly;
   flex-grow: 1;
   text-align: left;
+  position: relative;
 `;
 
-export const StyledWelcome = styled.div`
+export const DesktopWelcomeWallPaper = styled.div`
+  width: 50%;
+  padding-right: 5%;
+  img {
+    display: block;
+    margin-left: auto;
+    max-width: 600px;
+  }
+`;
+export const DesktopWelcomeBegin = styled.div`
+  width: 50%;
+  padding-left: 5%;
+  display: block;
+  margin-right: auto;
+  max-width: 600px;
+`;
+
+export const MobileWelcomeWallPaper = styled.div``;
+
+export const MobileWelcome = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +44,4 @@ export const StyledBody = styled.div`
   justify-content: space-evenly;
   flex-grow: 1;
   text-align: center;
-`;
-
-export const WelcomeWallPaper = styled.div`
-  max-width: 50%;
-`;
-
-export const DesktopWelcomeWallPaper = styled.div`
-  width: 40%;
 `;
