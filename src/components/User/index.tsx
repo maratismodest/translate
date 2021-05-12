@@ -12,11 +12,13 @@ import Tukai from "./../../assets/tukai.png";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { getInfo } from "../../api";
+const Compress = require("compress.js");
 
 const User = ({ user, signOut }: any) => {
+  const compress = new Compress();
   const { state, setState, app } = useContext(AppContext);
   const [stats, setStats] = useState(true);
-
+  const storageRef = app.storage().ref();
   const [fileUrl, setFileUrl] = useState(null);
   const [db, setDb] = useState<any>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -96,12 +98,29 @@ const User = ({ user, signOut }: any) => {
     setIsModalVisible(false);
   };
 
+  async function resizeImageFn(file: any) {
+    const resizedImage = await compress.compress([file], {
+      size: 2, // the max size in MB, defaults to 2MB
+      quality: 1, // the quality of the image, max is 1,
+      maxWidth: 300, // the max width of the output image, defaults to 1920px
+      maxHeight: 300, // the max height of the output image, defaults to 1920px
+      resize: true, // defaults to true, set false if you do not want to resize the image width and height
+    });
+    const img = resizedImage[0];
+    const base64str = img.data;
+    const imgExt = img.ext;
+    const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt);
+    return resizedFiile;
+  }
+
   const onFileChange = async (e: any) => {
+    const res = await resizeImageFn(e.target.files[0]);
+    console.log(res);
     const file = e.target.files[0];
-    const storageRef = app.storage().ref();
     const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
+    await fileRef.put(res);
     const link = await fileRef.getDownloadURL();
+    console.log("link", link);
     updatePhoto(link).then((res) => {
       setFileUrl(link);
       window.location.reload();
@@ -119,7 +138,6 @@ const User = ({ user, signOut }: any) => {
   return (
     <>
       <StyledUser>
-        {/*<Text>Ваш ID: {user.uid}</Text>*/}
         <div>
           <Avatar onClick={handleClick}>
             {currentUser.avatar ? (
