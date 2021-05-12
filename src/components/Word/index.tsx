@@ -14,6 +14,7 @@ import Header from "../../ui/Header";
 import ProgressBlock from "../../ui/ProgressBlock";
 
 import { StyledBody } from "../Welcome/WelcomeStyles";
+import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 
 const Collect = () => {
   const history = useHistory();
@@ -50,8 +51,6 @@ const Collect = () => {
   const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
 
-  const [hint, setHint] = useState("-");
-
   const [tell, { duration }] = useSound(audio);
   const timer = Math.floor(duration || 1000);
 
@@ -84,21 +83,18 @@ const Collect = () => {
       });
     }
     setQuestionResult("");
-    setHint("-");
   }
 
   interface QuestionResultInterface {
     correct: boolean;
     questionText: string;
     chosenText: string;
+    correctText: string;
   }
 
   const handleAnswerClick = () => {
     const final = answer.join("");
     question[firstLanguage] === final ? yes() : no();
-    question[firstLanguage] === final
-      ? setHint("-")
-      : setHint(`Правильный ответ:${question[firstLanguage]}`);
 
     const questionResult: QuestionResultInterface =
       question[firstLanguage] === final
@@ -106,11 +102,13 @@ const Collect = () => {
             correct: true,
             questionText: question[firstLanguage],
             chosenText: final,
+            correctText: question[firstLanguage],
           }
         : {
             correct: false,
             questionText: question[firstLanguage],
             chosenText: final,
+            correctText: question[firstLanguage],
           };
     setQuestionResult(questionResult);
   };
@@ -172,6 +170,8 @@ const Collect = () => {
     checkGameState(chosenGame, questionResult);
   };
 
+  console.log(questionResult);
+
   return (
     <StyledCollect>
       <Repeat
@@ -189,8 +189,12 @@ const Collect = () => {
       <Result>{resultList}</Result>
 
       <Options>{separatedList}</Options>
-
-      <RightAnswer>{hint}</RightAnswer>
+      {questionResult ? (
+        <ModalAnswer
+          currentQuestionResult={questionResult}
+          handleNext={handleNext}
+        />
+      ) : null}
 
       {questionResult ? (
         <Button green disabled={!questionResult} onClick={handleNext}>

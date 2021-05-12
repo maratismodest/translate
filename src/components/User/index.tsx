@@ -12,6 +12,7 @@ import Tukai from "./../../assets/tukai.png";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { getInfo } from "../../api";
+import { push } from "react-burger-menu";
 const Compress = require("compress.js");
 
 const User = ({ user, signOut }: any) => {
@@ -199,7 +200,13 @@ const User = ({ user, signOut }: any) => {
           <Text huge>Тукай одобряет!</Text>
           <Text huge>Ваш уровень: {currentUser.level}</Text>
         </div>
-        <Button small onClick={signOut}>
+        <Button
+          small
+          onClick={() => {
+            signOut();
+            history.push("/welcome");
+          }}
+        >
           Выйти
         </Button>
       </Modal>

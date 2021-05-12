@@ -29,5 +29,10 @@ export default styled(Title)<Partial<Props>>`
       css`
         color: var(--color-green);
       `}
+    ${(props) =>
+      props.color === "red" &&
+      css`
+        color: var(--color-red);
+      `}
   }
 `;

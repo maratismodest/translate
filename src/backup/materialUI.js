@@ -84,7 +84,6 @@ function App(props) {
                 render={() => <h1>About</h1>}
               />
               <Route path={["/latin", "/*/latin"]} render={() => <Latin />} />
-              <Route path="/login" render={() => <Login {...props} />} />
               <Route path="/user" render={() => <User {...props} />} />
               <Route path="/" exact render={() => <Welcome />} />
             </Switch>

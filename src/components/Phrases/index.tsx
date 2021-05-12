@@ -15,6 +15,8 @@ import Icon from "../../ui/Icon";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { Progress } from "antd";
+import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
+import { isMobile } from "react-device-detect";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -42,8 +44,6 @@ const Words = () => {
   const second = _.shuffle(secondLanguage).slice(0, 3);
   const shuffle = _.shuffle([...first, ...second]);
   const questions = useRef(shuffle);
-
-  const [answer, setAnswer] = useState("-");
 
   const { soundCorrect, soundWrong } = Sounds;
   const [success] = useSound(soundCorrect);
@@ -91,7 +91,6 @@ const Words = () => {
       success();
     } else {
       mistake();
-      setAnswer(`Правильный ответ:${correctText}`);
     }
 
     const questionResultObject = {
@@ -105,24 +104,6 @@ const Words = () => {
     setCurrentQuestionResult(questionResultObject);
   };
 
-  const optionsList = options.map((option: OptionInterface, index: number) => {
-    const { id, text } = option;
-    return (
-      <li key={id + text} style={{ marginBottom: 10 }}>
-        <Button
-          normal
-          onClick={() => {
-            currentQuestionResult
-              ? console.log("уже выбран вариант")
-              : handleClick(id);
-          }}
-        >
-          {text}
-        </Button>
-      </li>
-    );
-  });
-
   const timer = Math.floor(duration || 1000);
 
   const delayFunc = () => {
@@ -135,8 +116,58 @@ const Words = () => {
 
   const handleNext = () => {
     checkGameState(chosenGame, currentQuestionResult);
-    setAnswer("-");
     setCurrentQuestionResult(null);
+  };
+  const OptionsList = () => {
+    const MobileUl = styled.ul`
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li {
+        width: fit-content;
+        margin-bottom: 20px;
+      }
+    `;
+
+    const list = options.map((option: OptionInterface, index: number) => {
+      const { id, text } = option;
+      if (isMobile) {
+        return (
+          <li key={id + text}>
+            <Slab
+              normal
+              onClick={() => {
+                currentQuestionResult
+                  ? console.log("уже выбран вариант")
+                  : handleClick(id);
+              }}
+            >
+              {text}
+            </Slab>
+          </li>
+        );
+      }
+      return (
+        <li key={id + text} style={{ marginBottom: 10 }}>
+          <Button
+            normal
+            onClick={() => {
+              currentQuestionResult
+                ? console.log("уже выбран вариант")
+                : handleClick(id);
+            }}
+          >
+            {text}
+          </Button>
+        </li>
+      );
+    });
+    if (isMobile) {
+      return <MobileUl>{list}</MobileUl>;
+    }
+    return <ul style={{ marginTop: 16 }}>{list}</ul>;
   };
 
   return (
@@ -151,12 +182,13 @@ const Words = () => {
         <Header level={2}>{questionText}</Header>
         <Icon icon="play" size={24} className={"play"} />
       </Slab>
-
-      <ul style={{ marginTop: 16 }}>{optionsList}</ul>
-      <div>{answer}</div>
-      <Button disabled={!currentQuestionResult} onClick={handleNext}>
-        {i18n.t("next")}
-      </Button>
+      <OptionsList />
+      {currentQuestionResult ? (
+        <ModalAnswer
+          currentQuestionResult={currentQuestionResult}
+          handleNext={handleNext}
+        />
+      ) : null}
       <ProgressBlock>
         <Progress
           percent={(currentQuestionIndex * 100) / questions.current.length}

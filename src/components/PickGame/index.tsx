@@ -14,7 +14,7 @@ const PickGame = () => {
       <Header level={2} bold>
         {i18n.t("pickGame")}
       </Header>
-      <DesktopSlabs>
+      <Slabs>
         <Link to={"/words"}>
           <Slab normal>
             <img src={Word} />
@@ -42,14 +42,14 @@ const PickGame = () => {
             {i18n.t("collectPhrase")}
           </Slab>
         </Link>
-      </DesktopSlabs>
+      </Slabs>
     </Styled>
   );
 };
 
 export default PickGame;
 
-const DesktopSlabs = styled.div`
+const Slabs = styled.div`
   margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
@@ -58,6 +58,7 @@ const DesktopSlabs = styled.div`
   width: fit-content;
   button {
     margin-bottom: 20px;
+    margin-right: 10px;
   }
 `;
 
@@ -66,15 +67,4 @@ const Styled = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: center;
-`;
-
-const MobileSlabs = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  button {
-    margin-bottom: 20px;
-    margin-right: 10px;
-  }
 `;

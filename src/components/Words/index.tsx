@@ -8,12 +8,13 @@ import ProgressBlock from "../../ui/ProgressBlock";
 
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
-import i18n from "i18next";
 import { OptionInterface } from "../../localBase/interfaces";
 import AppContext from "../../AppContext";
 import Icon from "../../ui/Icon";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
+import { isMobile } from "react-device-detect";
+import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -104,29 +105,64 @@ const Words = () => {
     setCurrentQuestionResult(questionResultObject);
   };
 
-  const optionsList = options.map((option: OptionInterface, index: number) => {
-    const { id, text } = option;
-    return (
-      <li key={id + text} style={{ marginBottom: 10 }}>
-        <Button
-          normal
-          onClick={() => {
-            currentQuestionResult
-              ? console.log("уже выбран вариант")
-              : handleClick(id);
-          }}
-        >
-          {text}
-        </Button>
-      </li>
-    );
-  });
+  const OptionsList = () => {
+    const MobileUl = styled.ul`
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li {
+        width: fit-content;
+        margin-bottom: 20px;
+      }
+    `;
+
+    const list = options.map((option: OptionInterface, index: number) => {
+      const { id, text } = option;
+      if (isMobile) {
+        return (
+          <li key={id + text}>
+            <Slab
+              normal
+              onClick={() => {
+                currentQuestionResult
+                  ? console.log("уже выбран вариант")
+                  : handleClick(id);
+              }}
+            >
+              {text}
+            </Slab>
+          </li>
+        );
+      }
+      return (
+        <li key={id + text} style={{ marginBottom: 10 }}>
+          <Button
+            normal
+            onClick={() => {
+              currentQuestionResult
+                ? console.log("уже выбран вариант")
+                : handleClick(id);
+            }}
+          >
+            {text}
+          </Button>
+        </li>
+      );
+    });
+    if (isMobile) {
+      return <MobileUl>{list}</MobileUl>;
+    }
+    return <ul style={{ marginTop: 16 }}>{list}</ul>;
+  };
 
   const timer = Math.floor(duration || 1000);
 
-  const delayFunc = () => {
+  const delayFunc = (e: any) => {
     setDisabled(true);
     tell();
+    e.target.blur();
     setTimeout(() => {
       setDisabled(false);
     }, timer);
@@ -141,7 +177,7 @@ const Words = () => {
   return (
     <StyledWords>
       <Slab
-        onClick={delayFunc}
+        onClick={(e: any) => delayFunc(e)}
         style={{
           pointerEvents: disabled ? "none" : "auto",
         }}
@@ -154,11 +190,13 @@ const Words = () => {
         <Icon icon="play" size={24} className={"play"} />
       </Slab>
 
-      <ul style={{ marginTop: 16 }}>{optionsList}</ul>
-      <div>{answer}</div>
-      <Button disabled={!currentQuestionResult} onClick={handleNext}>
-        {i18n.t("next")}
-      </Button>
+      <OptionsList />
+      {currentQuestionResult ? (
+        <ModalAnswer
+          currentQuestionResult={currentQuestionResult}
+          handleNext={handleNext}
+        />
+      ) : null}
       <ProgressBlock
         length={questions.current.length}
         currentQuestionIndex={currentQuestionIndex}

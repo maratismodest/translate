@@ -28,12 +28,6 @@ const ModalLogin = ({
   const [error, setError] = useState("");
   const [show, setShow] = useState("login");
 
-  const history = useHistory();
-  if (user) {
-    history.push("/user");
-    return null;
-  }
-
   const GoogleButton = () => {
     return (
       <img

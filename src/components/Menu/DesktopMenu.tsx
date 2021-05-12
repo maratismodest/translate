@@ -4,6 +4,7 @@ import i18n from "i18next";
 import { useHistory } from "react-router-dom";
 import AppContext from "../../AppContext";
 import "./styles.scss";
+import styled from "styled-components";
 
 const { SubMenu } = Menu;
 
@@ -14,17 +15,17 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
   const handleClick = (e: any) => {
     setMenuState({ current: e.key });
   };
-
   return (
-    <Menu
+    <StyledMenu
       onClick={handleClick}
       selectedKeys={[menuState.current]}
       mode="horizontal"
-      style={{ background: "none", border: "none" }}
     >
-      <Menu.Item key="login" onClick={() => setModalVisible(true)}>
-        {i18n.t("login")}
-      </Menu.Item>
+      {user ? null : (
+        <Menu.Item key="login" onClick={() => setModalVisible(true)}>
+          {i18n.t("login")}
+        </Menu.Item>
+      )}
       <Menu.Item key="profile" onClick={() => history.push("/user")}>
         {i18n.t("profile")}
       </Menu.Item>
@@ -42,6 +43,14 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
           );
         })}
       </SubMenu>
-    </Menu>
+    </StyledMenu>
   );
 };
+
+const StyledMenu = styled(Menu)`
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 126%;
+  font-weight: 600;
+`;

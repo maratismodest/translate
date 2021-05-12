@@ -79,6 +79,6 @@ export default ({ user }: any) => {
   return isMobile ? (
     <MobileMenu user={user} LanguageMenuList={LanguageMenuList} />
   ) : (
-    <DesktopMenu LanguageMenuList={LanguageMenuList} />
+    <DesktopMenu user={user} LanguageMenuList={LanguageMenuList} />
   );
 };

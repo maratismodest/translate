@@ -19,7 +19,9 @@ interface Props {
   normal?: boolean;
 }
 
-export default styled(Button)<Partial<Props>>`
+export default styled.button<Partial<Props>>`
+  position: relative;
+  cursor: pointer;
   max-width: 380px;
   background: var(--color-white);
   font-family: Roboto;
@@ -45,9 +47,7 @@ export default styled(Button)<Partial<Props>>`
   border-radius: 14px;
   outline: none;
   box-shadow: none;
-  &:active {
-    background-color: var(--color-white);
-  }
+
   .play {
     position: absolute;
     top: 12px;
@@ -59,11 +59,6 @@ export default styled(Button)<Partial<Props>>`
     h2 {
       color: var(--color-white) !important;
     }
-  }
-
-  &:focus {
-    background-color: var(--color-white);
-    color: var(--color-black);
   }
 
   &:disabled {
