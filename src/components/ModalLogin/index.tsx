@@ -10,6 +10,8 @@ import { app } from "../../base";
 import { GoogleOutlined } from "@ant-design/icons";
 import i18n from "i18next";
 import AppContext from "../../AppContext";
+import { Span } from "../../ui/Span";
+import { Paragraph } from "../../ui/Paragraph";
 import { isMobile } from "react-device-detect";
 const ModalLogin = ({
   user,
@@ -19,14 +21,6 @@ const ModalLogin = ({
   const { state, setState, modalLoginVisible, setModalVisible } = useContext(
     AppContext
   );
-
-  const handleOk = () => {
-    setModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setModalVisible(false);
-  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,48 +33,22 @@ const ModalLogin = ({
     return null;
   }
 
-  const handleSubmit = async (values: any) => {
-    console.log(email, password);
-    try {
-      const { user } = await signInWithEmailAndPassword(email, password);
-      return user;
-    } catch (error) {
-      console.log(error);
-      setError("Error Signing up with email and password");
-    }
-  };
-
-  const createUserWithEmailAndPasswordHandler = async (values: any) => {
-    try {
-      return await app.auth().createUserWithEmailAndPassword(email, password);
-    } catch (error) {
-      setError("Ошибка при создании учетной записи, перепроверьте данные");
-    }
-
-    setEmail("");
-    setPassword("");
-  };
-
-  const sendResetEmail = (event: any) => {
-    app
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        // setEmailHasBeenSent(true);
-        setTimeout(() => {
-          // setEmailHasBeenSent(false);
-        }, 3000);
-      })
-      .catch(() => {
-        setError("Error resetting password");
-      });
-  };
-
   const Login = () => {
+    const handleSubmit = async (values: any) => {
+      try {
+        const { user } = await signInWithEmailAndPassword(email, password);
+        return user;
+      } catch (error) {
+        console.log(error);
+        setError("Error Signing up with email and password");
+      }
+    };
+
     return (
       <>
         <Form onFinish={handleSubmit}>
           <LoginHeader color={"green"}>{i18n.t("login")}</LoginHeader>
+
           <StyledInput
             value={email}
             placeholder={i18n.t("login")}
@@ -96,41 +64,73 @@ const ModalLogin = ({
             }}
           />
           <Text
-            style={{ marginBottom: 30 }}
+            pointer
+            bold
+            style={{
+              marginBottom: isMobile ? 10 : 20,
+              marginTop: isMobile ? 10 : 20,
+              maxWidth: 300,
+              textAlign: "right",
+            }}
             onClick={() => {
               setShow("reset");
             }}
           >
             {i18n.t("forgotPassword")}
           </Text>
-          <Text large color={"red"} style={{ marginBottom: 10 }}>
+          <Text
+            large
+            color={"red"}
+            style={{ marginBottom: isMobile ? 10 : 30 }}
+          >
             {error}
           </Text>
+
           <Button htmlType="submit">{i18n.t("login")}</Button>
         </Form>
-        <div style={{ marginTop: 10 }}>
-          <Text>или войти с помощью:</Text>
+        <StyledLoginFooter>
+          <Span
+            bold
+            pointer
+            style={{ marginBottom: isMobile ? 10 : 30, display: "flex" }}
+          >
+            или войти с помощью:
+          </Span>
           <GoogleOutlined
             onClick={signInWithGoogle}
             style={{ fontSize: "32px" }}
           />
-        </div>
-        <Text
-          style={{ margin: "auto 0" }}
+        </StyledLoginFooter>
+        <Paragraph
+          style={{ margin: isMobile ? "20px 0" : "30px 0" }}
           onClick={() => {
             setShow("register");
+            setError("");
           }}
         >
-          Нет аккаунта? Зарегистрироваться
-        </Text>
+          Нет аккаунта?{" "}
+          <Span pointer bold>
+            Зарегистрироваться
+          </Span>
+        </Paragraph>
       </>
     );
   };
   const Register = () => {
+    const createUserWithEmailAndPasswordHandler = async (values: any) => {
+      try {
+        return await app.auth().createUserWithEmailAndPassword(email, password);
+      } catch (error) {
+        setError("Ошибка при создании учетной записи, перепроверьте данные");
+      }
+
+      setEmail("");
+      setPassword("");
+    };
     return (
       <>
         <Form onFinish={createUserWithEmailAndPasswordHandler}>
-          <Header style={{ marginBottom: 80 }}>Регистрация</Header>
+          <LoginHeader color={"green"}>Регистрация</LoginHeader>
           <StyledInput
             value={email}
             placeholder={"Логин"}
@@ -151,29 +151,47 @@ const ModalLogin = ({
           </Text>
           <Button htmlType="submit">Зарегистрироваться</Button>
         </Form>
-        <div style={{ marginTop: 10 }}>
-          <Text>или войти с помощью:</Text>
+        <StyledLoginFooter>
+          <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
+            или войти с помощью:
+          </Text>
           <GoogleOutlined
             onClick={signInWithGoogle}
             style={{ fontSize: "32px" }}
           />
-        </div>
-        <Text
-          style={{ margin: "auto 0" }}
+        </StyledLoginFooter>
+        <Paragraph
+          style={{ margin: isMobile ? "20px 0" : "30px 0" }}
           onClick={() => {
             setShow("login");
+            setError("");
           }}
         >
-          Есть аккаунт? Войти
-        </Text>
+          Есть аккаунт?{" "}
+          <Span bold pointer>
+            Войти
+          </Span>
+        </Paragraph>
       </>
     );
   };
   const Reset = () => {
+    const sendResetEmail = (event: any) => {
+      app
+        .auth()
+        .sendPasswordResetEmail(email)
+        .then(() => {
+          setTimeout(() => {}, 3000);
+        })
+        .catch(() => {
+          setError("Error resetting password");
+        });
+    };
+
     return (
       <>
         <Form onFinish={sendResetEmail}>
-          <Header style={{ marginBottom: 30 }}>Сбросить пароль</Header>
+          <LoginHeader color={"green"}>Сбросить пароль</LoginHeader>
           <StyledInput
             value={email}
             placeholder={"Логин"}
@@ -187,33 +205,38 @@ const ModalLogin = ({
           </Text>
           <Button htmlType="submit">Сбросить</Button>
         </Form>
-        <div style={{ marginTop: 10 }}>
-          <Text>или войти с помощью:</Text>
+        <StyledLoginFooter>
+          <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
+            или войти с помощью:
+          </Text>
           <GoogleOutlined
             onClick={signInWithGoogle}
             style={{ fontSize: "32px" }}
           />
-        </div>
-        <Text
-          style={{ margin: "auto 0" }}
+        </StyledLoginFooter>
+        <Paragraph
+          style={{ margin: isMobile ? "20px 0" : "30px 0" }}
           onClick={() => {
             setShow("login");
+            setError("");
           }}
         >
-          Вспомнили пароль? Войти
-        </Text>
+          Вспомнили пароль?{" "}
+          <Span bold pointer>
+            Войти
+          </Span>
+        </Paragraph>
       </>
     );
   };
   return (
     <Modal
       visible={modalLoginVisible}
-      onOk={handleOk}
-      onCancel={handleCancel}
+      onOk={() => setModalVisible(false)}
+      onCancel={() => setModalVisible(false)}
       footer={null}
       width={480}
       centered
-      bodyStyle={{ height: 500 }}
     >
       <StyledLogin>
         {show === "login" ? <Login /> : null}
@@ -239,12 +262,18 @@ const StyledInput = styled(Input)`
   border-radius: 10px;
   height: 50px;
   margin-bottom: 10px;
-  max-width: 300px;
+`;
+
+const StyledLoginFooter = styled.div`
+  margin-top: 30px !important;
+  @media (max-width: 1024px) {
+    margin-top: 20px !important;
+  }
 `;
 
 const LoginHeader = styled(Header)`
   margin-bottom: 80px !important;
-  //isMobile {
-  //  margin-bottom: 30px !important;
-  //}
+  @media (max-width: 1024px) {
+    margin-bottom: 30px !important;
+  }
 `;

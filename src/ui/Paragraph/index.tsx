@@ -1,7 +1,4 @@
-import { Typography } from "antd";
 import styled, { css } from "styled-components";
-
-const { Text } = Typography;
 
 interface Props {
   light?: boolean;
@@ -12,12 +9,9 @@ interface Props {
   onClick?: any;
   huge?: boolean;
   bold?: boolean;
-  pointer?: boolean;
 }
 
-export default styled(Text)<Partial<Props>>`
-  &&& {
-    display: block;
+export const Paragraph = styled.p<Partial<Props>>`
     color: var(--color-black);
     font-style: normal;
     font-weight: normal;
@@ -42,11 +36,6 @@ export default styled(Text)<Partial<Props>>`
       props.bold &&
       css`
         font-weight: 600;
-      `}
-    ${(props) =>
-      props.pointer &&
-      css`
-        cursor: pointer;
       `}
     ${(props) =>
       props.light &&
