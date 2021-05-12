@@ -6,14 +6,15 @@ import Header from "../../ui/Header";
 import styled from "styled-components";
 import Word from "./word.svg";
 import Phrase from "./phrase.svg";
+import { isMobile } from "react-device-detect";
 
 const PickGame = () => {
   return (
-    <div>
+    <Styled>
       <Header level={2} bold>
         {i18n.t("pickGame")}
       </Header>
-      <StyledSlabs>
+      <DesktopSlabs>
         <Link to={"/words"}>
           <Slab normal>
             <img src={Word} />
@@ -41,14 +42,33 @@ const PickGame = () => {
             {i18n.t("collectPhrase")}
           </Slab>
         </Link>
-      </StyledSlabs>
-    </div>
+      </DesktopSlabs>
+    </Styled>
   );
 };
 
 export default PickGame;
 
-const StyledSlabs = styled.div`
+const DesktopSlabs = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 400px;
+  width: fit-content;
+  button {
+    margin-bottom: 20px;
+  }
+`;
+
+const Styled = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const MobileSlabs = styled.div`
   margin-top: 30px;
   display: flex;
   flex-wrap: wrap;

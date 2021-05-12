@@ -13,6 +13,7 @@ import AppContext from "../../AppContext";
 import { Span } from "../../ui/Span";
 import { Paragraph } from "../../ui/Paragraph";
 import { isMobile } from "react-device-detect";
+import Google from "./google.svg";
 const ModalLogin = ({
   user,
   signInWithGoogle,
@@ -32,6 +33,16 @@ const ModalLogin = ({
     history.push("/user");
     return null;
   }
+
+  const GoogleButton = () => {
+    return (
+      <img
+        src={Google}
+        onClick={signInWithGoogle}
+        style={{ fontSize: "32px", cursor: "pointer" }}
+      />
+    );
+  };
 
   const Login = () => {
     const handleSubmit = async (values: any) => {
@@ -96,10 +107,7 @@ const ModalLogin = ({
           >
             или войти с помощью:
           </Span>
-          <GoogleOutlined
-            onClick={signInWithGoogle}
-            style={{ fontSize: "32px" }}
-          />
+          <GoogleButton />
         </StyledLoginFooter>
         <Paragraph
           style={{ margin: isMobile ? "20px 0" : "30px 0" }}
@@ -155,10 +163,7 @@ const ModalLogin = ({
           <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
             или войти с помощью:
           </Text>
-          <GoogleOutlined
-            onClick={signInWithGoogle}
-            style={{ fontSize: "32px" }}
-          />
+          <GoogleButton />
         </StyledLoginFooter>
         <Paragraph
           style={{ margin: isMobile ? "20px 0" : "30px 0" }}
@@ -209,10 +214,7 @@ const ModalLogin = ({
           <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
             или войти с помощью:
           </Text>
-          <GoogleOutlined
-            onClick={signInWithGoogle}
-            style={{ fontSize: "32px" }}
-          />
+          <GoogleButton />
         </StyledLoginFooter>
         <Paragraph
           style={{ margin: isMobile ? "20px 0" : "30px 0" }}
