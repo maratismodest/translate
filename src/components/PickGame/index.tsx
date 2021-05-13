@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import i18n from "i18next";
 import Slab from "../../ui/Slab";
@@ -6,9 +6,10 @@ import Header from "../../ui/Header";
 import styled from "styled-components";
 import Word from "./word.svg";
 import Phrase from "./phrase.svg";
-import { isMobile } from "react-device-detect";
+import AppContext from "../../AppContext";
 
 const PickGame = () => {
+  const { state, setState } = useContext(AppContext);
   return (
     <Styled>
       <Header level={2} bold>
@@ -16,28 +17,60 @@ const PickGame = () => {
       </Header>
       <Slabs>
         <Link to={"/words"}>
-          <Slab normal>
+          <Slab
+            normal
+            onClick={() => {
+              setState({
+                ...state,
+                chosenGame: "words",
+              });
+            }}
+          >
             <img src={Word} />
             {i18n.t("wordsText")}
           </Slab>
         </Link>
 
         <Link to={"/word"}>
-          <Slab normal>
+          <Slab
+            normal
+            onClick={() => {
+              setState({
+                ...state,
+                chosenGame: "word",
+              });
+            }}
+          >
             <img src={Word} />
             {i18n.t("collectWord")}
           </Slab>
         </Link>
 
         <Link to={"/phrases"}>
-          <Slab normal>
+          <Slab
+            normal
+            onClick={() => {
+              setState({
+                ...state,
+                chosenGame: "phrases",
+              });
+            }}
+          >
             <img src={Phrase} />
             {i18n.t("phrases")}
           </Slab>
         </Link>
 
         <Link to={"/collect"}>
-          <Slab normal>
+          <Slab
+            normal
+            onClick={() => {
+              setState({
+                ...state,
+                chosenGame: "collect",
+              });
+            }}
+          >
             <img src={Phrase} />
             {i18n.t("collectPhrase")}
           </Slab>

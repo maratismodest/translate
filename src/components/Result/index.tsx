@@ -16,6 +16,7 @@ import Text from "../../ui/Text";
 import Icon from "../../ui/Icon";
 
 const Result = ({ user, signInWithGoogle }: any) => {
+  const history = useHistory();
   const { state, setState } = useContext(AppContext);
   const { result, chosenGame } = state;
 
@@ -66,6 +67,8 @@ const Result = ({ user, signInWithGoogle }: any) => {
     });
   }
 
+  console.log("chosenGame", chosenGame);
+
   return (
     <StyledResult>
       <Header>{i18n.t("resultText")}:</Header>
@@ -110,10 +113,7 @@ const Result = ({ user, signInWithGoogle }: any) => {
         <Link to={`/${chosenGame}`}>
           <Button
             onClick={() => {
-              setState({
-                ...initialState,
-                gameState: chosenGame,
-              });
+              setState(initialState);
             }}
           >
             {i18n.t("repeat")}

@@ -54,10 +54,6 @@ const Latin = () => {
     final = { ...final, ...test };
   }
 
-  console.log("final", final);
-
-  console.log(words);
-
   const updatedWords = words.map((item) => {
     const { tat } = item;
     return { ...item, lat: transliterate(tat) };
@@ -67,8 +63,6 @@ const Latin = () => {
     const { tat } = item;
     return { ...item, lat: transliterate(tat) };
   });
-
-  console.log(updatedWords);
 
   return (
     <div>

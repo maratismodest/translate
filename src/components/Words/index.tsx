@@ -78,6 +78,7 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext);
   const { words, chosenGame, allWords } = state;
+  console.log("chosenGame", chosenGame);
   const { firstLanguage, secondLanguage } = words;
   const [answer, setAnswer] = useState<any>();
 

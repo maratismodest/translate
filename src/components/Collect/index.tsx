@@ -25,7 +25,8 @@ const Collect = () => {
   const [no] = useSound(soundWrong);
   const [disabled, setDisabled] = useState(false);
   const [questionResult, setQuestionResult] = useState<any>();
-  const { chosenGame, collect, firstLanguage } = state;
+  const { collect, firstLanguage, chosenGame } = state;
+  console.log("chosenGame", chosenGame);
 
   const shuffle = _.shuffle(collect).slice(0, 5);
   const collectClone = _.clone(collect);
@@ -45,6 +46,10 @@ const Collect = () => {
   const questionSeparated = question[firstLanguage].split(" ");
   const randomseparated = _.sample(collectClone)[firstLanguage].split(" ");
 
+  const secondIndex = _.indexOf(collectClone, randomseparated);
+  collectClone.splice(secondIndex, 1);
+  const randomseparated2 = _.sample(collectClone)[firstLanguage].split(" ");
+
   const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
 
@@ -53,7 +58,7 @@ const Collect = () => {
 
   useEffect(() => {
     const wordsWithKeys = _.shuffle(
-      questionSeparated.concat(randomseparated)
+      questionSeparated.concat(randomseparated, randomseparated2)
     ).map((word: string, index: number) => {
       return {
         text: word,
