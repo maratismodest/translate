@@ -184,10 +184,15 @@ const Words = () => {
       />
 
       {currentQuestionResult ? (
-        <ModalAnswer
-          currentQuestionResult={currentQuestionResult}
-          handleNext={handleNext}
-        />
+        <>
+          <ModalAnswer
+            currentQuestionResult={currentQuestionResult}
+            handleNext={handleNext}
+          />
+          <Button onClick={handleCheck} disabled={!answer}>
+            {i18n.t("check")}
+          </Button>
+        </>
       ) : (
         // <Button onClick={handleNext}>{i18n.t("next")}</Button>
         <Button onClick={handleCheck} disabled={!answer}>
