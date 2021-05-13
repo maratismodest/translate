@@ -59,194 +59,43 @@ const ModalLogin = ({
     );
   };
 
-  const Login = () => {
-    const handleSubmit = async (values: any) => {
-      try {
-        const { user } = await signInWithEmailAndPassword(email, password);
-        return user;
-      } catch (error) {
-        console.log(error);
-        setError("Error Signing up with email and password");
-      }
-    };
-
-    return (
-      <>
-        <Form onFinish={handleSubmit}>
-          <LoginHeader color={"green"}>{i18n.t("login")}</LoginHeader>
-
-          <StyledInput
-            value={email}
-            placeholder={i18n.t("login")}
-            onChange={(event: any) => {
-              setEmail(event.target.value);
-            }}
-          />
-          <StyledInput
-            value={password}
-            placeholder={i18n.t("password")}
-            onChange={(event: any) => {
-              setPassword(event.target.value);
-            }}
-          />
-          <Text
-            pointer
-            bold
-            style={{
-              marginBottom: isMobile ? 10 : 20,
-              marginTop: isMobile ? 10 : 20,
-              maxWidth: 300,
-              textAlign: "right",
-            }}
-            onClick={() => {
-              setShow("reset");
-            }}
-          >
-            {i18n.t("forgotPassword")}
-          </Text>
-          <Text
-            large
-            color={"red"}
-            style={{ marginBottom: isMobile ? 10 : 30 }}
-          >
-            {error}
-          </Text>
-
-          <Button htmlType="submit">{i18n.t("login")}</Button>
-        </Form>
-        <StyledLoginFooter>
-          <Span
-            bold
-            pointer
-            style={{ marginBottom: isMobile ? 10 : 30, display: "flex" }}
-          >
-            или войти с помощью:
-          </Span>
-          {/*<FacebookButton />*/}
-          <GoogleButton />
-        </StyledLoginFooter>
-        <Paragraph
-          style={{ margin: isMobile ? "20px 0" : "30px 0" }}
-          onClick={() => {
-            setShow("register");
-            setError("");
-          }}
-        >
-          Нет аккаунта?{" "}
-          <Span pointer bold>
-            Зарегистрироваться
-          </Span>
-        </Paragraph>
-      </>
-    );
+  const handleSubmit = async (values: any) => {
+    try {
+      const { user } = await signInWithEmailAndPassword(email, password);
+      return user;
+    } catch (error) {
+      console.log(error);
+      setError("Error Signing up with email and password");
+    }
   };
-  const Register = () => {
-    const createUserWithEmailAndPasswordHandler = async (values: any) => {
-      try {
-        return await app.auth().createUserWithEmailAndPassword(email, password);
-      } catch (error) {
-        setError("Ошибка при создании учетной записи, перепроверьте данные");
-      }
+  const createUserWithEmailAndPasswordHandler = async (values: any) => {
+    try {
+      return await app.auth().createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      setError("Ошибка при создании учетной записи, перепроверьте данные");
+    }
+  };
 
+  const createUserViaEmail = (values: any) => {
+    createUserWithEmailAndPasswordHandler(values).then((res) => {
+      console.log(res);
+      history.push("/user");
       setEmail("");
       setPassword("");
-    };
-    return (
-      <>
-        <Form onFinish={createUserWithEmailAndPasswordHandler}>
-          <LoginHeader color={"green"}>Регистрация</LoginHeader>
-          <StyledInput
-            value={email}
-            placeholder={"Логин"}
-            onChange={(event: any) => {
-              setEmail(event.target.value);
-            }}
-          />
-          <StyledInput
-            value={password}
-            placeholder={"Пароль"}
-            onChange={(event: any) => {
-              setPassword(event.target.value);
-            }}
-          />
-
-          <Text large color={"red"} style={{ marginBottom: 10 }}>
-            {error}
-          </Text>
-          <Button htmlType="submit">Зарегистрироваться</Button>
-        </Form>
-        <StyledLoginFooter>
-          <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
-            или войти с помощью:
-          </Text>
-          <GoogleButton />
-        </StyledLoginFooter>
-        <Paragraph
-          style={{ margin: isMobile ? "20px 0" : "30px 0" }}
-          onClick={() => {
-            setShow("login");
-            setError("");
-          }}
-        >
-          Есть аккаунт?{" "}
-          <Span bold pointer>
-            Войти
-          </Span>
-        </Paragraph>
-      </>
-    );
+    });
   };
-  const Reset = () => {
-    const sendResetEmail = (event: any) => {
-      app
-        .auth()
-        .sendPasswordResetEmail(email)
-        .then(() => {
-          setTimeout(() => {}, 3000);
-        })
-        .catch(() => {
-          setError("Error resetting password");
-        });
-    };
-
-    return (
-      <>
-        <Form onFinish={sendResetEmail}>
-          <LoginHeader color={"green"}>Сбросить пароль</LoginHeader>
-          <StyledInput
-            value={email}
-            placeholder={"Логин"}
-            onChange={(event: any) => {
-              setEmail(event.target.value);
-            }}
-          />
-
-          <Text large color={"red"} style={{ marginBottom: 10 }}>
-            {error}
-          </Text>
-          <Button htmlType="submit">Сбросить</Button>
-        </Form>
-        <StyledLoginFooter>
-          <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
-            или войти с помощью:
-          </Text>
-          <GoogleButton />
-        </StyledLoginFooter>
-        <Paragraph
-          style={{ margin: isMobile ? "20px 0" : "30px 0" }}
-          onClick={() => {
-            setShow("login");
-            setError("");
-          }}
-        >
-          Вспомнили пароль?{" "}
-          <Span bold pointer>
-            Войти
-          </Span>
-        </Paragraph>
-      </>
-    );
+  const sendResetEmail = (event: any) => {
+    app
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        setTimeout(() => {}, 3000);
+      })
+      .catch(() => {
+        setError("Error resetting password");
+      });
   };
+
   return (
     <Modal
       visible={modalLoginVisible}
@@ -257,9 +106,156 @@ const ModalLogin = ({
       centered
     >
       <StyledLogin>
-        {show === "login" ? <Login /> : null}
-        {show === "reset" ? <Reset /> : null}
-        {show === "register" ? <Register /> : null}
+        {show === "login" ? (
+          <>
+            <Form onFinish={handleSubmit}>
+              <LoginHeader color={"green"}>{i18n.t("login")}</LoginHeader>
+
+              <StyledInput
+                value={email}
+                placeholder={i18n.t("login")}
+                onChange={(event: any) => {
+                  setEmail(event.target.value);
+                }}
+              />
+              <StyledInput
+                value={password}
+                placeholder={i18n.t("password")}
+                onChange={(event: any) => {
+                  setPassword(event.target.value);
+                }}
+              />
+              <Text
+                pointer
+                bold
+                style={{
+                  marginBottom: isMobile ? 10 : 20,
+                  marginTop: isMobile ? 10 : 20,
+                  maxWidth: 300,
+                  textAlign: "right",
+                }}
+                onClick={() => {
+                  setShow("reset");
+                }}
+              >
+                {i18n.t("forgotPassword")}
+              </Text>
+              <Text
+                large
+                color={"red"}
+                style={{ marginBottom: isMobile ? 10 : 30 }}
+              >
+                {error}
+              </Text>
+
+              <Button htmlType="submit">{i18n.t("login")}</Button>
+            </Form>
+            <StyledLoginFooter>
+              <Span
+                bold
+                pointer
+                style={{ marginBottom: isMobile ? 10 : 30, display: "flex" }}
+              >
+                или войти с помощью:
+              </Span>
+              {/*<FacebookButton />*/}
+              <GoogleButton />
+            </StyledLoginFooter>
+            <Paragraph
+              style={{ margin: isMobile ? "20px 0" : "30px 0" }}
+              onClick={() => {
+                setShow("register");
+                setError("");
+              }}
+            >
+              Нет аккаунта?{" "}
+              <Span pointer bold>
+                Зарегистрироваться
+              </Span>
+            </Paragraph>
+          </>
+        ) : null}
+        {show === "reset" ? (
+          <>
+            <Form onFinish={sendResetEmail}>
+              <LoginHeader color={"green"}>Сбросить пароль</LoginHeader>
+              <StyledInput
+                value={email}
+                placeholder={"Логин"}
+                onChange={(event: any) => {
+                  setEmail(event.target.value);
+                }}
+              />
+
+              <Text large color={"red"} style={{ marginBottom: 10 }}>
+                {error}
+              </Text>
+              <Button htmlType="submit">Сбросить</Button>
+            </Form>
+            <StyledLoginFooter>
+              <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
+                или войти с помощью:
+              </Text>
+              <GoogleButton />
+            </StyledLoginFooter>
+            <Paragraph
+              style={{ margin: isMobile ? "20px 0" : "30px 0" }}
+              onClick={() => {
+                setShow("login");
+                setError("");
+              }}
+            >
+              Вспомнили пароль?{" "}
+              <Span bold pointer>
+                Войти
+              </Span>
+            </Paragraph>
+          </>
+        ) : null}
+        {show === "register" ? (
+          <>
+            <Form onFinish={createUserViaEmail}>
+              <LoginHeader color={"green"}>Регистрация</LoginHeader>
+              <StyledInput
+                value={email}
+                placeholder={"Логин"}
+                onChange={(event: any) => {
+                  setEmail(event.target.value);
+                }}
+              />
+              <StyledInput
+                value={password}
+                placeholder={"Пароль"}
+                onChange={(event: any) => {
+                  setPassword(event.target.value);
+                }}
+              />
+
+              <Text large color={"red"} style={{ marginBottom: 10 }}>
+                {error}
+              </Text>
+              <Button htmlType="submit">Зарегистрироваться</Button>
+            </Form>
+            <StyledLoginFooter>
+              <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
+                или войти с помощью:
+              </Text>
+              <GoogleButton />
+            </StyledLoginFooter>
+            <Paragraph
+              style={{ margin: isMobile ? "20px 0" : "30px 0" }}
+              onClick={() => {
+                setShow("login");
+                setError("");
+              }}
+            >
+              Есть аккаунт?{" "}
+              <Span bold pointer>
+                Войти
+              </Span>
+            </Paragraph>
+          </>
+        ) : null}
       </StyledLogin>
     </Modal>
   );
