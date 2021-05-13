@@ -16,7 +16,6 @@ import { StyledBody } from "../Welcome/WelcomeStyles";
 import { isMobile } from "react-device-detect";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 import i18n from "i18next";
-import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 
 export interface questionResultInterface {
   correct: boolean;
