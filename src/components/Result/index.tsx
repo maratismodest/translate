@@ -98,14 +98,14 @@ const Result = ({ user, signInWithGoogle }: any) => {
       <div>
         <div style={{ marginBottom: 16 }}>
           <Header level={4}>{i18n.t("wellDone")}</Header>
-          <div>
-            {!user ? (
-              <div style={{ textAlign: "center" }}>
-                <div>Зайди в личный кабинет, чтобы знать свой прогресс! </div>
-                <GoogleButton onClick={signInWithGoogle} label="Чамала!" />
-              </div>
-            ) : null}
-          </div>
+          {/*<div>*/}
+          {/*  {!user ? (*/}
+          {/*    <div style={{ textAlign: "center" }}>*/}
+          {/*      <div>Зайди в личный кабинет, чтобы знать свой прогресс! </div>*/}
+          {/*      <GoogleButton onClick={signInWithGoogle} label="Чамала!" />*/}
+          {/*    </div>*/}
+          {/*  ) : null}*/}
+          {/*</div>*/}
         </div>
         <Link to={`/${chosenGame}`}>
           <Button

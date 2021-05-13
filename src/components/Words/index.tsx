@@ -15,6 +15,7 @@ import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { isMobile } from "react-device-detect";
 import i18n from "i18next";
+import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -196,19 +197,23 @@ const Words = () => {
         currentQuestionResult={currentQuestionResult}
         handleOption={handleOption}
       />
-      {/*{currentQuestionResult ? (*/}
-      {/*  <ModalAnswer*/}
-      {/*    currentQuestionResult={currentQuestionResult}*/}
-      {/*    handleNext={handleNext}*/}
-      {/*  />*/}
-      {/*) : null}*/}
       {currentQuestionResult ? (
-        <Button onClick={handleNext}>{i18n.t("next")}</Button>
+        <ModalAnswer
+          currentQuestionResult={currentQuestionResult}
+          handleNext={handleNext}
+        />
       ) : (
         <Button onClick={handleCheck} disabled={!answer}>
           {i18n.t("check")}
         </Button>
       )}
+      {/*{currentQuestionResult ? (*/}
+      {/*  <Button onClick={handleNext}>{i18n.t("next")}</Button>*/}
+      {/*) : (*/}
+      {/*  <Button onClick={handleCheck} disabled={!answer}>*/}
+      {/*    {i18n.t("check")}*/}
+      {/*  </Button>*/}
+      {/*)}*/}
       <ProgressBlock
         length={questions.current.length}
         currentQuestionIndex={currentQuestionIndex}
