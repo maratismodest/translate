@@ -92,7 +92,7 @@ const Words = () => {
   const { state, setState } = useContext(AppContext);
   const { words, chosenGame, allWords } = state;
   const { firstLanguage, secondLanguage } = words;
-  const answer = useRef({ text: "", id: null });
+  const [answer, setAnswer] = useState<any>();
 
   const first = _.shuffle(firstLanguage).slice(0, 3);
   const second = _.shuffle(secondLanguage).slice(0, 3);
@@ -135,12 +135,12 @@ const Words = () => {
 
   const handleOption = (id: number) => {
     const currentOption = _.find(options, { id: id });
-    answer.current = currentOption;
+    setAnswer(currentOption);
   };
 
   const handleCheck = () => {
     const correctText = _.find(options, { id: 1 }).text;
-    const { id, text } = answer.current;
+    const { id, text } = answer;
 
     id === correct ? success() : mistake();
 
@@ -168,6 +168,7 @@ const Words = () => {
   const handleNext = () => {
     checkGameState(chosenGame, currentQuestionResult);
     setCurrentQuestionResult(null);
+    setAnswer(undefined);
   };
 
   return (
@@ -200,17 +201,10 @@ const Words = () => {
           handleNext={handleNext}
         />
       ) : (
-        <Button onClick={handleCheck} disabled={!currentQuestionResult}>
+        <Button onClick={handleCheck} disabled={!answer}>
           {i18n.t("check")}
         </Button>
       )}
-      {/*{currentQuestionResult ? (*/}
-      {/*  <Button onClick={handleNext}>{i18n.t("next")}</Button>*/}
-      {/*) : (*/}
-      {/*  <Button onClick={handleCheck} disabled={!answer}>*/}
-      {/*    {i18n.t("check")}*/}
-      {/*  </Button>*/}
-      {/*)}*/}
       <ProgressBlock
         length={questions.current.length}
         currentQuestionIndex={currentQuestionIndex}
