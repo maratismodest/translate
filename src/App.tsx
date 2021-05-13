@@ -89,11 +89,11 @@ function App(props: any) {
 
           <ModalLogin {...props} />
         </StyledMain>
-        {/*<YMInitializer*/}
-        {/*  accounts={[72761164]}*/}
-        {/*  options={{ webvisor: true }}*/}
-        {/*  version="2"*/}
-        {/*/>*/}
+        <YMInitializer
+          accounts={[72761164]}
+          options={{ webvisor: true }}
+          version="2"
+        />
       </Game>
     </AppContext.Provider>
   );
