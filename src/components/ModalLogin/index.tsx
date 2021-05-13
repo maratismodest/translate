@@ -7,17 +7,18 @@ import Button from "../../ui/Button";
 import Header from "../../ui/Header";
 import Text from "../../ui/Text";
 import { app } from "../../base";
-import { GoogleOutlined } from "@ant-design/icons";
 import i18n from "i18next";
 import AppContext from "../../AppContext";
 import { Span } from "../../ui/Span";
 import { Paragraph } from "../../ui/Paragraph";
 import { isMobile } from "react-device-detect";
 import Google from "./google.svg";
+import Facebook from "./Social.svg";
 const ModalLogin = ({
   user,
   signInWithGoogle,
   signInWithEmailAndPassword,
+  signInWithFacebook,
 }: any) => {
   const { state, setState, modalLoginVisible, setModalVisible } = useContext(
     AppContext
@@ -38,6 +39,20 @@ const ModalLogin = ({
           signInWithGoogle();
           setModalVisible(false);
           history.push("/user");
+        }}
+        style={{ fontSize: "32px", cursor: "pointer" }}
+      />
+    );
+  };
+
+  const FacebookButton = () => {
+    return (
+      <img
+        src={Facebook}
+        onClick={() => {
+          signInWithFacebook();
+          // setModalVisible(false);
+          // history.push("/user");
         }}
         style={{ fontSize: "32px", cursor: "pointer" }}
       />
@@ -107,6 +122,7 @@ const ModalLogin = ({
           >
             или войти с помощью:
           </Span>
+          {/*<FacebookButton />*/}
           <GoogleButton />
         </StyledLoginFooter>
         <Paragraph

@@ -103,6 +103,7 @@ const firebaseAppAuth = app.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
   signInWithEmailAndPassword: new firebase.auth.EmailAuthProvider(),
+  facebookProvider: new firebase.auth.FacebookAuthProvider(),
 };
 
 export default withFirebaseAuth({ firebaseAppAuth, providers })(App);
