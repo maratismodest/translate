@@ -14,6 +14,7 @@ import Icon from "../../ui/Icon";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { isMobile } from "react-device-detect";
+import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 import i18n from "i18next";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 
@@ -32,68 +33,13 @@ interface CurrentQuestionResultInterface {
   chosenText: string;
 }
 
-const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
-  const MobileUl = styled.ul`
-    margin-top: 30px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    li {
-      width: fit-content;
-      margin-bottom: 20px;
-    }
-  `;
-
-  const list = options.map((option: OptionInterface, index: number) => {
-    const { id, text } = option;
-    if (isMobile) {
-      return (
-        <li key={id + text}>
-          <Slab
-            normal
-            button
-            onClick={(e: any) => {
-              e.preventDefault();
-              currentQuestionResult
-                ? console.log("уже выбран вариант")
-                : handleOption(id);
-            }}
-          >
-            {text}
-          </Slab>
-        </li>
-      );
-    }
-    return (
-      <li key={id + text} style={{ marginBottom: 10 }}>
-        <Button
-          normal
-          onClick={(e: any) => {
-            e.preventDefault();
-            currentQuestionResult
-              ? console.log("уже выбран вариант")
-              : handleOption(id);
-          }}
-        >
-          {text}
-        </Button>
-      </li>
-    );
-  });
-  if (isMobile) {
-    return <MobileUl>{list}</MobileUl>;
-  }
-  return <ul style={{ marginTop: 16 }}>{list}</ul>;
-};
-
 const Words = () => {
   const history = useHistory();
 
   const { state, setState } = useContext(AppContext);
   const { words, chosenGame, allWords } = state;
   const { firstLanguage, secondLanguage } = words;
-  const [answer, setAnswer] = useState<any>();
+  const answer = useRef({ text: "", id: null });
 
   const first = _.shuffle(firstLanguage).slice(0, 3);
   const second = _.shuffle(secondLanguage).slice(0, 3);
@@ -136,12 +82,12 @@ const Words = () => {
 
   const handleOption = (id: number) => {
     const currentOption = _.find(options, { id: id });
-    setAnswer(currentOption);
+    answer.current = currentOption;
   };
 
   const handleCheck = () => {
     const correctText = _.find(options, { id: 1 }).text;
-    const { id, text } = answer;
+    const { id, text } = answer.current;
 
     id === correct ? success() : mistake();
 
@@ -156,6 +102,60 @@ const Words = () => {
     setCurrentQuestionResult(questionResultObject);
   };
 
+  const OptionsList = () => {
+    const MobileUl = styled.ul`
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      li {
+        width: fit-content;
+        margin-bottom: 20px;
+      }
+    `;
+
+    const list = options.map((option: OptionInterface, index: number) => {
+      const { id, text } = option;
+      if (isMobile) {
+        return (
+          <li key={id + text}>
+            <Slab
+              normal
+              button
+              onClick={(e: any) => {
+                e.stopPropagation();
+                currentQuestionResult
+                  ? console.log("уже выбран вариант")
+                  : handleOption(id);
+              }}
+            >
+              {text}
+            </Slab>
+          </li>
+        );
+      }
+      return (
+        <li key={id + text} style={{ marginBottom: 10 }}>
+          <Button
+            normal
+            onClick={(e: any) => {
+              currentQuestionResult
+                ? console.log("уже выбран вариант")
+                : handleOption(id);
+            }}
+          >
+            {text}
+          </Button>
+        </li>
+      );
+    });
+    if (isMobile) {
+      return <MobileUl>{list}</MobileUl>;
+    }
+    return <ul style={{ marginTop: 16 }}>{list}</ul>;
+  };
+
   const timer = Math.floor(duration || 1000);
 
   const delayFunc = (e: any) => {
@@ -168,11 +168,9 @@ const Words = () => {
 
   const handleNext = () => {
     checkGameState(chosenGame, currentQuestionResult);
-    setCurrentQuestionResult(undefined);
-    setAnswer(undefined);
+    setCurrentQuestionResult(null);
   };
 
-  console.log("answer", answer);
   return (
     <StyledWords>
       <Slab
@@ -203,7 +201,7 @@ const Words = () => {
           handleNext={handleNext}
         />
       ) : (
-        <Button onClick={handleCheck} disabled={!answer}>
+        <Button onClick={handleCheck} disabled={!currentQuestionResult}>
           {i18n.t("check")}
         </Button>
       )}
