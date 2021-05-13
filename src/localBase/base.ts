@@ -2,6 +2,7 @@ import _ from "lodash";
 
 import { words, WordsInterface } from "./words";
 import { phrases } from "./phrases";
+import Sounds from "./sounds";
 
 function getLangWords(language: string = "rus") {
   return words.map((item: WordsInterface, index: number) => {
@@ -230,6 +231,7 @@ export interface InitialStateInterface {
   initialQuestionIndex?: 0;
   answer: string;
   word: any;
+  sounds: any;
 }
 
 export const initialState: InitialStateInterface = {
@@ -247,4 +249,5 @@ export const initialState: InitialStateInterface = {
   phrases: phrasesTatRus,
   collect: phrases,
   answer: "-",
+  sounds: Sounds,
 };

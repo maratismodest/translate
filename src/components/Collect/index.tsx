@@ -85,13 +85,6 @@ const Collect = () => {
     setQuestionResult("");
   }
 
-  interface QuestionResultInterface {
-    correct: boolean;
-    questionText: string;
-    chosenText: string;
-    correctText: string;
-  }
-
   const handleAnswerClick = () => {
     const final = answer.join(" ");
     question[firstLanguage] === final ? yes() : no();
@@ -187,16 +180,12 @@ const Collect = () => {
       <Result>{resultList}</Result>
 
       <Options>{separatedList}</Options>
+
       {questionResult ? (
         <ModalAnswer
           currentQuestionResult={questionResult}
           handleNext={handleNext}
         />
-      ) : null}
-      {questionResult ? (
-        <Button green disabled={!questionResult} onClick={handleNext}>
-          {i18n.t("next")}
-        </Button>
       ) : (
         <Button
           onClick={handleAnswerClick}
@@ -217,6 +206,12 @@ export default Collect;
 
 const StyledCollect = styled(StyledBody)``;
 
+interface QuestionResultInterface {
+  correct: boolean;
+  questionText: string;
+  chosenText: string;
+  correctText: string;
+}
 const Result = styled.ul`
   min-height: 140px;
   width: 100%;
@@ -262,13 +257,4 @@ const Repeat = styled.div`
   justify-content: center;
   align-items: center;
   width: fit-content;
-`;
-
-const RightAnswer = styled.span`
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: var(--color-red);
-  font-size: 16px;
-  line-height: 18px;
-  text-align: center;
 `;

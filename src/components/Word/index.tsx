@@ -6,57 +6,44 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import i18n from "i18next";
 import AppContext from "../../AppContext";
-import Sounds from "../../localBase/sounds";
 import useSound from "use-sound";
 import Icon from "../../ui/Icon";
 import Text from "../../ui/Text";
 import Header from "../../ui/Header";
 import ProgressBlock from "../../ui/ProgressBlock";
+import Slab from "../../ui/Slab";
 
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 
 const Collect = () => {
   const history = useHistory();
+  const [disabled, setDisabled] = useState(false);
   const { state, setState } = useContext(AppContext);
-
-  console.log(state);
-
-  const { soundCorrect, soundWrong } = Sounds;
+  const { chosenGame, word, firstLanguage, sounds } = state;
+  const { soundCorrect, soundWrong } = sounds;
   const [yes] = useSound(soundCorrect);
   const [no] = useSound(soundWrong);
-  const [disabled, setDisabled] = useState(false);
-  const [questionResult, setQuestionResult] = useState<any>();
-  const { chosenGame, word, language, firstLanguage } = state;
-
-  const shuffle = _.shuffle(word).slice(0, 5);
-  const collectClone = _.clone(word);
-
-  const [questions, setQuestions] = useState(shuffle);
-
-  const [result, setResult] = useState<Array<any>>([]);
+  //Берем 5 случайных слов
+  const [questions, setQuestions] = useState(_.shuffle(word).slice(0, 5));
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const question = questions[currentQuestionIndex];
   const { tat, lat, audio } = question;
-
-  //удалить из клона массива фраз именно нашу фразу
-  const firstIndex = _.indexOf(collectClone, question);
-  collectClone.splice(firstIndex, 1);
-
-  const questionSeparated = question[firstLanguage].split("");
-  console.log("questionSeparated", questionSeparated);
-  const randomseparated = _.sample(collectClone)[firstLanguage].split("");
-
-  const [separated, setSeparated] = useState<any>([]);
-  const [answer, setAnswer] = useState<Array<any>>([]);
-
   const [tell, { duration }] = useSound(audio);
   const timer = Math.floor(duration || 1000);
 
+  const questionSeparated = question[firstLanguage].toLowerCase().split("");
+  const randomseparated = _.sample(word)[firstLanguage].toLowerCase().split("");
+
+  const [result, setResult] = useState<Array<any>>([]);
+
+  const [separated, setSeparated] = useState<any>([]);
+  const [answer, setAnswer] = useState<Array<any>>([]);
+  const [questionResult, setQuestionResult] = useState<any>();
+
   useEffect(() => {
     setSeparated(_.shuffle(questionSeparated.concat(randomseparated)));
-    // setSeparated(_.shuffle(questionSeparated));
     setAnswer([]);
   }, [currentQuestionIndex]);
   useEffect(() => {
@@ -85,15 +72,8 @@ const Collect = () => {
     setQuestionResult("");
   }
 
-  interface QuestionResultInterface {
-    correct: boolean;
-    questionText: string;
-    chosenText: string;
-    correctText: string;
-  }
-
   const handleAnswerClick = () => {
-    const final = answer.join("");
+    const final = _.capitalize(answer.join(""));
     question[firstLanguage] === final ? yes() : no();
 
     const questionResult: QuestionResultInterface =
@@ -113,7 +93,7 @@ const Collect = () => {
     setQuestionResult(questionResult);
   };
 
-  const handleTagClick = (index: number) => {
+  const handleRemoveTag = (index: number) => {
     const currentWord = answer[index];
     setSeparated((separated: any) => [...separated, currentWord]);
     const copyAnswer = _.clone(answer);
@@ -121,7 +101,7 @@ const Collect = () => {
     setAnswer(copyAnswer);
   };
 
-  const handleClick = (index: number) => {
+  const handleTagAdd = (index: number) => {
     const currentWord = separated[index];
     setAnswer((prevState) => [...prevState, currentWord]);
     const resultSeparated = _.clone(separated);
@@ -134,7 +114,7 @@ const Collect = () => {
       <AnswerLi key={item + index + answer.length}>
         <Tag
           onClick={() => {
-            handleTagClick(index);
+            handleRemoveTag(index);
           }}
           green
         >
@@ -149,7 +129,7 @@ const Collect = () => {
       <OptionLi key={item + index + separated.length}>
         <Tag
           onClick={() => {
-            handleClick(index);
+            handleTagAdd(index);
           }}
         >
           <Text>{item}</Text>
@@ -170,21 +150,20 @@ const Collect = () => {
     checkGameState(chosenGame, questionResult);
   };
 
-  console.log(questionResult);
-
   return (
     <StyledCollect>
-      <Repeat
+      <Slab
         onClick={delayFunc}
         style={{
           pointerEvents: disabled ? "none" : "auto",
         }}
+        large
       >
         <Circle>
           <Icon icon={"play"} size={16} />
         </Circle>
         <Header>{i18n.t("repeatAudio")}</Header>
-      </Repeat>
+      </Slab>
 
       <Result>{resultList}</Result>
 
@@ -194,12 +173,6 @@ const Collect = () => {
           currentQuestionResult={questionResult}
           handleNext={handleNext}
         />
-      ) : null}
-
-      {questionResult ? (
-        <Button green disabled={!questionResult} onClick={handleNext}>
-          {i18n.t("next")}
-        </Button>
       ) : (
         <Button
           onClick={handleAnswerClick}
@@ -216,9 +189,17 @@ const Collect = () => {
     </StyledCollect>
   );
 };
+
 export default Collect;
 
 const StyledCollect = styled(StyledBody)``;
+
+interface QuestionResultInterface {
+  correct: boolean;
+  questionText: string;
+  chosenText: string;
+  correctText: string;
+}
 
 const Result = styled.ul`
   min-height: 140px;
@@ -257,21 +238,4 @@ const Circle = styled.div`
   justify-content: center;
   align-items: center;
   width: fit-content;
-`;
-
-const Repeat = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-`;
-
-const RightAnswer = styled.span`
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: var(--color-red);
-  font-size: 16px;
-  line-height: 18px;
-  text-align: center;
 `;
