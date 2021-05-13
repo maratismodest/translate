@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import styled, { css } from "styled-components";
 
 interface Props {
@@ -17,6 +16,7 @@ interface Props {
   large?: boolean;
   medium?: boolean;
   normal?: boolean;
+  button?: boolean;
 }
 
 export default styled.button<Partial<Props>>`
@@ -54,11 +54,9 @@ export default styled.button<Partial<Props>>`
     right: 12px;
   }
   &:hover {
-    background: var(--color-green);
-    color: var(--color-white);
-    h2 {
-      color: var(--color-white) !important;
-    }
+    -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   }
 
   &:disabled {
@@ -81,6 +79,24 @@ export default styled.button<Partial<Props>>`
     props.big &&
     css`
       width: 100%;
+    `}
+  ${(props) =>
+    props.button &&
+    css`
+      &:hover {
+        -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        background: var(--color-green);
+        color: var(--color-white);
+      }
+      &:focus {
+        -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+        background: var(--color-green);
+        color: var(--color-white);
+      }
     `}
   ${(props) =>
     props.medium &&

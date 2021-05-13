@@ -15,7 +15,8 @@ export const DesktopWelcomeWallPaper = styled.div`
   img {
     display: block;
     margin-left: auto;
-    max-width: 600px;
+    max-width: 500px;
+    width: 60%;
   }
 `;
 export const DesktopWelcomeBegin = styled.div`

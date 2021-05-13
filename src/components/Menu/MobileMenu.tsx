@@ -18,19 +18,19 @@ export default ({ user, LanguageMenuList }: any) => {
   const [languageVisible, setLanguageVisible] = useState(false);
 
   document.addEventListener("click", function (e: any) {
-    console.log(e.target.closest("#languages"));
-    const languages = e.target.closest("#languages");
-    if (languages) {
-      return;
-    }
-    if (mainMenuVisible || languageVisible) {
-      const menu = e.target.closest("#menu");
-      if (!menu) {
-        setMainMenuVisible(false);
-        setLanguageVisible(false);
-      }
-    }
-    return;
+    // console.log(e.target.closest("#languages"));
+    // const languages = e.target.closest("#languages");
+    // if (languages) {
+    //   return;
+    // }
+    // if (mainMenuVisible || languageVisible) {
+    //   const menu = e.target.closest("#menu");
+    //   if (!menu) {
+    //     setMainMenuVisible(false);
+    //     setLanguageVisible(false);
+    //   }
+    // }
+    // return;
   });
 
   const MainMenuList: MenuInterface[] = [

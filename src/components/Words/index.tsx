@@ -15,6 +15,7 @@ import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { isMobile } from "react-device-detect";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
+import i18n from "i18next";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -37,13 +38,12 @@ const Words = () => {
   const { state, setState } = useContext(AppContext);
   const { words, chosenGame, allWords } = state;
   const { firstLanguage, secondLanguage } = words;
+  const answer = useRef({ text: "", id: null });
 
   const first = _.shuffle(firstLanguage).slice(0, 3);
   const second = _.shuffle(secondLanguage).slice(0, 3);
   const shuffle = _.shuffle([...first, ...second]);
   const questions = useRef(shuffle);
-
-  const [answer, setAnswer] = useState("-");
 
   const { soundCorrect, soundWrong } = Sounds;
   const [success] = useSound(soundCorrect);
@@ -79,27 +79,23 @@ const Words = () => {
     }
   }
 
-  const handleClick = (id: number) => {
-    if (currentQuestionResult) {
-      return;
-    }
+  const handleOption = (id: number) => {
+    const currentOption = _.find(options, { id: id });
+    answer.current = currentOption;
+  };
 
+  const handleCheck = () => {
     const correctText = _.find(options, { id: 1 }).text;
-    const chosenText = _.find(options, { id: id }).text;
+    const { id, text } = answer.current;
 
-    if (id === correct) {
-      success();
-    } else {
-      mistake();
-      setAnswer(`Правильный ответ:${correctText}`);
-    }
+    id === correct ? success() : mistake();
 
     const questionResultObject = {
       correct: id === correct,
       id: questionId,
       questionText,
       correctText,
-      chosenText,
+      chosenText: text,
     };
 
     setCurrentQuestionResult(questionResultObject);
@@ -125,10 +121,12 @@ const Words = () => {
           <li key={id + text}>
             <Slab
               normal
-              onClick={() => {
+              button
+              onClick={(e: any) => {
+                e.stopPropagation();
                 currentQuestionResult
                   ? console.log("уже выбран вариант")
-                  : handleClick(id);
+                  : handleOption(id);
               }}
             >
               {text}
@@ -140,10 +138,10 @@ const Words = () => {
         <li key={id + text} style={{ marginBottom: 10 }}>
           <Button
             normal
-            onClick={() => {
+            onClick={(e: any) => {
               currentQuestionResult
                 ? console.log("уже выбран вариант")
-                : handleClick(id);
+                : handleOption(id);
             }}
           >
             {text}
@@ -162,7 +160,6 @@ const Words = () => {
   const delayFunc = (e: any) => {
     setDisabled(true);
     tell();
-    e.target.blur();
     setTimeout(() => {
       setDisabled(false);
     }, timer);
@@ -170,14 +167,16 @@ const Words = () => {
 
   const handleNext = () => {
     checkGameState(chosenGame, currentQuestionResult);
-    setAnswer("-");
     setCurrentQuestionResult(null);
   };
 
   return (
     <StyledWords>
       <Slab
-        onClick={(e: any) => delayFunc(e)}
+        onClick={(e: any) => {
+          delayFunc(e);
+          e.target.blur();
+        }}
         style={{
           pointerEvents: disabled ? "none" : "auto",
         }}
@@ -191,12 +190,19 @@ const Words = () => {
       </Slab>
 
       <OptionsList />
+      {/*{currentQuestionResult ? (*/}
+      {/*  <ModalAnswer*/}
+      {/*    currentQuestionResult={currentQuestionResult}*/}
+      {/*    handleNext={handleNext}*/}
+      {/*  />*/}
+      {/*) : null}*/}
       {currentQuestionResult ? (
-        <ModalAnswer
-          currentQuestionResult={currentQuestionResult}
-          handleNext={handleNext}
-        />
-      ) : null}
+        <Button onClick={handleNext}>{i18n.t("next")}</Button>
+      ) : (
+        <Button onClick={handleCheck} disabled={!currentQuestionResult}>
+          {i18n.t("check")}
+        </Button>
+      )}
       <ProgressBlock
         length={questions.current.length}
         currentQuestionIndex={currentQuestionIndex}
@@ -207,4 +213,6 @@ const Words = () => {
 
 export default Words;
 
-const StyledWords = styled(StyledBody)``;
+const StyledWords = styled(StyledBody)`
+  position: relative;
+`;
