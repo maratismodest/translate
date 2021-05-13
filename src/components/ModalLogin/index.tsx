@@ -23,6 +23,8 @@ const ModalLogin = ({
     AppContext
   );
 
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -32,7 +34,11 @@ const ModalLogin = ({
     return (
       <img
         src={Google}
-        onClick={signInWithGoogle}
+        onClick={() => {
+          signInWithGoogle();
+          setModalVisible(false);
+          history.push("/user");
+        }}
         style={{ fontSize: "32px", cursor: "pointer" }}
       />
     );

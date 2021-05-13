@@ -75,8 +75,11 @@ const User = ({ user, signOut }: any) => {
     );
   }
   if (!user && db) {
-    history.push("/login");
-    return null;
+    return (
+      <StyledBody>
+        <Spin />
+      </StyledBody>
+    );
   }
 
   const currentUser = db[user.uid];
@@ -204,7 +207,7 @@ const User = ({ user, signOut }: any) => {
           small
           onClick={() => {
             signOut();
-            history.push("/welcome");
+            history.push("/");
           }}
         >
           Выйти
