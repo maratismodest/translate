@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Modal } from "antd";
@@ -26,10 +26,20 @@ const ModalLogin = ({
 
   const history = useHistory();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@chamala.ru");
+  const [password, setPassword] = useState("12345678");
   const [error, setError] = useState("");
   const [show, setShow] = useState("login");
+
+  useEffect(() => {
+    if (user) {
+      history.push("/user");
+      setError("");
+      setEmail("");
+      setPassword("");
+      setModalVisible(false);
+    }
+  }, [user]);
 
   const GoogleButton = () => {
     return (
@@ -59,15 +69,19 @@ const ModalLogin = ({
     );
   };
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async () => {
     try {
       const { user } = await signInWithEmailAndPassword(email, password);
+      setError("");
+      history.push("/user");
       return user;
     } catch (error) {
-      console.log(error);
+      // console.log(error, "no login");
       setError("Error Signing up with email and password");
+      // return "no";
     }
   };
+
   const createUserWithEmailAndPasswordHandler = async (values: any) => {
     try {
       return await app.auth().createUserWithEmailAndPassword(email, password);
@@ -82,6 +96,7 @@ const ModalLogin = ({
       history.push("/user");
       setEmail("");
       setPassword("");
+      setModalVisible(false);
     });
   };
   const sendResetEmail = (event: any) => {
@@ -108,7 +123,11 @@ const ModalLogin = ({
       <StyledLogin>
         {show === "login" ? (
           <>
-            <Form onFinish={handleSubmit}>
+            <Form
+              onFinish={() => {
+                handleSubmit().then((res: any) => {});
+              }}
+            >
               <LoginHeader color={"green"}>{i18n.t("login")}</LoginHeader>
 
               <StyledInput
