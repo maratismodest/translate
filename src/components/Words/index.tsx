@@ -33,28 +33,15 @@ interface CurrentQuestionResultInterface {
 }
 
 const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
-  const MobileUl = styled.ul`
-    margin-top: 30px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    li {
-      width: fit-content;
-      margin-bottom: 20px;
-    }
-  `;
-
   const list = options.map((option: OptionInterface, index: number) => {
     const { id, text } = option;
     if (isMobile) {
       return (
-        <li key={id + text}>
+        <li key={index + text}>
           <Slab
             normal
             button
             onClick={(e: any) => {
-              e.stopPropagation();
               currentQuestionResult
                 ? console.log("уже выбран вариант")
                 : handleOption(id);
@@ -66,7 +53,7 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
       );
     }
     return (
-      <li key={id + text} style={{ marginBottom: 10 }}>
+      <li key={index + text} style={{ marginBottom: 10 }}>
         <Button
           normal
           onClick={(e: any) => {
@@ -83,7 +70,7 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
   if (isMobile) {
     return <MobileUl>{list}</MobileUl>;
   }
-  return <ul style={{ marginTop: 16 }}>{list}</ul>;
+  return <ul style={{ marginTop: 10 }}>{list}</ul>;
 };
 
 const Words = () => {
@@ -195,12 +182,14 @@ const Words = () => {
         currentQuestionResult={currentQuestionResult}
         handleOption={handleOption}
       />
+
       {currentQuestionResult ? (
         <ModalAnswer
           currentQuestionResult={currentQuestionResult}
           handleNext={handleNext}
         />
       ) : (
+        // <Button onClick={handleNext}>{i18n.t("next")}</Button>
         <Button onClick={handleCheck} disabled={!answer}>
           {i18n.t("check")}
         </Button>
@@ -216,5 +205,24 @@ const Words = () => {
 export default Words;
 
 const StyledWords = styled(StyledBody)`
+  //& .colors {
+  //  margin-bottom: 20px;
+  //  background: red !important;
+  //}
+`;
+
+const StyledFooter = styled.div`
   position: relative;
+`;
+
+const MobileUl = styled.ul`
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  li {
+    width: fit-content;
+    margin-bottom: 20px;
+  }
 `;
