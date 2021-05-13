@@ -14,6 +14,7 @@ import Tag from "../../ui/Tag";
 import ProgressBlock from "../../ui/ProgressBlock";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
+import "./../../styles/styles.scss";
 
 const Collect = () => {
   const history = useHistory();
@@ -148,10 +149,12 @@ const Collect = () => {
   const separatedList = separated.map((item: any, index: number) => {
     const { text, key } = item;
     return (
-      <OptionLi key={key} className={_.find(answer, item) ? "grey" : ""}>
+      <OptionLi
+        key={key}
+        className={_.find(answer, item) ? "cover important" : ""}
+      >
         <Tag
           onClick={(e: any) => {
-            e.target.blur();
             handleClick(key);
           }}
         >

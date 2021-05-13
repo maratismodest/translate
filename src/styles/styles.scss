@@ -1,0 +1,13 @@
+
+ul {
+  li.cover.important {
+      p, span {
+        pointer-events: none;
+        background: var(--color-grey) !important;
+        color: var(--color-grey) !important;
+      }
+
+    }
+
+}
+
