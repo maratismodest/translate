@@ -89,7 +89,10 @@ const Collect = () => {
   }
 
   const handleAnswerClick = () => {
-    const final = answer.join(" ");
+    const temp = answer.map((item: any) => {
+      return item.text;
+    });
+    const final = temp.join(" ");
     question[firstLanguage] === final ? yes() : no();
 
     const questionResult: QuestionResultInterface =
