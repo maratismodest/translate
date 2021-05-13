@@ -43,20 +43,23 @@ const Collect = () => {
 
   const questionSeparated = question[firstLanguage].split(" ");
   const randomseparated = _.sample(collectClone)[firstLanguage].split(" ");
-  const randomseparated2 = _.sample(collectClone)[firstLanguage].split(" ");
 
-  const [separated, setSeparated] = useState(
-    _.shuffle(questionSeparated.concat(randomseparated, randomseparated2))
-  );
+  const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
 
   const [tell, { duration }] = useSound(audio);
   const timer = Math.floor(duration || 1000);
 
   useEffect(() => {
-    setSeparated(
-      _.shuffle(questionSeparated.concat(randomseparated, randomseparated2))
-    );
+    const wordsWithKeys = _.shuffle(
+      questionSeparated.concat(randomseparated)
+    ).map((word: string, index: number) => {
+      return {
+        text: word,
+        key: index,
+      };
+    });
+    setSeparated(wordsWithKeys);
     setAnswer([]);
   }, [currentQuestionIndex]);
   useEffect(() => {
@@ -106,46 +109,50 @@ const Collect = () => {
     setQuestionResult(questionResult);
   };
 
-  const handleTagClick = (index: number) => {
-    const currentWord = answer[index];
-    setSeparated((separated) => [...separated, currentWord]);
+  const handleTagClick = (key: number) => {
+    const currentIndex = _.findIndex(answer, { key: key });
+    console.log(currentIndex);
     const copyAnswer = _.clone(answer);
-    copyAnswer.splice(index, 1);
+    copyAnswer.splice(currentIndex, 1);
     setAnswer(copyAnswer);
   };
 
-  const handleClick = (index: number) => {
-    const currentWord = separated[index];
+  const handleClick = (key: number) => {
+    if (_.find(answer, { key: key })) {
+      console.log("уже есть");
+      return;
+    }
+    const currentWord = _.find(separated, { key: key });
     setAnswer((prevState) => [...prevState, currentWord]);
-    const resultSeparated = _.clone(separated);
-    resultSeparated.splice(index, 1);
-    setSeparated(resultSeparated);
   };
 
   const resultList = answer.map((item, index) => {
+    const { text, key } = item;
     return (
-      <AnswerLi key={item + index + answer.length}>
+      <AnswerLi key={key}>
         <Tag
           green
           onClick={() => {
-            handleTagClick(index);
+            handleTagClick(key);
           }}
         >
-          <Text>{item}</Text>
+          <Text>{text}</Text>
         </Tag>
       </AnswerLi>
     );
   });
 
-  const separatedList = separated.map((item, index) => {
+  const separatedList = separated.map((item: any, index: number) => {
+    const { text, key } = item;
     return (
-      <OptionLi key={item + index + separated.length}>
+      <OptionLi key={key} className={_.find(answer, item) ? "grey" : ""}>
         <Tag
-          onClick={() => {
-            handleClick(index);
+          onClick={(e: any) => {
+            e.target.blur();
+            handleClick(key);
           }}
         >
-          <Text>{item}</Text>
+          <Text>{text}</Text>
         </Tag>
       </OptionLi>
     );

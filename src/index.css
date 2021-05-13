@@ -55,3 +55,17 @@ li {
 .green {
     color: var(--color-green) !important;
 }
+
+
+
+.grey > p {
+    pointer-events:none;
+    background: var(--color-grey) !important;
+    color: var(--color-grey) !important;
+}
+
+.grey > p > span {
+    pointer-events:none;
+    background: var(--color-grey) !important;
+    color: var(--color-grey) !important;
+}
