@@ -26,9 +26,13 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
           {i18n.t("login")}
         </Menu.Item>
       )}
-      <Menu.Item key="profile" onClick={() => history.push("/user")}>
-        {i18n.t("profile")}
-      </Menu.Item>
+
+      {user ? (
+        <Menu.Item key="profile" onClick={() => history.push("/user")}>
+          {i18n.t("profile")}
+        </Menu.Item>
+      ) : null}
+
       <SubMenu
         key="languages"
         title={i18n.t("languages")}
