@@ -22,7 +22,7 @@ export const StyledHeader = styled.div`
 export const StyledMain = styled.div`
   display: flex;
   flex-grow: 1;
-  padding: 30px;
+  padding: 0 30px 30px 30px;
 `;
 
 export const StyledLogo = styled(Header)`

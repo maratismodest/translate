@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import Tag from "../../ui/Tag";
 import Button from "../../ui/Button";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -11,23 +10,24 @@ import useSound from "use-sound";
 import Icon from "../../ui/Icon";
 import Text from "../../ui/Text";
 import Header from "../../ui/Header";
+import Tag from "../../ui/Tag";
 import ProgressBlock from "../../ui/ProgressBlock";
-
 import { StyledBody } from "../Welcome/WelcomeStyles";
+import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
+import "./../../styles/styles.scss";
 
 const Collect = () => {
   const history = useHistory();
   const { state, setState } = useContext(AppContext);
-
-  console.log(state);
 
   const { soundCorrect, soundWrong } = Sounds;
   const [yes] = useSound(soundCorrect);
   const [no] = useSound(soundWrong);
   const [disabled, setDisabled] = useState(false);
   const [questionResult, setQuestionResult] = useState<any>();
-  const { chosenGame, word, language, firstLanguage } = state;
+  const { chosenGame, collect, firstLanguage, word } = state;
 
+  console.log("chosenGame", chosenGame);
   const shuffle = _.shuffle(word).slice(0, 5);
   const collectClone = _.clone(word);
 
@@ -43,21 +43,29 @@ const Collect = () => {
   const firstIndex = _.indexOf(collectClone, question);
   collectClone.splice(firstIndex, 1);
 
-  const questionSeparated = question[firstLanguage].split("");
-  console.log("questionSeparated", questionSeparated);
-  const randomseparated = _.sample(collectClone)[firstLanguage].split("");
+  const questionSeparated = question[firstLanguage].toLowerCase().split("");
+  const randomseparated = _.sample(collectClone)
+    [firstLanguage].toLowerCase()
+    .split("");
 
   const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
-
-  const [hint, setHint] = useState("-");
 
   const [tell, { duration }] = useSound(audio);
   const timer = Math.floor(duration || 1000);
 
   useEffect(() => {
-    setSeparated(_.shuffle(questionSeparated.concat(randomseparated)));
-    // setSeparated(_.shuffle(questionSeparated));
+    // const wordsWithKeys = _.shuffle(
+    //   questionSeparated.concat(randomseparated)
+    const wordsWithKeys = _.shuffle(questionSeparated).map(
+      (word: string, index: number) => {
+        return {
+          text: word,
+          key: index,
+        };
+      }
+    );
+    setSeparated(wordsWithKeys);
     setAnswer([]);
   }, [currentQuestionIndex]);
   useEffect(() => {
@@ -84,77 +92,77 @@ const Collect = () => {
       });
     }
     setQuestionResult("");
-    setHint("-");
-  }
-
-  interface QuestionResultInterface {
-    correct: boolean;
-    questionText: string;
-    chosenText: string;
   }
 
   const handleAnswerClick = () => {
-    const final = answer.join("");
+    const temp = answer.map((item: any) => {
+      return item.text;
+    });
+    const final = _.capitalize(temp.join(""));
     question[firstLanguage] === final ? yes() : no();
-    question[firstLanguage] === final
-      ? setHint("-")
-      : setHint(`Правильный ответ:${question[firstLanguage]}`);
 
     const questionResult: QuestionResultInterface =
       question[firstLanguage] === final
         ? {
             correct: true,
-            questionText: question[firstLanguage],
+            questionText: tat,
             chosenText: final,
+            correctText: question[firstLanguage],
           }
         : {
             correct: false,
-            questionText: question[firstLanguage],
+            questionText: tat,
             chosenText: final,
+            correctText: question[firstLanguage],
           };
     setQuestionResult(questionResult);
   };
 
-  const handleTagClick = (index: number) => {
-    const currentWord = answer[index];
-    setSeparated((separated: any) => [...separated, currentWord]);
+  const handleTagClick = (key: number) => {
+    const currentIndex = _.findIndex(answer, { key: key });
     const copyAnswer = _.clone(answer);
-    copyAnswer.splice(index, 1);
+    copyAnswer.splice(currentIndex, 1);
     setAnswer(copyAnswer);
   };
 
-  const handleClick = (index: number) => {
-    const currentWord = separated[index];
+  const handleClick = (key: number) => {
+    if (_.find(answer, { key: key })) {
+      console.log("уже есть");
+      return;
+    }
+    const currentWord = _.find(separated, { key: key });
     setAnswer((prevState) => [...prevState, currentWord]);
-    const resultSeparated = _.clone(separated);
-    resultSeparated.splice(index, 1);
-    setSeparated(resultSeparated);
   };
 
   const resultList = answer.map((item, index) => {
+    const { text, key } = item;
     return (
-      <AnswerLi key={item + index + answer.length}>
+      <AnswerLi key={key}>
         <Tag
-          onClick={() => {
-            handleTagClick(index);
-          }}
           green
+          onClick={() => {
+            handleTagClick(key);
+          }}
         >
-          <Text>{item}</Text>
+          <Text>{text}</Text>
         </Tag>
       </AnswerLi>
     );
   });
 
   const separatedList = separated.map((item: any, index: number) => {
+    const { text, key } = item;
     return (
-      <OptionLi key={item + index + separated.length}>
+      <OptionLi
+        key={key}
+        className={_.find(answer, item) ? "cover important" : ""}
+      >
         <Tag
-          onClick={() => {
-            handleClick(index);
+          onClick={(e: any) => {
+            handleClick(key);
           }}
         >
-          <Text>{item}</Text>
+          <Text>{text}</Text>
         </Tag>
       </OptionLi>
     );
@@ -190,12 +198,11 @@ const Collect = () => {
 
       <Options>{separatedList}</Options>
 
-      <RightAnswer>{hint}</RightAnswer>
-
       {questionResult ? (
-        <Button green disabled={!questionResult} onClick={handleNext}>
-          {i18n.t("next")}
-        </Button>
+        <ModalAnswer
+          currentQuestionResult={questionResult}
+          handleNext={handleNext}
+        />
       ) : (
         <Button
           onClick={handleAnswerClick}
@@ -216,6 +223,12 @@ export default Collect;
 
 const StyledCollect = styled(StyledBody)``;
 
+interface QuestionResultInterface {
+  correct: boolean;
+  questionText: string;
+  chosenText: string;
+  correctText: string;
+}
 const Result = styled.ul`
   min-height: 140px;
   width: 100%;
@@ -261,13 +274,4 @@ const Repeat = styled.div`
   justify-content: center;
   align-items: center;
   width: fit-content;
-`;
-
-const RightAnswer = styled.span`
-  padding-top: 10px;
-  padding-bottom: 10px;
-  color: var(--color-red);
-  font-size: 16px;
-  line-height: 18px;
-  text-align: center;
 `;

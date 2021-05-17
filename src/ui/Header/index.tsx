@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default styled(Title)<Partial<Props>>`
-  &&& {
+  && {
     font-family: Roboto;
     font-style: normal;
     padding: 0;
@@ -28,6 +28,11 @@ export default styled(Title)<Partial<Props>>`
       props.color === "green" &&
       css`
         color: var(--color-green);
+      `}
+    ${(props) =>
+      props.color === "red" &&
+      css`
+        color: var(--color-red);
       `}
   }
 `;

@@ -4,30 +4,35 @@ import i18n from "i18next";
 import { useHistory } from "react-router-dom";
 import AppContext from "../../AppContext";
 import "./styles.scss";
+import styled from "styled-components";
 
 const { SubMenu } = Menu;
 
 export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
-  const { state, setState } = useContext(AppContext);
+  const { state, setState, setModalVisible } = useContext(AppContext);
   const [menuState, setMenuState] = useState({ current: "mail" });
   const history = useHistory();
   const handleClick = (e: any) => {
     setMenuState({ current: e.key });
   };
-
   return (
-    <Menu
+    <StyledMenu
       onClick={handleClick}
       selectedKeys={[menuState.current]}
       mode="horizontal"
-      style={{ background: "none", border: "none" }}
     >
-      <Menu.Item key="login" onClick={() => history.push("/login")}>
-        {i18n.t("login")}
-      </Menu.Item>
-      <Menu.Item key="profile" onClick={() => history.push("/user")}>
-        {i18n.t("profile")}
-      </Menu.Item>
+      {user ? null : (
+        <Menu.Item key="login" onClick={() => setModalVisible(true)}>
+          {i18n.t("login")}
+        </Menu.Item>
+      )}
+
+      {user ? (
+        <Menu.Item key="profile" onClick={() => history.push("/user")}>
+          {i18n.t("profile")}
+        </Menu.Item>
+      ) : null}
+
       <SubMenu
         key="languages"
         title={i18n.t("languages")}
@@ -42,6 +47,14 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
           );
         })}
       </SubMenu>
-    </Menu>
+    </StyledMenu>
   );
 };
+
+const StyledMenu = styled(Menu)`
+  background: none;
+  border: none;
+  font-size: 16px;
+  line-height: 126%;
+  font-weight: 600;
+`;

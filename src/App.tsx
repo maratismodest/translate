@@ -19,7 +19,6 @@ import "firebase/firestore";
 import "firebase/storage";
 import withFirebaseAuth from "react-with-firebase-auth";
 import AppContext from "./AppContext";
-import Login from "./components/Login";
 import User from "./components/User";
 import Word from "./components/Word";
 import { YMInitializer } from "react-yandex-metrika";
@@ -27,8 +26,10 @@ import firebase from "firebase/app";
 import { Spin } from "antd";
 import { app } from "./base";
 import PickGame from "./components/PickGame";
+import ModalLogin from "./components/ModalLogin";
 function App(props: any) {
   const [state, setState] = useState(initialState);
+  const [modalLoginVisible, setModalVisible] = useState(false);
   i18n
     .init({
       resources: translateBaseI18,
@@ -40,10 +41,14 @@ function App(props: any) {
     state,
     setState,
     app,
+    modalLoginVisible,
+    setModalVisible,
   };
   if (!app) {
     return <Spin />;
   }
+  const { user } = props;
+  console.log("user", user);
 
   return (
     <AppContext.Provider value={context}>
@@ -55,7 +60,7 @@ function App(props: any) {
               Chamala
             </StyledLogo>
           </NavLink>
-          <Menu />
+          <Menu {...props} />
         </StyledHeader>
 
         <StyledMain id="page-wrap">
@@ -79,11 +84,12 @@ function App(props: any) {
               render={() => <h1>About</h1>}
             />
             <Route path={["/latin", "/*/latin"]} render={() => <Latin />} />
-            <Route path="/login" render={() => <Login {...props} />} />
             <Route path="/user" render={() => <User {...props} />} />
             <Route path="/pickgame" exact render={() => <PickGame />} />
             <Route path="/" exact render={() => <Welcome />} />
           </Switch>
+
+          {user ? null : <ModalLogin {...props} />}
         </StyledMain>
         <YMInitializer
           accounts={[72761164]}
@@ -99,6 +105,7 @@ const firebaseAppAuth = app.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
   signInWithEmailAndPassword: new firebase.auth.EmailAuthProvider(),
+  facebookProvider: new firebase.auth.FacebookAuthProvider(),
 };
 
 export default withFirebaseAuth({ firebaseAppAuth, providers })(App);

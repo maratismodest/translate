@@ -17,7 +17,7 @@ export default ({ currentQuestionIndex, length }: ProgressBlockInterface) => {
   return (
     <ProgressBlock>
       <Progress
-        percent={(currentQuestionIndex * 100) / length}
+        percent={((currentQuestionIndex + 1) * 100) / length}
         showInfo={false}
         strokeColor={"#0F8012"}
       />

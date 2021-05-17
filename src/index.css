@@ -40,6 +40,18 @@ li {
 .mb-40 {
     margin-bottom: 40px !important;
 }
+.mb-68 {
+    margin-bottom: 68px !important;
+}
 #page-wrap {
     overflow: auto;
+}
+
+.ft-36 {
+    font-size: 36px !important;
+    line-height: 126% !important;
+}
+
+.green {
+    color: var(--color-green) !important;
 }
