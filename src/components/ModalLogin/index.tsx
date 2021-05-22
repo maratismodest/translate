@@ -33,7 +33,7 @@ const ModalLogin = ({
 
   useEffect(() => {
     if (user) {
-      history.push("/user");
+      // history.push("/user");
       setError("");
       setEmail("");
       setPassword("");
