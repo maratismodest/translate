@@ -50,7 +50,8 @@ const ModalLogin = ({
           setModalVisible(false);
           history.push("/user");
         }}
-        style={{ fontSize: "32px", cursor: "pointer" }}
+        width={46}
+        style={{ cursor: "pointer" }}
       />
     );
   };
@@ -61,10 +62,9 @@ const ModalLogin = ({
         src={Facebook}
         onClick={() => {
           signInWithFacebook();
-          // setModalVisible(false);
-          // history.push("/user");
         }}
-        style={{ fontSize: "32px", cursor: "pointer" }}
+        width={46}
+        style={{ cursor: "pointer" }}
       />
     );
   };
@@ -72,13 +72,9 @@ const ModalLogin = ({
   const handleSubmit = async () => {
     try {
       const { user } = await signInWithEmailAndPassword(email, password);
-      setError("");
-      history.push("/user");
       return user;
     } catch (error) {
-      // console.log(error, "no login");
       setError("Error Signing up with email and password");
-      // return "no";
     }
   };
 
@@ -123,11 +119,7 @@ const ModalLogin = ({
       <StyledLogin>
         {show === "login" ? (
           <>
-            <Form
-              onFinish={() => {
-                handleSubmit().then((res: any) => {});
-              }}
-            >
+            <Form onFinish={handleSubmit}>
               <LoginHeader color={"green"}>{i18n.t("login")}</LoginHeader>
 
               <StyledInput

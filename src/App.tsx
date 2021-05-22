@@ -47,6 +47,8 @@ function App(props: any) {
   if (!app) {
     return <Spin />;
   }
+  const { user } = props;
+  console.log("user", user);
 
   return (
     <AppContext.Provider value={context}>
@@ -87,7 +89,7 @@ function App(props: any) {
             <Route path="/" exact render={() => <Welcome />} />
           </Switch>
 
-          <ModalLogin {...props} />
+          {user ? null : <ModalLogin {...props} />}
         </StyledMain>
         <YMInitializer
           accounts={[72761164]}
