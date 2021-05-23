@@ -11,7 +11,6 @@ import Tukai from "./../../assets/tukai.png";
 import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { getInfo } from "../../api";
-import { push } from "react-burger-menu";
 import { Button } from "../../ui/Button";
 const Compress = require("compress.js");
 
@@ -24,6 +23,7 @@ const User = ({ user, signOut }: any) => {
   const [db, setDb] = useState<any>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const history = useHistory();
+
   useEffect(() => {
     console.log("fileUrl", fileUrl);
   }, [fileUrl]);

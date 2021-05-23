@@ -5,6 +5,7 @@ import i18n from "i18next";
 import styled from "styled-components";
 import React from "react";
 import { Button } from "../../Button";
+import Icon from "../../Icon";
 
 export const ModalAnswer = ({ currentQuestionResult, handleNext }: any) => {
   const { correct, correctText, chosenText } = currentQuestionResult;
@@ -14,6 +15,7 @@ export const ModalAnswer = ({ currentQuestionResult, handleNext }: any) => {
         <Header color="green" style={{ marginTop: 20 }}>
           Верно
         </Header>
+        <Icon icon={correct} size={64} />
         <Paragraph bold>{chosenText}</Paragraph>
       </div>
     );
@@ -24,6 +26,7 @@ export const ModalAnswer = ({ currentQuestionResult, handleNext }: any) => {
       <div>
         <Header color="red">Неверно</Header>
         <Paragraph bold>{chosenText}</Paragraph>
+        <Icon icon={correct} size={64} />
         <Header color="green" style={{ marginTop: 20 }}>
           Правильный ответ
         </Header>
@@ -43,6 +46,7 @@ export const ModalAnswer = ({ currentQuestionResult, handleNext }: any) => {
     >
       <ModalBody>
         {correct ? <True /> : <False />}
+
         <Button onClick={handleNext}>{i18n.t("next")}</Button>
       </ModalBody>
     </Modal>
