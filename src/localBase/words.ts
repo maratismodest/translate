@@ -1,98 +1,4 @@
-import suz from "../sounds/words/suz.mp3";
-import bash from "../sounds/words/bash.mp3";
-import vakyt from "../sounds/words/vakyt.mp3";
-import halik from "../sounds/words/halik.mp3";
-import bala from "../sounds/words/bala.mp3";
-import aul from "../sounds/words/aul.mp3";
-import kon from "../sounds/words/kon.mp3";
-import esh from "../sounds/words/esh.mp3";
-import keshe from "../sounds/words/keshe.mp3";
-import salam from "../sounds/words/salam.mp3";
-import shahar from "../sounds/words/shahar.mp3";
-import uryn from "../sounds/words/uryn.mp3";
-import hezmat from "../sounds/words/hezmat.mp3";
-import mektep from "../sounds/words/mektep.mp3";
-import iul from "../sounds/words/iul.mp3";
-import ara from "../sounds/words/ara.mp3";
-import tel from "../sounds/words/tel.mp3";
-import kyz from "../sounds/words/kyz.mp3";
-import yesh from "../sounds/words/yesh.mp3";
-import zhir from "../sounds/words/zhir.mp3";
-import yort from "../sounds/words/yort.mp3";
-import donia from "../sounds/words/donia.mp3";
-import iak from "../sounds/words/iak.mp3";
-import deulet from "../sounds/words/deulet.mp3";
-import chara from "../sounds/words/chara.mp3";
-import il from "../sounds/words/il.mp3";
-import tormosh from "../sounds/words/tormosh.mp3";
-import hel from "../sounds/words/hel.mp3";
-import zhitekche from "../sounds/words/zhitekche.mp3";
-import akcha from "../sounds/words/akcha.mp3";
-import barlyk from "../sounds/words/barlyk.mp3";
-import kuz from "../sounds/words/kuz.mp3";
-import sum from "../sounds/words/sum.mp3";
-import tugan from "../sounds/words/tugan.mp3";
-import kul from "../sounds/words/kul.mp3";
-import ukuchy from "../sounds/words/ukuchy.mp3";
-import huzhalyk from "../sounds/words/huzhalyk.mp3";
-import mesele from "../sounds/words/mesele.mp3";
-import olke from "../sounds/words/olke.mp3";
-import kunel from "../sounds/words/kunel.mp3";
-import gaile from "../sounds/words/gaile.mp3";
-import uzek from "../sounds/words/uzek.mp3";
-import isem from "../sounds/words/isem.mp3";
-import netizhe from "../sounds/words/netizhe.mp3";
-import beirem from "../sounds/words/beirem.mp3";
-import ul from "../sounds/words/ul.mp3";
-import eget from "../sounds/words/eget.mp3";
-import su from "../sounds/words/su.mp3";
-import yerdem from "../sounds/words/yerdem.mp3";
-import san from "../sounds/words/san.mp3";
-import belem from "../sounds/words/belem.mp3";
-import kitap from "../sounds/words/kitap.mp3";
-import ai from "../sounds/words/ai.mp3";
-import oeshma from "../sounds/words/oeshma.mp3";
-import is from "../sounds/words/is.mp3";
-import ukutuchy from "../sounds/words/ukutuchy.mp3";
-import izhat from "../sounds/words/izhat.mp3";
-import medeniyet from "../sounds/words/medeniyet.mp3";
-import ech from "../sounds/words/ech.mp3";
-import meglumet from "../sounds/words/meglumet.mp3";
-import chygysh from "../sounds/words/chygysh.mp3";
-import oi from "../sounds/words/oi.mp3";
-import fiker from "../sounds/words/fiker.mp3";
-import tarih from "../sounds/words/tarih.mp3";
-import olesh from "../sounds/words/olesh.mp3";
-import hezmetker from "../sounds/words/hezmetker.mp3";
-import revesh from "../sounds/words/revesh.mp3";
-import eser from "../sounds/words/eser.mp3";
-import derezhe from "../sounds/words/derezhe.mp3";
-import zhyr from "../sounds/words/zhyr.mp3";
-import momkinlek from "../sounds/words/momkinlek.mp3";
-import vekil from "../sounds/words/vekil.mp3";
-import idare from "../sounds/words/idare.mp3";
-import koch from "../sounds/words/koch.mp3";
-import din from "../sounds/words/din.mp3";
-import hatyn from "../sounds/words/hatyn.mp3";
-import fen from "../sounds/words/fen.mp3";
-import moselman from "../sounds/words/moselman.mp3";
-import chor from "../sounds/words/chor.mp3";
-import gamel from "../sounds/words/gamel.mp3";
-import urynbasar from "../sounds/words/urynbasar.mp3";
-import taraf from "../sounds/words/taraf.mp3";
-import mechet from "../sounds/words/mechet.mp3";
-import sugysh from "../sounds/words/sugysh.mp3";
-import maksat from "../sounds/words/maksat.mp3";
-import uram from "../sounds/words/uram.mp3";
-import reis from "../sounds/words/reis.mp3";
-import isep from "../sounds/words/isep.mp3";
-import shiger from "../sounds/words/shiger.mp3";
-import ochrashu from "../sounds/words/ochrashu.mp3";
-import ochrak from "../sounds/words/ochrak.mp3";
-import megerif from "../sounds/words/megerif.mp3";
-import eni from "../sounds/words/eni.mp3";
-import useh from "../sounds/words/useh.mp3";
-import sorau from "../sounds/words/sorau.mp3";
+import { getWords } from "../api";
 
 export interface WordsInterface {
   tat: string;
@@ -101,1819 +7,785 @@ export interface WordsInterface {
   lat: string;
   audio: any;
 }
-const prev = [
-  {
-    tat: "Сәлам",
-    rus: "Привет",
-    eng: "Hello",
-    audio: "salam",
-  },
-  {
-    tat: "Кеше",
-    rus: "Человек",
-    eng: "Human",
-    audio: "keshe",
-  },
-  {
-    tat: "Эш",
-    rus: "Работа, занятие, труд",
-    eng: "Work",
-    audio: "esh",
-  },
-  {
-    tat: "Көн",
-    rus: "День, сутки",
-    eng: "Day",
-    audio: "kon",
-  },
-  {
-    tat: "Авыл",
-    rus: "Деревня",
-    eng: "Village",
-    audio: "aul",
-  },
-  {
-    tat: "Бала",
-    rus: "Ребёнок",
-    eng: "Child",
-    audio: "bala",
-  },
-  {
-    tat: "Халык",
-    rus: "Народ, люди",
-    eng: "Nation",
-    audio: "halik",
-  },
-  {
-    tat: "Вакыт",
-    rus: "Время, пора, период",
-    eng: "Time",
-    audio: "vakyt",
-  },
-  {
-    tat: "Баш",
-    rus: "Голова, ум",
-    eng: "Head",
-    audio: "bash",
-  },
-  {
-    tat: "Сүз",
-    rus: "Слово",
-    eng: "Word",
-    audio: "suz",
-  },
-  {
-    tat: "Шәһәр",
-    rus: "Город",
-    eng: "City",
-    audio: "shahar",
-  },
-  {
-    tat: "Урын",
-    rus: "Место",
-    eng: "Place",
-    audio: "uryn",
-  },
-  {
-    tat: "Хезмәт",
-    rus: "Служба, работа",
-    eng: "Labor",
-    audio: "hezmat",
-  },
-  {
-    tat: "Мәктәп",
-    rus: "Школа",
-    eng: "School",
-    audio: "mektep",
-  },
-  {
-    tat: "Юл",
-    rus: "Дорога, путь",
-    eng: "Way",
-    audio: "iul",
-  },
-  {
-    tat: "Ара",
-    rus: "Промежуток, расстояние",
-    eng: "Distance",
-    audio: "ara",
-  },
-  {
-    tat: "Тел",
-    rus: "Язык",
-    eng: "Language",
-    audio: "tel",
-  },
-  {
-    tat: "Кыз",
-    rus: "Девочка/девушка, дочь",
-    eng: "Girl",
-    audio: "kyz",
-  },
-  {
-    tat: "Яшь",
-    rus: "Год, возраст",
-    eng: "Year",
-    audio: "yesh",
-  },
-  {
-    tat: "Җир",
-    rus: "Земля",
-    eng: "Earth",
-    audio: "zhir",
-  },
-  {
-    tat: "Йорт",
-    rus: "Дом, здание",
-    eng: "House",
-    audio: "yort",
-  },
-  {
-    tat: "Дөнья",
-    rus: "Мир",
-    eng: "World",
-    audio: "donia",
-  },
-  {
-    tat: "Як",
-    rus: "Сторона, край",
-    eng: "Side",
-    audio: "iak",
-  },
-  {
-    tat: "Дәүләт",
-    rus: "Государство",
-    eng: "State",
-    audio: "deulet",
-  },
-  {
-    tat: "Чара",
-    rus: "Средство, мероприятие",
-    eng: "Event",
-    audio: "chara",
-  },
-  {
-    tat: "Ил",
-    rus: "Страна",
-    eng: "Country",
-    audio: "il",
-  },
-  {
-    tat: "Тормыш",
-    rus: "Жизнь, бытие",
-    eng: "Life",
-    audio: "tormosh",
-  },
-  {
-    tat: "Хәл",
-    rus: "Состояние, сила",
-    eng: "State",
-    audio: "hel",
-  },
-  {
-    tat: "Җитәкче",
-    rus: "Руководитель",
-    eng: "Head, Leader",
-    audio: "zhitekche",
-  },
-  {
-    tat: "Акча",
-    rus: "Деньги",
-    eng: "Money",
-    audio: "akcha",
-  },
+
+export const words: Array<WordsInterface> = [
   {
     tat: "Барлык",
     rus: "Наличие, существование",
     eng: "Existence",
-    audio: "barlyk",
-  },
-  {
-    tat: "Күз",
-    rus: "Глаз",
-    eng: "Eye",
-    audio: "kuz",
-  },
-  {
-    tat: "Сум",
-    rus: "Рубль",
-    eng: "Ruble",
-    audio: "sum",
-  },
-  {
-    tat: "Туган",
-    rus: "Родственник, родной",
-    eng: "Relative",
-    audio: "tugan",
-  },
-  {
-    tat: "Кул",
-    rus: "Рука",
-    eng: "Arm",
-    audio: "kul",
-  },
-  {
-    tat: "Укучы",
-    rus: "Ученик, читатель",
-    eng: "Student",
-    audio: "ukuchy",
-  },
-  {
-    tat: "Хуҗалык",
-    rus: "Хозяйство",
-    eng: "Economy",
-    audio: "huzhalyk",
-  },
-  {
-    tat: "Мәсьәлә",
-    rus: "Вопрос, проблема",
-    eng: "Question",
-    audio: "mesele",
-  },
-  {
-    tat: "Өлкә",
-    rus: "Область",
-    eng: "Area",
-    audio: "olke",
-  },
-  {
-    tat: "Күңел",
-    rus: "Душа",
-    eng: "Soul",
-    audio: "kunel",
-  },
-  {
-    tat: "Гаилә",
-    rus: "Семья",
-    eng: "Family",
-    audio: "gaile",
-  },
-  {
-    tat: "Үзәк",
-    rus: "Центр",
-    eng: "Centre",
-    audio: "uzek",
-  },
-  {
-    tat: "Исем",
-    rus: "Имя, название",
-    eng: "Name",
-    audio: "isem",
-  },
-  {
-    tat: "Нәтиҗә",
-    rus: "Результат, итог",
-    eng: "Result",
-    audio: "netizhe",
-  },
-  {
-    tat: "Бәйрәм",
-    rus: "Праздник",
-    eng: "Holiday",
-    audio: "beirem",
-  },
-  {
-    tat: "Ул",
-    rus: "Он/она/оно, сын",
-    eng: "he,she,it,son",
-    audio: "ul",
-  },
-  {
-    tat: "Егет",
-    rus: "Парень",
-    eng: "Guy",
-    audio: "eget",
-  },
-  {
-    tat: "Су",
-    rus: "Вода",
-    eng: "Water",
-    audio: "su",
-  },
-  {
-    tat: "Ярдәм",
-    rus: "Помощь, поддержка",
-    eng: "Help",
-    audio: "yerdem",
-  },
-  {
-    tat: "Сан",
-    rus: "Число, количество",
-    eng: "Number",
-    audio: "san",
-  },
-  {
-    tat: "Белем",
-    rus: "Знание",
-    eng: "Knowledge",
-    audio: "belem",
-  },
-  {
-    tat: "Китап",
-    rus: "Книга",
-    eng: "Book",
-    audio: "kitap",
-  },
-  {
-    tat: "Ай",
-    rus: "Луна, месяц",
-    eng: "Moon/month",
-    audio: "ai",
-  },
-  {
-    tat: "Оешма",
-    rus: "Отдел, собрание",
-    eng: "Department, meeting",
-    audio: "oeshma",
-  },
-  {
-    tat: "Ис",
-    rus: "Запах",
-    eng: "Smell",
-    audio: "is",
-  },
-  {
-    tat: "Укытучы",
-    rus: "Учитель",
-    eng: "Teacher",
-    audio: "ukutuchy",
-  },
-  {
-    tat: "Иҗат",
-    rus: "Творчество",
-    eng: "Creation",
-    audio: "izhat",
-  },
-  {
-    tat: "Мәдәният",
-    rus: "Культура",
-    eng: "Culture",
-    audio: "medeniyet",
-  },
-  {
-    tat: "Эч",
-    rus: "Живот",
-    eng: "Belly",
-    audio: "ech",
-  },
-  {
-    tat: "Мәгълүмат",
-    rus: "Информация",
-    eng: "Information",
-    audio: "meglumet",
-  },
-  {
-    tat: "Чыгыш",
-    rus: "Выступление",
-    eng: "Performance",
-    audio: "chygysh",
-  },
-  {
-    tat: "Өй",
-    rus: "Дом",
-    eng: "Home",
-    audio: "oi",
-  },
-  {
-    tat: "Фикер",
-    rus: "Мысль, идея",
-    eng: "Thought, idea",
-    audio: "fiker",
-  },
-  {
-    tat: "Тарих",
-    rus: "История",
-    eng: "History",
-    audio: "tarih",
-  },
-  {
-    tat: "Өлеш",
-    rus: "Часть, доля, порция",
-    eng: "Part, share, portion",
-    audio: "olesh",
-  },
-  {
-    tat: "Хезмәткәр",
-    rus: "Сотрудник",
-    eng: "Employee",
-    audio: "hezmetker",
-  },
-  {
-    tat: "Рәвеш",
-    rus: "Вид, образ, облик",
-    eng: "Image",
-    audio: "revesh",
-  },
-  {
-    tat: "Әсәр",
-    rus: "Произведение",
-    eng: "Composition",
-    audio: "eser",
-  },
-  {
-    tat: "Дәрәҗә",
-    rus: "Cтепень, уровень, авторитет",
-    eng: "Level",
-    audio: "derezhe",
-  },
-  {
-    tat: "Җыр",
-    rus: "Песня",
-    eng: "Song",
-    audio: "zhyr",
-  },
-  {
-    tat: "Мөмкинлек",
-    rus: "Возможность, вероятность",
-    eng: "Possibility, probability",
-    audio: "momkinlek",
-  },
-  {
-    tat: "Вәкил",
-    rus: "Представитель",
-    eng: "Representative",
-    audio: "vekil",
-  },
-  {
-    tat: "Идарә",
-    rus: "Управление",
-    eng: "Management",
-    audio: "idare",
-  },
-  {
-    tat: "Көч",
-    rus: "Сила, могущество",
-    eng: "Strength, power",
-    audio: "koch",
-  },
-  {
-    tat: "Дин",
-    rus: "Религия, вера",
-    eng: "Religion, faith",
-    audio: "din",
-  },
-  {
-    tat: "Хатын",
-    rus: "Женщина, жена",
-    eng: "Woman, wife",
-    audio: "hatyn",
-  },
-  {
-    tat: "Фән",
-    rus: "Наука",
-    eng: "The science",
-    audio: "fen",
-  },
-  {
-    tat: "Мөселман",
-    rus: "Мусульманин",
-    eng: "Muslim",
-    audio: "moselman",
-  },
-  {
-    tat: "Чор",
-    rus: "Период, этап, эпоха",
-    eng: "Period",
-    audio: "chor",
-  },
-  {
-    tat: "Гамәл",
-    rus: "Действие",
-    eng: "Action",
-    audio: "gamel",
-  },
-  {
-    tat: "Урынбасар",
-    rus: "Заместитель",
-    eng: "Deputy",
-    audio: "urynbasar",
-  },
-  {
-    tat: "Тараф",
-    rus: "Сторона",
-    eng: "Side",
-    audio: "taraf",
-  },
-  {
-    tat: "Мәчет",
-    rus: "Мечеть",
-    eng: "Mosque",
-    audio: "mechet",
-  },
-  {
-    tat: "Сугыш",
-    rus: "Война",
-    eng: "The War",
-    audio: "sugysh",
-  },
-  {
-    tat: "Максат",
-    rus: "Цель",
-    eng: "Goal",
-    audio: "maksat",
-  },
-  {
-    tat: "Урам",
-    rus: "Улица",
-    eng: "Street",
-    audio: "uram",
-  },
-  {
-    tat: "Рәис",
-    rus: "Председатель",
-    eng: "Chairman",
-    audio: "reis",
-  },
-  {
-    tat: "Исәп",
-    rus: "Численность, счёт",
-    eng: "Number, account",
-    audio: "isep",
-  },
-  {
-    tat: "Шигырь",
-    rus: "Стихотворение",
-    eng: "The poem",
-    audio: "shiger",
-  },
-  {
-    tat: "Очрашу",
-    rus: "Встреча",
-    eng: "Meeting",
-    audio: "ochrashu",
-  },
-  {
-    tat: "Очрак",
-    rus: "Случай",
-    eng: "Случай",
-    audio: "ochrak",
-  },
-  {
-    tat: "Мәгариф",
-    rus: "Просвещение, образование",
-    eng: "Education",
-    audio: "megerif",
-  },
-  {
-    tat: "Әни",
-    rus: "Мама, мать",
-    eng: "Mother",
-    audio: "eni",
-  },
-  {
-    tat: "Үсеш",
-    rus: "Рост, прирост",
-    eng: "Development",
-    audio: "useh",
-  },
-  {
-    tat: "Сорау",
-    rus: "Вопрос",
-    eng: "Question",
-    audio: "sorau",
-  },
-];
-const test = [
-  {
-    tat: "Сәлам",
-    rus: "Привет",
-    eng: "Hello",
-    audio: "/static/media/salam.dc8407e1.mp3",
-    lat: "Sälam",
-  },
-  {
-    tat: "Кеше",
-    rus: "Человек",
-    eng: "Human",
-    audio: "/static/media/keshe.3f517cb6.mp3",
-    lat: "Keşe",
-  },
-  {
-    tat: "Эш",
-    rus: "Работа, занятие, труд",
-    eng: "Work",
-    audio: "/static/media/esh.b05b288c.mp3",
-    lat: "Eş",
-  },
-  {
-    tat: "Көн",
-    rus: "День, сутки",
-    eng: "Day",
-    audio: "/static/media/kon.bd1fab53.mp3",
-    lat: "Kön",
-  },
-  {
-    tat: "Авыл",
-    rus: "Деревня",
-    eng: "Village",
-    audio: "/static/media/aul.188aea97.mp3",
-    lat: "Avıl",
-  },
-  {
-    tat: "Бала",
-    rus: "Ребёнок",
-    eng: "Child",
-    audio: "/static/media/bala.a11e1cd2.mp3",
-    lat: "Bala",
-  },
-  {
-    tat: "Халык",
-    rus: "Народ, люди",
-    eng: "Nation",
-    audio: "/static/media/halik.2966a382.mp3",
-    lat: "Halık",
-  },
-  {
-    tat: "Вакыт",
-    rus: "Время, пора, период",
-    eng: "Time",
-    audio: "/static/media/vakyt.7923b9f7.mp3",
-    lat: "Vakıt",
-  },
-  {
-    tat: "Баш",
-    rus: "Голова, ум",
-    eng: "Head",
-    audio: "/static/media/bash.1f04bed9.mp3",
-    lat: "Baş",
-  },
-  {
-    tat: "Сүз",
-    rus: "Слово",
-    eng: "Word",
-    audio: "/static/media/suz.049e98cd.mp3",
-    lat: "Sүz",
-  },
-  {
-    tat: "Шәһәр",
-    rus: "Город",
-    eng: "City",
-    audio: "/static/media/shahar.e0c80b52.mp3",
-    lat: "Şäһär",
-  },
-  {
-    tat: "Урын",
-    rus: "Место",
-    eng: "Place",
-    audio: "/static/media/uryn.1d403814.mp3",
-    lat: "Urın",
-  },
-  {
-    tat: "Хезмәт",
-    rus: "Служба, работа",
-    eng: "Labor",
-    audio: "/static/media/hezmat.b273ac85.mp3",
-    lat: "Hezmät",
-  },
-  {
-    tat: "Мәктәп",
-    rus: "Школа",
-    eng: "School",
-    audio: "/static/media/mektep.d9feeaa4.mp3",
-    lat: "Mäktäp",
-  },
-  {
-    tat: "Юл",
-    rus: "Дорога, путь",
-    eng: "Way",
-    audio: "/static/media/iul.52604ff7.mp3",
-    lat: "Iul",
-  },
-  {
-    tat: "Ара",
-    rus: "Промежуток, расстояние",
-    eng: "Distance",
-    audio: "/static/media/ara.e2871127.mp3",
-    lat: "Ara",
-  },
-  {
-    tat: "Тел",
-    rus: "Язык",
-    eng: "Language",
-    audio: "/static/media/tel.10cca218.mp3",
-    lat: "Tel",
-  },
-  {
-    tat: "Кыз",
-    rus: "Девочка/девушка, дочь",
-    eng: "Girl",
-    audio: "/static/media/kyz.6454a0fe.mp3",
-    lat: "Kız",
-  },
-  {
-    tat: "Яшь",
-    rus: "Год, возраст",
-    eng: "Year",
-    audio: "/static/media/yesh.0bfdab6c.mp3",
-    lat: "Iaşь",
-  },
-  {
-    tat: "Җир",
-    rus: "Земля",
-    eng: "Earth",
-    audio: "/static/media/zhir.22e54fc8.mp3",
-    lat: "Jir",
-  },
-  {
-    tat: "Йорт",
-    rus: "Дом, здание",
-    eng: "House",
-    audio: "/static/media/yort.4cbf99f5.mp3",
-    lat: "Yort",
-  },
-  {
-    tat: "Дөнья",
-    rus: "Мир",
-    eng: "World",
-    audio: "/static/media/donia.42290f6a.mp3",
-    lat: "Dönьia",
-  },
-  {
-    tat: "Як",
-    rus: "Сторона, край",
-    eng: "Side",
-    audio: "/static/media/iak.d1402c46.mp3",
-    lat: "Iak",
-  },
-  {
-    tat: "Дәүләт",
-    rus: "Государство",
-    eng: "State",
-    audio: "/static/media/deulet.e4f0d764.mp3",
-    lat: "Däүlät",
-  },
-  {
-    tat: "Чара",
-    rus: "Средство, мероприятие",
-    eng: "Event",
-    audio: "/static/media/chara.4fd6f470.mp3",
-    lat: "Cara",
-  },
-  {
-    tat: "Ил",
-    rus: "Страна",
-    eng: "Country",
-    audio: "/static/media/il.bb679951.mp3",
-    lat: "Il",
-  },
-  {
-    tat: "Тормыш",
-    rus: "Жизнь, бытие",
-    eng: "Life",
-    audio: "/static/media/tormosh.39a68349.mp3",
-    lat: "Tormış",
-  },
-  {
-    tat: "Хәл",
-    rus: "Состояние, сила",
-    eng: "State",
-    audio: "/static/media/hel.1dfc4642.mp3",
-    lat: "Häl",
-  },
-  {
-    tat: "Җитәкче",
-    rus: "Руководитель",
-    eng: "Head, Leader",
-    audio: "/static/media/zhitekche.e63e975a.mp3",
-    lat: "Jitäkce",
-  },
-  {
-    tat: "Акча",
-    rus: "Деньги",
-    eng: "Money",
-    audio: "/static/media/akcha.6203e3f7.mp3",
-    lat: "Akca",
-  },
-  {
-    tat: "Барлык",
-    rus: "Наличие, существование",
-    eng: "Existence",
-    audio: "/static/media/barlyk.078f9105.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbarlyk.mp3?alt=media&token=1364ba88-1ad7-4c73-bd3e-8a473c9413cd",
     lat: "Barlık",
   },
   {
-    tat: "Күз",
-    rus: "Глаз",
-    eng: "Eye",
-    audio: "/static/media/kuz.fd6a35db.mp3",
-    lat: "Kүz",
-  },
-  {
-    tat: "Сум",
-    rus: "Рубль",
-    eng: "Ruble",
-    audio: "/static/media/sum.eb0ab54f.mp3",
-    lat: "Sum",
-  },
-  {
-    tat: "Туган",
-    rus: "Родственник, родной",
-    eng: "Relative",
-    audio: "/static/media/tugan.80f2b2c1.mp3",
-    lat: "Tuğan",
-  },
-  {
-    tat: "Кул",
-    rus: "Рука",
-    eng: "Arm",
-    audio: "/static/media/kul.0922d88b.mp3",
-    lat: "Qul",
-  },
-  {
-    tat: "Укучы",
-    rus: "Ученик, читатель",
-    eng: "Student",
-    audio: "/static/media/ukuchy.6bcb18b7.mp3",
-    lat: "Uqucı",
-  },
-  {
     tat: "Хуҗалык",
     rus: "Хозяйство",
     eng: "Economy",
-    audio: "/static/media/huzhalyk.d16e52ce.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhuzhalyk.mp3?alt=media&token=f8c357b2-e165-4664-ae68-eda8bd34efb7",
     lat: "Hujalık",
-  },
-  {
-    tat: "Мәсьәлә",
-    rus: "Вопрос, проблема",
-    eng: "Question",
-    audio: "/static/media/mesele.4862c8f6.mp3",
-    lat: "Mäsьälä",
-  },
-  {
-    tat: "Өлкә",
-    rus: "Область",
-    eng: "Area",
-    audio: "/static/media/olke.174938c2.mp3",
-    lat: "Ölkä",
-  },
-  {
-    tat: "Күңел",
-    rus: "Душа",
-    eng: "Soul",
-    audio: "/static/media/kunel.926ecdbc.mp3",
-    lat: "Kүñel",
-  },
-  {
-    tat: "Гаилә",
-    rus: "Семья",
-    eng: "Family",
-    audio: "/static/media/gaile.c2c0ee22.mp3",
-    lat: "Ğailä",
-  },
-  {
-    tat: "Үзәк",
-    rus: "Центр",
-    eng: "Centre",
-    audio: "/static/media/uzek.97588077.mp3",
-    lat: "Үzäk",
-  },
-  {
-    tat: "Исем",
-    rus: "Имя, название",
-    eng: "Name",
-    audio: "/static/media/isem.8605c1e0.mp3",
-    lat: "Isem",
-  },
-  {
-    tat: "Нәтиҗә",
-    rus: "Результат, итог",
-    eng: "Result",
-    audio: "/static/media/netizhe.56927842.mp3",
-    lat: "Nätijä",
   },
   {
     tat: "Бәйрәм",
     rus: "Праздник",
     eng: "Holiday",
-    audio: "/static/media/beirem.a5e46ae1.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbeirem.mp3?alt=media&token=1e91e6ce-16f4-4bf6-bbd8-58776982e8bf",
     lat: "Bäyräm",
   },
   {
     tat: "Ул",
     rus: "Он/она/оно, сын",
     eng: "he,she,it,son",
-    audio: "/static/media/ul.d06a1c82.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ful.mp3?alt=media&token=c61ae766-1ea4-4c5e-915a-52d9b3c370c4",
     lat: "Ul",
   },
   {
-    tat: "Егет",
-    rus: "Парень",
-    eng: "Guy",
-    audio: "/static/media/eget.39cbd11d.mp3",
-    lat: "Eget",
+    tat: "Кул",
+    rus: "Рука",
+    eng: "Arm",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkul.mp3?alt=media&token=d19ab26c-a678-432e-8145-9478fa72e803",
+    lat: "Qul",
   },
   {
-    tat: "Су",
-    rus: "Вода",
-    eng: "Water",
-    audio: "/static/media/su.d50a28cf.mp3",
-    lat: "Su",
+    tat: "Исем",
+    rus: "Имя, название",
+    eng: "Name",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fisem.mp3?alt=media&token=a1e303d8-d4ec-4019-9be7-d578ce443cf6",
+    lat: "Isem",
   },
   {
-    tat: "Ярдәм",
-    rus: "Помощь, поддержка",
-    eng: "Help",
-    audio: "/static/media/yerdem.53b671c4.mp3",
-    lat: "Iardäm",
+    tat: "Үзәк",
+    rus: "Центр",
+    eng: "Centre",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fuzek.mp3?alt=media&token=a440e099-a3ac-45a8-9fc0-ae61c9fa1ba5",
+    lat: "Үzäk",
   },
   {
-    tat: "Сан",
-    rus: "Число, количество",
-    eng: "Number",
-    audio: "/static/media/san.d63f69e0.mp3",
-    lat: "San",
+    tat: "Туган",
+    rus: "Родственник, родной",
+    eng: "Relative",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftugan.mp3?alt=media&token=f8a5e413-a614-4d2a-a9ac-7b43f1d5f08c",
+    lat: "Tuğan",
   },
   {
-    tat: "Белем",
-    rus: "Знание",
-    eng: "Knowledge",
-    audio: "/static/media/belem.e7dae1a5.mp3",
-    lat: "Belem",
+    tat: "Укучы",
+    rus: "Ученик, читатель",
+    eng: "Student",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fukuchy.mp3?alt=media&token=15a6b65c-cc7b-4bc0-80df-796f348d1e06",
+    lat: "Uqucı",
   },
   {
-    tat: "Китап",
-    rus: "Книга",
-    eng: "Book",
-    audio: "/static/media/kitap.f77f6287.mp3",
-    lat: "Kitap",
+    tat: "Күңел",
+    rus: "Душа",
+    eng: "Soul",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkunel.mp3?alt=media&token=e719355b-873c-4392-93a5-d4a967031854",
+    lat: "Kүñel",
   },
   {
-    tat: "Ай",
-    rus: "Луна, месяц",
-    eng: "Moon/month",
-    audio: "/static/media/ai.9b1bf7bc.mp3",
-    lat: "Ay",
+    tat: "Нәтиҗә",
+    rus: "Результат, итог",
+    eng: "Result",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fnetizhe.mp3?alt=media&token=61edc4d2-2e7e-4673-8338-47e687e1ccf1",
+    lat: "Nätijä",
   },
   {
-    tat: "Оешма",
-    rus: "Отдел, собрание",
-    eng: "Department, meeting",
-    audio: "/static/media/oeshma.688b3f0d.mp3",
-    lat: "Oeşma",
+    tat: "Гаилә",
+    rus: "Семья",
+    eng: "Family",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fgaile.mp3?alt=media&token=8f6f3be9-da72-47bd-a157-7836db07fd03",
+    lat: "Ğailä",
   },
   {
-    tat: "Ис",
-    rus: "Запах",
-    eng: "Smell",
-    audio: "/static/media/is.37aea844.mp3",
-    lat: "Is",
+    tat: "Сум",
+    rus: "Рубль",
+    eng: "Ruble",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsum.mp3?alt=media&token=00aa6df7-cdba-4d29-a8f2-f5d595c14b87",
+    lat: "Sum",
   },
   {
-    tat: "Укытучы",
-    rus: "Учитель",
-    eng: "Teacher",
-    audio: "/static/media/ukutuchy.4d38fe3a.mp3",
-    lat: "Ukıtucı",
+    tat: "Урын",
+    rus: "Место",
+    eng: "Place",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Furyn.mp3?alt=media&token=02524306-3106-425c-8769-aa78137f4114",
+    lat: "Urın",
   },
   {
-    tat: "Иҗат",
-    rus: "Творчество",
-    eng: "Creation",
-    audio: "/static/media/izhat.9a00781d.mp3",
-    lat: "Ijat",
+    tat: "Тел",
+    rus: "Язык",
+    eng: "Language",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftel.mp3?alt=media&token=64f69b00-f8d4-4943-9028-52182fd3ea09",
+    lat: "Tel",
   },
   {
-    tat: "Мәдәният",
-    rus: "Культура",
-    eng: "Culture",
-    audio: "/static/media/medeniyet.aa5b7bcb.mp3",
-    lat: "Mädäniiat",
+    tat: "Хезмәт",
+    rus: "Служба, работа",
+    eng: "Labor",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhezmat.mp3?alt=media&token=7ec08ebb-da3c-460a-9cbf-e292b8cb93dd",
+    lat: "Hezmät",
   },
   {
-    tat: "Эч",
-    rus: "Живот",
-    eng: "Belly",
-    audio: "/static/media/ech.de413503.mp3",
-    lat: "Ec",
-  },
-  {
-    tat: "Мәгълүмат",
-    rus: "Информация",
-    eng: "Information",
-    audio: "/static/media/meglumet.7fcdf8ff.mp3",
-    lat: "Mägъlүmat",
-  },
-  {
-    tat: "Чыгыш",
-    rus: "Выступление",
-    eng: "Performance",
-    audio: "/static/media/chygysh.65c87a2d.mp3",
-    lat: "Cıgış",
-  },
-  {
-    tat: "Өй",
-    rus: "Дом",
-    eng: "Home",
-    audio: "/static/media/oi.772bc360.mp3",
-    lat: "Öy",
+    tat: "Сүз",
+    rus: "Слово",
+    eng: "Word",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsuz.mp3?alt=media&token=bc2fed65-f1f1-4c5c-8566-5a84b7d81aea",
+    lat: "Sүz",
   },
   {
     tat: "Фикер",
     rus: "Мысль, идея",
     eng: "Thought, idea",
-    audio: "/static/media/fiker.a03cc5fa.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ffiker.mp3?alt=media&token=e2970ac2-1f7f-4514-aa93-f08eb8fb4adc",
     lat: "Fiker",
-  },
-  {
-    tat: "Тарих",
-    rus: "История",
-    eng: "History",
-    audio: "/static/media/tarih.a7fc9fb8.mp3",
-    lat: "Tarih",
-  },
-  {
-    tat: "Өлеш",
-    rus: "Часть, доля, порция",
-    eng: "Part, share, portion",
-    audio: "/static/media/olesh.74d721a1.mp3",
-    lat: "Öleş",
   },
   {
     tat: "Хезмәткәр",
     rus: "Сотрудник",
     eng: "Employee",
-    audio: "/static/media/hezmetker.bf61d9bb.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhezmetker.mp3?alt=media&token=60a085bc-a0a8-4706-a57e-11c29a336f34",
     lat: "Hezmätkär",
+  },
+  {
+    tat: "Белем",
+    rus: "Знание",
+    eng: "Knowledge",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbelem.mp3?alt=media&token=c138165a-158a-4845-9d74-526b9b758777",
+    lat: "Belem",
+  },
+  {
+    tat: "Эш",
+    rus: "Работа, занятие, труд",
+    eng: "Work",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fesh.mp3?alt=media&token=4360301c-dee7-4399-801d-081b5aea4e4f",
+    lat: "Eş",
+  },
+  {
+    tat: "Иҗат",
+    rus: "Творчество",
+    eng: "Creation",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fizhat.mp3?alt=media&token=376a4af3-b49f-419b-b376-85ba11881f4a",
+    lat: "Ijat",
+  },
+  {
+    tat: "Чыгыш",
+    rus: "Выступление",
+    eng: "Performance",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fchygysh.mp3?alt=media&token=6dccde61-b4cd-42ad-aba6-90bf33ddc809",
+    lat: "Cıgış",
+  },
+  {
+    tat: "Хатын",
+    rus: "Женщина, жена",
+    eng: "Woman, wife",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhatyn.mp3?alt=media&token=12f6a4eb-dda4-4d42-8e94-ea51e350dbbf",
+    lat: "Hatın",
+  },
+  {
+    tat: "Чара",
+    rus: "Средство, мероприятие",
+    eng: "Event",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fchara.mp3?alt=media&token=4843c4d9-4178-418a-be9d-5b1474cf8879",
+    lat: "Cara",
+  },
+  {
+    tat: "Идарә",
+    rus: "Управление",
+    eng: "Management",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fidare.mp3?alt=media&token=5b974215-a1c8-4f75-bd35-c63a517d60f0",
+    lat: "Idarä",
+  },
+  {
+    tat: "Егет",
+    rus: "Парень",
+    eng: "Guy",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Feget.mp3?alt=media&token=10b9fbbd-9a22-4fc7-a828-fe6f7245a627",
+    lat: "Eget",
+  },
+  {
+    tat: "Эч",
+    rus: "Живот",
+    eng: "Belly",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fech.mp3?alt=media&token=a53fe642-84ff-4cea-9d9e-644b97c8bbc7",
+    lat: "Ec",
+  },
+  {
+    tat: "Су",
+    rus: "Вода",
+    eng: "Water",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsu.mp3?alt=media&token=5c3fdcc0-4cc3-4fac-b3bd-a2ebf47501f6",
+    lat: "Su",
+  },
+  {
+    tat: "Вакыт",
+    rus: "Время, пора, период",
+    eng: "Time",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fvakyt.mp3?alt=media&token=5190e6fd-8d47-4ed7-aeec-a389f8cc5377",
+    lat: "Vakıt",
+  },
+  {
+    tat: "Өй",
+    rus: "Дом",
+    eng: "Home",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Foi.mp3?alt=media&token=7fa272c6-26ee-4b80-9b6e-e6b6d4c5a64a",
+    lat: "Öy",
+  },
+  {
+    tat: "Ярдәм",
+    rus: "Помощь, поддержка",
+    eng: "Help",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fyerdem.mp3?alt=media&token=5639a79d-008b-4ac3-8e7b-3579e7b80ba4",
+    lat: "Iardäm",
+  },
+  {
+    tat: "Дәрәҗә",
+    rus: "Cтепень, уровень, авторитет",
+    eng: "Level",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fderezhe.mp3?alt=media&token=a19e824a-f25e-4349-8260-acd4c7926188",
+    lat: "Däräjä",
+  },
+  {
+    tat: "Вәкил",
+    rus: "Представитель",
+    eng: "Representative",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fvekil.mp3?alt=media&token=0e6e5ba4-dcf2-49e7-8af2-d5efc63f02bc",
+    lat: "Väkil",
+  },
+  {
+    tat: "Оешма",
+    rus: "Отдел, собрание",
+    eng: "Department, meeting",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Foeshma.mp3?alt=media&token=059d27d1-d076-4e3d-a1c0-9abacdc4ff63",
+    lat: "Oeşma",
+  },
+  {
+    tat: "Чор",
+    rus: "Период, этап, эпоха",
+    eng: "Period",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fchor.mp3?alt=media&token=94389dda-d6ee-4705-bcb4-6c7cb27ffa4d",
+    lat: "Cor",
+  },
+  {
+    tat: "Җыр",
+    rus: "Песня",
+    eng: "Song",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fzhyr.mp3?alt=media&token=51ac5d49-1f4f-4d16-a979-1efe302c93eb",
+    lat: "Jır",
+  },
+  {
+    tat: "Кеше",
+    rus: "Человек",
+    eng: "Human",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkeshe.mp3?alt=media&token=76503681-df23-4664-95c0-6428a33456ef",
+    lat: "Keşe",
+  },
+  {
+    tat: "Шәһәр",
+    rus: "Город",
+    eng: "City",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fshahar.mp3?alt=media&token=e6d3465e-1edc-4611-9aa3-9b7bd8b6ed5c",
+    lat: "Şäһär",
+  },
+  {
+    tat: "Юл",
+    rus: "Дорога, путь",
+    eng: "Way",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fiul.mp3?alt=media&token=be791d28-1778-4cd4-8070-afe320eab0ed",
+    lat: "Iul",
+  },
+  {
+    tat: "Өлкә",
+    rus: "Область",
+    eng: "Area",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Folke.mp3?alt=media&token=0fa39f10-1e50-4dd5-93f6-76956f909521",
+    lat: "Ölkä",
+  },
+  {
+    tat: "Гамәл",
+    rus: "Действие",
+    eng: "Action",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fgamel.mp3?alt=media&token=16354634-8468-4cf1-90a0-3ea62dba281d",
+    lat: "Ğamäl",
+  },
+  {
+    tat: "Җир",
+    rus: "Земля",
+    eng: "Earth",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fzhir.mp3?alt=media&token=4fb70fb3-912f-4d18-813a-85c2dc45ea97",
+    lat: "Jir",
+  },
+  {
+    tat: "Дәүләт",
+    rus: "Государство",
+    eng: "State",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fdeulet.mp3?alt=media&token=42fac95d-98e5-4870-8df6-cf0c6126bce8",
+    lat: "Däүlät",
+  },
+  {
+    tat: "Бала",
+    rus: "Ребёнок",
+    eng: "Child",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbala.mp3?alt=media&token=95dc4c4c-afe6-46f2-a6b1-bc8a7e451ff2",
+    lat: "Bala",
+  },
+  {
+    tat: "Ил",
+    rus: "Страна",
+    eng: "Country",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fil.mp3?alt=media&token=26230ef0-3ac6-4229-a969-8044d75e7521",
+    lat: "Il",
+  },
+  {
+    tat: "Як",
+    rus: "Сторона, край",
+    eng: "Side",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fiak.mp3?alt=media&token=9b660ede-69b5-4ca4-be34-77c9219cfbf7",
+    lat: "Iak",
+  },
+  {
+    tat: "Авыл",
+    rus: "Деревня",
+    eng: "Village",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Faul.mp3?alt=media&token=c0919635-d37c-4608-9ce2-023bd9aac559",
+    lat: "Avıl",
+  },
+  {
+    tat: "Ара",
+    rus: "Промежуток, расстояние",
+    eng: "Distance",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fara.mp3?alt=media&token=4d0f6ed4-2cdc-4f4b-b3a1-56f5f37d66a2",
+    lat: "Ara",
+  },
+  {
+    tat: "Өлеш",
+    rus: "Часть, доля, порция",
+    eng: "Part, share, portion",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Folesh.mp3?alt=media&token=7cee3b41-aab5-428e-b2c5-0aa1dee8ed97",
+    lat: "Öleş",
+  },
+  {
+    tat: "Мәдәният",
+    rus: "Культура",
+    eng: "Culture",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmedeniyet.mp3?alt=media&token=b7715e75-07b5-442a-9948-b418bcdc0be6",
+    lat: "Mädäniiat",
+  },
+  {
+    tat: "Тормыш",
+    rus: "Жизнь, бытие",
+    eng: "Life",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftormosh.mp3?alt=media&token=84e07a2b-8d1f-43bd-ae74-353fd5fe268a",
+    lat: "Tormış",
+  },
+  {
+    tat: "Хәл",
+    rus: "Состояние, сила",
+    eng: "State",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhel.mp3?alt=media&token=31d6ee62-c1a5-4765-b3db-aa18444449fa",
+    lat: "Häl",
+  },
+  {
+    tat: "Йорт",
+    rus: "Дом, здание",
+    eng: "House",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fyort.mp3?alt=media&token=5180f55d-6459-41e2-a0b1-b5afc6e6a8c9",
+    lat: "Yort",
+  },
+  {
+    tat: "Мөселман",
+    rus: "Мусульманин",
+    eng: "Muslim",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmoselman.mp3?alt=media&token=e2ad5996-5528-4bf4-8d3d-83301d8544e1",
+    lat: "Möselman",
+  },
+  {
+    tat: "Мәктәп",
+    rus: "Школа",
+    eng: "School",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmektep.mp3?alt=media&token=f9b27a60-3684-47cb-84f9-a98ea6a24db6",
+    lat: "Mäktäp",
+  },
+  {
+    tat: "Сәлам",
+    rus: "Привет",
+    eng: "Hello",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsalam.mp3?alt=media&token=3428136c-706e-47fd-9161-e9f2a99acde7",
+    lat: "Sälam",
+  },
+  {
+    tat: "Ай",
+    rus: "Луна, месяц",
+    eng: "Moon/month",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fai.mp3?alt=media&token=afdc10c8-c0b0-4126-849d-0134917ab2f3",
+    lat: "Ay",
+  },
+  {
+    tat: "Фән",
+    rus: "Наука",
+    eng: "The science",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ffen.mp3?alt=media&token=ef0301d0-3b6c-492f-9ee7-977d28d13c14",
+    lat: "Fän",
+  },
+  {
+    tat: "Урынбасар",
+    rus: "Заместитель",
+    eng: "Deputy",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Furynbasar.mp3?alt=media&token=7493711a-656a-4a38-9352-3c88f514cdf5",
+    lat: "Urınbasar",
+  },
+  {
+    tat: "Акча",
+    rus: "Деньги",
+    eng: "Money",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fakcha.mp3?alt=media&token=6d90d85b-d063-49d8-9e59-c79dd7932a82",
+    lat: "Akca",
+  },
+  {
+    tat: "Мәгълүмат",
+    rus: "Информация",
+    eng: "Information",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmeglumet.mp3?alt=media&token=0ddc9d08-8b41-4796-b20d-a10933acff3d",
+    lat: "Mägъlүmat",
+  },
+  {
+    tat: "Тарих",
+    rus: "История",
+    eng: "History",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftarih.mp3?alt=media&token=e42c9c51-59df-4923-b21b-e193626c07b4",
+    lat: "Tarih",
   },
   {
     tat: "Рәвеш",
     rus: "Вид, образ, облик",
     eng: "Image",
-    audio: "/static/media/revesh.c41925d2.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Frevesh.mp3?alt=media&token=bfcd2a04-86d9-4478-b64b-ff6372527282",
     lat: "Räveş",
   },
   {
     tat: "Әсәр",
     rus: "Произведение",
     eng: "Composition",
-    audio: "/static/media/eser.78f29449.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Feser.mp3?alt=media&token=e5a8e25a-9b3a-41e0-83a5-604b3d479e53",
     lat: "Äsär",
   },
   {
-    tat: "Дәрәҗә",
-    rus: "Cтепень, уровень, авторитет",
-    eng: "Level",
-    audio: "/static/media/derezhe.22731982.mp3",
-    lat: "Däräjä",
+    tat: "Күз",
+    rus: "Глаз",
+    eng: "Eye",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkuz.mp3?alt=media&token=138d310e-ca10-4bc2-b9ff-beed7ecf6f38",
+    lat: "Kүz",
   },
   {
-    tat: "Җыр",
-    rus: "Песня",
-    eng: "Song",
-    audio: "/static/media/zhyr.9f12b7dc.mp3",
-    lat: "Jır",
+    tat: "Китап",
+    rus: "Книга",
+    eng: "Book",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkitap.mp3?alt=media&token=fd146edd-d82b-4289-b165-b38af34d8bfa",
+    lat: "Kitap",
   },
   {
-    tat: "Мөмкинлек",
-    rus: "Возможность, вероятность",
-    eng: "Possibility, probability",
-    audio: "/static/media/momkinlek.95c7e93d.mp3",
-    lat: "Mömkinlek",
+    tat: "Ис",
+    rus: "Запах",
+    eng: "Smell",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fis.mp3?alt=media&token=aa6e3376-5110-4909-88b3-f7fc70414121",
+    lat: "Is",
   },
   {
-    tat: "Вәкил",
-    rus: "Представитель",
-    eng: "Representative",
-    audio: "/static/media/vekil.a685c72b.mp3",
-    lat: "Väkil",
+    tat: "Баш",
+    rus: "Голова, ум",
+    eng: "Head",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbash.mp3?alt=media&token=46a2a618-21c5-4b54-bcb6-4c5ced915d68",
+    lat: "Baş",
   },
   {
-    tat: "Идарә",
-    rus: "Управление",
-    eng: "Management",
-    audio: "/static/media/idare.da339b3d.mp3",
-    lat: "Idarä",
-  },
-  {
-    tat: "Көч",
-    rus: "Сила, могущество",
-    eng: "Strength, power",
-    audio: "/static/media/koch.babc9eba.mp3",
-    lat: "Köc",
+    tat: "Җитәкче",
+    rus: "Руководитель",
+    eng: "Head, Leader",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fzhitekche.mp3?alt=media&token=a2575b2e-7522-47c4-8668-fdf87bd39e6d",
+    lat: "Jitäkce",
   },
   {
     tat: "Дин",
     rus: "Религия, вера",
     eng: "Religion, faith",
-    audio: "/static/media/din.ea14308c.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fdin.mp3?alt=media&token=880a1730-d785-4469-9ed8-2910bae56f2d",
     lat: "Din",
   },
   {
-    tat: "Хатын",
-    rus: "Женщина, жена",
-    eng: "Woman, wife",
-    audio: "/static/media/hatyn.8d461c47.mp3",
-    lat: "Hatın",
+    tat: "Көн",
+    rus: "День, сутки",
+    eng: "Day",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkon.mp3?alt=media&token=7aaa53be-b243-450e-9bbc-d0343ffc9f40",
+    lat: "Kön",
   },
   {
-    tat: "Фән",
-    rus: "Наука",
-    eng: "The science",
-    audio: "/static/media/fen.2341c019.mp3",
-    lat: "Fän",
+    tat: "Халык",
+    rus: "Народ, люди",
+    eng: "Nation",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhalik.mp3?alt=media&token=eaab5852-6a0d-4930-b20f-3a24438f3c3e",
+    lat: "Halık",
   },
   {
-    tat: "Мөселман",
-    rus: "Мусульманин",
-    eng: "Muslim",
-    audio: "/static/media/moselman.b1d884c7.mp3",
-    lat: "Möselman",
+    tat: "Көч",
+    rus: "Сила, могущество",
+    eng: "Strength, power",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkoch.mp3?alt=media&token=89ce4f49-b29c-44a8-b206-8560919b1218",
+    lat: "Köc",
   },
   {
-    tat: "Чор",
-    rus: "Период, этап, эпоха",
-    eng: "Period",
-    audio: "/static/media/chor.21f8e4f2.mp3",
-    lat: "Cor",
+    tat: "Дөнья",
+    rus: "Мир",
+    eng: "World",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fdonia.mp3?alt=media&token=6ff5898b-1390-486a-a922-fceeb84aa60c",
+    lat: "Dönьia",
   },
   {
-    tat: "Гамәл",
-    rus: "Действие",
-    eng: "Action",
-    audio: "/static/media/gamel.3de1956d.mp3",
-    lat: "Ğamäl",
+    tat: "Мәсьәлә",
+    rus: "Вопрос, проблема",
+    eng: "Question",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmesele.mp3?alt=media&token=7dda92ea-ebe3-421c-b4da-277c18170625",
+    lat: "Mäsьälä",
   },
   {
-    tat: "Урынбасар",
-    rus: "Заместитель",
-    eng: "Deputy",
-    audio: "/static/media/urynbasar.065f5a76.mp3",
-    lat: "Urınbasar",
+    tat: "Сан",
+    rus: "Число, количество",
+    eng: "Number",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsan.mp3?alt=media&token=89dc3468-e730-47e6-ae05-f109b9ebd2b1",
+    lat: "San",
   },
   {
-    tat: "Тараф",
-    rus: "Сторона",
-    eng: "Side",
-    audio: "/static/media/taraf.ba3ee855.mp3",
-    lat: "Taraf",
+    tat: "Яшь",
+    rus: "Год, возраст",
+    eng: "Year",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fyesh.mp3?alt=media&token=88888b72-ddcd-45e6-93ad-f8ab037522cb",
+    lat: "Iaşь",
   },
   {
-    tat: "Мәчет",
-    rus: "Мечеть",
-    eng: "Mosque",
-    audio: "/static/media/mechet.4cfd9f5a.mp3",
-    lat: "Mäcet",
+    tat: "Мөмкинлек",
+    rus: "Возможность, вероятность",
+    eng: "Possibility, probability",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmomkinlek.mp3?alt=media&token=9f3131a2-033c-42f2-9a7b-16295a0cab1e",
+    lat: "Mömkinlek",
   },
   {
-    tat: "Сугыш",
-    rus: "Война",
-    eng: "The War",
-    audio: "/static/media/sugysh.a1f3731c.mp3",
-    lat: "Sugış",
+    tat: "Укытучы",
+    rus: "Учитель",
+    eng: "Teacher",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fukutuchy.mp3?alt=media&token=03731cb0-427a-4eb1-8bd4-f48055e4441c",
+    lat: "Ukıtucı",
   },
   {
-    tat: "Максат",
-    rus: "Цель",
-    eng: "Goal",
-    audio: "/static/media/maksat.5fbbd6ed.mp3",
-    lat: "Maksat",
+    tat: "Кыз",
+    rus: "Девочка/девушка, дочь",
+    eng: "Girl",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkyz.mp3?alt=media&token=0d674237-e1ad-4a0a-926f-a22f9f584e40",
+    lat: "Kız",
   },
   {
     tat: "Урам",
     rus: "Улица",
     eng: "Street",
-    audio: "/static/media/uram.8540ac1f.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Furam.mp3?alt=media&token=d05e843d-fb7c-466f-8ba9-db035b5160d5",
     lat: "Uram",
-  },
-  {
-    tat: "Рәис",
-    rus: "Председатель",
-    eng: "Chairman",
-    audio: "/static/media/reis.9d857e48.mp3",
-    lat: "Räis",
   },
   {
     tat: "Исәп",
     rus: "Численность, счёт",
     eng: "Number, account",
-    audio: "/static/media/isep.572365f2.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fisep.mp3?alt=media&token=cb61f053-7529-4d31-8cd9-3fe96f7f1fea",
     lat: "Isäp",
-  },
-  {
-    tat: "Шигырь",
-    rus: "Стихотворение",
-    eng: "The poem",
-    audio: "/static/media/shiger.d7d2261a.mp3",
-    lat: "Şigırь",
-  },
-  {
-    tat: "Очрашу",
-    rus: "Встреча",
-    eng: "Meeting",
-    audio: "/static/media/ochrashu.8b79e4a6.mp3",
-    lat: "Ocraşu",
   },
   {
     tat: "Очрак",
     rus: "Случай",
     eng: "Случай",
-    audio: "/static/media/ochrak.ab35df96.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fochrak.mp3?alt=media&token=7376c432-61a3-42d4-83ef-e7c8443fc3b2",
     lat: "Ocrak",
   },
   {
-    tat: "Мәгариф",
-    rus: "Просвещение, образование",
-    eng: "Education",
-    audio: "/static/media/megerif.23033aee.mp3",
-    lat: "Mäğarif",
-  },
-  {
-    tat: "Әни",
-    rus: "Мама, мать",
-    eng: "Mother",
-    audio: "/static/media/eni.8a8821f5.mp3",
-    lat: "Äni",
+    tat: "Рәис",
+    rus: "Председатель",
+    eng: "Chairman",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Freis.mp3?alt=media&token=ff468b84-969f-4bde-9a33-7ed793c54b88",
+    lat: "Räis",
   },
   {
     tat: "Үсеш",
     rus: "Рост, прирост",
     eng: "Development",
-    audio: "/static/media/useh.f7f52881.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fuseh.mp3?alt=media&token=d587236e-af14-465e-92ee-fbe22e853128",
     lat: "Үseş",
+  },
+  {
+    tat: "Очрашу",
+    rus: "Встреча",
+    eng: "Meeting",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fochrashu.mp3?alt=media&token=ae3a4282-184b-47be-9943-0926a50bd6ec",
+    lat: "Ocraşu",
+  },
+  {
+    tat: "Мәчет",
+    rus: "Мечеть",
+    eng: "Mosque",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmechet.mp3?alt=media&token=1b732e1a-d415-4f21-beb4-b1c3dfb1248d",
+    lat: "Mäcet",
+  },
+  {
+    tat: "Максат",
+    rus: "Цель",
+    eng: "Goal",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmaksat.mp3?alt=media&token=40ceb5ec-65be-48a0-8769-e369b4766670",
+    lat: "Maksat",
   },
   {
     tat: "Сорау",
     rus: "Вопрос",
     eng: "Question",
-    audio: "/static/media/sorau.8bea6d6b.mp3",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsorau.mp3?alt=media&token=9d2e14d1-6395-4d13-a463-823a5d774432",
     lat: "Sorau",
+  },
+  {
+    tat: "Әни",
+    rus: "Мама, мать",
+    eng: "Mother",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Feni.mp3?alt=media&token=7230c503-d8f9-4ed4-99f0-a8ed4b156971",
+    lat: "Äni",
+  },
+  {
+    tat: "Сугыш",
+    rus: "Война",
+    eng: "The War",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsugysh.mp3?alt=media&token=90413fba-e574-4570-9674-163abd8adf87",
+    lat: "Sugış",
+  },
+  {
+    tat: "Мәгариф",
+    rus: "Просвещение, образование",
+    eng: "Education",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmegerif.mp3?alt=media&token=5e35e615-cd1a-4b8b-baf3-77c53bf35292",
+    lat: "Mäğarif",
+  },
+  {
+    tat: "Тараф",
+    rus: "Сторона",
+    eng: "Side",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftaraf.mp3?alt=media&token=fae4e698-62ee-4b00-b2db-e142db1cfc39",
+    lat: "Taraf",
+  },
+  {
+    tat: "Шигырь",
+    rus: "Стихотворение",
+    eng: "The poem",
+    audio:
+      "https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fshiger.mp3?alt=media&token=27763c76-1ced-49f2-98cf-123428b425b9",
+    lat: "Şigırь",
   },
 ];
 
-export const words: Array<WordsInterface> = prev.map((item, index) => {
-  return { ...item, lat: test[index].lat };
-});
+// let newWords: any[] = [];
+//
+// for (let i = 0; i < words.length; i++) {
+//   getWordAudio(words[i].audio).then((url) => {
+//     newWords.push({ ...words[i], audio: url });
+//   });
+//   // console.log("word", words[i]);
+// }
+//
+// console.log("newWords", newWords);
 
-// export const words: Array<WordsInterface> = [
-//   {
-//     tat: "Сәлам",
-//     rus: "Привет",
-//     eng: "Hello",
-//     audio: salam,
-//   },
-//   {
-//     tat: "Кеше",
-//     rus: "Человек",
-//     eng: "Human",
-//     audio: keshe,
-//   },
-//   {
-//     tat: "Эш",
-//     rus: "Работа, занятие, труд",
-//     eng: "Work",
-//     audio: esh,
-//   },
-//   {
-//     tat: "Көн",
-//     rus: "День, сутки",
-//     eng: "Day",
-//     audio: kon,
-//   },
-//   {
-//     tat: "Авыл",
-//     rus: "Деревня",
-//     eng: "Village",
-//     audio: aul,
-//   },
-//   {
-//     tat: "Бала",
-//     rus: "Ребёнок",
-//     eng: "Child",
-//     audio: bala,
-//   },
-//   {
-//     tat: "Халык",
-//     rus: "Народ, люди",
-//     eng: "Nation",
-//     audio: halik,
-//   },
-//   {
-//     tat: "Вакыт",
-//     rus: "Время, пора, период",
-//     eng: "Time",
-//     audio: vakyt,
-//   },
-//   {
-//     tat: "Баш",
-//     rus: "Голова, ум",
-//     eng: "Head",
-//     audio: bash,
-//   },
-//   {
-//     tat: "Сүз",
-//     rus: "Слово",
-//     eng: "Word",
-//     audio: suz,
-//   },
-//   {
-//     tat: "Шәһәр",
-//     rus: "Город",
-//     eng: "City",
-//     audio: shahar,
-//   },
-//   {
-//     tat: "Урын",
-//     rus: "Место",
-//     eng: "Place",
-//     audio: uryn,
-//   },
-//   {
-//     tat: "Хезмәт",
-//     rus: "Служба, работа",
-//     eng: "Labor",
-//     audio: hezmat,
-//   },
-//   {
-//     tat: "Мәктәп",
-//     rus: "Школа",
-//     eng: "School",
-//     audio: mektep,
-//   },
-//   {
-//     tat: "Юл",
-//     rus: "Дорога, путь",
-//     eng: "Way",
-//     audio: iul,
-//   },
-//   {
-//     tat: "Ара",
-//     rus: "Промежуток, расстояние",
-//     eng: "Distance",
-//     audio: ara,
-//   },
-//   {
-//     tat: "Тел",
-//     rus: "Язык",
-//     eng: "Language",
-//     audio: tel,
-//   },
-//   {
-//     tat: "Кыз",
-//     rus: "Девочка/девушка, дочь",
-//     eng: "Girl",
-//     audio: kyz,
-//   },
-//   {
-//     tat: "Яшь",
-//     rus: "Год, возраст",
-//     eng: "Year",
-//     audio: yesh,
-//   },
-//   {
-//     tat: "Җир",
-//     rus: "Земля",
-//     eng: "Earth",
-//     audio: zhir,
-//   },
-//   {
-//     tat: "Йорт",
-//     rus: "Дом, здание",
-//     eng: "House",
-//     audio: yort,
-//   },
-//   {
-//     tat: "Дөнья",
-//     rus: "Мир",
-//     eng: "World",
-//     audio: donia,
-//   },
-//   {
-//     tat: "Як",
-//     rus: "Сторона, край",
-//     eng: "Side",
-//     audio: iak,
-//   },
-//   {
-//     tat: "Дәүләт",
-//     rus: "Государство",
-//     eng: "State",
-//     audio: deulet,
-//   },
-//   {
-//     tat: "Чара",
-//     rus: "Средство, мероприятие",
-//     eng: "Event",
-//     audio: chara,
-//   },
-//   {
-//     tat: "Ил",
-//     rus: "Страна",
-//     eng: "Country",
-//     audio: il,
-//   },
-//   {
-//     tat: "Тормыш",
-//     rus: "Жизнь, бытие",
-//     eng: "Life",
-//     audio: tormosh,
-//   },
-//   {
-//     tat: "Хәл",
-//     rus: "Состояние, сила",
-//     eng: "State",
-//     audio: hel,
-//   },
-//   {
-//     tat: "Җитәкче",
-//     rus: "Руководитель",
-//     eng: "Head, Leader",
-//     audio: zhitekche,
-//   },
-//   {
-//     tat: "Акча",
-//     rus: "Деньги",
-//     eng: "Money",
-//     audio: akcha,
-//   },
-//   {
-//     tat: "Барлык",
-//     rus: "Наличие, существование",
-//     eng: "Existence",
-//     audio: barlyk,
-//   },
-//   {
-//     tat: "Күз",
-//     rus: "Глаз",
-//     eng: "Eye",
-//     audio: kuz,
-//   },
-//   {
-//     tat: "Сум",
-//     rus: "Рубль",
-//     eng: "Ruble",
-//     audio: sum,
-//   },
-//   {
-//     tat: "Туган",
-//     rus: "Родственник, родной",
-//     eng: "Relative",
-//     audio: tugan,
-//   },
-//   {
-//     tat: "Кул",
-//     rus: "Рука",
-//     eng: "Arm",
-//     audio: kul,
-//   },
-//   {
-//     tat: "Укучы",
-//     rus: "Ученик, читатель",
-//     eng: "Student",
-//     audio: ukuchy,
-//   },
-//   {
-//     tat: "Хуҗалык",
-//     rus: "Хозяйство",
-//     eng: "Economy",
-//     audio: huzhalyk,
-//   },
-//   {
-//     tat: "Мәсьәлә",
-//     rus: "Вопрос, проблема",
-//     eng: "Question",
-//     audio: mesele,
-//   },
-//   {
-//     tat: "Өлкә",
-//     rus: "Область",
-//     eng: "Area",
-//     audio: olke,
-//   },
-//   {
-//     tat: "Күңел",
-//     rus: "Душа",
-//     eng: "Soul",
-//     audio: kunel,
-//   },
-//   {
-//     tat: "Гаилә",
-//     rus: "Семья",
-//     eng: "Family",
-//     audio: gaile,
-//   },
-//   {
-//     tat: "Үзәк",
-//     rus: "Центр",
-//     eng: "Centre",
-//     audio: uzek,
-//   },
-//   {
-//     tat: "Исем",
-//     rus: "Имя, название",
-//     eng: "Name",
-//     audio: isem,
-//   },
-//   {
-//     tat: "Нәтиҗә",
-//     rus: "Результат, итог",
-//     eng: "Result",
-//     audio: netizhe,
-//   },
-//   {
-//     tat: "Бәйрәм",
-//     rus: "Праздник",
-//     eng: "Holiday",
-//     audio: beirem,
-//   },
-//   {
-//     tat: "Ул",
-//     rus: "Он/она/оно, сын",
-//     eng: "he,she,it,son",
-//     audio: ul,
-//   },
-//   {
-//     tat: "Егет",
-//     rus: "Парень",
-//     eng: "Guy",
-//     audio: eget,
-//   },
-//   {
-//     tat: "Су",
-//     rus: "Вода",
-//     eng: "Water",
-//     audio: su,
-//   },
-//   {
-//     tat: "Ярдәм",
-//     rus: "Помощь, поддержка",
-//     eng: "Help",
-//     audio: yerdem,
-//   },
-//   {
-//     tat: "Сан",
-//     rus: "Число, количество",
-//     eng: "Number",
-//     audio: san,
-//   },
-//   {
-//     tat: "Белем",
-//     rus: "Знание",
-//     eng: "Knowledge",
-//     audio: belem,
-//   },
-//   {
-//     tat: "Китап",
-//     rus: "Книга",
-//     eng: "Book",
-//     audio: kitap,
-//   },
-//   {
-//     tat: "Ай",
-//     rus: "Луна, месяц",
-//     eng: "Moon/month",
-//     audio: ai,
-//   },
-//   {
-//     tat: "Оешма",
-//     rus: "Отдел, собрание",
-//     eng: "Department, meeting",
-//     audio: oeshma,
-//   },
-//   {
-//     tat: "Ис",
-//     rus: "Запах",
-//     eng: "Smell",
-//     audio: is,
-//   },
-//   {
-//     tat: "Укытучы",
-//     rus: "Учитель",
-//     eng: "Teacher",
-//     audio: ukutuchy,
-//   },
-//   {
-//     tat: "Иҗат",
-//     rus: "Творчество",
-//     eng: "Creation",
-//     audio: izhat,
-//   },
-//   {
-//     tat: "Мәдәният",
-//     rus: "Культура",
-//     eng: "Culture",
-//     audio: medeniyet,
-//   },
-//   {
-//     tat: "Эч",
-//     rus: "Живот",
-//     eng: "Belly",
-//     audio: ech,
-//   },
-//   {
-//     tat: "Мәгълүмат",
-//     rus: "Информация",
-//     eng: "Information",
-//     audio: meglumet,
-//   },
-//   {
-//     tat: "Чыгыш",
-//     rus: "Выступление",
-//     eng: "Performance",
-//     audio: chygysh,
-//   },
-//   {
-//     tat: "Өй",
-//     rus: "Дом",
-//     eng: "Home",
-//     audio: oi,
-//   },
-//   {
-//     tat: "Фикер",
-//     rus: "Мысль, идея",
-//     eng: "Thought, idea",
-//     audio: fiker,
-//   },
-//   {
-//     tat: "Тарих",
-//     rus: "История",
-//     eng: "History",
-//     audio: tarih,
-//   },
-//   {
-//     tat: "Өлеш",
-//     rus: "Часть, доля, порция",
-//     eng: "Part, share, portion",
-//     audio: olesh,
-//   },
-//   {
-//     tat: "Хезмәткәр",
-//     rus: "Сотрудник",
-//     eng: "Employee",
-//     audio: hezmetker,
-//   },
-//   {
-//     tat: "Рәвеш",
-//     rus: "Вид, образ, облик",
-//     eng: "Image",
-//     audio: revesh,
-//   },
-//   {
-//     tat: "Әсәр",
-//     rus: "Произведение",
-//     eng: "Composition",
-//     audio: eser,
-//   },
-//   {
-//     tat: "Дәрәҗә",
-//     rus: "Cтепень, уровень, авторитет",
-//     eng: "Level",
-//     audio: derezhe,
-//   },
-//   {
-//     tat: "Җыр",
-//     rus: "Песня",
-//     eng: "Song",
-//     audio: zhyr,
-//   },
-//   {
-//     tat: "Мөмкинлек",
-//     rus: "Возможность, вероятность",
-//     eng: "Possibility, probability",
-//     audio: momkinlek,
-//   },
-//   {
-//     tat: "Вәкил",
-//     rus: "Представитель",
-//     eng: "Representative",
-//     audio: vekil,
-//   },
-//   {
-//     tat: "Идарә",
-//     rus: "Управление",
-//     eng: "Management",
-//     audio: idare,
-//   },
-//   {
-//     tat: "Көч",
-//     rus: "Сила, могущество",
-//     eng: "Strength, power",
-//     audio: koch,
-//   },
-//   {
-//     tat: "Дин",
-//     rus: "Религия, вера",
-//     eng: "Religion, faith",
-//     audio: din,
-//   },
-//   {
-//     tat: "Хатын",
-//     rus: "Женщина, жена",
-//     eng: "Woman, wife",
-//     audio: hatyn,
-//   },
-//   {
-//     tat: "Фән",
-//     rus: "Наука",
-//     eng: "The science",
-//     audio: fen,
-//   },
-//   {
-//     tat: "Мөселман",
-//     rus: "Мусульманин",
-//     eng: "Muslim",
-//     audio: moselman,
-//   },
-//   {
-//     tat: "Чор",
-//     rus: "Период, этап, эпоха",
-//     eng: "Period",
-//     audio: chor,
-//   },
-//   {
-//     tat: "Гамәл",
-//     rus: "Действие",
-//     eng: "Action",
-//     audio: gamel,
-//   },
-//   {
-//     tat: "Урынбасар",
-//     rus: "Заместитель",
-//     eng: "Deputy",
-//     audio: urynbasar,
-//   },
-//   {
-//     tat: "Тараф",
-//     rus: "Сторона",
-//     eng: "Side",
-//     audio: taraf,
-//   },
-//   {
-//     tat: "Мәчет",
-//     rus: "Мечеть",
-//     eng: "Mosque",
-//     audio: mechet,
-//   },
-//   {
-//     tat: "Сугыш",
-//     rus: "Война",
-//     eng: "The War",
-//     audio: sugysh,
-//   },
-//   {
-//     tat: "Максат",
-//     rus: "Цель",
-//     eng: "Goal",
-//     audio: maksat,
-//   },
-//   {
-//     tat: "Урам",
-//     rus: "Улица",
-//     eng: "Street",
-//     audio: uram,
-//   },
-//   {
-//     tat: "Рәис",
-//     rus: "Председатель",
-//     eng: "Chairman",
-//     audio: reis,
-//   },
-//   {
-//     tat: "Исәп",
-//     rus: "Численность, счёт",
-//     eng: "Number, account",
-//     audio: isep,
-//   },
-//   {
-//     tat: "Шигырь",
-//     rus: "Стихотворение",
-//     eng: "The poem",
-//     audio: shiger,
-//   },
-//   {
-//     tat: "Очрашу",
-//     rus: "Встреча",
-//     eng: "Meeting",
-//     audio: ochrashu,
-//   },
-//   {
-//     tat: "Очрак",
-//     rus: "Случай",
-//     eng: "Случай",
-//     audio: ochrak,
-//   },
-//   {
-//     tat: "Мәгариф",
-//     rus: "Просвещение, образование",
-//     eng: "Education",
-//     audio: megerif,
-//   },
-//   {
-//     tat: "Әни",
-//     rus: "Мама, мать",
-//     eng: "Mother",
-//     audio: eni,
-//   },
-//   {
-//     tat: "Үсеш",
-//     rus: "Рост, прирост",
-//     eng: "Development",
-//     audio: useh,
-//   },
-//   {
-//     tat: "Сорау",
-//     rus: "Вопрос",
-//     eng: "Question",
-//     audio: sorau,
-//   },
-// ];
+// setTimeout(() => {
+//   var blob = new Blob([JSON.stringify(newWords)], {
+//     type: "text/plain;charset=utf-8",
+//   });
+//   var FileSaver = require("file-saver");
+//   FileSaver.saveAs(blob, "hello world.txt");
+// }, 2000);

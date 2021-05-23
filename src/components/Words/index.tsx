@@ -106,13 +106,13 @@ const Words = () => {
   const { options, questionText, correct, id: questionId, audio } = question;
 
   const [link, setAudio] = useState("");
-  useEffect(() => {
-    getAudio(audio).then((url) => {
-      setAudio(url);
-    });
-  }, [question]);
+  // useEffect(() => {
+  //   getAudio(audio).then((url) => {
+  //     setAudio(url);
+  //   });
+  // }, [question]);
 
-  const [tell, { duration }] = useSound(link);
+  const [tell, { duration }] = useSound(audio);
 
   function checkGameState(
     chosenGame: string,
@@ -168,10 +168,6 @@ const Words = () => {
     setCurrentQuestionResult(null);
     setAnswer(undefined);
   };
-
-  if (!link) {
-    return <div>Ждем аудио</div>;
-  }
 
   return (
     <StyledWords>

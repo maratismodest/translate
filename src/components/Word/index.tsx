@@ -51,15 +51,8 @@ const Collect = () => {
 
   const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
-  const [link, setAudio] = useState("");
-  const [tell, { duration }] = useSound(link);
+  const [tell, { duration }] = useSound(audio);
   const timer = Math.floor(duration || 1000);
-
-  useEffect(() => {
-    getAudio(audio).then((url) => {
-      setAudio(url);
-    });
-  }, [question]);
 
   useEffect(() => {
     // const wordsWithKeys = _.shuffle(

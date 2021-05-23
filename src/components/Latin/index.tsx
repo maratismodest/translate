@@ -54,7 +54,7 @@ const Latin = () => {
     final = { ...final, ...test };
   }
 
-  const updatedWords = words.map((item) => {
+  const updatedWords = words.map((item: any) => {
     const { tat } = item;
     return { ...item, lat: transliterate(tat) };
   });
