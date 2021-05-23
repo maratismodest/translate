@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Modal } from "antd";
 import i18n from "i18next";
 import { isMobile } from "react-device-detect";
-import Google from "./../google.svg";
+import Google from "./GoogleButton/google.svg";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
