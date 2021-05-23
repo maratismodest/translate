@@ -32,7 +32,7 @@ import "firebase/firestore";
 import firebaseConfig from "./firebaseConfig";
 import withFirebaseAuth from "react-with-firebase-auth";
 import AppContext from "./AppContext";
-import Login from "./components/Login";
+import Login from "./components/ModalLogin";
 import User from "./components/User";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider, withStyles } from "@material-ui/core";

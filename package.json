@@ -6,6 +6,7 @@
     "@capacitor/android": "^2.4.6",
     "@capacitor/core": "^2.4.7",
     "@capacitor/ios": "^2.4.6",
+    "@hookform/resolvers": "^2.5.1",
     "@ionic/cli": "^6.13.1",
     "@react-hook/throttle": "^2.2.0",
     "@testing-library/jest-dom": "^5.11.4",
@@ -26,6 +27,7 @@
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.1",
     "react-google-button": "^0.7.2",
+    "react-hook-form": "^7.6.5",
     "react-i18next": "^11.8.10",
     "react-onesignal": "^1.7.0",
     "react-router-dom": "^5.2.0",
@@ -39,7 +41,8 @@
     "typescript": "^4.2.3",
     "use-debounce": "^6.0.0",
     "use-sound": "^2.0.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

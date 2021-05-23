@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import Button from "../../ui/Button";
 import Header from "../../ui/Header";
 import Text from "../../ui/Text";
 import { Modal, Spin } from "antd";
@@ -13,6 +12,7 @@ import styled from "styled-components";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { getInfo } from "../../api";
 import { push } from "react-burger-menu";
+import { Button } from "../../ui/Button";
 const Compress = require("compress.js");
 
 const User = ({ user, signOut }: any) => {
