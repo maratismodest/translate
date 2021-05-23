@@ -4,18 +4,17 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Modal } from "antd";
 import i18n from "i18next";
 import { isMobile } from "react-device-detect";
-import Google from "./../google.svg";
+import Google from "./GoogleButton/google.svg";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AppContext from "../../../../AppContext";
-import { StyledBody } from "../../../Welcome/WelcomeStyles";
 import { Button } from "../../../../ui/Button";
 import { Text } from "../../../../ui/Text";
 import { Span } from "../../../../ui/Span";
 import { Paragraph } from "../../../../ui/Paragraph";
-import { Header } from "../../../../ui";
 import { LoginHeader, StyledInput, StyledLoginFooter } from "../index";
+import { GoogleButton } from "./GoogleButton";
 
 export const LoginForm = ({
   user,
@@ -28,8 +27,6 @@ export const LoginForm = ({
   const { state, setState, modalLoginVisible, setModalVisible } = useContext(
     AppContext
   );
-
-  const history = useHistory();
 
   type FormValues = {
     email: string;
@@ -50,17 +47,6 @@ export const LoginForm = ({
   });
 
   const [error, setError] = useState("");
-
-  const GoogleButton = () => {
-    return (
-      <img
-        src={Google}
-        onClick={signInWithGoogle}
-        width={46}
-        style={{ cursor: "pointer" }}
-      />
-    );
-  };
 
   const handleLoginForm = async (data: FormValues) => {
     const { email, password } = data;
@@ -115,7 +101,7 @@ export const LoginForm = ({
           или войти с помощью:
         </Span>
         {/*<FacebookButton />*/}
-        <GoogleButton />
+        <GoogleButton signInWithGoogle={signInWithGoogle} />
       </StyledLoginFooter>
       <Paragraph
         style={{ margin: isMobile ? "20px 0" : "30px 0" }}

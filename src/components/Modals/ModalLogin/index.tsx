@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
 import { Input, Modal } from "antd";
-import Google from "./google.svg";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import AppContext from "../../../AppContext";
 import { Header } from "../../../ui";
 import { StyledBody } from "../../Welcome/WelcomeStyles";
@@ -14,33 +9,11 @@ import { RegisterForm } from "./components/RegisterForm";
 import { ResetForm } from "./components/ResetForm";
 
 const ModalLogin = (props: any) => {
-  const { user, signInWithGoogle } = props;
+  const { user } = props;
   const { state, setState, modalLoginVisible, setModalVisible } = useContext(
     AppContext
   );
 
-  const history = useHistory();
-
-  type FormValues = {
-    email: string;
-    password: string;
-  };
-
-  const schema = yup.object().shape({
-    email: yup.string().email("Укажите Email").required("Укажите Email"),
-    password: yup.string().required("Укажите Пароль"),
-  });
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-  });
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [show, setShow] = useState("login");
 
   useEffect(() => {
@@ -48,45 +21,6 @@ const ModalLogin = (props: any) => {
       setModalVisible(false);
     }
   }, [user]);
-
-  // const handleSubmitOld = async () => {
-  //   try {
-  //     const { user } = await signInWithEmailAndPassword(email, password);
-  //     return user;
-  //   } catch (error) {
-  //     setError("Error Signing up with email and password");
-  //   }
-  // };
-
-  // const createUserWithEmailAndPasswordHandler = async (values: any) => {
-  //   try {
-  //     return await app.auth().createUserWithEmailAndPassword(email, password);
-  //   } catch (error) {
-  //     setError("Ошибка при создании учетной записи, перепроверьте данные");
-  //   }
-  // };
-
-  // const createUserViaEmail = (values: any) => {
-  //   createUserWithEmailAndPasswordHandler(values).then((res) => {
-  //     console.log(res);
-  //     history.push("/user");
-  //     setEmail("");
-  //     setPassword("");
-  //     setModalVisible(false);
-  //   });
-  // };
-  // const sendResetEmail = (event: any) => {
-  //   app
-  //     .auth()
-  //     .sendPasswordResetEmail(email)
-  //     .then(() => {
-  //       setTimeout(() => {}, 3000);
-  //     })
-  //     .catch(() => {
-  //       setError("Error resetting password");
-  //     });
-  // };
-  const onSubmit = (data: any) => console.log(data);
 
   return (
     <Modal

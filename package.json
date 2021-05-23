@@ -26,7 +26,6 @@
     "react-burger-menu": "^3.0.6",
     "react-device-detect": "^1.17.0",
     "react-dom": "^17.0.1",
-    "react-google-button": "^0.7.2",
     "react-hook-form": "^7.6.5",
     "react-i18next": "^11.8.10",
     "react-onesignal": "^1.7.0",
