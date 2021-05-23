@@ -1,7 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import useSound from "use-sound";
 import Sounds from "../../localBase/sounds";
-import Button from "../../ui/Button";
 import Slab from "../../ui/Slab";
 import Header from "../../ui/Header";
 import ProgressBlock from "../../ui/ProgressBlock";
@@ -16,6 +15,7 @@ import { StyledBody } from "../Welcome/WelcomeStyles";
 import { isMobile } from "react-device-detect";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 import i18n from "i18next";
+import { Button } from "../../ui/Button";
 
 export interface questionResultInterface {
   correct: boolean;

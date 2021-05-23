@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import styled, { css } from "styled-components";
 
 interface Props {
@@ -19,7 +18,7 @@ interface Props {
   normal?: boolean;
 }
 
-export default styled.button<Partial<Props>>`
+export const Button = styled.button<Partial<Props>>`
   cursor: pointer;
   background: var(--color-green);
   font-family: Roboto;

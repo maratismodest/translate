@@ -9,9 +9,9 @@ import {
   DesktopWelcomeWallPaper,
 } from "./WelcomeStyles";
 import i18n from "i18next";
-import Button from "../../ui/Button";
 import Header from "../../ui/Header";
 import { isMobile } from "react-device-detect";
+import { Button } from "../../ui/Button";
 
 const Desktop = () => {
   console.log("Desktop");

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { List, Typography } from "antd";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import Button from "../../ui/Button";
 import i18n from "i18next";
 import axios from "axios";
 import AppContext from "../../AppContext";
@@ -14,6 +13,7 @@ import { StyledBody } from "../Welcome/WelcomeStyles";
 import Header from "../../ui/Header";
 import Text from "../../ui/Text";
 import Icon from "../../ui/Icon";
+import { Button } from "../../ui/Button";
 
 const Result = ({ user, signInWithGoogle }: any) => {
   const history = useHistory();

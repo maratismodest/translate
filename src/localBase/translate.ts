@@ -38,7 +38,7 @@ export const translateBaseI18: { [name: string]: LanguageInterface } = {
     translation: {
       menu: "Menu",
       user: "User",
-      login: "Login",
+      login: "ModalLogin",
       settings: "Settings",
       chooseLanguage: "Language",
       repeat: "Repeat",

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import _ from "lodash";
-import Button from "../../ui/Button";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import i18n from "i18next";
@@ -15,6 +14,7 @@ import ProgressBlock from "../../ui/ProgressBlock";
 import { StyledBody } from "../Welcome/WelcomeStyles";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 import "./../../styles/styles.scss";
+import { Button } from "../../ui/Button";
 
 const Collect = () => {
   const history = useHistory();

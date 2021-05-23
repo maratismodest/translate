@@ -1,10 +1,10 @@
 import Header from "../../Header";
 import { Paragraph } from "../../Paragraph";
 import { Modal } from "antd";
-import Button from "../../Button";
 import i18n from "i18next";
 import styled from "styled-components";
 import React from "react";
+import { Button } from "../../Button";
 
 export const ModalAnswer = ({ currentQuestionResult, handleNext }: any) => {
   const { correct, correctText, chosenText } = currentQuestionResult;
