@@ -15,6 +15,7 @@ import { StyledBody } from "../Welcome/WelcomeStyles";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 import "./../../styles/styles.scss";
 import { Button } from "../../ui/Button";
+import { getAudio } from "../../api";
 
 const Collect = () => {
   const history = useHistory();
@@ -50,9 +51,15 @@ const Collect = () => {
 
   const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
-
-  const [tell, { duration }] = useSound(audio);
+  const [link, setAudio] = useState("");
+  const [tell, { duration }] = useSound(link);
   const timer = Math.floor(duration || 1000);
+
+  useEffect(() => {
+    getAudio(audio).then((url) => {
+      setAudio(url);
+    });
+  }, [question]);
 
   useEffect(() => {
     // const wordsWithKeys = _.shuffle(
@@ -175,6 +182,10 @@ const Collect = () => {
       setDisabled(false);
     }, timer);
   };
+
+  useEffect(() => {
+    setTimeout(delayFunc, 1000);
+  }, [tell]);
 
   const handleNext = () => {
     checkGameState(chosenGame, questionResult);

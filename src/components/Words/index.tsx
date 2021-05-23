@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
 import Sounds from "../../localBase/sounds";
 import Slab from "../../ui/Slab";
@@ -15,7 +15,9 @@ import { StyledBody } from "../Welcome/WelcomeStyles";
 import { isMobile } from "react-device-detect";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 import i18n from "i18next";
+import { getAudio } from "../../api";
 import { Button } from "../../ui/Button";
+import { app } from "../../base";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -78,7 +80,7 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext);
   const { words, chosenGame, allWords } = state;
-  console.log("chosenGame", chosenGame);
+
   const { firstLanguage, secondLanguage } = words;
   const [answer, setAnswer] = useState<any>();
 
@@ -102,7 +104,15 @@ const Words = () => {
 
   const question = questions.current[currentQuestionIndex];
   const { options, questionText, correct, id: questionId, audio } = question;
-  const [tell, { duration }] = useSound(audio);
+
+  const [link, setAudio] = useState("");
+  useEffect(() => {
+    getAudio(audio).then((url) => {
+      setAudio(url);
+    });
+  }, [question]);
+
+  const [tell, { duration }] = useSound(link);
 
   function checkGameState(
     chosenGame: string,
@@ -158,6 +168,10 @@ const Words = () => {
     setCurrentQuestionResult(null);
     setAnswer(undefined);
   };
+
+  if (!link) {
+    return <div>Ждем аудио</div>;
+  }
 
   return (
     <StyledWords>
