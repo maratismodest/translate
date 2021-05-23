@@ -9,12 +9,10 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AppContext from "../../../../AppContext";
-import { StyledBody } from "../../../Welcome/WelcomeStyles";
 import { Button } from "../../../../ui/Button";
 import { Text } from "../../../../ui/Text";
 import { Span } from "../../../../ui/Span";
 import { Paragraph } from "../../../../ui/Paragraph";
-import { Header } from "../../../../ui";
 import { LoginHeader, StyledInput, StyledLoginFooter } from "../index";
 import { GoogleButton } from "./GoogleButton";
 
@@ -29,8 +27,6 @@ export const LoginForm = ({
   const { state, setState, modalLoginVisible, setModalVisible } = useContext(
     AppContext
   );
-
-  const history = useHistory();
 
   type FormValues = {
     email: string;

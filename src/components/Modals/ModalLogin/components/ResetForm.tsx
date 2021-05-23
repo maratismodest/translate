@@ -1,29 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import { Form, Input, Modal } from "antd";
+import React, { useState } from "react";
 import i18n from "i18next";
 import { isMobile } from "react-device-detect";
-import Google from "./GoogleButton/google.svg";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import AppContext from "../../../../AppContext";
-import { StyledBody } from "../../../Welcome/WelcomeStyles";
 import { Button } from "../../../../ui/Button";
 import { Text } from "../../../../ui/Text";
 import { Span } from "../../../../ui/Span";
 import { Paragraph } from "../../../../ui/Paragraph";
 import { LoginHeader, StyledInput, StyledLoginFooter } from "../index";
 import { app } from "../../../../base";
+import { GoogleButton } from "./GoogleButton";
 
 export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
-  const { state, setState, modalLoginVisible, setModalVisible } = useContext(
-    AppContext
-  );
-
-  const history = useHistory();
-
   type FormValues = {
     email: string;
   };
@@ -42,21 +31,6 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
   });
 
   const [error, setError] = useState("");
-
-  const GoogleButton = () => {
-    return (
-      <img
-        src={Google}
-        onClick={() => {
-          signInWithGoogle();
-          setModalVisible(false);
-          history.push("/user");
-        }}
-        width={46}
-        style={{ cursor: "pointer" }}
-      />
-    );
-  };
 
   const onSubmit = (data: FormValues) => {
     const { email } = data;
@@ -87,7 +61,7 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
         <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
           или войти с помощью:
         </Text>
-        <GoogleButton />
+        <GoogleButton signInWithGoogle={signInWithGoogle} />
       </StyledLoginFooter>
       <Paragraph
         style={{ margin: isMobile ? "20px 0" : "30px 0" }}

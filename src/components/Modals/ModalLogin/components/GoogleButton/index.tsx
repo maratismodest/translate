@@ -1,7 +1,10 @@
 import Google from "./google.svg";
 import React from "react";
 
-export const GoogleButton = ({ signInWithGoogle }: any) => {
+interface GoogleButtonInterface {
+  signInWithGoogle: () => void;
+}
+export const GoogleButton = ({ signInWithGoogle }: GoogleButtonInterface) => {
   return (
     <img
       src={Google}
