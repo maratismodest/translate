@@ -177,7 +177,7 @@ const Collect = () => {
   };
 
   useEffect(() => {
-    setTimeout(delayFunc, 1000);
+    setTimeout(tell, 1000);
   }, [tell]);
 
   const handleNext = () => {
