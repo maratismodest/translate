@@ -3,8 +3,6 @@ import { Button, Input } from "antd";
 import { transliterate } from "../../utils/tranliterate";
 import { phrases } from "../../localBase/phrases";
 
-
-
 const Latin = () => {
   const [first, setFirst] = useState("кибеткабат");
   const [second, setSecond] = useState("");
@@ -45,7 +43,6 @@ const Latin = () => {
     final = { ...final, ...test };
   }
 
-
   const updatedPhrases = phrases.map((item) => {
     const { tat } = item;
     return { ...item, lat: transliterate(tat) };
@@ -63,7 +60,7 @@ const Latin = () => {
       <Button onClick={handleFirst}>Convert</Button>
       <Button
         onClick={() => {
-            const FileSaver = require('file-saver');
+          const FileSaver = require("file-saver");
           const blob = new Blob([JSON.stringify(updatedPhrases)], {
             type: "text/plain;charset=utf-8",
           });

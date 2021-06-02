@@ -4,7 +4,7 @@ import { app } from "./base";
 export async function getInfo() {
   try {
     const res = await axios.get(
-      `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json`
+      "https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json"
     );
     return res.data;
   } catch (error) {
@@ -16,7 +16,7 @@ export async function getInfo() {
 export async function getWords() {
   try {
     const res = await axios.get(
-      `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/words.json`
+      "https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/words.json"
     );
     return res.data;
   } catch (error) {
@@ -72,7 +72,7 @@ export async function getPhraseAudio(name: string) {
         // User canceled the upload
         break;
 
-        // ...
+      // ...
 
       case "storage/unknown":
         // Unknown error occurred, inspect the server response
@@ -80,7 +80,6 @@ export async function getPhraseAudio(name: string) {
     }
   }
 }
-
 
 export async function getAudio(name: string) {
   try {

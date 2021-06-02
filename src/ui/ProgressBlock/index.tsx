@@ -13,7 +13,10 @@ interface ProgressBlockInterface {
   currentQuestionIndex: number;
   length: number;
 }
-export const ProgressBlock = ({ currentQuestionIndex, length }: ProgressBlockInterface) => {
+export const ProgressBlock = ({
+  currentQuestionIndex,
+  length,
+}: ProgressBlockInterface) => {
   return (
     <StyledProgressBlock>
       <Progress
@@ -28,4 +31,4 @@ export const ProgressBlock = ({ currentQuestionIndex, length }: ProgressBlockInt
   );
 };
 
-export default ProgressBlock
+export default ProgressBlock;

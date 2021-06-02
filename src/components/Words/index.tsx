@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import useSound from "use-sound";
 import Sounds from "../../localBase/sounds";
 import Slab from "../../ui/Slab";
@@ -95,9 +95,8 @@ const Words = () => {
 
   const [disabled, setDisabled] = useState(false);
 
-  const [currentQuestionResult, setCurrentQuestionResult] = useState<
-    CurrentQuestionResultInterface | any
-  >(null);
+  const [currentQuestionResult, setCurrentQuestionResult] =
+    useState<CurrentQuestionResultInterface | any>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const [result, setResult] = useState<Array<questionResultInterface>>([]);

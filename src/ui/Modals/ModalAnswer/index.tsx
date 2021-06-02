@@ -7,7 +7,15 @@ import React from "react";
 import { Button } from "../../Button";
 import Icon from "../../Icon";
 
-export const ModalAnswer = ({ currentQuestionResult, handleNext }: any) => {
+interface ModalAnswerInterface {
+  currentQuestionResult: any;
+  handleNext: () => void;
+}
+export const ModalAnswer = ({
+  currentQuestionResult,
+  handleNext,
+}: ModalAnswerInterface) => {
+  console.log("currentQuestionResult", currentQuestionResult);
   const { correct, correctText, chosenText } = currentQuestionResult;
   const True = () => {
     return (

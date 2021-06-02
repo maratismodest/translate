@@ -87,6 +87,7 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
     const { text, cb, id } = item;
     return (
       <li
+        key={text}
         id={id ? id : undefined}
         style={{
           marginBottom: 16,

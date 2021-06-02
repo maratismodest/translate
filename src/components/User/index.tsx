@@ -14,7 +14,7 @@ import { getInfo } from "../../api";
 import { Button } from "../../ui/Button";
 const Compress = require("compress.js");
 
-const User = ({ user, signOut }: any) => {
+const User = ({ user, signOut }: any): any => {
   const compress = new Compress();
   const { state, setState, app } = useContext(AppContext);
   const [stats, setStats] = useState(true);

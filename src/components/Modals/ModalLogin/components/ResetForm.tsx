@@ -4,12 +4,12 @@ import { isMobile } from "react-device-detect";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button } from "../../../../ui/Button";
-import { Text } from "../../../../ui/Text";
-import { Span } from "../../../../ui/Span";
-import { Paragraph } from "../../../../ui/Paragraph";
+import { Button } from "ui/Button";
+import { Text } from "ui/Text";
+import { Span } from "ui/Span";
+import { Paragraph } from "ui/Paragraph";
 import { LoginHeader, StyledInput, StyledLoginFooter } from "../index";
-import { app } from "../../../../base";
+import { app } from "base";
 import { GoogleButton } from "./GoogleButton";
 
 export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
@@ -38,7 +38,9 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
       .auth()
       .sendPasswordResetEmail(email)
       .then(() => {
-        setTimeout(() => {}, 3000);
+        setTimeout(() => {
+          console.log("setTimeout", 3000);
+        }, 3000);
       })
       .catch(() => {
         setError("Error resetting password");

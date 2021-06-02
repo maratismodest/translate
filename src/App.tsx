@@ -1,7 +1,7 @@
 import "antd/dist/antd.css";
 import "./App.css";
 import { NavLink, Route, Switch } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { initialState } from "./localBase/base";
 import { translateBaseI18 } from "./localBase/translate";
 import Welcome from "./components/Welcome";
@@ -27,10 +27,7 @@ import { Spin } from "antd";
 import { app } from "./base";
 import PickGame from "./components/PickGame";
 import ModalLogin from "./components/Modals/ModalLogin";
-import ReactHookForm from "./components/ReactHookForm";
 import { Course } from "./components/Course";
-import { getWords } from "./api";
-import { words } from "./localBase/words";
 function App(props: any) {
   const [state, setState] = useState(initialState);
   const [modalLoginVisible, setModalVisible] = useState(false);
@@ -40,11 +37,7 @@ function App(props: any) {
       lng: state.language,
     })
     .then();
-  // useEffect(() => {
-  //   getWords().then((res) => {
-  //     setState((prevState) => ({ ...prevState, words: res }));
-  //   });
-  // }, []);
+
   const context = {
     state,
     setState,
@@ -95,7 +88,6 @@ function App(props: any) {
             <Route path="/user" render={() => <User {...props} />} />
             <Route path="/pickgame" exact render={() => <PickGame />} />
             <Route path="/" exact render={() => <Welcome />} />
-            <Route path="/react-hook-form" render={() => <ReactHookForm />} />
             <Route path="/course" render={() => <Course />} />
           </Switch>
 
