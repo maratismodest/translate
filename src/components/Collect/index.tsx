@@ -68,9 +68,13 @@ const Collect = () => {
     setSeparated(wordsWithKeys);
     setAnswer([]);
   }, [currentQuestionIndex]);
+
   useEffect(() => {
-    tell();
+    setTimeout(tell, 1000);
   }, [tell]);
+  // useEffect(() => {
+  //   tell();
+  // }, [tell]);
 
   //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
   function checkGameState(

@@ -6,15 +6,16 @@ import i18n from "i18next";
 import AppContext from "../../AppContext";
 import Sounds from "../../localBase/sounds";
 import useSound from "use-sound";
-import Icon from "../../ui/Icon";
-import Text from "../../ui/Text";
-import Header from "../../ui/Header";
-import Tag from "../../ui/Tag";
-import ProgressBlock from "../../ui/ProgressBlock";
+import Icon from "ui/Icon";
+import Text from "ui/Text";
+import Header from "ui/Header";
+import Tag from "ui/Tag";
+import ProgressBlock from "ui/ProgressBlock";
 import { StyledBody } from "../Welcome/WelcomeStyles";
-import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
+import { ModalAnswer } from "ui/Modals/ModalAnswer";
 import "./../../styles/styles.scss";
 import { Button } from "../../ui/Button";
+import { getAudio } from "../../api";
 
 const Collect = () => {
   const history = useHistory();
@@ -27,7 +28,6 @@ const Collect = () => {
   const [questionResult, setQuestionResult] = useState<any>();
   const { chosenGame, collect, firstLanguage, word } = state;
 
-  console.log("chosenGame", chosenGame);
   const shuffle = _.shuffle(word).slice(0, 5);
   const collectClone = _.clone(word);
 
@@ -44,13 +44,12 @@ const Collect = () => {
   collectClone.splice(firstIndex, 1);
 
   const questionSeparated = question[firstLanguage].toLowerCase().split("");
-  const randomseparated = _.sample(collectClone)
-    [firstLanguage].toLowerCase()
-    .split("");
+  // const randomseparated = _.sample(collectClone)
+  //   [firstLanguage].toLowerCase()
+  //   .split("");
 
   const [separated, setSeparated] = useState<any>([]);
   const [answer, setAnswer] = useState<Array<any>>([]);
-
   const [tell, { duration }] = useSound(audio);
   const timer = Math.floor(duration || 1000);
 
@@ -175,6 +174,10 @@ const Collect = () => {
       setDisabled(false);
     }, timer);
   };
+
+  useEffect(() => {
+    setTimeout(tell, 1000);
+  }, [tell]);
 
   const handleNext = () => {
     checkGameState(chosenGame, questionResult);

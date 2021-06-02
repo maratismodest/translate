@@ -4,7 +4,7 @@ import Text from "../Text";
 import i18n from "i18next";
 import React from "react";
 
-const ProgressBlock = styled.div`
+const StyledProgressBlock = styled.div`
   width: 100%;
   text-align: left;
 `;
@@ -13,9 +13,12 @@ interface ProgressBlockInterface {
   currentQuestionIndex: number;
   length: number;
 }
-export default ({ currentQuestionIndex, length }: ProgressBlockInterface) => {
+export const ProgressBlock = ({
+  currentQuestionIndex,
+  length,
+}: ProgressBlockInterface) => {
   return (
-    <ProgressBlock>
+    <StyledProgressBlock>
       <Progress
         percent={((currentQuestionIndex + 1) * 100) / length}
         showInfo={false}
@@ -24,6 +27,8 @@ export default ({ currentQuestionIndex, length }: ProgressBlockInterface) => {
       <Text green>
         {i18n.t("question")} {currentQuestionIndex + 1} / {length}
       </Text>
-    </ProgressBlock>
+    </StyledProgressBlock>
   );
 };
+
+export default ProgressBlock;

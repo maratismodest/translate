@@ -27,7 +27,7 @@ import { Spin } from "antd";
 import { app } from "./base";
 import PickGame from "./components/PickGame";
 import ModalLogin from "./components/Modals/ModalLogin";
-import ReactHookForm from "./components/ReactHookForm";
+import { Course } from "./components/Course";
 function App(props: any) {
   const [state, setState] = useState(initialState);
   const [modalLoginVisible, setModalVisible] = useState(false);
@@ -88,7 +88,7 @@ function App(props: any) {
             <Route path="/user" render={() => <User {...props} />} />
             <Route path="/pickgame" exact render={() => <PickGame />} />
             <Route path="/" exact render={() => <Welcome />} />
-            <Route path="/react-hook-form" render={() => <ReactHookForm />} />
+            <Route path="/course" render={() => <Course />} />
           </Switch>
 
           {user ? null : <ModalLogin {...props} />}

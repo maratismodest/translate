@@ -1,20 +1,31 @@
-import { Menu } from "antd";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import i18n from "i18next";
 import { useHistory } from "react-router-dom";
 import AppContext from "../../AppContext";
 import "./styles.scss";
 import styled from "styled-components";
-
+import { Menu } from "antd";
 const { SubMenu } = Menu;
 
 export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
+  const StyledMenu = styled(Menu)`
+    background: none;
+    border: none;
+    font-size: 16px;
+    line-height: 126%;
+    font-weight: 600;
+  `;
+
   const { state, setState, setModalVisible } = useContext(AppContext);
   const [menuState, setMenuState] = useState({ current: "mail" });
   const history = useHistory();
   const handleClick = (e: any) => {
     setMenuState({ current: e.key });
   };
+  // if (!user) {
+  //   return <div>no user</div>;
+  // }
+  // return <div>{JSON.stringify(user)}</div>;
   return (
     <StyledMenu
       onClick={handleClick}
@@ -50,11 +61,3 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
     </StyledMenu>
   );
 };
-
-const StyledMenu = styled(Menu)`
-  background: none;
-  border: none;
-  font-size: 16px;
-  line-height: 126%;
-  font-weight: 600;
-`;

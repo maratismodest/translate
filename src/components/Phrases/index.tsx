@@ -37,16 +37,16 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
     const { id, text } = option;
     if (isMobile) {
       return (
-        <li key={index + text}>
-          <Slab
-            normal
-            button
-            onClick={(e: any) => {
-              currentQuestionResult
-                ? console.log("уже выбран вариант")
-                : handleOption(id);
-            }}
-          >
+        <li
+          key={index + text}
+          onClick={(e: any) => {
+            console.log(e);
+            currentQuestionResult
+              ? console.log("уже выбран вариант")
+              : handleOption(id);
+          }}
+        >
+          <Slab normal button>
             {text}
           </Slab>
         </li>
@@ -93,9 +93,8 @@ const Words = () => {
 
   const [disabled, setDisabled] = useState(false);
 
-  const [currentQuestionResult, setCurrentQuestionResult] = useState<
-    CurrentQuestionResultInterface | any
-  >(null);
+  const [currentQuestionResult, setCurrentQuestionResult] =
+    useState<CurrentQuestionResultInterface | any>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const [result, setResult] = useState<Array<questionResultInterface>>([]);

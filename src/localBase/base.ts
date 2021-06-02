@@ -1,11 +1,12 @@
 import _ from "lodash";
 
 import { words, WordsInterface } from "./words";
+
 import { phrases } from "./phrases";
 import Sounds from "./sounds";
 
-function getLangWords(language: string = "rus") {
-  return words.map((item: WordsInterface, index: number) => {
+function getLangWords(language = "rus") {
+  return words.map((item: WordsInterface) => {
     const res: string = _.get(item, language);
     return res;
   });
@@ -17,7 +18,7 @@ export const engWords = getLangWords("eng");
 export const latWords = getLangWords("lat");
 
 function getLangPhrases(language = "rus") {
-  return phrases.map((item, index) => {
+  return phrases.map((item) => {
     const res: string = _.get(item, language);
     return res;
   });

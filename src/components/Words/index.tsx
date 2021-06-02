@@ -15,7 +15,9 @@ import { StyledBody } from "../Welcome/WelcomeStyles";
 import { isMobile } from "react-device-detect";
 import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
 import i18n from "i18next";
+import { getAudio } from "../../api";
 import { Button } from "../../ui/Button";
+import { app } from "../../base";
 
 export interface questionResultInterface {
   correct: boolean;
@@ -78,7 +80,7 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext);
   const { words, chosenGame, allWords } = state;
-  console.log("chosenGame", chosenGame);
+
   const { firstLanguage, secondLanguage } = words;
   const [answer, setAnswer] = useState<any>();
 
@@ -93,15 +95,22 @@ const Words = () => {
 
   const [disabled, setDisabled] = useState(false);
 
-  const [currentQuestionResult, setCurrentQuestionResult] = useState<
-    CurrentQuestionResultInterface | any
-  >(null);
+  const [currentQuestionResult, setCurrentQuestionResult] =
+    useState<CurrentQuestionResultInterface | any>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const [result, setResult] = useState<Array<questionResultInterface>>([]);
 
   const question = questions.current[currentQuestionIndex];
   const { options, questionText, correct, id: questionId, audio } = question;
+
+  const [link, setAudio] = useState("");
+  // useEffect(() => {
+  //   getAudio(audio).then((url) => {
+  //     setAudio(url);
+  //   });
+  // }, [question]);
+
   const [tell, { duration }] = useSound(audio);
 
   function checkGameState(

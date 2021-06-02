@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input } from "antd";
 import { transliterate } from "../../utils/tranliterate";
-import { words, WordsInterface } from "../../localBase/words";
 import { phrases } from "../../localBase/phrases";
-interface TranslateInterface {
-  tat: string;
-  lat: string;
-  strong?: string;
-}
 
 const Latin = () => {
   const [first, setFirst] = useState("кибеткабат");
@@ -44,20 +38,10 @@ const Latin = () => {
     start: "Башларга",
   };
   let final: any = {};
-  for (let [key, value] of Object.entries(translateInterface)) {
-    console.log(`${key}: ${value}`);
-    let test: any = { [key]: transliterate(value) };
-
-    // test.key = key;
-    // test.value = value;
-    console.log("test", test);
+  for (const [key, value] of Object.entries(translateInterface)) {
+    const test: any = { [key]: transliterate(value) };
     final = { ...final, ...test };
   }
-
-  const updatedWords = words.map((item) => {
-    const { tat } = item;
-    return { ...item, lat: transliterate(tat) };
-  });
 
   const updatedPhrases = phrases.map((item) => {
     const { tat } = item;
@@ -76,13 +60,11 @@ const Latin = () => {
       <Button onClick={handleFirst}>Convert</Button>
       <Button
         onClick={() => {
-          var FileSaver = require("file-saver");
-          var blob = new Blob([JSON.stringify(updatedPhrases)], {
+          const FileSaver = require("file-saver");
+          const blob = new Blob([JSON.stringify(updatedPhrases)], {
             type: "text/plain;charset=utf-8",
           });
           FileSaver.saveAs(blob, "hello world.txt");
-
-          // FileSaver saveAs(Blob/File/Url, optional DOMString filename, optional Object { autoBom })
         }}
       >
         Convert
