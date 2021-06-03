@@ -1,24 +1,6 @@
 import styled from "styled-components";
 import Header from "./ui/Header";
 
-export const Game = styled.div`
-  display: flex;
-  flex-flow: column;
-  height: 100%;
-  min-height: 100vh;
-  background: var(--color-lightgrey);
-`;
-
-export const StyledHeader = styled.div`
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: auto;
-  padding: 30px;
-`;
-
 export const StyledMain = styled.div`
   display: flex;
   flex-grow: 1;

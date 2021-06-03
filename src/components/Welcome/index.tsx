@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import i18n from "i18next";
+import { isMobile } from "react-device-detect";
+import Header from "ui/Header";
 import Logo from "./welcome.svg";
 import {
   MobileWelcome,
@@ -8,23 +11,19 @@ import {
   DesktopWelcomeBegin,
   DesktopWelcomeWallPaper,
 } from "./WelcomeStyles";
-import i18n from "i18next";
-import Header from "../../ui/Header";
-import { isMobile } from "react-device-detect";
 import { Button } from "../../ui/Button";
 
 const Desktop = () => {
-  console.log("Desktop");
   return (
     <DesktopWelcome>
       <DesktopWelcomeWallPaper>
         <img src={Logo} alt="Chamala" width="100%" />
       </DesktopWelcomeWallPaper>
       <DesktopWelcomeBegin>
-        <Header level={1} className={"mb-68 ft-36"}>
+        <Header level={1} className="mb-68 ft-36">
           {i18n.t("welcomeText")}
         </Header>
-        <Link to={"/pickgame"}>
+        <Link to="/pickgame">
           <Button>{i18n.t("start")}</Button>
         </Link>
       </DesktopWelcomeBegin>
@@ -39,7 +38,7 @@ const Welcome = () => {
         <MobileWelcomeWallPaper>
           <img src={Logo} alt="Chamala" width="100%" />
         </MobileWelcomeWallPaper>
-        <Link to={"/pickgame"}>
+        <Link to="/pickgame">
           <Button>{i18n.t("start")}</Button>
         </Link>
       </MobileWelcome>

@@ -22,7 +22,6 @@
     "i18next": "^19.9.2",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.3.0",
     "react": "^17.0.1",
     "react-burger-menu": "^3.0.6",
     "react-device-detect": "^1.17.0",
@@ -38,7 +37,6 @@
     "sass": "^1.32.12",
     "styled-components": "^5.2.1",
     "typed-scss-modules": "^4.1.1",
-    "typescript": "^4.2.3",
     "use-debounce": "^6.0.0",
     "use-sound": "^2.0.1",
     "web-vitals": "^1.0.1",
@@ -77,6 +75,9 @@
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "eslint": "^7.27.0",
-    "eslint-plugin-react": "^7.24.0"
+    "eslint-config-airbnb-typescript-prettier": "^4.2.0",
+    "eslint-plugin-react": "^7.24.0",
+    "prettier": "^2.3.0",
+    "typescript": "^4.3.2"
   }
 }

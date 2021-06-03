@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Input, Modal } from "antd";
-import AppContext from "../../../AppContext";
-import { Header } from "../../../ui";
-import { StyledBody } from "../../Welcome/WelcomeStyles";
 import { LoginForm } from "./components/LoginForm";
 import { RegisterForm } from "./components/RegisterForm";
 import { ResetForm } from "./components/ResetForm";
+import AppContext from "../../../AppContext";
+import { Header } from "../../../ui";
+import { StyledBody } from "../../Welcome/WelcomeStyles";
 
 const ModalLogin = (props: any) => {
   const { user } = props;
-  const { state, setState, modalLoginVisible, setModalVisible } = useContext(
-    AppContext
-  );
+  const { state, setState, modalLoginVisible, setModalVisible } =
+    useContext(AppContext);
 
   const [show, setShow] = useState("login");
 

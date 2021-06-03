@@ -5,6 +5,7 @@ import AppContext from "../../AppContext";
 import "./styles.scss";
 import styled from "styled-components";
 import { Menu } from "antd";
+
 const { SubMenu } = Menu;
 
 export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
@@ -22,10 +23,7 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
   const handleClick = (e: any) => {
     setMenuState({ current: e.key });
   };
-  // if (!user) {
-  //   return <div>no user</div>;
-  // }
-  // return <div>{JSON.stringify(user)}</div>;
+
   return (
     <StyledMenu
       onClick={handleClick}

@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 import MobileMenu from "./MobileMenu";
 import { DesktopMenu } from "./DesktopMenu";
+
 import "./styles.scss";
 import {
   phrasesLatEng,
@@ -13,10 +15,12 @@ import {
 } from "../../localBase/base";
 import { MenuInterface } from "./menuBase";
 import AppContext from "../../AppContext";
-import { useHistory } from "react-router-dom";
-export default ({ user }: any) => {
-  const { state, setState } = useContext(AppContext);
+
+export default (props: any) => {
+  const { user } = props;
   const history = useHistory();
+  const { state, setState } = useContext(AppContext);
+
   const LanguageMenuList: MenuInterface[] = [
     {
       text: "Русский",
@@ -75,7 +79,9 @@ export default ({ user }: any) => {
       },
     },
   ];
-
+  if (!state) {
+    return null;
+  }
   return isMobile ? (
     <MobileMenu user={user} LanguageMenuList={LanguageMenuList} />
   ) : (

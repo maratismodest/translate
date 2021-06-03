@@ -2,6 +2,11 @@ import "antd/dist/antd.css";
 import "./App.css";
 import { NavLink, Route, Switch } from "react-router-dom";
 import React, { useState } from "react";
+import i18n from "i18next";
+import withFirebaseAuth from "react-with-firebase-auth";
+import { YMInitializer } from "react-yandex-metrika";
+import firebase from "firebase/app";
+import { Spin } from "antd";
 import { initialState } from "./localBase/base";
 import { translateBaseI18 } from "./localBase/translate";
 import Welcome from "./components/Welcome";
@@ -10,24 +15,21 @@ import Result from "./components/Result";
 import Phrases from "./components/Phrases";
 import Collect from "./components/Collect";
 import Menu from "./components/Menu";
-import { Game, StyledHeader, StyledLogo, StyledMain } from "./AppStyles";
-import i18n from "i18next";
+import { StyledLogo } from "./AppStyles";
+import classes from "./App.module.scss";
 import Latin from "./components/Latin";
 import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
-import withFirebaseAuth from "react-with-firebase-auth";
 import AppContext from "./AppContext";
 import User from "./components/User";
 import Word from "./components/Word";
-import { YMInitializer } from "react-yandex-metrika";
-import firebase from "firebase/app";
-import { Spin } from "antd";
 import { app } from "./base";
 import PickGame from "./components/PickGame";
 import ModalLogin from "./components/Modals/ModalLogin";
 import { Course } from "./components/Course";
+
 function App(props: any) {
   const [state, setState] = useState(initialState);
   const [modalLoginVisible, setModalVisible] = useState(false);
@@ -52,17 +54,17 @@ function App(props: any) {
 
   return (
     <AppContext.Provider value={context}>
-      <Game id="App">
-        <StyledHeader>
-          <NavLink to={"/"}>
-            <StyledLogo level={2} bold color={"green"}>
+      <div className={classes.body} id="App">
+        <div className={classes.header}>
+          <NavLink to="/">
+            <StyledLogo level={2} bold color="green">
               Chamala
             </StyledLogo>
           </NavLink>
           <Menu {...props} />
-        </StyledHeader>
+        </div>
 
-        <StyledMain id="page-wrap">
+        <div className={classes.main} id="page-wrap">
           <Switch>
             <Route path={["/word", "/*/word"]} render={() => <Word />} />
             <Route path={["/words", "/*/words"]} render={() => <Words />} />
@@ -90,13 +92,13 @@ function App(props: any) {
           </Switch>
 
           {user ? null : <ModalLogin {...props} />}
-        </StyledMain>
+        </div>
         <YMInitializer
           accounts={[72761164]}
           options={{ webvisor: true }}
           version="2"
         />
-      </Game>
+      </div>
     </AppContext.Provider>
   );
 }
