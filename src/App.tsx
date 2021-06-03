@@ -49,12 +49,10 @@ function App(props: any) {
     return <Spin />;
   }
   const { user } = props;
-  console.log("user", user);
 
   return (
     <AppContext.Provider value={context}>
       <Game id="App">
-        {/*<Menu />*/}
         <StyledHeader>
           <NavLink to={"/"}>
             <StyledLogo level={2} bold color={"green"}>
