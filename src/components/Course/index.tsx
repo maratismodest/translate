@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { getWords } from "../../api";
-import { Topics } from "./Topics";
-import { Topic } from "./Topics/Topic";
-import { Button } from "../../ui/Button";
-import useSound from "use-sound";
-import { app } from "../../base";
+import React, { useEffect, useState } from 'react';
+import { getWords } from '../../api';
+import { Topics } from './Topics';
+import { Topic } from './Topics/Topic';
+import { Button } from '../../ui/Button';
+import { app } from '../../base';
 
 export interface WordInterface {
   original: string;
@@ -25,46 +24,42 @@ export const Course = () => {
 
   const [words, setWords] = useState<WordInterface[] | []>([]);
   const [word, setWord] = useState<WordInterface>();
-  const topics: string[] = ["Местоимения", "Семья"];
+  const topics: string[] = ['Местоимения', 'Семья'];
   const [start, setStart] = useState<boolean>(false);
 
   const handleButton = () => {
     // Create a reference to the file we want to download
-    const starsRef = app.storage().ref().child("images/мин.jpg");
+    const starsRef = app.storage().ref().child('images/мин.jpg');
 
     // Get the download URL
     starsRef
       .getDownloadURL()
       .then((url: any) => {
-        console.log("url", url);
+        console.log('url', url);
         // Insert url into an <img> tag to "download"
       })
       .catch((error) => {
         // A full list of error codes is available at
         // https://firebase.google.com/docs/storage/web/handle-errors
         switch (error.code) {
-          case "storage/object-not-found":
+          case 'storage/object-not-found':
             // File doesn't exist
             break;
-          case "storage/unauthorized":
+          case 'storage/unauthorized':
             // User doesn't have permission to access the object
             break;
-          case "storage/canceled":
+          case 'storage/canceled':
             // User canceled the upload
             break;
 
           // ...
 
-          case "storage/unknown":
+          case 'storage/unknown':
             // Unknown error occurred, inspect the server response
             break;
         }
       });
   };
-
-  const [getSome] = useSound(
-    "gs://chamala-317a8.appspot.com/audio/words/ai.mp3"
-  );
 
   useEffect(() => {
     getWords().then((res) => {
@@ -74,7 +69,7 @@ export const Course = () => {
   }, []);
 
   useEffect(() => {
-    console.log("start", start);
+    console.log('start', start);
   }, [start]);
   if (words.length < 1) {
     return <div>Loading...</div>;

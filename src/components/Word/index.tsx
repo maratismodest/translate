@@ -1,21 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import _ from "lodash";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-import i18n from "i18next";
-import AppContext from "../../AppContext";
-import Sounds from "../../localBase/sounds";
-import useSound from "use-sound";
-import Icon from "ui/Icon";
-import Text from "ui/Text";
-import Header from "ui/Header";
-import Tag from "ui/Tag";
-import ProgressBlock from "ui/ProgressBlock";
-import { StyledBody } from "../Welcome/WelcomeStyles";
-import { ModalAnswer } from "ui/Modals/ModalAnswer";
-import "./../../styles/styles.scss";
-import { Button } from "../../ui/Button";
-import { getAudio } from "../../api";
+import React, { useContext, useEffect, useState } from 'react';
+import _ from 'lodash';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import i18n from 'i18next';
+import AppContext from '../../AppContext';
+import Sounds from '../../localBase/sounds';
+import useSound from 'use-sound';
+import Icon from 'ui/Icon';
+import Text from 'ui/Text';
+import Header from 'ui/Header';
+import Tag from 'ui/Tag';
+import ProgressBlock from 'ui/ProgressBlock';
+import { StyledBody } from '../Welcome/WelcomeStyles';
+import { ModalAnswer } from 'ui/Modals/ModalAnswer';
+import './../../styles/styles.scss';
+import { Button } from '../../ui/Button';
 
 const Collect = () => {
   const history = useHistory();
@@ -26,7 +25,7 @@ const Collect = () => {
   const [no] = useSound(soundWrong);
   const [disabled, setDisabled] = useState(false);
   const [questionResult, setQuestionResult] = useState<any>();
-  const { chosenGame, collect, firstLanguage, word } = state;
+  const { chosenGame, firstLanguage, word } = state;
 
   const shuffle = _.shuffle(word).slice(0, 5);
   const collectClone = _.clone(word);
@@ -43,7 +42,7 @@ const Collect = () => {
   const firstIndex = _.indexOf(collectClone, question);
   collectClone.splice(firstIndex, 1);
 
-  const questionSeparated = question[firstLanguage].toLowerCase().split("");
+  const questionSeparated = question[firstLanguage].toLowerCase().split('');
   // const randomseparated = _.sample(collectClone)
   //   [firstLanguage].toLowerCase()
   //   .split("");
@@ -54,50 +53,44 @@ const Collect = () => {
   const timer = Math.floor(duration || 1000);
 
   useEffect(() => {
-    // const wordsWithKeys = _.shuffle(
-    //   questionSeparated.concat(randomseparated)
-    const wordsWithKeys = _.shuffle(questionSeparated).map(
-      (word: string, index: number) => {
-        return {
-          text: word,
-          key: index,
-        };
-      }
-    );
+    const wordsWithKeys = _.shuffle(questionSeparated).map((word: string, index: number) => {
+      return {
+        text: word,
+        key: index,
+      };
+    });
     setSeparated(wordsWithKeys);
     setAnswer([]);
   }, [currentQuestionIndex]);
+
   useEffect(() => {
     tell();
   }, [tell]);
 
   //Проверяем: если это не последний вопрос, то показываем следующий, если последний - то отображаем результаты
-  function checkGameState(
-    chosenGame: string,
-    questionResult: QuestionResultInterface
-  ) {
+  function checkGameState(chosenGame: string, questionResult: QuestionResultInterface) {
     if (currentQuestionIndex + 1 < questions.length) {
       setResult((prevState) => [...prevState, questionResult]);
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      history.push("/result");
+      history.push('/result');
       setState({
         ...state,
         currentQuestionIndex: 0,
         result: [...result, questionResult],
         finished: true,
-        gameState: "result",
+        gameState: 'result',
         chosenGame: chosenGame,
       });
     }
-    setQuestionResult("");
+    setQuestionResult('');
   }
 
   const handleAnswerClick = () => {
     const temp = answer.map((item: any) => {
       return item.text;
     });
-    const final = _.capitalize(temp.join(""));
+    const final = _.capitalize(temp.join(''));
     question[firstLanguage] === final ? yes() : no();
 
     const questionResult: QuestionResultInterface =
@@ -126,7 +119,7 @@ const Collect = () => {
 
   const handleClick = (key: number) => {
     if (_.find(answer, { key: key })) {
-      console.log("уже есть");
+      console.log('уже есть');
       return;
     }
     const currentWord = _.find(separated, { key: key });
@@ -152,10 +145,7 @@ const Collect = () => {
   const separatedList = separated.map((item: any, index: number) => {
     const { text, key } = item;
     return (
-      <OptionLi
-        key={key}
-        className={_.find(answer, item) ? "cover important" : ""}
-      >
+      <OptionLi key={key} className={_.find(answer, item) ? 'cover important' : ''}>
         <Tag
           onClick={(e: any) => {
             handleClick(key);
@@ -188,13 +178,13 @@ const Collect = () => {
       <Repeat
         onClick={delayFunc}
         style={{
-          pointerEvents: disabled ? "none" : "auto",
+          pointerEvents: disabled ? 'none' : 'auto',
         }}
       >
         <Circle>
-          <Icon icon={"play"} size={16} />
+          <Icon icon={'play'} size={16} />
         </Circle>
-        <Header>{i18n.t("repeatAudio")}</Header>
+        <Header>{i18n.t('repeatAudio')}</Header>
       </Repeat>
 
       <Result>{resultList}</Result>
@@ -202,23 +192,14 @@ const Collect = () => {
       <Options>{separatedList}</Options>
 
       {questionResult ? (
-        <ModalAnswer
-          currentQuestionResult={questionResult}
-          handleNext={handleNext}
-        />
+        <ModalAnswer currentQuestionResult={questionResult} handleNext={handleNext} />
       ) : (
-        <Button
-          onClick={handleAnswerClick}
-          disabled={answer.length > 0 ? false : true}
-        >
-          {i18n.t("check")}
+        <Button onClick={handleAnswerClick} disabled={answer.length > 0 ? false : true}>
+          {i18n.t('check')}
         </Button>
       )}
 
-      <ProgressBlock
-        length={questions.length}
-        currentQuestionIndex={currentQuestionIndex}
-      />
+      <ProgressBlock length={questions.length} currentQuestionIndex={currentQuestionIndex} />
     </StyledCollect>
   );
 };

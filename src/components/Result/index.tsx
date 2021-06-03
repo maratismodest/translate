@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import { List, Typography } from "antd";
-import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
-import i18n from "i18next";
-import axios from "axios";
-import AppContext from "../../AppContext";
+import React, { useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
+import i18n from 'i18next';
+import axios from 'axios';
+import AppContext from '../../AppContext';
 
-import _ from "lodash";
-import { initialState } from "../../localBase/base";
-import { StyledBody } from "../Welcome/WelcomeStyles";
-import Header from "../../ui/Header";
-import Text from "../../ui/Text";
-import Icon from "../../ui/Icon";
-import { Button } from "../../ui/Button";
+import _ from 'lodash';
+import { initialState } from '../../localBase/base';
+import { StyledBody } from '../Welcome/WelcomeStyles';
+import Header from '../../ui/Header';
+import Text from '../../ui/Text';
+import Icon from '../../ui/Icon';
+import { Button } from '../../ui/Button';
 
-const Result = ({ user, signInWithGoogle }: any) => {
-  const history = useHistory();
+const Result = ({ user }: any) => {
   const { state, setState } = useContext(AppContext);
   const { result, chosenGame } = state;
 
@@ -24,7 +22,7 @@ const Result = ({ user, signInWithGoogle }: any) => {
   async function getInfo() {
     try {
       const res = await axios.get(
-        "https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json"
+        'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json'
       );
       return res;
     } catch (error) {
@@ -62,15 +60,15 @@ const Result = ({ user, signInWithGoogle }: any) => {
 
   if (user) {
     addCount(user.uid).then((res) => {
-      console.log("added Count");
+      console.log('added Count');
     });
   }
 
-  console.log("chosenGame", chosenGame);
+  console.log('chosenGame', chosenGame);
 
   return (
     <StyledResult>
-      <Header>{i18n.t("resultText")}:</Header>
+      <Header>{i18n.t('resultText')}:</Header>
       <ul>
         {result.map((item: any, index: number) => {
           const { correct, questionText, chosenText, correctText } = item;
@@ -79,27 +77,25 @@ const Result = ({ user, signInWithGoogle }: any) => {
             <ResultLi key={index}>
               <div
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexWrap: "wrap",
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
                 }}
               >
                 <Header level={3}>{questionText}: </Header>
-                <Text large color={correct ? "green" : "red"}>
+                <Text large color={correct ? 'green' : 'red'}>
                   {chosenText}
                 </Text>
                 <Icon icon={correct} />
               </div>
-              {correct ? null : (
-                <Text green>Правильный ответ: {correctText}</Text>
-              )}
+              {correct ? null : <Text green>Правильный ответ: {correctText}</Text>}
             </ResultLi>
           );
         })}
       </ul>
       <div>
         <div style={{ marginBottom: 16 }}>
-          <Header level={4}>{i18n.t("wellDone")}</Header>
+          <Header level={4}>{i18n.t('wellDone')}</Header>
           {/*<div>*/}
           {/*  {!user ? (*/}
           {/*    <div style={{ textAlign: "center" }}>*/}
@@ -115,22 +111,22 @@ const Result = ({ user, signInWithGoogle }: any) => {
               setState(initialState);
             }}
           >
-            {i18n.t("repeat")}
+            {i18n.t('repeat')}
           </Button>
         </Link>
       </div>
 
       <Link
-        to={"/"}
+        to={'/'}
         onClick={() => {
           setState({
             ...initialState,
-            gameState: "welcome",
+            gameState: 'welcome',
           });
         }}
       >
         <Text underline large>
-          {i18n.t("mainPage")}
+          {i18n.t('mainPage')}
         </Text>
       </Link>
     </StyledResult>

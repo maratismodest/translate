@@ -1,13 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import useSound from "use-sound";
-import { CourseContext, WordInterface } from "../../../index";
-import { Paragraph } from "../../../../../ui/Paragraph";
-import { Button } from "../../../../../ui/Button";
+import React, { useContext } from 'react';
+import useSound from 'use-sound';
+import { CourseContext } from '../../../index';
+import { Paragraph } from '../../../../../ui/Paragraph';
+import { Button } from '../../../../../ui/Button';
 
 export const NewWord = () => {
-  const { word, setWordIndex, setWord, words, wordIndex } = useContext(
-    CourseContext
-  );
+  const { word, setWordIndex, setWord, words, wordIndex } = useContext(CourseContext);
 
   const { original, translate, sound, image } = word;
   const [play] = useSound(sound);
@@ -20,7 +18,7 @@ export const NewWord = () => {
     <div>
       <h1>Course</h1>
       <div>
-        <img height={100} src={image} alt={""} />
+        <img height={100} src={image} alt={''} />
         <Paragraph>{original}</Paragraph>
         <Paragraph>{translate}</Paragraph>
         <Button onClick={play}>Play</Button>

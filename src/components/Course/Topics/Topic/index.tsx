@@ -1,9 +1,9 @@
-import React, { useContext, useState } from "react";
-import { NewWord } from "./NewWord";
-import { CourseContext } from "../../index";
+import React, { useContext } from 'react';
+import { NewWord } from './NewWord';
+import { CourseContext } from '../../index';
 
 export const Topic = () => {
-  const { word, setIndex, index, words } = useContext(CourseContext);
+  const { word } = useContext(CourseContext);
   console.log(word);
   if (!word) {
     return <div>Loader..</div>;

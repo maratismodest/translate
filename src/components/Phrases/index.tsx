@@ -1,21 +1,21 @@
-import React, { useContext, useRef, useState } from "react";
-import useSound from "use-sound";
-import Sounds from "../../localBase/sounds";
-import Slab from "../../ui/Slab";
-import Header from "../../ui/Header";
-import ProgressBlock from "../../ui/ProgressBlock";
+import React, { useContext, useRef, useState } from 'react';
+import useSound from 'use-sound';
+import Sounds from '../../localBase/sounds';
+import Slab from '../../ui/Slab';
+import Header from '../../ui/Header';
+import ProgressBlock from '../../ui/ProgressBlock';
 
-import { useHistory } from "react-router-dom";
-import _ from "lodash";
-import { OptionInterface } from "../../localBase/interfaces";
-import AppContext from "../../AppContext";
-import Icon from "../../ui/Icon";
-import styled from "styled-components";
-import { StyledBody } from "../Welcome/WelcomeStyles";
-import { isMobile } from "react-device-detect";
-import { ModalAnswer } from "../../ui/Modals/ModalAnswer";
-import i18n from "i18next";
-import { Button } from "../../ui/Button";
+import { useHistory } from 'react-router-dom';
+import _ from 'lodash';
+import { OptionInterface } from '../../localBase/interfaces';
+import AppContext from '../../AppContext';
+import Icon from '../../ui/Icon';
+import styled from 'styled-components';
+import { StyledBody } from '../Welcome/WelcomeStyles';
+import { isMobile } from 'react-device-detect';
+import { ModalAnswer } from '../../ui/Modals/ModalAnswer';
+import i18n from 'i18next';
+import { Button } from '../../ui/Button';
 
 export interface questionResultInterface {
   correct: boolean;
@@ -41,9 +41,7 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
           key={index + text}
           onClick={(e: any) => {
             console.log(e);
-            currentQuestionResult
-              ? console.log("уже выбран вариант")
-              : handleOption(id);
+            currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id);
           }}
         >
           <Slab normal button>
@@ -57,9 +55,7 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
         <Button
           normal
           onClick={(e: any) => {
-            currentQuestionResult
-              ? console.log("уже выбран вариант")
-              : handleOption(id);
+            currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id);
           }}
         >
           {text}
@@ -78,7 +74,7 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext);
   const { phrases, chosenGame } = state;
-  console.log("chosenGame", chosenGame);
+  console.log('chosenGame', chosenGame);
   const { firstLanguage, secondLanguage } = phrases;
   const [answer, setAnswer] = useState<any>();
 
@@ -93,8 +89,7 @@ const Words = () => {
 
   const [disabled, setDisabled] = useState(false);
 
-  const [currentQuestionResult, setCurrentQuestionResult] =
-    useState<CurrentQuestionResultInterface | any>(null);
+  const [currentQuestionResult, setCurrentQuestionResult] = useState<CurrentQuestionResultInterface | any>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
   const [result, setResult] = useState<Array<questionResultInterface>>([]);
@@ -103,19 +98,16 @@ const Words = () => {
   const { options, questionText, correct, id: questionId, audio } = question;
   const [tell, { duration }] = useSound(audio);
 
-  function checkGameState(
-    chosenGame: string,
-    questionResult: questionResultInterface
-  ) {
+  function checkGameState(chosenGame: string, questionResult: questionResultInterface) {
     if (currentQuestionIndex + 1 < questions.current.length) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setResult((prevState) => [...prevState, questionResult]);
     } else {
-      history.push("/result");
+      history.push('/result');
       setState({
         ...state,
         result: [...result, questionResult],
-        chosenGame: "words",
+        chosenGame: 'words',
       });
     }
   }
@@ -166,43 +158,31 @@ const Words = () => {
           e.target.blur();
         }}
         style={{
-          pointerEvents: disabled ? "none" : "auto",
+          pointerEvents: disabled ? 'none' : 'auto',
         }}
         big
       >
-        <Header level={2}>
-          {state.firstLanguage === "lat" ? "Qabat" : questionText}
-        </Header>
+        <Header level={2}>{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
 
-        <Icon icon="play" size={24} className={"play"} />
+        <Icon icon="play" size={24} className={'play'} />
       </Slab>
 
-      <OptionsList
-        options={options}
-        currentQuestionResult={currentQuestionResult}
-        handleOption={handleOption}
-      />
+      <OptionsList options={options} currentQuestionResult={currentQuestionResult} handleOption={handleOption} />
 
       {currentQuestionResult ? (
         <>
-          <ModalAnswer
-            currentQuestionResult={currentQuestionResult}
-            handleNext={handleNext}
-          />
+          <ModalAnswer currentQuestionResult={currentQuestionResult} handleNext={handleNext} />
           <Button onClick={handleCheck} disabled={!answer}>
-            {i18n.t("check")}
+            {i18n.t('check')}
           </Button>
         </>
       ) : (
         // <Button onClick={handleNext}>{i18n.t("next")}</Button>
         <Button onClick={handleCheck} disabled={!answer}>
-          {i18n.t("check")}
+          {i18n.t('check')}
         </Button>
       )}
-      <ProgressBlock
-        length={questions.current.length}
-        currentQuestionIndex={currentQuestionIndex}
-      />
+      <ProgressBlock length={questions.current.length} currentQuestionIndex={currentQuestionIndex} />
     </StyledWords>
   );
 };
@@ -214,10 +194,6 @@ const StyledWords = styled(StyledBody)`
   //  margin-bottom: 20px;
   //  background: red !important;
   //}
-`;
-
-const StyledFooter = styled.div`
-  position: relative;
 `;
 
 const MobileUl = styled.ul`

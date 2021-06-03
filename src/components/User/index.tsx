@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useHistory } from "react-router-dom";
-import Header from "../../ui/Header";
-import Text from "../../ui/Text";
-import { Modal, Spin } from "antd";
-import { initialState } from "../../localBase/base";
-import i18n from "i18next";
-import AppContext from "../../AppContext";
-import Tukai from "./../../assets/tukai.png";
-import styled from "styled-components";
-import { StyledBody } from "../Welcome/WelcomeStyles";
-import { getInfo } from "../../api";
-import { Button } from "../../ui/Button";
-const Compress = require("compress.js");
+import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useHistory } from 'react-router-dom';
+import Header from '../../ui/Header';
+import Text from '../../ui/Text';
+import { Modal, Spin } from 'antd';
+import { initialState } from '../../localBase/base';
+import i18n from 'i18next';
+import AppContext from '../../AppContext';
+import Tukai from './../../assets/tukai.png';
+import styled from 'styled-components';
+import { StyledBody } from '../Welcome/WelcomeStyles';
+import { getInfo } from '../../api';
+import { Button } from '../../ui/Button';
+const Compress = require('compress.js');
 
 const User = ({ user, signOut }: any): any => {
   const compress = new Compress();
-  const { state, setState, app } = useContext(AppContext);
+  const { setState, app } = useContext(AppContext);
   const [stats, setStats] = useState(true);
   const storageRef = app.storage().ref();
   const [fileUrl, setFileUrl] = useState(null);
@@ -25,7 +25,7 @@ const User = ({ user, signOut }: any): any => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log("fileUrl", fileUrl);
+    console.log('fileUrl', fileUrl);
   }, [fileUrl]);
 
   async function updatePhoto(link: string) {
@@ -48,7 +48,7 @@ const User = ({ user, signOut }: any): any => {
         count: 0,
         correct: 0,
         mistake: 0,
-        avatar: "https://chamala.ru/static/media/tukai.361b9ae4.png",
+        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png',
       };
       const res = await axios.put(
         `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
@@ -124,7 +124,7 @@ const User = ({ user, signOut }: any): any => {
     const fileRef = storageRef.child(file.name);
     await fileRef.put(res);
     const link = await fileRef.getDownloadURL();
-    console.log("link", link);
+    console.log('link', link);
     updatePhoto(link).then((res) => {
       setFileUrl(link);
       window.location.reload();
@@ -132,7 +132,7 @@ const User = ({ user, signOut }: any): any => {
   };
 
   const handleClick = () => {
-    const upload = document.getElementById("upload");
+    const upload = document.getElementById('upload');
     console.log(upload);
     if (upload) {
       upload.click();
@@ -164,28 +164,24 @@ const User = ({ user, signOut }: any): any => {
             Статистика
           </Button>
           <Button onClick={showModal}>Настройки</Button>
-          <Stats style={{ visibility: stats ? "visible" : "hidden" }}>
+          <Stats style={{ visibility: stats ? 'visible' : 'hidden' }}>
             <Text huge> Количество игр: {currentUser.count}</Text>
-            <Text huge>
-              Количество правильных ответов:{currentUser.correct}{" "}
-            </Text>
-            <Text huge>
-              Количество неправильных ответов:{currentUser.mistake}{" "}
-            </Text>
+            <Text huge>Количество правильных ответов:{currentUser.correct} </Text>
+            <Text huge>Количество неправильных ответов:{currentUser.mistake} </Text>
           </Stats>
         </Buttons>
 
         <Link
-          to={"/"}
+          to={'/'}
           onClick={() => {
             setState({
               ...initialState,
-              gameState: "welcome",
+              gameState: 'welcome',
             });
           }}
         >
           <Text underline large>
-            {i18n.t("mainPage")}
+            {i18n.t('mainPage')}
           </Text>
         </Link>
       </StyledUser>
@@ -198,8 +194,8 @@ const User = ({ user, signOut }: any): any => {
         cancelText="Отмена"
         centered
       >
-        <img src={Tukai} width={"100%"} />
-        <div style={{ display: "inline-grid" }}>
+        <img src={Tukai} width={'100%'} />
+        <div style={{ display: 'inline-grid' }}>
           <Text huge>Тукай одобряет!</Text>
           <Text huge>Ваш уровень: {currentUser.level}</Text>
         </div>
@@ -207,7 +203,7 @@ const User = ({ user, signOut }: any): any => {
           small
           onClick={() => {
             signOut();
-            history.push("/");
+            history.push('/');
           }}
         >
           Выйти
