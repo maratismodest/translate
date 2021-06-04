@@ -1,47 +1,21 @@
-import React from "react";
+import React from 'react'
 
-import icons from "./icons.json";
+import icons from './icons.json'
 
 export const Icon = (props) => {
-  const { icon = "device", size = 16, stroke, hover, style, fill } = props;
+  const { icon = 'device', size = 16, fill } = props
   if (icon === true) {
     return (
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M5 8L7.5 11L12 5.5" stroke="#0F8012" strokeLinecap="round" />
-        <rect
-          x="0.5"
-          y="0.5"
-          width="15"
-          height="15"
-          rx="2.5"
-          stroke="#0F8012"
-        />
+        <rect x="0.5" y="0.5" width="15" height="15" rx="2.5" stroke="#0F8012" />
       </svg>
-    );
+    )
   }
   if (icon === false) {
     return (
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 16 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect
-          x="0.5"
-          y="0.5"
-          width="15"
-          height="15"
-          rx="2.5"
-          stroke="#EA051C"
-        />
+      <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0.5" y="0.5" width="15" height="15" rx="2.5" stroke="#EA051C" />
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -49,16 +23,10 @@ export const Icon = (props) => {
           fill="#EA051C"
         />
       </svg>
-    );
-  } else
+    )
+  } else {
     return (
-      <svg
-        viewBox="0 0 16 16"
-        fill="currentColor"
-        width={size}
-        height={size}
-        {...props}
-      >
+      <svg viewBox="0 0 16 16" fill="currentColor" width={size} height={size} {...props}>
         <path
           as="path"
           clipRule="evenodd"
@@ -68,6 +36,7 @@ export const Icon = (props) => {
           stroke={icons[icon].stroke}
         />
       </svg>
-    );
-};
-export default Icon;
+    )
+  }
+}
+export default Icon

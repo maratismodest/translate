@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
 interface Props {
   light?: boolean;
@@ -18,12 +18,12 @@ export const Paragraph = styled.p<Partial<Props>>`
     font-size: 14px;
     line-height: 126%;
     ${(props) =>
-      props.color === "green" &&
+      props.color === 'green' &&
       css`
         color: var(--color-green);
       `}
     ${(props) =>
-      props.color === "red" &&
+      props.color === 'red' &&
       css`
         color: var(--color-red);
       `}
@@ -60,4 +60,4 @@ export const Paragraph = styled.p<Partial<Props>>`
         color: var(--color-green);
       `}
   }
-`;
+`

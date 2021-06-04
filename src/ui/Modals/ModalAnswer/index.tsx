@@ -1,22 +1,30 @@
-import Header from "../../Header";
-import { Paragraph } from "../../Paragraph";
-import { Modal } from "antd";
-import i18n from "i18next";
-import styled from "styled-components";
-import React from "react";
-import { Button } from "../../Button";
-import Icon from "../../Icon";
+import Header from '../../Header'
+import { Paragraph } from '../../Paragraph'
+import { Modal } from 'antd'
+import i18n from 'i18next'
+import styled from 'styled-components'
+import React from 'react'
+import { Button } from '../../Button'
+import Icon from '../../Icon'
 
 interface ModalAnswerInterface {
   currentQuestionResult: any;
   handleNext: () => void;
 }
+const ModalBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+`
 export const ModalAnswer = ({
   currentQuestionResult,
-  handleNext,
+  handleNext
 }: ModalAnswerInterface) => {
-  console.log("currentQuestionResult", currentQuestionResult);
-  const { correct, correctText, chosenText } = currentQuestionResult;
+  console.log('currentQuestionResult', currentQuestionResult)
+  const { correct, correctText, chosenText } = currentQuestionResult
   const True = () => {
     return (
       <div>
@@ -26,8 +34,8 @@ export const ModalAnswer = ({
         <Icon icon={correct} size={64} />
         <Paragraph bold>{chosenText}</Paragraph>
       </div>
-    );
-  };
+    )
+  }
 
   const False = () => {
     return (
@@ -40,8 +48,8 @@ export const ModalAnswer = ({
         </Header>
         <Paragraph bold>{correctText}</Paragraph>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <Modal
@@ -55,17 +63,8 @@ export const ModalAnswer = ({
       <ModalBody>
         {correct ? <True /> : <False />}
 
-        <Button onClick={handleNext}>{i18n.t("next")}</Button>
+        <Button onClick={handleNext}>{i18n.t('next')}</Button>
       </ModalBody>
     </Modal>
-  );
-};
-
-const ModalBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-`;
+  )
+}

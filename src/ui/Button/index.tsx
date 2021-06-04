@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
 interface Props {
   height: number;
@@ -86,4 +86,4 @@ export const Button = styled.button<Partial<Props>>`
     css`
       background: #00ff00;
     `}
-`;
+`

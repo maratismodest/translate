@@ -1,8 +1,0 @@
-{
-  "appId": "io.ionic.translate",
-  "appName": "Chamala",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "build",
-  "cordova": {}
-}

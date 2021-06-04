@@ -1,7 +1,7 @@
-import { Typography } from "antd";
-import styled, { css } from "styled-components";
+import { Typography } from 'antd'
+import styled, { css } from 'styled-components'
 
-const { Text: AntdText } = Typography;
+const { Text: AntdText } = Typography
 
 interface Props {
   light?: boolean;
@@ -24,12 +24,12 @@ export const Text = styled(AntdText)<Partial<Props>>`
     font-size: 14px;
     line-height: 126%;
     ${(props) =>
-      props.color === "green" &&
+      props.color === 'green' &&
       css`
         color: var(--color-green);
       `}
     ${(props) =>
-      props.color === "red" &&
+      props.color === 'red' &&
       css`
         color: var(--color-red);
       `}
@@ -71,7 +71,7 @@ export const Text = styled(AntdText)<Partial<Props>>`
         color: var(--color-green);
       `}
   }
-`;
+`
 
 export default styled(AntdText)<Partial<Props>>`
   &&& {
@@ -82,12 +82,12 @@ export default styled(AntdText)<Partial<Props>>`
     font-size: 14px;
     line-height: 126%;
     ${(props) =>
-      props.color === "green" &&
+      props.color === 'green' &&
       css`
         color: var(--color-green);
       `}
     ${(props) =>
-      props.color === "red" &&
+      props.color === 'red' &&
       css`
         color: var(--color-red);
       `}
@@ -129,4 +129,4 @@ export default styled(AntdText)<Partial<Props>>`
         color: var(--color-green);
       `}
   }
-`;
+`

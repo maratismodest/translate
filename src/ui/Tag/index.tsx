@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components'
 
 interface TagInterface {
   green?: boolean;
@@ -41,4 +41,4 @@ export default styled.p<TagInterface>`
     css`
       background: rgba(15, 128, 18, 0.2);
     `}
-`;
+`
