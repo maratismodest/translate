@@ -1,5 +1,5 @@
-import {InitialStateInterface} from "./base";
-import {Dispatch, SetStateAction} from "react";
+import { InitialStateInterface } from './base'
+import { Dispatch, SetStateAction } from 'react'
 
 export interface StateInterface {
     state: InitialStateInterface
