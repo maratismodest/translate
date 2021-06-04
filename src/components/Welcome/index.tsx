@@ -2,46 +2,39 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import i18n from 'i18next'
 import { isMobile } from 'react-device-detect'
-import Header from 'ui/Header'
 import Logo from './welcome.svg'
-import {
-  MobileWelcome,
-  MobileWelcomeWallPaper,
-  DesktopWelcome,
-  DesktopWelcomeBegin,
-  DesktopWelcomeWallPaper
-} from './WelcomeStyles'
-import { Button } from '../../ui/Button'
+import { Button, Header } from 'ui'
+import classes from './Welcome.module.scss'
 
 const Desktop = () => {
   return (
-    <DesktopWelcome>
-      <DesktopWelcomeWallPaper>
+    <div className={classes.welcomeDesktop}>
+      <div className={classes.welcomeDesktopWallPaper}>
         <img src={Logo} alt="Chamala" width="100%" />
-      </DesktopWelcomeWallPaper>
-      <DesktopWelcomeBegin>
+      </div>
+      <div className={classes.welcomeDesktopBegin}>
         <Header level={1} className="mb-68 ft-36">
           {i18n.t('welcomeText')}
         </Header>
         <Link to="/pickgame">
           <Button>{i18n.t('start')}</Button>
         </Link>
-      </DesktopWelcomeBegin>
-    </DesktopWelcome>
+      </div>
+    </div>
   )
 }
 const Welcome = () => {
   if (isMobile) {
     return (
-      <MobileWelcome>
+      <div className={classes.welcomeMobile}>
         <Header level={2}>{i18n.t('welcomeText')}</Header>
-        <MobileWelcomeWallPaper>
+        <div>
           <img src={Logo} alt="Chamala" width="100%" />
-        </MobileWelcomeWallPaper>
+        </div>
         <Link to="/pickgame">
           <Button>{i18n.t('start')}</Button>
         </Link>
-      </MobileWelcome>
+      </div>
     )
   }
   return <Desktop />

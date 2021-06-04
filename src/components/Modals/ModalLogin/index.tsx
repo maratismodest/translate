@@ -6,7 +6,7 @@ import { RegisterForm } from './components/RegisterForm'
 import { ResetForm } from './components/ResetForm'
 import AppContext from '../../../AppContext'
 import { Header } from '../../../ui'
-import { StyledBody } from '../../Welcome/WelcomeStyles'
+import { StyledBody } from '../../../AppStyles'
 const StyledLogin = styled(StyledBody)`
   color: #718ccc;
   display: flex;

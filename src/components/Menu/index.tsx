@@ -4,7 +4,6 @@ import { isMobile } from 'react-device-detect'
 import MobileMenu from './MobileMenu'
 import { DesktopMenu } from './DesktopMenu'
 
-import './styles.scss'
 import {
   phrasesLatEng,
   phrasesLatLat,

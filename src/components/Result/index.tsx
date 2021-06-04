@@ -7,11 +7,11 @@ import AppContext from '../../AppContext'
 
 import _ from 'lodash'
 import { initialState } from '../../localBase/base'
-import { StyledBody } from '../Welcome/WelcomeStyles'
 import Header from '../../ui/Header'
 import Text from '../../ui/Text'
 import Icon from '../../ui/Icon'
 import { Button } from '../../ui/Button'
+import { StyledBody } from '../../AppStyles'
 
 const StyledResult = styled(StyledBody)`
   width: 100%;

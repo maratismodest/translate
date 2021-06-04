@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import AppContext from '../../AppContext'
-import './styles.scss'
 import { MenuOutlined } from '@ant-design/icons'
 
 import Text from '../../ui/Text'

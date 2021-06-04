@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react'
 import i18n from 'i18next'
 import { useHistory } from 'react-router-dom'
 import AppContext from '../../AppContext'
-import './styles.scss'
 import styled from 'styled-components'
 import { Menu } from 'antd'
 

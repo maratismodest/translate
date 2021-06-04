@@ -9,9 +9,9 @@ import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
 import styled from 'styled-components'
-import { StyledBody } from '../Welcome/WelcomeStyles'
 import { getInfo } from '../../api'
 import { Button } from '../../ui/Button'
+import { StyledBody } from '../../AppStyles'
 const Compress = require('compress.js')
 const StyledUser = styled(StyledBody)``
 

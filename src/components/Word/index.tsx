@@ -11,10 +11,9 @@ import Text from 'ui/Text'
 import Header from 'ui/Header'
 import Tag from 'ui/Tag'
 import ProgressBlock from 'ui/ProgressBlock'
-import { StyledBody } from '../Welcome/WelcomeStyles'
 import { ModalAnswer } from 'ui/Modals/ModalAnswer'
-import './../../styles/styles.scss'
 import { Button } from '../../ui/Button'
+import { StyledBody } from '../../AppStyles'
 
 const StyledCollect = styled(StyledBody)``
 
