@@ -11,6 +11,7 @@ import { Span } from '../../../../ui/Span'
 import { Paragraph } from '../../../../ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
 import { GoogleButton } from './GoogleButton'
+import { auth } from '../../../../firebaseSetup'
 
 export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setShow }: any) => {
   type FormValues = {
@@ -35,7 +36,7 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
   const handleLoginForm = async (data: FormValues) => {
     const { email, password } = data
     try {
-      const { user } = await signInWithEmailAndPassword(email, password)
+      const { user } = await auth.signInWithEmailAndPassword(email, password)
       console.log('user', user)
       return user
     } catch (error) {
@@ -78,7 +79,7 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
           или войти с помощью:
         </Span>
         {/* <FacebookButton /> */}
-        <GoogleButton signInWithGoogle={signInWithGoogle} />
+        <GoogleButton />
       </StyledLoginFooter>
       <Paragraph
         style={{ margin: isMobile ? '20px 0' : '30px 0' }}

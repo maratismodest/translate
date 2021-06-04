@@ -29,7 +29,7 @@ export const Course = () => {
 
   const handleButton = () => {
     // Create a reference to the file we want to download
-    const starsRef = storage().ref().child('images/мин.jpg')
+    const starsRef = storage.ref().child('images/мин.jpg')
 
     // Get the download URL
     starsRef

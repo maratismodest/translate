@@ -23,7 +23,7 @@ export async function getWords () {
 
 export async function getWordAudio (name: string) {
   try {
-    const starsRef = storage().ref().child(`audio/words/${name}.mp3`)
+    const starsRef = storage.ref().child(`audio/words/${name}.mp3`)
     const url = await starsRef.getDownloadURL()
     return url
   } catch (error) {
@@ -51,7 +51,7 @@ export async function getWordAudio (name: string) {
 
 export async function getPhraseAudio (name: string) {
   try {
-    const starsRef = storage().ref().child(`audio/phrases/${name}.mp3`)
+    const starsRef = storage.ref().child(`audio/phrases/${name}.mp3`)
     const url = await starsRef.getDownloadURL()
     return url
   } catch (error) {
@@ -79,7 +79,7 @@ export async function getPhraseAudio (name: string) {
 
 export async function getAudio (name: string) {
   try {
-    const starsRef = storage().ref().child(`audio/words/${name}.mp3`)
+    const starsRef = storage.ref().child(`audio/words/${name}.mp3`)
     const url = await starsRef.getDownloadURL()
     console.log('url', url)
     return url

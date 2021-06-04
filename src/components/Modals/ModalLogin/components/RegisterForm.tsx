@@ -12,7 +12,7 @@ import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
 import { auth } from '../../../../firebaseSetup'
 import { GoogleButton } from './GoogleButton'
 
-export const RegisterForm = ({ signInWithGoogle, setShow }: any) => {
+export const RegisterForm = ({ setShow }: any) => {
   type FormValues = {
     email: string;
     password: string;
@@ -62,7 +62,7 @@ export const RegisterForm = ({ signInWithGoogle, setShow }: any) => {
         <Text style={{ marginBottom: isMobile ? 10 : 30 }}>
           или войти с помощью:
         </Text>
-        <GoogleButton signInWithGoogle={signInWithGoogle} />
+        <GoogleButton />
       </StyledLoginFooter>
       <Paragraph
         style={{ margin: isMobile ? '20px 0' : '30px 0' }}

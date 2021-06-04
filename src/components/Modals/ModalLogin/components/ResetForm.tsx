@@ -58,7 +58,7 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
       </form>
       <StyledLoginFooter>
         <Text style={{ marginBottom: isMobile ? 10 : 30 }}>или войти с помощью:</Text>
-        <GoogleButton signInWithGoogle={signInWithGoogle} />
+        <GoogleButton />
       </StyledLoginFooter>
       <Paragraph
         style={{ margin: isMobile ? '20px 0' : '30px 0' }}

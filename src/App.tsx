@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
@@ -20,6 +20,7 @@ import Word from './components/Word'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { Course } from './components/Course'
+import { AuthContext } from './context/AuthContext'
 
 function App (props: any) {
   const [state, setState] = useState(initialState)
@@ -30,7 +31,7 @@ function App (props: any) {
       lng: state.language
     })
     .then()
-
+  const user = useContext(AuthContext)
   const context = {
     state,
     setState,
@@ -59,13 +60,13 @@ function App (props: any) {
             <Route path={['/result', '/*/result']} render={() => <Result {...props} />} />
             <Route path={['/about', '/*/about']} render={() => <h1>About</h1>} />
             <Route path={['/latin', '/*/latin']} render={() => <Latin />} />
-            <Route path="/user" render={() => <User {...props} />} />
+            <Route path="/user" render={() => <User {...props} user={user} />} />
             <Route path="/pickgame" exact render={() => <PickGame />} />
             <Route path="/" exact render={() => <Welcome />} />
             <Route path="/course" render={() => <Course />} />
           </Switch>
 
-          {props.user ? null : <ModalLogin {...props} />}
+          {user ? null : <ModalLogin {...props} />}
         </div>
         <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version="2" />
       </div>

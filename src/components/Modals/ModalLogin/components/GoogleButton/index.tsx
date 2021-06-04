@@ -1,14 +1,14 @@
 import React from 'react'
 import Google from './google.svg'
+// import { signInWithGoogle } from './../../../../../firebaseSetup'
 
-interface GoogleButtonInterface {
-  signInWithGoogle: () => void;
-}
-export const GoogleButton = ({ signInWithGoogle }: GoogleButtonInterface) => {
+export const GoogleButton = () => {
   return (
     <img
       src={Google}
-      onClick={signInWithGoogle}
+      // onClick={() => {
+      //   // signInWithGoogle()
+      // }}
       width={46}
       style={{ cursor: 'pointer' }}
     />
