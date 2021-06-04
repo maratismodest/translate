@@ -1,7 +1,7 @@
-import { Typography } from "antd";
-import styled, { css } from "styled-components";
+import { Typography } from 'antd'
+import styled, { css } from 'styled-components'
 
-const { Title } = Typography;
+const { Title } = Typography
 
 interface Props {
   bold?: boolean;
@@ -25,17 +25,17 @@ export default styled(Title)<Partial<Props>>`
         font-weight: 500;
       `}
     ${(props) =>
-      props.color === "green" &&
+      props.color === 'green' &&
       css`
         color: var(--color-green);
       `}
     ${(props) =>
-      props.color === "red" &&
+      props.color === 'red' &&
       css`
         color: var(--color-red);
       `}
   }
-`;
+`
 
 export const Header = styled(Title)<Partial<Props>>`
   && {
@@ -54,14 +54,14 @@ export const Header = styled(Title)<Partial<Props>>`
         font-weight: 500;
       `}
     ${(props) =>
-      props.color === "green" &&
+      props.color === 'green' &&
       css`
         color: var(--color-green);
       `}
     ${(props) =>
-      props.color === "red" &&
+      props.color === 'red' &&
       css`
         color: var(--color-red);
       `}
   }
-`;
+`

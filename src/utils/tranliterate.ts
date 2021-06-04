@@ -1,30 +1,3 @@
-export const transliterate = (text: string) => {
-  const arr = text.split('');
-
-  const getLetter = (char: string) => translate.find((item) => item.tat === char);
-
-  const res = arr.map((item, index) => {
-    if (getLetter(item)) {
-      if (
-        (item === 'К' || item === 'к' || item === 'Г' || item === 'г') &&
-        (arr[index + 1] === 'а' || arr[index + 1] === 'о' || arr[index + 1] === 'у')
-      ) {
-        return getLetter(item)?.strong;
-      }
-      return getLetter(item)?.lat;
-    }
-    return item;
-  });
-
-  return res.join('');
-};
-
-interface TranslateInterface {
-  tat: string;
-  lat: string;
-  strong?: string;
-}
-
 const translate: TranslateInterface[] = [
   { tat: 'А', lat: 'A' },
   { tat: 'а', lat: 'a' },
@@ -91,5 +64,31 @@ const translate: TranslateInterface[] = [
   { tat: 'ң', lat: 'ñ' },
   { tat: 'Җ', lat: 'J' },
   { tat: 'җ', lat: 'j' },
-  { tat: 'ь', lat: '' },
-];
+  { tat: 'ь', lat: '' }
+]
+export const transliterate = (text: string) => {
+  const arr = text.split('')
+
+  const getLetter = (char: string) => translate.find((item) => item.tat === char)
+
+  const res = arr.map((item, index) => {
+    if (getLetter(item)) {
+      if (
+        (item === 'К' || item === 'к' || item === 'Г' || item === 'г') &&
+        (arr[index + 1] === 'а' || arr[index + 1] === 'о' || arr[index + 1] === 'у')
+      ) {
+        return getLetter(item)?.strong
+      }
+      return getLetter(item)?.lat
+    }
+    return item
+  })
+
+  return res.join('')
+}
+
+interface TranslateInterface {
+  tat: string;
+  lat: string;
+  strong?: string;
+}

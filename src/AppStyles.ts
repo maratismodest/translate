@@ -1,15 +1,9 @@
-import styled from "styled-components";
-import Header from "./ui/Header";
-
-export const StyledMain = styled.div`
-  display: flex;
-  flex-grow: 1;
-  padding: 0 30px 30px 30px;
-`;
+import styled from 'styled-components'
+import Header from './ui/Header'
 
 export const StyledLogo = styled(Header)`
   font-weight: 700;
   font-size: 16px;
   line-height: 133%;
   color: #0f8012;
-`;
+`

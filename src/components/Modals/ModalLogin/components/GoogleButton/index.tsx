@@ -1,5 +1,5 @@
-import Google from "./google.svg";
-import React from "react";
+import React from 'react'
+import Google from './google.svg'
 
 interface GoogleButtonInterface {
   signInWithGoogle: () => void;
@@ -10,7 +10,7 @@ export const GoogleButton = ({ signInWithGoogle }: GoogleButtonInterface) => {
       src={Google}
       onClick={signInWithGoogle}
       width={46}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
     />
-  );
-};
+  )
+}

@@ -1,17 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import i18n from "i18next";
-import { isMobile } from "react-device-detect";
-import Header from "ui/Header";
-import Logo from "./welcome.svg";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import i18n from 'i18next'
+import { isMobile } from 'react-device-detect'
+import Header from 'ui/Header'
+import Logo from './welcome.svg'
 import {
   MobileWelcome,
   MobileWelcomeWallPaper,
   DesktopWelcome,
   DesktopWelcomeBegin,
-  DesktopWelcomeWallPaper,
-} from "./WelcomeStyles";
-import { Button } from "../../ui/Button";
+  DesktopWelcomeWallPaper
+} from './WelcomeStyles'
+import { Button } from '../../ui/Button'
 
 const Desktop = () => {
   return (
@@ -21,30 +21,30 @@ const Desktop = () => {
       </DesktopWelcomeWallPaper>
       <DesktopWelcomeBegin>
         <Header level={1} className="mb-68 ft-36">
-          {i18n.t("welcomeText")}
+          {i18n.t('welcomeText')}
         </Header>
         <Link to="/pickgame">
-          <Button>{i18n.t("start")}</Button>
+          <Button>{i18n.t('start')}</Button>
         </Link>
       </DesktopWelcomeBegin>
     </DesktopWelcome>
-  );
-};
+  )
+}
 const Welcome = () => {
   if (isMobile) {
     return (
       <MobileWelcome>
-        <Header level={2}>{i18n.t("welcomeText")}</Header>
+        <Header level={2}>{i18n.t('welcomeText')}</Header>
         <MobileWelcomeWallPaper>
           <img src={Logo} alt="Chamala" width="100%" />
         </MobileWelcomeWallPaper>
         <Link to="/pickgame">
-          <Button>{i18n.t("start")}</Button>
+          <Button>{i18n.t('start')}</Button>
         </Link>
       </MobileWelcome>
-    );
+    )
   }
-  return <Desktop />;
-};
+  return <Desktop />
+}
 
-export default Welcome;
+export default Welcome

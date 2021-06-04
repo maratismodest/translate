@@ -13,7 +13,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Existence',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbarlyk.mp3?alt=media&token=1364ba88-1ad7-4c73-bd3e-8a473c9413cd',
-    lat: 'Barlık',
+    lat: 'Barlık'
   },
   {
     tat: 'Хуҗалык',
@@ -21,7 +21,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Economy',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhuzhalyk.mp3?alt=media&token=f8c357b2-e165-4664-ae68-eda8bd34efb7',
-    lat: 'Hujalık',
+    lat: 'Hujalık'
   },
   {
     tat: 'Бәйрәм',
@@ -29,7 +29,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Holiday',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbeirem.mp3?alt=media&token=1e91e6ce-16f4-4bf6-bbd8-58776982e8bf',
-    lat: 'Bäyräm',
+    lat: 'Bäyräm'
   },
   {
     tat: 'Ул',
@@ -37,7 +37,7 @@ export const words: Array<WordsInterface> = [
     eng: 'he,she,it,son',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ful.mp3?alt=media&token=c61ae766-1ea4-4c5e-915a-52d9b3c370c4',
-    lat: 'Ul',
+    lat: 'Ul'
   },
   {
     tat: 'Кул',
@@ -45,7 +45,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Arm',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkul.mp3?alt=media&token=d19ab26c-a678-432e-8145-9478fa72e803',
-    lat: 'Qul',
+    lat: 'Qul'
   },
   {
     tat: 'Исем',
@@ -53,7 +53,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Name',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fisem.mp3?alt=media&token=a1e303d8-d4ec-4019-9be7-d578ce443cf6',
-    lat: 'Isem',
+    lat: 'Isem'
   },
   {
     tat: 'Үзәк',
@@ -61,7 +61,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Centre',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fuzek.mp3?alt=media&token=a440e099-a3ac-45a8-9fc0-ae61c9fa1ba5',
-    lat: 'Үzäk',
+    lat: 'Үzäk'
   },
   {
     tat: 'Туган',
@@ -69,7 +69,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Relative',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftugan.mp3?alt=media&token=f8a5e413-a614-4d2a-a9ac-7b43f1d5f08c',
-    lat: 'Tuğan',
+    lat: 'Tuğan'
   },
   {
     tat: 'Укучы',
@@ -77,7 +77,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Student',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fukuchy.mp3?alt=media&token=15a6b65c-cc7b-4bc0-80df-796f348d1e06',
-    lat: 'Uqucı',
+    lat: 'Uqucı'
   },
   {
     tat: 'Күңел',
@@ -85,7 +85,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Soul',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkunel.mp3?alt=media&token=e719355b-873c-4392-93a5-d4a967031854',
-    lat: 'Kүñel',
+    lat: 'Kүñel'
   },
   {
     tat: 'Нәтиҗә',
@@ -93,7 +93,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Result',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fnetizhe.mp3?alt=media&token=61edc4d2-2e7e-4673-8338-47e687e1ccf1',
-    lat: 'Nätijä',
+    lat: 'Nätijä'
   },
   {
     tat: 'Гаилә',
@@ -101,7 +101,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Family',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fgaile.mp3?alt=media&token=8f6f3be9-da72-47bd-a157-7836db07fd03',
-    lat: 'Ğailä',
+    lat: 'Ğailä'
   },
   {
     tat: 'Сум',
@@ -109,7 +109,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Ruble',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsum.mp3?alt=media&token=00aa6df7-cdba-4d29-a8f2-f5d595c14b87',
-    lat: 'Sum',
+    lat: 'Sum'
   },
   {
     tat: 'Урын',
@@ -117,7 +117,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Place',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Furyn.mp3?alt=media&token=02524306-3106-425c-8769-aa78137f4114',
-    lat: 'Urın',
+    lat: 'Urın'
   },
   {
     tat: 'Тел',
@@ -125,7 +125,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Language',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftel.mp3?alt=media&token=64f69b00-f8d4-4943-9028-52182fd3ea09',
-    lat: 'Tel',
+    lat: 'Tel'
   },
   {
     tat: 'Хезмәт',
@@ -133,7 +133,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Labor',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhezmat.mp3?alt=media&token=7ec08ebb-da3c-460a-9cbf-e292b8cb93dd',
-    lat: 'Hezmät',
+    lat: 'Hezmät'
   },
   {
     tat: 'Сүз',
@@ -141,7 +141,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Word',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsuz.mp3?alt=media&token=bc2fed65-f1f1-4c5c-8566-5a84b7d81aea',
-    lat: 'Sүz',
+    lat: 'Sүz'
   },
   {
     tat: 'Фикер',
@@ -149,7 +149,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Thought, idea',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ffiker.mp3?alt=media&token=e2970ac2-1f7f-4514-aa93-f08eb8fb4adc',
-    lat: 'Fiker',
+    lat: 'Fiker'
   },
   {
     tat: 'Хезмәткәр',
@@ -157,7 +157,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Employee',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhezmetker.mp3?alt=media&token=60a085bc-a0a8-4706-a57e-11c29a336f34',
-    lat: 'Hezmätkär',
+    lat: 'Hezmätkär'
   },
   {
     tat: 'Белем',
@@ -165,7 +165,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Knowledge',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbelem.mp3?alt=media&token=c138165a-158a-4845-9d74-526b9b758777',
-    lat: 'Belem',
+    lat: 'Belem'
   },
   {
     tat: 'Эш',
@@ -173,7 +173,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Work',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fesh.mp3?alt=media&token=4360301c-dee7-4399-801d-081b5aea4e4f',
-    lat: 'Eş',
+    lat: 'Eş'
   },
   {
     tat: 'Иҗат',
@@ -181,7 +181,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Creation',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fizhat.mp3?alt=media&token=376a4af3-b49f-419b-b376-85ba11881f4a',
-    lat: 'Ijat',
+    lat: 'Ijat'
   },
   {
     tat: 'Чыгыш',
@@ -189,7 +189,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Performance',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fchygysh.mp3?alt=media&token=6dccde61-b4cd-42ad-aba6-90bf33ddc809',
-    lat: 'Cıgış',
+    lat: 'Cıgış'
   },
   {
     tat: 'Хатын',
@@ -197,7 +197,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Woman, wife',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhatyn.mp3?alt=media&token=12f6a4eb-dda4-4d42-8e94-ea51e350dbbf',
-    lat: 'Hatın',
+    lat: 'Hatın'
   },
   {
     tat: 'Чара',
@@ -205,7 +205,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Event',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fchara.mp3?alt=media&token=4843c4d9-4178-418a-be9d-5b1474cf8879',
-    lat: 'Cara',
+    lat: 'Cara'
   },
   {
     tat: 'Идарә',
@@ -213,7 +213,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Management',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fidare.mp3?alt=media&token=5b974215-a1c8-4f75-bd35-c63a517d60f0',
-    lat: 'Idarä',
+    lat: 'Idarä'
   },
   {
     tat: 'Егет',
@@ -221,7 +221,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Guy',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Feget.mp3?alt=media&token=10b9fbbd-9a22-4fc7-a828-fe6f7245a627',
-    lat: 'Eget',
+    lat: 'Eget'
   },
   {
     tat: 'Эч',
@@ -229,7 +229,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Belly',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fech.mp3?alt=media&token=a53fe642-84ff-4cea-9d9e-644b97c8bbc7',
-    lat: 'Ec',
+    lat: 'Ec'
   },
   {
     tat: 'Су',
@@ -237,7 +237,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Water',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsu.mp3?alt=media&token=5c3fdcc0-4cc3-4fac-b3bd-a2ebf47501f6',
-    lat: 'Su',
+    lat: 'Su'
   },
   {
     tat: 'Вакыт',
@@ -245,7 +245,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Time',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fvakyt.mp3?alt=media&token=5190e6fd-8d47-4ed7-aeec-a389f8cc5377',
-    lat: 'Vakıt',
+    lat: 'Vakıt'
   },
   {
     tat: 'Өй',
@@ -253,7 +253,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Home',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Foi.mp3?alt=media&token=7fa272c6-26ee-4b80-9b6e-e6b6d4c5a64a',
-    lat: 'Öy',
+    lat: 'Öy'
   },
   {
     tat: 'Ярдәм',
@@ -261,7 +261,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Help',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fyerdem.mp3?alt=media&token=5639a79d-008b-4ac3-8e7b-3579e7b80ba4',
-    lat: 'Iardäm',
+    lat: 'Iardäm'
   },
   {
     tat: 'Дәрәҗә',
@@ -269,7 +269,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Level',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fderezhe.mp3?alt=media&token=a19e824a-f25e-4349-8260-acd4c7926188',
-    lat: 'Däräjä',
+    lat: 'Däräjä'
   },
   {
     tat: 'Вәкил',
@@ -277,7 +277,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Representative',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fvekil.mp3?alt=media&token=0e6e5ba4-dcf2-49e7-8af2-d5efc63f02bc',
-    lat: 'Väkil',
+    lat: 'Väkil'
   },
   {
     tat: 'Оешма',
@@ -285,7 +285,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Department, meeting',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Foeshma.mp3?alt=media&token=059d27d1-d076-4e3d-a1c0-9abacdc4ff63',
-    lat: 'Oeşma',
+    lat: 'Oeşma'
   },
   {
     tat: 'Чор',
@@ -293,7 +293,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Period',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fchor.mp3?alt=media&token=94389dda-d6ee-4705-bcb4-6c7cb27ffa4d',
-    lat: 'Cor',
+    lat: 'Cor'
   },
   {
     tat: 'Җыр',
@@ -301,7 +301,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Song',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fzhyr.mp3?alt=media&token=51ac5d49-1f4f-4d16-a979-1efe302c93eb',
-    lat: 'Jır',
+    lat: 'Jır'
   },
   {
     tat: 'Кеше',
@@ -309,7 +309,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Human',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkeshe.mp3?alt=media&token=76503681-df23-4664-95c0-6428a33456ef',
-    lat: 'Keşe',
+    lat: 'Keşe'
   },
   {
     tat: 'Шәһәр',
@@ -317,7 +317,7 @@ export const words: Array<WordsInterface> = [
     eng: 'City',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fshahar.mp3?alt=media&token=e6d3465e-1edc-4611-9aa3-9b7bd8b6ed5c',
-    lat: 'Şäһär',
+    lat: 'Şäһär'
   },
   {
     tat: 'Юл',
@@ -325,7 +325,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Way',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fiul.mp3?alt=media&token=be791d28-1778-4cd4-8070-afe320eab0ed',
-    lat: 'Iul',
+    lat: 'Iul'
   },
   {
     tat: 'Өлкә',
@@ -333,7 +333,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Area',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Folke.mp3?alt=media&token=0fa39f10-1e50-4dd5-93f6-76956f909521',
-    lat: 'Ölkä',
+    lat: 'Ölkä'
   },
   {
     tat: 'Гамәл',
@@ -341,7 +341,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Action',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fgamel.mp3?alt=media&token=16354634-8468-4cf1-90a0-3ea62dba281d',
-    lat: 'Ğamäl',
+    lat: 'Ğamäl'
   },
   {
     tat: 'Җир',
@@ -349,7 +349,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Earth',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fzhir.mp3?alt=media&token=4fb70fb3-912f-4d18-813a-85c2dc45ea97',
-    lat: 'Jir',
+    lat: 'Jir'
   },
   {
     tat: 'Дәүләт',
@@ -357,7 +357,7 @@ export const words: Array<WordsInterface> = [
     eng: 'State',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fdeulet.mp3?alt=media&token=42fac95d-98e5-4870-8df6-cf0c6126bce8',
-    lat: 'Däүlät',
+    lat: 'Däүlät'
   },
   {
     tat: 'Бала',
@@ -365,7 +365,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Child',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbala.mp3?alt=media&token=95dc4c4c-afe6-46f2-a6b1-bc8a7e451ff2',
-    lat: 'Bala',
+    lat: 'Bala'
   },
   {
     tat: 'Ил',
@@ -373,7 +373,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Country',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fil.mp3?alt=media&token=26230ef0-3ac6-4229-a969-8044d75e7521',
-    lat: 'Il',
+    lat: 'Il'
   },
   {
     tat: 'Як',
@@ -381,7 +381,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Side',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fiak.mp3?alt=media&token=9b660ede-69b5-4ca4-be34-77c9219cfbf7',
-    lat: 'Iak',
+    lat: 'Iak'
   },
   {
     tat: 'Авыл',
@@ -389,7 +389,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Village',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Faul.mp3?alt=media&token=c0919635-d37c-4608-9ce2-023bd9aac559',
-    lat: 'Avıl',
+    lat: 'Avıl'
   },
   {
     tat: 'Ара',
@@ -397,7 +397,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Distance',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fara.mp3?alt=media&token=4d0f6ed4-2cdc-4f4b-b3a1-56f5f37d66a2',
-    lat: 'Ara',
+    lat: 'Ara'
   },
   {
     tat: 'Өлеш',
@@ -405,7 +405,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Part, share, portion',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Folesh.mp3?alt=media&token=7cee3b41-aab5-428e-b2c5-0aa1dee8ed97',
-    lat: 'Öleş',
+    lat: 'Öleş'
   },
   {
     tat: 'Мәдәният',
@@ -413,7 +413,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Culture',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmedeniyet.mp3?alt=media&token=b7715e75-07b5-442a-9948-b418bcdc0be6',
-    lat: 'Mädäniiat',
+    lat: 'Mädäniiat'
   },
   {
     tat: 'Тормыш',
@@ -421,7 +421,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Life',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftormosh.mp3?alt=media&token=84e07a2b-8d1f-43bd-ae74-353fd5fe268a',
-    lat: 'Tormış',
+    lat: 'Tormış'
   },
   {
     tat: 'Хәл',
@@ -429,7 +429,7 @@ export const words: Array<WordsInterface> = [
     eng: 'State',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhel.mp3?alt=media&token=31d6ee62-c1a5-4765-b3db-aa18444449fa',
-    lat: 'Häl',
+    lat: 'Häl'
   },
   {
     tat: 'Йорт',
@@ -437,7 +437,7 @@ export const words: Array<WordsInterface> = [
     eng: 'House',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fyort.mp3?alt=media&token=5180f55d-6459-41e2-a0b1-b5afc6e6a8c9',
-    lat: 'Yort',
+    lat: 'Yort'
   },
   {
     tat: 'Мөселман',
@@ -445,7 +445,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Muslim',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmoselman.mp3?alt=media&token=e2ad5996-5528-4bf4-8d3d-83301d8544e1',
-    lat: 'Möselman',
+    lat: 'Möselman'
   },
   {
     tat: 'Мәктәп',
@@ -453,7 +453,7 @@ export const words: Array<WordsInterface> = [
     eng: 'School',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmektep.mp3?alt=media&token=f9b27a60-3684-47cb-84f9-a98ea6a24db6',
-    lat: 'Mäktäp',
+    lat: 'Mäktäp'
   },
   {
     tat: 'Сәлам',
@@ -461,7 +461,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Hello',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsalam.mp3?alt=media&token=3428136c-706e-47fd-9161-e9f2a99acde7',
-    lat: 'Sälam',
+    lat: 'Sälam'
   },
   {
     tat: 'Ай',
@@ -469,7 +469,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Moon/month',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fai.mp3?alt=media&token=afdc10c8-c0b0-4126-849d-0134917ab2f3',
-    lat: 'Ay',
+    lat: 'Ay'
   },
   {
     tat: 'Фән',
@@ -477,7 +477,7 @@ export const words: Array<WordsInterface> = [
     eng: 'The science',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ffen.mp3?alt=media&token=ef0301d0-3b6c-492f-9ee7-977d28d13c14',
-    lat: 'Fän',
+    lat: 'Fän'
   },
   {
     tat: 'Урынбасар',
@@ -485,7 +485,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Deputy',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Furynbasar.mp3?alt=media&token=7493711a-656a-4a38-9352-3c88f514cdf5',
-    lat: 'Urınbasar',
+    lat: 'Urınbasar'
   },
   {
     tat: 'Акча',
@@ -493,7 +493,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Money',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fakcha.mp3?alt=media&token=6d90d85b-d063-49d8-9e59-c79dd7932a82',
-    lat: 'Akca',
+    lat: 'Akca'
   },
   {
     tat: 'Мәгълүмат',
@@ -501,7 +501,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Information',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmeglumet.mp3?alt=media&token=0ddc9d08-8b41-4796-b20d-a10933acff3d',
-    lat: 'Mägъlүmat',
+    lat: 'Mägъlүmat'
   },
   {
     tat: 'Тарих',
@@ -509,7 +509,7 @@ export const words: Array<WordsInterface> = [
     eng: 'History',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftarih.mp3?alt=media&token=e42c9c51-59df-4923-b21b-e193626c07b4',
-    lat: 'Tarih',
+    lat: 'Tarih'
   },
   {
     tat: 'Рәвеш',
@@ -517,7 +517,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Image',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Frevesh.mp3?alt=media&token=bfcd2a04-86d9-4478-b64b-ff6372527282',
-    lat: 'Räveş',
+    lat: 'Räveş'
   },
   {
     tat: 'Әсәр',
@@ -525,7 +525,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Composition',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Feser.mp3?alt=media&token=e5a8e25a-9b3a-41e0-83a5-604b3d479e53',
-    lat: 'Äsär',
+    lat: 'Äsär'
   },
   {
     tat: 'Күз',
@@ -533,7 +533,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Eye',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkuz.mp3?alt=media&token=138d310e-ca10-4bc2-b9ff-beed7ecf6f38',
-    lat: 'Kүz',
+    lat: 'Kүz'
   },
   {
     tat: 'Китап',
@@ -541,7 +541,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Book',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkitap.mp3?alt=media&token=fd146edd-d82b-4289-b165-b38af34d8bfa',
-    lat: 'Kitap',
+    lat: 'Kitap'
   },
   {
     tat: 'Ис',
@@ -549,7 +549,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Smell',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fis.mp3?alt=media&token=aa6e3376-5110-4909-88b3-f7fc70414121',
-    lat: 'Is',
+    lat: 'Is'
   },
   {
     tat: 'Баш',
@@ -557,7 +557,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Head',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fbash.mp3?alt=media&token=46a2a618-21c5-4b54-bcb6-4c5ced915d68',
-    lat: 'Baş',
+    lat: 'Baş'
   },
   {
     tat: 'Җитәкче',
@@ -565,7 +565,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Head, Leader',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fzhitekche.mp3?alt=media&token=a2575b2e-7522-47c4-8668-fdf87bd39e6d',
-    lat: 'Jitäkce',
+    lat: 'Jitäkce'
   },
   {
     tat: 'Дин',
@@ -573,7 +573,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Religion, faith',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fdin.mp3?alt=media&token=880a1730-d785-4469-9ed8-2910bae56f2d',
-    lat: 'Din',
+    lat: 'Din'
   },
   {
     tat: 'Көн',
@@ -581,7 +581,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Day',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkon.mp3?alt=media&token=7aaa53be-b243-450e-9bbc-d0343ffc9f40',
-    lat: 'Kön',
+    lat: 'Kön'
   },
   {
     tat: 'Халык',
@@ -589,7 +589,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Nation',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fhalik.mp3?alt=media&token=eaab5852-6a0d-4930-b20f-3a24438f3c3e',
-    lat: 'Halık',
+    lat: 'Halık'
   },
   {
     tat: 'Көч',
@@ -597,7 +597,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Strength, power',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkoch.mp3?alt=media&token=89ce4f49-b29c-44a8-b206-8560919b1218',
-    lat: 'Köc',
+    lat: 'Köc'
   },
   {
     tat: 'Дөнья',
@@ -605,7 +605,7 @@ export const words: Array<WordsInterface> = [
     eng: 'World',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fdonia.mp3?alt=media&token=6ff5898b-1390-486a-a922-fceeb84aa60c',
-    lat: 'Dönьia',
+    lat: 'Dönьia'
   },
   {
     tat: 'Мәсьәлә',
@@ -613,7 +613,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Question',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmesele.mp3?alt=media&token=7dda92ea-ebe3-421c-b4da-277c18170625',
-    lat: 'Mäsьälä',
+    lat: 'Mäsьälä'
   },
   {
     tat: 'Сан',
@@ -621,7 +621,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Number',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsan.mp3?alt=media&token=89dc3468-e730-47e6-ae05-f109b9ebd2b1',
-    lat: 'San',
+    lat: 'San'
   },
   {
     tat: 'Яшь',
@@ -629,7 +629,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Year',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fyesh.mp3?alt=media&token=88888b72-ddcd-45e6-93ad-f8ab037522cb',
-    lat: 'Iaşь',
+    lat: 'Iaşь'
   },
   {
     tat: 'Мөмкинлек',
@@ -637,7 +637,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Possibility, probability',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmomkinlek.mp3?alt=media&token=9f3131a2-033c-42f2-9a7b-16295a0cab1e',
-    lat: 'Mömkinlek',
+    lat: 'Mömkinlek'
   },
   {
     tat: 'Укытучы',
@@ -645,7 +645,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Teacher',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fukutuchy.mp3?alt=media&token=03731cb0-427a-4eb1-8bd4-f48055e4441c',
-    lat: 'Ukıtucı',
+    lat: 'Ukıtucı'
   },
   {
     tat: 'Кыз',
@@ -653,7 +653,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Girl',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fkyz.mp3?alt=media&token=0d674237-e1ad-4a0a-926f-a22f9f584e40',
-    lat: 'Kız',
+    lat: 'Kız'
   },
   {
     tat: 'Урам',
@@ -661,7 +661,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Street',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Furam.mp3?alt=media&token=d05e843d-fb7c-466f-8ba9-db035b5160d5',
-    lat: 'Uram',
+    lat: 'Uram'
   },
   {
     tat: 'Исәп',
@@ -669,7 +669,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Number, account',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fisep.mp3?alt=media&token=cb61f053-7529-4d31-8cd9-3fe96f7f1fea',
-    lat: 'Isäp',
+    lat: 'Isäp'
   },
   {
     tat: 'Очрак',
@@ -677,7 +677,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Случай',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fochrak.mp3?alt=media&token=7376c432-61a3-42d4-83ef-e7c8443fc3b2',
-    lat: 'Ocrak',
+    lat: 'Ocrak'
   },
   {
     tat: 'Рәис',
@@ -685,7 +685,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Chairman',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Freis.mp3?alt=media&token=ff468b84-969f-4bde-9a33-7ed793c54b88',
-    lat: 'Räis',
+    lat: 'Räis'
   },
   {
     tat: 'Үсеш',
@@ -693,7 +693,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Development',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fuseh.mp3?alt=media&token=d587236e-af14-465e-92ee-fbe22e853128',
-    lat: 'Үseş',
+    lat: 'Үseş'
   },
   {
     tat: 'Очрашу',
@@ -701,7 +701,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Meeting',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fochrashu.mp3?alt=media&token=ae3a4282-184b-47be-9943-0926a50bd6ec',
-    lat: 'Ocraşu',
+    lat: 'Ocraşu'
   },
   {
     tat: 'Мәчет',
@@ -709,7 +709,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Mosque',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmechet.mp3?alt=media&token=1b732e1a-d415-4f21-beb4-b1c3dfb1248d',
-    lat: 'Mäcet',
+    lat: 'Mäcet'
   },
   {
     tat: 'Максат',
@@ -717,7 +717,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Goal',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmaksat.mp3?alt=media&token=40ceb5ec-65be-48a0-8769-e369b4766670',
-    lat: 'Maksat',
+    lat: 'Maksat'
   },
   {
     tat: 'Сорау',
@@ -725,7 +725,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Question',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsorau.mp3?alt=media&token=9d2e14d1-6395-4d13-a463-823a5d774432',
-    lat: 'Sorau',
+    lat: 'Sorau'
   },
   {
     tat: 'Әни',
@@ -733,7 +733,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Mother',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Feni.mp3?alt=media&token=7230c503-d8f9-4ed4-99f0-a8ed4b156971',
-    lat: 'Äni',
+    lat: 'Äni'
   },
   {
     tat: 'Сугыш',
@@ -741,7 +741,7 @@ export const words: Array<WordsInterface> = [
     eng: 'The War',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsugysh.mp3?alt=media&token=90413fba-e574-4570-9674-163abd8adf87',
-    lat: 'Sugış',
+    lat: 'Sugış'
   },
   {
     tat: 'Мәгариф',
@@ -749,7 +749,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Education',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fmegerif.mp3?alt=media&token=5e35e615-cd1a-4b8b-baf3-77c53bf35292',
-    lat: 'Mäğarif',
+    lat: 'Mäğarif'
   },
   {
     tat: 'Тараф',
@@ -757,7 +757,7 @@ export const words: Array<WordsInterface> = [
     eng: 'Side',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Ftaraf.mp3?alt=media&token=fae4e698-62ee-4b00-b2db-e142db1cfc39',
-    lat: 'Taraf',
+    lat: 'Taraf'
   },
   {
     tat: 'Шигырь',
@@ -765,9 +765,9 @@ export const words: Array<WordsInterface> = [
     eng: 'The poem',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fshiger.mp3?alt=media&token=27763c76-1ced-49f2-98cf-123428b425b9',
-    lat: 'Şigırь',
-  },
-];
+    lat: 'Şigırь'
+  }
+]
 
 // let newWords: any[] = [];
 //

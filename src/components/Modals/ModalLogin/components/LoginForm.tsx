@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import i18n from 'i18next';
-import { isMobile } from 'react-device-detect';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import React, { useState } from 'react'
+import i18n from 'i18next'
+import { isMobile } from 'react-device-detect'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Button } from '../../../../ui/Button';
-import { Text } from '../../../../ui/Text';
-import { Span } from '../../../../ui/Span';
-import { Paragraph } from '../../../../ui/Paragraph';
-import { LoginHeader, StyledInput, StyledLoginFooter } from '../index';
-import { GoogleButton } from './GoogleButton';
+import { Button } from '../../../../ui/Button'
+import { Text } from '../../../../ui/Text'
+import { Span } from '../../../../ui/Span'
+import { Paragraph } from '../../../../ui/Paragraph'
+import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
+import { GoogleButton } from './GoogleButton'
 
 export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setShow }: any) => {
   type FormValues = {
@@ -20,28 +20,28 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
 
   const schema = yup.object().shape({
     email: yup.string().email('Укажите Email').required('Укажите Email'),
-    password: yup.string().required('Укажите Пароль'),
-  });
+    password: yup.string().required('Укажите Пароль')
+  })
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-  });
+    resolver: yupResolver(schema)
+  })
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
 
   const handleLoginForm = async (data: FormValues) => {
-    const { email, password } = data;
+    const { email, password } = data
     try {
-      const { user } = await signInWithEmailAndPassword(email, password);
-      console.log('user', user);
-      return user;
+      const { user } = await signInWithEmailAndPassword(email, password)
+      console.log('user', user)
+      return user
     } catch (error) {
-      setError('Ошибка авторизации');
+      setError('Ошибка авторизации')
     }
-  };
+  }
 
   return (
     <>
@@ -59,10 +59,10 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
             marginBottom: isMobile ? 10 : 20,
             marginTop: isMobile ? 10 : 20,
             maxWidth: 300,
-            textAlign: 'right',
+            textAlign: 'right'
           }}
           onClick={() => {
-            setShow('reset');
+            setShow('reset')
           }}
         >
           {i18n.t('forgotPassword')}
@@ -77,13 +77,13 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
         <Span bold pointer style={{ marginBottom: isMobile ? 10 : 30, display: 'flex' }}>
           или войти с помощью:
         </Span>
-        {/*<FacebookButton />*/}
+        {/* <FacebookButton /> */}
         <GoogleButton signInWithGoogle={signInWithGoogle} />
       </StyledLoginFooter>
       <Paragraph
         style={{ margin: isMobile ? '20px 0' : '30px 0' }}
         onClick={() => {
-          setShow('register');
+          setShow('register')
         }}
       >
         Нет аккаунта?{' '}
@@ -92,5 +92,5 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
         </Span>
       </Paragraph>
     </>
-  );
-};
+  )
+}

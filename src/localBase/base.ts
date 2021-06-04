@@ -1,38 +1,38 @@
-import _ from "lodash";
+import _ from 'lodash'
 
-import { words, WordsInterface } from "./words";
+import { words, WordsInterface } from './words'
 
-import { phrases } from "./phrases";
-import Sounds from "./sounds";
+import { phrases } from './phrases'
+import Sounds from './sounds'
 
-function getLangWords(language = "rus") {
+function getLangWords (language = 'rus') {
   return words.map((item: WordsInterface) => {
-    const res: string = _.get(item, language);
-    return res;
-  });
+    const res: string = _.get(item, language)
+    return res
+  })
 }
 
-export const rusWords = getLangWords("rus");
-export const tatWords = getLangWords("tat");
-export const engWords = getLangWords("eng");
-export const latWords = getLangWords("lat");
+export const rusWords = getLangWords('rus')
+export const tatWords = getLangWords('tat')
+export const engWords = getLangWords('eng')
+export const latWords = getLangWords('lat')
 
-function getLangPhrases(language = "rus") {
+function getLangPhrases (language = 'rus') {
   return phrases.map((item) => {
-    const res: string = _.get(item, language);
-    return res;
-  });
+    const res: string = _.get(item, language)
+    return res
+  })
 }
 
-export const rusPhrases = getLangPhrases("rus");
+export const rusPhrases = getLangPhrases('rus')
 
-export const tatPhrases = getLangPhrases("tat");
+export const tatPhrases = getLangPhrases('tat')
 
-export const engPhrases = getLangPhrases("eng");
+export const engPhrases = getLangPhrases('eng')
 
-export const latPhrases = getLangPhrases("lat");
+export const latPhrases = getLangPhrases('lat')
 
-function resList(
+function resList (
   firstLanguage: any,
   secondLanguage: any,
   firstArr: any,
@@ -41,40 +41,40 @@ function resList(
 ) {
   return base.map((item: any, index: number) => {
     // console.log("item: ", item)
-    const { audio } = item;
-    const questionText = item[firstLanguage];
-    const properAnswer = item[secondLanguage];
+    const { audio } = item
+    const questionText = item[firstLanguage]
+    const properAnswer = item[secondLanguage]
 
-    const ArrClone = _.clone(secondArr);
+    const ArrClone = _.clone(secondArr)
 
-    const firstIndex = _.indexOf(ArrClone, item[secondLanguage]);
-    ArrClone.splice(firstIndex, 1);
+    const firstIndex = _.indexOf(ArrClone, item[secondLanguage])
+    ArrClone.splice(firstIndex, 1)
 
-    const second = _.sample(ArrClone);
-    const secondIndex = _.indexOf(ArrClone, second);
+    const second = _.sample(ArrClone)
+    const secondIndex = _.indexOf(ArrClone, second)
 
-    ArrClone.splice(secondIndex, 1);
-    const third = _.sample(ArrClone);
-    const thirdIndex = _.indexOf(ArrClone, third);
-    ArrClone.splice(thirdIndex, 1);
-    const fourth = _.sample(ArrClone);
+    ArrClone.splice(secondIndex, 1)
+    const third = _.sample(ArrClone)
+    const thirdIndex = _.indexOf(ArrClone, third)
+    ArrClone.splice(thirdIndex, 1)
+    const fourth = _.sample(ArrClone)
     const shuffledOptions = _.shuffle([
       { id: 1, text: properAnswer },
       { id: 2, text: second },
       { id: 3, text: third },
-      { id: 4, text: fourth },
-    ]);
+      { id: 4, text: fourth }
+    ])
     return {
       id: index,
       questionText: questionText,
       correct: 1,
       options: shuffledOptions,
-      audio: audio,
-    };
-  });
+      audio: audio
+    }
+  })
 }
 
-export function getWordsFirstSecond(
+export function getWordsFirstSecond (
   firstLanguage: any,
   secondLanguage: any,
   firstArr: any,
@@ -87,51 +87,51 @@ export function getWordsFirstSecond(
     firstArr,
     secondArr,
     base
-  );
+  )
   const resListSecondFirst = resList(
     secondLanguage,
     firstLanguage,
     secondArr,
     firstArr,
     base
-  );
+  )
   return {
     firstLanguage: resListFirstSecond,
-    secondLanguage: resListSecondFirst,
-  };
+    secondLanguage: resListSecondFirst
+  }
 }
 
 export const wordsTatRus = getWordsFirstSecond(
-  "tat",
-  "rus",
+  'tat',
+  'rus',
   tatWords,
   rusWords,
   words
-);
+)
 export const wordsTatEng = getWordsFirstSecond(
-  "tat",
-  "eng",
+  'tat',
+  'eng',
   tatWords,
   engWords,
   words
-);
+)
 export const wordsLatEng = getWordsFirstSecond(
-  "lat",
-  "eng",
+  'lat',
+  'eng',
   latWords,
   engWords,
   words
-);
+)
 
 export const wordsLatLat = getWordsFirstSecond(
-  "lat",
-  "lat",
+  'lat',
+  'lat',
   latWords,
   latWords,
   words
-);
+)
 
-export function getPhrasesFirstSecond(
+export function getPhrasesFirstSecond (
   firstLanguage: any,
   secondLanguage: any,
   firstArr: any,
@@ -144,85 +144,85 @@ export function getPhrasesFirstSecond(
     firstArr,
     secondArr,
     base
-  );
+  )
   const resListSecondFirst = resList(
     secondLanguage,
     firstLanguage,
     secondArr,
     firstArr,
     base
-  );
+  )
   return {
     firstLanguage: resListFirstSecond,
-    secondLanguage: resListSecondFirst,
-  };
+    secondLanguage: resListSecondFirst
+  }
 }
 
 export const phrasesRusTat = getPhrasesFirstSecond(
-  "tat",
-  "rus",
+  'tat',
+  'rus',
   tatPhrases,
   rusPhrases,
   phrases
-);
+)
 export const phrasesTatRus = getPhrasesFirstSecond(
-  "rus",
-  "tat",
+  'rus',
+  'tat',
   rusPhrases,
   tatPhrases,
   phrases
-);
+)
 export const phrasesTatEng = getPhrasesFirstSecond(
-  "tat",
-  "eng",
+  'tat',
+  'eng',
   tatPhrases,
   engPhrases,
   phrases
-);
+)
 
 export const phrasesLatEng = getPhrasesFirstSecond(
-  "tat",
-  "lat",
+  'tat',
+  'lat',
   latPhrases,
   engPhrases,
   phrases
-);
+)
 export const phrasesEngTat = getPhrasesFirstSecond(
-  "eng",
-  "tat",
+  'eng',
+  'tat',
   engPhrases,
   tatPhrases,
   phrases
-);
+)
 export const phrasesLatLat = getPhrasesFirstSecond(
-  "lat",
-  "lat",
+  'lat',
+  'lat',
   latPhrases,
   latPhrases,
   phrases
-);
+)
 
 export const collectPhrasesTatRus = getPhrasesFirstSecond(
-  "tat",
-  "rus",
+  'tat',
+  'rus',
   tatPhrases,
   rusPhrases,
   phrases
-);
+)
 export const collectPhrasesLatLat = getPhrasesFirstSecond(
-  "lat",
-  "lat",
+  'lat',
+  'lat',
   latPhrases,
   latPhrases,
   phrases
-);
+)
 
 export interface InitialStateInterface {
   chosenGame: string;
-  gameState: "welcome" | "words" | "phrases" | "collect" | "result";
-  language: "rus" | "tat" | "eng" | "lat";
-  firstLanguage: "rus" | "tat" | "eng" | "lat";
-  secondLanguage: "rus" | "tat" | "eng" | "lat";
+  gameState: 'welcome' | 'words' | 'phrases' | 'collect' | 'result';
+  language: 'rus' | 'tat' | 'eng' | 'lat';
+  firstLanguage: 'rus' | 'tat' | 'eng' | 'lat';
+  secondLanguage: 'rus' | 'tat' | 'eng' | 'lat';
   result: Array<any>;
   finished: boolean;
   currentQuestionIndex: any;
@@ -236,11 +236,11 @@ export interface InitialStateInterface {
 }
 
 export const initialState: InitialStateInterface = {
-  chosenGame: "",
-  gameState: "welcome",
-  language: "rus",
-  firstLanguage: "tat",
-  secondLanguage: "rus",
+  chosenGame: '',
+  gameState: 'welcome',
+  language: 'rus',
+  firstLanguage: 'tat',
+  secondLanguage: 'rus',
   result: [],
   finished: false,
   currentQuestionIndex: 0,
@@ -249,6 +249,6 @@ export const initialState: InitialStateInterface = {
   words: wordsTatRus,
   phrases: phrasesTatRus,
   collect: phrases,
-  answer: "-",
-  sounds: Sounds,
-};
+  answer: '-',
+  sounds: Sounds
+}

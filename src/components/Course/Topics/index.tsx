@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import { Button } from '../../../ui/Button';
-import { CourseContext } from '../index';
+import React, { useContext } from 'react'
+import { Button } from '../../../ui/Button'
+import { CourseContext } from '../index'
 
 export const Topics = () => {
-  const { topics, setStart } = useContext(CourseContext);
+  const { topics, setStart } = useContext(CourseContext)
   return (
     <div>
       <h1>Topics</h1>
@@ -12,15 +12,15 @@ export const Topics = () => {
           <div key={topic} style={{ marginTop: 10 }}>
             <Button
               onClick={() => {
-                console.log('pronouns');
-                setStart(true);
+                console.log('pronouns')
+                setStart(true)
               }}
             >
               {topic}
             </Button>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import i18n from 'i18next';
-import { isMobile } from 'react-device-detect';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from 'ui/Button';
-import { Text } from 'ui/Text';
-import { Span } from 'ui/Span';
-import { Paragraph } from 'ui/Paragraph';
-import { LoginHeader, StyledInput, StyledLoginFooter } from '../index';
-import { app } from 'base';
-import { GoogleButton } from './GoogleButton';
+import React, { useState } from 'react'
+import i18n from 'i18next'
+import { isMobile } from 'react-device-detect'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Button } from 'ui/Button'
+import { Text } from 'ui/Text'
+import { Span } from 'ui/Span'
+import { Paragraph } from 'ui/Paragraph'
+import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
+import { app } from 'base'
+import { GoogleButton } from './GoogleButton'
 
 export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
   type FormValues = {
@@ -19,32 +19,32 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
 
   const schema = yup.object().shape({
     email: yup.string().email('Укажите Email').required('Укажите Email'),
-    password: yup.string().required('Укажите Пароль'),
-  });
+    password: yup.string().required('Укажите Пароль')
+  })
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<FormValues>({
-    resolver: yupResolver(schema),
-  });
+    resolver: yupResolver(schema)
+  })
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState('')
 
   const onSubmit = (data: FormValues) => {
-    const { email } = data;
+    const { email } = data
     app
       .auth()
       .sendPasswordResetEmail(email)
       .then(() => {
         setTimeout(() => {
-          console.log('setTimeout', 3000);
-        }, 3000);
+          console.log('setTimeout', 3000)
+        }, 3000)
       })
       .catch(() => {
-        setError('Error resetting password');
-      });
-  };
+        setError('Error resetting password')
+      })
+  }
 
   return (
     <>
@@ -65,8 +65,8 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
       <Paragraph
         style={{ margin: isMobile ? '20px 0' : '30px 0' }}
         onClick={() => {
-          setShow('login');
-          setError('');
+          setShow('login')
+          setError('')
         }}
       >
         Вспомнили пароль?{' '}
@@ -75,5 +75,5 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
         </Span>
       </Paragraph>
     </>
-  );
-};
+  )
+}

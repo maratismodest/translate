@@ -1,15 +1,35 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import i18n from 'i18next';
-import Slab from '../../ui/Slab';
-import Header from '../../ui/Header';
-import styled from 'styled-components';
-import Word from './word.svg';
-import Phrase from './phrase.svg';
-import AppContext from '../../AppContext';
+import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import i18n from 'i18next'
+import Slab from '../../ui/Slab'
+import Header from '../../ui/Header'
+import styled from 'styled-components'
+import Word from './word.svg'
+import Phrase from './phrase.svg'
+import AppContext from '../../AppContext'
+
+const Slabs = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 400px;
+  width: fit-content;
+  button {
+    margin-bottom: 20px;
+    margin-right: 10px;
+  }
+`
+
+const Styled = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+`
 
 const PickGame = () => {
-  const { state, setState } = useContext(AppContext);
+  const { state, setState } = useContext(AppContext)
   return (
     <Styled>
       <Header level={2} bold>
@@ -22,8 +42,8 @@ const PickGame = () => {
             onClick={() => {
               setState({
                 ...state,
-                chosenGame: 'words',
-              });
+                chosenGame: 'words'
+              })
             }}
           >
             <img src={Word} alt={'word'} />
@@ -37,8 +57,8 @@ const PickGame = () => {
             onClick={() => {
               setState({
                 ...state,
-                chosenGame: 'word',
-              });
+                chosenGame: 'word'
+              })
             }}
           >
             <img src={Word} alt={'word'} />
@@ -52,8 +72,8 @@ const PickGame = () => {
             onClick={() => {
               setState({
                 ...state,
-                chosenGame: 'phrases',
-              });
+                chosenGame: 'phrases'
+              })
             }}
           >
             <img src={Phrase} alt={'phrase'} />
@@ -67,8 +87,8 @@ const PickGame = () => {
             onClick={() => {
               setState({
                 ...state,
-                chosenGame: 'collect',
-              });
+                chosenGame: 'collect'
+              })
             }}
           >
             <img src={Phrase} />
@@ -77,27 +97,7 @@ const PickGame = () => {
         </Link>
       </Slabs>
     </Styled>
-  );
-};
+  )
+}
 
-export default PickGame;
-
-const Slabs = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  max-width: 400px;
-  width: fit-content;
-  button {
-    margin-bottom: 20px;
-    margin-right: 10px;
-  }
-`;
-
-const Styled = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-`;
+export default PickGame
