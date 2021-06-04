@@ -9,7 +9,7 @@ import { Text } from '../../../../ui/Text'
 import { Span } from '../../../../ui/Span'
 import { Paragraph } from '../../../../ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
-import { app } from '../../../../base'
+import { auth } from '../../../../firebaseSetup'
 import { GoogleButton } from './GoogleButton'
 
 export const RegisterForm = ({ signInWithGoogle, setShow }: any) => {
@@ -35,7 +35,7 @@ export const RegisterForm = ({ signInWithGoogle, setShow }: any) => {
   const onSubmit = async (data: FormValues) => {
     const { email, password } = data
     try {
-      return await app.auth().createUserWithEmailAndPassword(email, password)
+      return await auth.createUserWithEmailAndPassword(email, password)
     } catch (error) {
       setError('Ошибка при создании учетной записи, перепроверьте данные')
     }

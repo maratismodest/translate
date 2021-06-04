@@ -2,10 +2,7 @@ import React, { useState } from 'react'
 import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
-import withFirebaseAuth from 'react-with-firebase-auth'
 import { YMInitializer } from 'react-yandex-metrika'
-import firebase from 'firebase/app'
-import { Spin } from 'antd'
 import { initialState } from './localBase/base'
 import { translateBaseI18 } from './localBase/locale/translate'
 import Welcome from './components/Welcome'
@@ -17,14 +14,9 @@ import Menu from './components/Menu'
 import { StyledLogo } from './AppStyles'
 import classes from './App.module.scss'
 import Latin from './components/Latin'
-import 'firebase/analytics'
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/storage'
 import AppContext from './AppContext'
 import User from './components/User'
 import Word from './components/Word'
-import { app } from './base'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { Course } from './components/Course'
@@ -42,14 +34,9 @@ function App (props: any) {
   const context = {
     state,
     setState,
-    app,
     modalLoginVisible,
     setModalVisible
   }
-  if (!app) {
-    return <Spin />
-  }
-  const { user } = props
 
   return (
     <AppContext.Provider value={context}>
@@ -78,7 +65,7 @@ function App (props: any) {
             <Route path="/course" render={() => <Course />} />
           </Switch>
 
-          {user ? null : <ModalLogin {...props} />}
+          {props.user ? null : <ModalLogin {...props} />}
         </div>
         <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version="2" />
       </div>
@@ -86,11 +73,4 @@ function App (props: any) {
   )
 }
 
-const firebaseAppAuth = app.auth()
-const providers = {
-  googleProvider: new firebase.auth.GoogleAuthProvider(),
-  signInWithEmailAndPassword: new firebase.auth.EmailAuthProvider(),
-  facebookProvider: new firebase.auth.FacebookAuthProvider()
-}
-
-export default withFirebaseAuth({ firebaseAppAuth, providers })(App)
+export default App

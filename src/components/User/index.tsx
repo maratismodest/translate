@@ -12,6 +12,7 @@ import styled from 'styled-components'
 import { getInfo } from '../../api'
 import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
+import { storage } from '../../firebaseSetup'
 const Compress = require('compress.js')
 const StyledUser = styled(StyledBody)``
 
@@ -59,9 +60,9 @@ const Buttons = styled.div`
 
 const User = ({ user, signOut }: any): any => {
   const compress = new Compress()
-  const { setState, app } = useContext(AppContext)
+  const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
-  const storageRef = app.storage().ref()
+  const storageRef = storage().ref()
   const [fileUrl, setFileUrl] = useState(null)
   const [db, setDb] = useState<any>(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
