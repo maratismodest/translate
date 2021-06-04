@@ -1,0 +1,41 @@
+.span {
+  color: var(--color-black);
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 126%;
+}
+
+.green {
+  color: var(--color-green);
+}
+
+.red {
+  color: var(--color-red);
+}
+
+.small {
+  font-size: 12px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.large {
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.huge {
+  font-size: 20px;
+  line-height: 24px;
+}

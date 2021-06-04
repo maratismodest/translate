@@ -1,6 +1,8 @@
-import styled, { css } from 'styled-components'
+import React, { ReactNode } from 'react'
+import cn from 'classnames'
+import classes from './Span.module.scss'
 
-interface Props {
+interface SpanProps {
   light?: boolean;
   large?: boolean;
   small?: boolean;
@@ -10,60 +12,20 @@ interface Props {
   huge?: boolean;
   bold?: boolean;
   pointer?: boolean;
+  children: ReactNode;
+  style?: any
 }
 
-export const Span = styled.span<Partial<Props>>`
-    color: var(--color-black);
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 126%;
-    ${(props) =>
-      props.color === 'green' &&
-      css`
-        color: var(--color-green);
-      `}
-    ${(props) =>
-      props.color === 'red' &&
-      css`
-        color: var(--color-red);
-      `}
-    ${(props) =>
-      props.small &&
-      css`
-        font-size: 12px;
-      `}
-    ${(props) =>
-      props.pointer &&
-      css`
-        cursor: pointer;
-      `}
-    ${(props) =>
-      props.bold &&
-      css`
-        font-weight: 600;
-      `}
-    ${(props) =>
-      props.light &&
-      css`
-        font-weight: 300;
-      `}
-    ${(props) =>
-      props.large &&
-      css`
-        font-size: 16px;
-        line-height: 19px;
-      `}
-    ${(props) =>
-      props.huge &&
-      css`
-        font-size: 20px;
-        line-height: 24px;
-      `}
-    ${(props) =>
-      props.green &&
-      css`
-        color: var(--color-green);
-      `}
-  }
-`
+export const Span = ({ children, color, ...props }: SpanProps) => {
+  const classList = cn(classes.span, {
+    [classes.green]: color === 'green',
+    [classes.red]: color === 'red',
+    [classes.bold]: props.bold,
+    [classes.pointer]: props.pointer
+  })
+  return (
+    <span className={classList} {...props}>
+      {children}
+    </span>
+  )
+}

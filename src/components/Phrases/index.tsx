@@ -181,7 +181,7 @@ const Words = () => {
         }}
         big
       >
-        <Header level={2}>{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
+        <Header level={2} >{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
 
         <Icon icon="play" size={24} className={'play'} />
       </Slab>
