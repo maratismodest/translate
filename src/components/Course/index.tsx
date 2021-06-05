@@ -3,7 +3,7 @@ import { getWords } from '../../api'
 import { Topics } from './Topics'
 import { Topic } from './Topics/Topic'
 import { Button } from '../../ui/Button'
-import { app } from '../../base'
+import { storage } from '../../firebaseSetup'
 
 export interface WordInterface {
   original: string;
@@ -29,7 +29,7 @@ export const Course = () => {
 
   const handleButton = () => {
     // Create a reference to the file we want to download
-    const starsRef = app.storage().ref().child('images/мин.jpg')
+    const starsRef = storage.ref().child('images/мин.jpg')
 
     // Get the download URL
     starsRef
@@ -38,7 +38,7 @@ export const Course = () => {
         console.log('url', url)
         // Insert url into an <img> tag to "download"
       })
-      .catch((error) => {
+      .catch((error : any) => {
         // A full list of error codes is available at
         // https://firebase.google.com/docs/storage/web/handle-errors
         switch (error.code) {

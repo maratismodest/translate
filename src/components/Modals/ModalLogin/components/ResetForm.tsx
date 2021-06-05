@@ -9,8 +9,8 @@ import { Text } from 'ui/Text'
 import { Span } from 'ui/Span'
 import { Paragraph } from 'ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
-import { app } from 'base'
 import { GoogleButton } from './GoogleButton'
+import { auth } from '../../../../firebaseSetup'
 
 export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
   type FormValues = {
@@ -33,9 +33,7 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
 
   const onSubmit = (data: FormValues) => {
     const { email } = data
-    app
-      .auth()
-      .sendPasswordResetEmail(email)
+    auth.sendPasswordResetEmail(email)
       .then(() => {
         setTimeout(() => {
           console.log('setTimeout', 3000)
@@ -60,7 +58,7 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
       </form>
       <StyledLoginFooter>
         <Text style={{ marginBottom: isMobile ? 10 : 30 }}>или войти с помощью:</Text>
-        <GoogleButton signInWithGoogle={signInWithGoogle} />
+        <GoogleButton />
       </StyledLoginFooter>
       <Paragraph
         style={{ margin: isMobile ? '20px 0' : '30px 0' }}

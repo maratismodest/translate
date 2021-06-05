@@ -4,7 +4,6 @@ import { isMobile } from 'react-device-detect'
 import MobileMenu from './MobileMenu'
 import { DesktopMenu } from './DesktopMenu'
 
-import './styles.scss'
 import {
   phrasesLatEng,
   phrasesLatLat,
@@ -15,9 +14,10 @@ import {
 } from '../../localBase/base'
 import { MenuInterface } from './menuBase'
 import AppContext from '../../AppContext'
+import { AuthContext } from '../../context/AuthContext'
 
 export default (props: any) => {
-  const { user } = props
+  const user = useContext(AuthContext)
   const history = useHistory()
   const { state, setState } = useContext(AppContext)
 

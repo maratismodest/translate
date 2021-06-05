@@ -2291,6 +2291,13 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/classnames@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.3.1.tgz#3c2467aa0f1a93f1f021e3b9bcf938bd5dfdc0dd"
+  integrity sha512-zeOWb0JGBoVmlQoznvqXbE0tEC/HONsnoUNH19Hc96NFsTAwTXbTqb8FMYkru1F/iqp7a18Ws3nWJvtA1sHD1A==
+  dependencies:
+    classnames "*"
+
 "@types/eslint@^7.2.6":
   version "7.2.13"
   resolved "https://registry.npmjs.org/@types/eslint/-/eslint-7.2.13.tgz"
@@ -2433,6 +2440,13 @@
   version "2.8.0"
   resolved "https://registry.npmjs.org/@types/react-burger-menu/-/react-burger-menu-2.8.0.tgz"
   integrity sha512-RBPlDpArTfuV0of7H22gMJKzXJbQXUOtmN/o3buAYmNiPbCiwkUkEerDUWyv/PzCTRoGiRDSijri4vqSjYxWxw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-dom@^17.0.6":
+  version "17.0.6"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.6.tgz#c158325cf91b196270bc0f4af73463f149e7eafe"
+  integrity sha512-MGTI+TudxAnGTj8aco8mogaPSJGK2Whje7OZh1CxNLRyhJpTZg/pGQpIbCT0eCVFQyH7UFpdvCqQEThHIp/gsA==
   dependencies:
     "@types/react" "*"
 
@@ -4067,7 +4081,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@2.x, classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6:
+classnames@*, classnames@2.x, classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6, classnames@^2.3.1:
   version "2.3.1"
   resolved "https://registry.npmjs.org/classnames/-/classnames-2.3.1.tgz"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
@@ -10820,6 +10834,11 @@ react-burger-menu@^3.0.6:
     eve "~0.5.1"
     prop-types "^15.7.2"
     snapsvg-cjs "0.0.6"
+
+react-detect-click-outside@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-detect-click-outside/-/react-detect-click-outside-1.1.1.tgz#3a3855639aeb19fb0d28524aac9f283e8ffd1542"
+  integrity sha512-1MqRw9+RaA3dF4zJePSngxBqXut/RgHajFLR91cTV7PRmQyCIrQAUtv979IhQoaoWhVM8rdSx9Eg4/vc/hcReQ==
 
 react-dev-utils@^11.0.3:
   version "11.0.4"

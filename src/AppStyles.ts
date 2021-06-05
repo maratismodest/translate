@@ -7,3 +7,12 @@ export const StyledLogo = styled(Header)`
   line-height: 133%;
   color: #0f8012;
 `
+
+export const StyledBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  text-align: center;
+`

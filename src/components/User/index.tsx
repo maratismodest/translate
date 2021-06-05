@@ -9,9 +9,10 @@ import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
 import styled from 'styled-components'
-import { StyledBody } from '../Welcome/WelcomeStyles'
 import { getInfo } from '../../api'
 import { Button } from '../../ui/Button'
+import { StyledBody } from '../../AppStyles'
+import { auth, storage } from '../../firebaseSetup'
 const Compress = require('compress.js')
 const StyledUser = styled(StyledBody)``
 
@@ -57,11 +58,11 @@ const Buttons = styled.div`
   }
 `
 
-const User = ({ user, signOut }: any): any => {
+const User = ({ user }: any): any => {
   const compress = new Compress()
-  const { setState, app } = useContext(AppContext)
+  const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
-  const storageRef = app.storage().ref()
+  const storageRef = storage.ref()
   const [fileUrl, setFileUrl] = useState(null)
   const [db, setDb] = useState<any>(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -247,8 +248,9 @@ const User = ({ user, signOut }: any): any => {
         <Button
           small
           onClick={() => {
-            signOut()
+            auth.signOut()
             history.push('/')
+            setIsModalVisible(false)
           }}
         >
           Выйти

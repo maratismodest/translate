@@ -11,11 +11,11 @@ import { OptionInterface } from '../../localBase/interfaces'
 import AppContext from '../../AppContext'
 import Icon from '../../ui/Icon'
 import styled from 'styled-components'
-import { StyledBody } from '../Welcome/WelcomeStyles'
 import { isMobile } from 'react-device-detect'
 import { ModalAnswer } from '../../ui/Modals/ModalAnswer'
 import i18n from 'i18next'
 import { Button } from '../../ui/Button'
+import { StyledBody } from '../../AppStyles'
 
 export interface questionResultInterface {
   correct: boolean;
@@ -181,7 +181,7 @@ const Words = () => {
         }}
         big
       >
-        <Header level={2}>{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
+        <Header level={2} >{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
 
         <Icon icon="play" size={24} className={'play'} />
       </Slab>

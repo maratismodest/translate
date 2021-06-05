@@ -1,89 +1,28 @@
-import styled, { css } from 'styled-components'
+import React from 'react'
+import classnames from 'classnames'
+import classes from './Button.module.scss'
+// interface Props {
+//   height: number;
+//   name: string;
+//   size?: string;
+//   small?: boolean;
+//   transparent?: boolean;
+//   big?: boolean;
+//   color: string;
+//   key: string;
+//   onClick: any;
+//   htmlType?: string;
+//   disabled?: boolean;
+//   green?: boolean;
+//   large?: boolean;
+//   medium?: boolean;
+//   normal?: boolean;
+// }
 
-interface Props {
-  height: number;
-  name: string;
-  size?: string;
-  small?: boolean;
-  transparent?: boolean;
-  big?: boolean;
-  color: string;
-  key: string;
-  onClick: any;
-  htmlType?: string;
-  disabled?: boolean;
-  green?: boolean;
-  large?: boolean;
-  medium?: boolean;
-  normal?: boolean;
+export const Button = ({ children, ...props } : any) => {
+  return (
+    <button className={classnames(classes.button)} {...props}>
+      {children}
+    </button>
+  )
 }
-
-export const Button = styled.button<Partial<Props>>`
-  cursor: pointer;
-  background: var(--color-green);
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  border-radius: 25px;
-  border: none;
-
-  color: var(--color-white);
-  width: 262px;
-  height: 52px;
-  outline: none;
-  box-shadow: none;
-  &:active {
-    background-color: #272f5a;
-  }
-  &:hover {
-    transition: 0.3s ease-in-out;
-    background: var(--color-green);
-    color: var(--color-white);
-  }
-
-  &:focus {
-    background: rgba(15, 128, 18, 0.07);
-    border: 1px solid #0f8012;
-    box-sizing: border-box;
-    box-shadow: inset 0px 5px 13px rgba(3, 32, 4, 0.02);
-    border-radius: 25px;
-    color: var(--color-green);
-  }
-
-  &:disabled {
-    background: var(--color-grey);
-  }
-
-  ${(props) =>
-    props.small &&
-    css`
-      width: 232px;
-    `}
-  ${(props) =>
-    props.medium &&
-    css`
-      width: 262px;
-    `}
-  ${(props) =>
-    props.large &&
-    css`
-      width: 300px;
-    `}
-  ${(props) =>
-    props.normal &&
-    css`
-      background: var(--color-white);
-      color: var(--color-black);
-      border: 1px solid rgba(11, 65, 12, 0.2);
-      box-sizing: border-box;
-      box-shadow: inset 0px 5px 13px rgba(3, 32, 4, 0.02);
-    `}
-
-  ${(props) =>
-    props.green &&
-    css`
-      background: #00ff00;
-    `}
-`
