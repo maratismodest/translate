@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useDetectClickOutside } from 'react-detect-click-outside'
 import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import AppContext from '../../AppContext'
@@ -75,8 +76,8 @@ export default ({ user, LanguageMenuList }: any) => {
   const history = useHistory()
   const { state, setState, setModalVisible } = useContext(AppContext)
   const [mainMenuVisible, setMainMenuVisible] = useState(false)
-  const [languageVisible, setLanguageVisible] = useState(false)
 
+  const ref = useDetectClickOutside({ onTriggered: () => setMainMenuVisible(false) })
   const MainMenuList: MenuInterface[] = [
     {
       text: i18n.t('home'),
@@ -89,18 +90,12 @@ export default ({ user, LanguageMenuList }: any) => {
       cb: () => {
         user ? history.push('/user') : setModalVisible(true)
       }
-    },
-    {
-      text: i18n.t('languages'),
-      id: 'languages',
-      cb: () => {
-        setLanguageVisible(true)
-      }
     }
+
   ]
 
   return (
-    <div id="menu">
+    <div id="menu" ref={ref}>
       <MenuOutlined
         style={{ fontSize: 24 }}
         onClick={() => {
@@ -113,11 +108,11 @@ export default ({ user, LanguageMenuList }: any) => {
         <StyledMenu arr={MainMenuList} visible={mainMenuVisible} setVisible={setMainMenuVisible} />
           )
         : null}
-      {languageVisible
-        ? (
-        <StyledMenu arr={LanguageMenuList} visible={languageVisible} setVisible={setLanguageVisible} />
-          )
-        : null}
+      {/* {languageVisible */}
+      {/*  ? ( */}
+      {/*  <StyledMenu arr={LanguageMenuList} visible={languageVisible} setVisible={setLanguageVisible} /> */}
+      {/*    ) */}
+      {/*  : null} */}
     </div>
   )
 }
