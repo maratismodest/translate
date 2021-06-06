@@ -5,6 +5,7 @@ import { isMobile } from 'react-device-detect'
 import Logo from './welcome.svg'
 import { Button, Header } from 'ui'
 import classes from './Welcome.module.scss'
+import cn from 'classnames'
 
 const Desktop = () => {
   return (
@@ -13,7 +14,7 @@ const Desktop = () => {
         <img src={Logo} alt="Chamala" width="100%" />
       </div>
       <div className={classes.welcomeDesktopBegin}>
-        <Header level={1} className="mb-68 ft-36">
+        <Header level={1} className={cn('mb-68', 'ft-36')}>
           {i18n.t('welcomeText')}
         </Header>
         <Link to="/pickgame">

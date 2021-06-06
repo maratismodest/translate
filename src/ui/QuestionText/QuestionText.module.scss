@@ -1,0 +1,11 @@
+.play {
+  color: #718CCC;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 46px;
+  line-height: 133%;
+  @media (max-width: 1024px) {
+    font-size: 28px;
+    line-height: 122%;
+  }
+}

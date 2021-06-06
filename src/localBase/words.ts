@@ -1,10 +1,4 @@
-export interface WordsInterface {
-  tat: string;
-  rus: string;
-  eng: string;
-  lat: string;
-  audio: any;
-}
+import { WordsInterface } from './interfaces'
 
 export const words: Array<WordsInterface> = [
   {

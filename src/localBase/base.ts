@@ -1,46 +1,43 @@
 import _ from 'lodash'
-
-import { words, WordsInterface } from './words'
-
+import { words } from './words'
 import { phrases } from './phrases'
 import Sounds from './sounds'
+import { Language, WordsInterface } from './interfaces'
 
-function getLangWords (language = 'rus') {
+function getLangWords (language: string):string[] {
   return words.map((item: WordsInterface) => {
-    const res: string = _.get(item, language)
-    return res
+    return _.get(item, language)
   })
 }
 
-export const rusWords = getLangWords('rus')
-export const tatWords = getLangWords('tat')
-export const engWords = getLangWords('eng')
-export const latWords = getLangWords('lat')
+export const rusWords : string[] = getLangWords('rus')
+export const tatWords: string[] = getLangWords('tat')
 
-function getLangPhrases (language = 'rus') {
-  return phrases.map((item) => {
-    const res: string = _.get(item, language)
-    return res
-  })
+export const rusPhrases :string[] = getLangWords('rus')
+export const tatPhrases: string[] = getLangWords('tat')
+
+// ############### //
+
+interface Option {
+  id: number,
+  text: string
 }
-
-export const rusPhrases = getLangPhrases('rus')
-
-export const tatPhrases = getLangPhrases('tat')
-
-export const engPhrases = getLangPhrases('eng')
-
-export const latPhrases = getLangPhrases('lat')
+interface QuestionInterface {
+  id: number,
+  questionText: string,
+  correct: 1,
+  options:Option[],
+  audio: string
+}
 
 function resList (
-  firstLanguage: any,
-  secondLanguage: any,
-  firstArr: any,
-  secondArr: any,
-  base: any
-) {
+  firstLanguage: Language,
+  secondLanguage: Language,
+  firstArr: string[],
+  secondArr: string[],
+  base: Array<WordsInterface>
+) : QuestionInterface[] {
   return base.map((item: any, index: number) => {
-    // console.log("item: ", item)
     const { audio } = item
     const questionText = item[firstLanguage]
     const properAnswer = item[secondLanguage]
@@ -75,11 +72,11 @@ function resList (
 }
 
 export function getWordsFirstSecond (
-  firstLanguage: any,
-  secondLanguage: any,
-  firstArr: any,
-  secondArr: any,
-  base: any
+  firstLanguage: Language,
+  secondLanguage: Language,
+  firstArr: string[],
+  secondArr: string[],
+  base: Array<WordsInterface>
 ) {
   const resListFirstSecond = resList(
     firstLanguage,
@@ -102,135 +99,48 @@ export function getWordsFirstSecond (
 }
 
 export const wordsTatRus = getWordsFirstSecond(
-  'tat',
-  'rus',
+  Language.tat,
+  Language.rus,
   tatWords,
   rusWords,
   words
 )
-export const wordsTatEng = getWordsFirstSecond(
-  'tat',
-  'eng',
-  tatWords,
-  engWords,
-  words
-)
-export const wordsLatEng = getWordsFirstSecond(
-  'lat',
-  'eng',
-  latWords,
-  engWords,
-  words
+
+export const phrasesTatRus = getWordsFirstSecond(
+  Language.tat,
+  Language.rus,
+  rusPhrases,
+  tatPhrases,
+  phrases
 )
 
-export const wordsLatLat = getWordsFirstSecond(
-  'lat',
-  'lat',
-  latWords,
-  latWords,
-  words
+export const collectPhrasesTatRus = getWordsFirstSecond(
+  Language.tat,
+  Language.rus,
+  tatPhrases,
+  rusPhrases,
+  phrases
 )
 
-export function getPhrasesFirstSecond (
-  firstLanguage: any,
-  secondLanguage: any,
-  firstArr: any,
-  secondArr: any,
-  base: any
-) {
-  const resListFirstSecond = resList(
-    firstLanguage,
-    secondLanguage,
-    firstArr,
-    secondArr,
-    base
-  )
-  const resListSecondFirst = resList(
-    secondLanguage,
-    firstLanguage,
-    secondArr,
-    firstArr,
-    base
-  )
-  return {
-    firstLanguage: resListFirstSecond,
-    secondLanguage: resListSecondFirst
-  }
+interface TwoLanguageQuestionsInterface {
+  firstLanguage : QuestionInterface[],
+  secondLanguage : QuestionInterface[]
 }
-
-export const phrasesRusTat = getPhrasesFirstSecond(
-  'tat',
-  'rus',
-  tatPhrases,
-  rusPhrases,
-  phrases
-)
-export const phrasesTatRus = getPhrasesFirstSecond(
-  'rus',
-  'tat',
-  rusPhrases,
-  tatPhrases,
-  phrases
-)
-export const phrasesTatEng = getPhrasesFirstSecond(
-  'tat',
-  'eng',
-  tatPhrases,
-  engPhrases,
-  phrases
-)
-
-export const phrasesLatEng = getPhrasesFirstSecond(
-  'tat',
-  'lat',
-  latPhrases,
-  engPhrases,
-  phrases
-)
-export const phrasesEngTat = getPhrasesFirstSecond(
-  'eng',
-  'tat',
-  engPhrases,
-  tatPhrases,
-  phrases
-)
-export const phrasesLatLat = getPhrasesFirstSecond(
-  'lat',
-  'lat',
-  latPhrases,
-  latPhrases,
-  phrases
-)
-
-export const collectPhrasesTatRus = getPhrasesFirstSecond(
-  'tat',
-  'rus',
-  tatPhrases,
-  rusPhrases,
-  phrases
-)
-export const collectPhrasesLatLat = getPhrasesFirstSecond(
-  'lat',
-  'lat',
-  latPhrases,
-  latPhrases,
-  phrases
-)
 
 export interface InitialStateInterface {
   chosenGame: string;
   gameState: 'welcome' | 'words' | 'phrases' | 'collect' | 'result';
-  language: 'rus' | 'tat' | 'eng' | 'lat';
-  firstLanguage: 'rus' | 'tat' | 'eng' | 'lat';
-  secondLanguage: 'rus' | 'tat' | 'eng' | 'lat';
+  language: Language;
+  firstLanguage: Language;
+  secondLanguage: Language;
   result: Array<any>;
   finished: boolean;
-  currentQuestionIndex: any;
-  words: any;
-  phrases: any;
+  currentQuestionIndex: number;
+  words: TwoLanguageQuestionsInterface;
+  phrases: TwoLanguageQuestionsInterface;
   collect: any;
   initialQuestionIndex?: 0;
-  answer: string;
+  // answer: string;
   word: any;
   sounds: any;
 }
@@ -238,9 +148,9 @@ export interface InitialStateInterface {
 export const initialState: InitialStateInterface = {
   chosenGame: '',
   gameState: 'welcome',
-  language: 'rus',
-  firstLanguage: 'tat',
-  secondLanguage: 'rus',
+  language: Language.rus,
+  firstLanguage: Language.tat,
+  secondLanguage: Language.rus,
   result: [],
   finished: false,
   currentQuestionIndex: 0,
@@ -249,6 +159,8 @@ export const initialState: InitialStateInterface = {
   words: wordsTatRus,
   phrases: phrasesTatRus,
   collect: phrases,
-  answer: '-',
+  // answer: '-',
   sounds: Sounds
 }
+
+console.log('wordsTatRus', wordsTatRus)
