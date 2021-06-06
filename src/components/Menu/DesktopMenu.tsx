@@ -4,10 +4,9 @@ import { useHistory } from 'react-router-dom'
 import AppContext from '../../AppContext'
 import styled from 'styled-components'
 import { Menu } from 'antd'
+import { MenuComponentInterface } from './interfaces'
 
-// const { SubMenu } = Menu
-
-export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
+export const DesktopMenu = ({ user }: MenuComponentInterface) => {
   const StyledMenu = styled(Menu)`
     background: none;
     border: none;
@@ -25,7 +24,7 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
 
   return (
     <StyledMenu onClick={handleClick} selectedKeys={[menuState.current]} mode="horizontal">
-      <Menu.Item key="home" onClick={() => history.push('/welcome')}>
+      <Menu.Item key="home" onClick={() => history.push('/')}>
       {i18n.t('home')}
     </Menu.Item>
       {user
@@ -38,24 +37,6 @@ export const DesktopMenu = ({ user, LanguageMenuList }: any) => {
         </Menu.Item>
           )}
 
-      {/* {user */}
-      {/*  ? ( */}
-      {/*  <Menu.Item key="profile" onClick={() => history.push('/user')}> */}
-      {/*    {i18n.t('profile')} */}
-      {/*  </Menu.Item> */}
-      {/*    ) */}
-      {/*  : null} */}
-
-      {/* <SubMenu key="languages" title={i18n.t('languages')} popupClassName="popupSubMenu"> */}
-      {/*  {LanguageMenuList.map((item: any) => { */}
-      {/*    const { text, cb } = item */}
-      {/*    return ( */}
-      {/*      <Menu.Item key={text} onClick={cb}> */}
-      {/*        {text} */}
-      {/*      </Menu.Item> */}
-      {/*    ) */}
-      {/*  })} */}
-      {/* </SubMenu> */}
     </StyledMenu>
   )
 }

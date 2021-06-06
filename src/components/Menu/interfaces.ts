@@ -1,3 +1,9 @@
+import firebase from 'firebase'
+
+export interface MenuComponentInterface {
+  user: firebase.User | null
+}
+
 export interface MenuInterface {
   text: string;
   cb: () => void;
