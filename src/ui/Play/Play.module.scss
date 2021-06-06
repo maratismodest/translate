@@ -1,0 +1,8 @@
+.play {
+  width: 48px;
+  height: 48px;
+  @media (max-width: 1024px) {
+    width: 36px;
+    height: 36px;
+  }
+}

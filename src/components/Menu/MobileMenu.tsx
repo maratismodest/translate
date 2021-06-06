@@ -8,7 +8,7 @@ import { MenuOutlined } from '@ant-design/icons'
 import Text from '../../ui/Text'
 import Icon from '../../ui/Icon'
 import i18n from 'i18next'
-import { MenuInterface, StyledMenuInterface } from './menuBase'
+import { MenuComponentInterface, MenuInterface, StyledMenuInterface } from './interfaces'
 
 const Close = styled.div`
   position: absolute;
@@ -72,7 +72,7 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
   )
 }
 
-export default ({ user, LanguageMenuList }: any) => {
+export default ({ user }: MenuComponentInterface) => {
   const history = useHistory()
   const { state, setState, setModalVisible } = useContext(AppContext)
   const [mainMenuVisible, setMainMenuVisible] = useState(false)
@@ -108,11 +108,6 @@ export default ({ user, LanguageMenuList }: any) => {
         <StyledMenu arr={MainMenuList} visible={mainMenuVisible} setVisible={setMainMenuVisible} />
           )
         : null}
-      {/* {languageVisible */}
-      {/*  ? ( */}
-      {/*  <StyledMenu arr={LanguageMenuList} visible={languageVisible} setVisible={setLanguageVisible} /> */}
-      {/*    ) */}
-      {/*  : null} */}
     </div>
   )
 }
