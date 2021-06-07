@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { useDetectClickOutside } from 'react-detect-click-outside'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 import AppContext from '../../AppContext'
 import { MenuOutlined } from '@ant-design/icons'
 
@@ -9,28 +8,7 @@ import Text from '../../ui/Text'
 import Icon from '../../ui/Icon'
 import i18n from 'i18next'
 import { MenuComponentInterface, MenuInterface, StyledMenuInterface } from './interfaces'
-
-const Close = styled.div`
-  position: absolute;
-  right: 16px;
-  top: 16px;
-`
-
-const Styled = styled.div`
-  position: absolute;
-  z-index: 1000;
-  right: 0;
-  top: 0;
-  min-height: 350px;
-  width: 300px;
-  max-width: 80%;
-  background: #ffffff;
-  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.1);
-  border-radius: 0 0 0 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+import classes from './MobileMenu.module.scss'
 
 const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
   const res = arr.map((item, index) => {
@@ -57,9 +35,9 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
     )
   })
   return (
-    <Styled className={'menu'}>
+    <div className={classes.mobile}>
       <ul>{res}</ul>
-      <Close>
+      <div className={classes.close}>
         <Icon
           icon={'close'}
           siz={32}
@@ -67,8 +45,8 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
             setVisible(false)
           }}
         />
-      </Close>
-    </Styled>
+      </div>
+    </div>
   )
 }
 

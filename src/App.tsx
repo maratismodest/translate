@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
@@ -21,31 +21,10 @@ import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { Course } from './components/Course'
 import { AuthContext } from './context/AuthContext'
-import axios from 'axios'
 
 function App (props: any) {
   const [state, setState] = useState(initialState)
   const [modalLoginVisible, setModalVisible] = useState(false)
-
-  async function getWords () {
-    try {
-      const res = await axios.get(
-        'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/words.json'
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
-  }
-
-  useEffect(() => {
-    getWords().then((res) => {
-      setState(prevState => {
-        return { ...prevState, word: res.data }
-      })
-    })
-  }, [])
 
   i18n
     .init({
@@ -61,12 +40,6 @@ function App (props: any) {
     setModalVisible
   }
 
-  if (state.word.length === 0) {
-    return (
-      <div>Загрузка данных</div>
-    )
-  }
-  console.log('state', state)
   return (
     <AppContext.Provider value={context}>
       <div className={classes.body} id="App">
