@@ -8,58 +8,14 @@ import { initialState } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
-import styled from 'styled-components'
-import { getInfo } from '../../api'
+import { getUsers } from '../../api'
 import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
 import { auth, storage } from '../../firebaseSetup'
-const Compress = require('compress.js')
-const StyledUser = styled(StyledBody)``
-
-const Avatar = styled.div`
-  border-radius: 50%;
-  border: 1px solid black;
-  overflow: hidden;
-  width: 115px;
-  height: 115px;
-  margin: 0 auto;
-  margin-bottom: 24px;
-  img {
-    object-fit: cover;
-    object-position: center;
-  }
-  &:hover {
-    opacity: 0.5;
-  }
-`
-const Stats = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.08);
-  border-radius: 14px;
-  padding: 30px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  span {
-    margin-bottom: 10px;
-    text-align: left;
-  }
-`
-
-const Buttons = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 16px;
-  button {
-    margin-bottom: 10px;
-  }
-`
+import classes from './User.module.scss'
+import { resizeImageFn } from './apiUser'
 
 const User = ({ user }: any): any => {
-  const compress = new Compress()
   const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
@@ -106,7 +62,7 @@ const User = ({ user }: any): any => {
   }
 
   useEffect(() => {
-    getInfo().then((res) => {
+    getUsers().then((res) => {
       setDb(res)
     })
   }, [])
@@ -138,29 +94,6 @@ const User = ({ user }: any): any => {
     setIsModalVisible(true)
   }
 
-  const handleOk = () => {
-    setIsModalVisible(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalVisible(false)
-  }
-
-  async function resizeImageFn (file: any) {
-    const resizedImage = await compress.compress([file], {
-      size: 2, // the max size in MB, defaults to 2MB
-      quality: 1, // the quality of the image, max is 1,
-      maxWidth: 300, // the max width of the output image, defaults to 1920px
-      maxHeight: 300, // the max height of the output image, defaults to 1920px
-      resize: true // defaults to true, set false if you do not want to resize the image width and height
-    })
-    const img = resizedImage[0]
-    const base64str = img.data
-    const imgExt = img.ext
-    const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt)
-    return resizedFiile
-  }
-
   const onFileChange = async (e: any) => {
     const res = await resizeImageFn(e.target.files[0])
     console.log(res)
@@ -185,9 +118,9 @@ const User = ({ user }: any): any => {
 
   return (
     <>
-      <StyledUser>
+      <StyledBody>
         <div>
-          <Avatar onClick={handleClick}>
+          <div className={classes.avatar} onClick={handleClick}>
             {currentUser.avatar
               ? (
               <img src={currentUser.avatar} width={115} height={115} />
@@ -195,13 +128,13 @@ const User = ({ user }: any): any => {
               : (
               <div>Нет изображения</div>
                 )}
-          </Avatar>
+          </div>
 
           <Header level={2}>{user.displayName}</Header>
           <input id="upload" type="file" onChange={onFileChange} hidden />
         </div>
 
-        <Buttons>
+        <div className={classes.buttons}>
           <Button
             onClick={() => {
               setStats((prevState) => !prevState)
@@ -210,12 +143,12 @@ const User = ({ user }: any): any => {
             Статистика
           </Button>
           <Button onClick={showModal}>Настройки</Button>
-          <Stats style={{ visibility: stats ? 'visible' : 'hidden' }}>
+          <div className={classes.stats} style={{ visibility: stats ? 'visible' : 'hidden' }}>
             <Text huge> Количество игр: {currentUser.count}</Text>
             <Text huge>Количество правильных ответов:{currentUser.correct} </Text>
             <Text huge>Количество неправильных ответов:{currentUser.mistake} </Text>
-          </Stats>
-        </Buttons>
+          </div>
+        </div>
 
         <Link
           to={'/'}
@@ -230,15 +163,13 @@ const User = ({ user }: any): any => {
             {i18n.t('mainPage')}
           </Text>
         </Link>
-      </StyledUser>
+      </StyledBody>
       <Modal
         title="Ваш уровень"
         visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="ОК"
-        cancelText="Отмена"
+        footer={null}
         centered
+        onCancel={() => { setIsModalVisible(false) }}
       >
         <img src={Tukai} width={'100%'} />
         <div style={{ display: 'inline-grid' }}>

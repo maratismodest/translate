@@ -10,7 +10,7 @@ import i18n from 'i18next'
 import { MenuComponentInterface, MenuInterface, StyledMenuInterface } from './interfaces'
 import classes from './MobileMenu.module.scss'
 
-const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
+const MenuItems = ({ arr, setVisible }: StyledMenuInterface) => {
   const res = arr.map((item, index) => {
     const { text, cb, id } = item
     return (
@@ -40,7 +40,7 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
       <div className={classes.close}>
         <Icon
           icon={'close'}
-          siz={32}
+          size={32}
           onClick={() => {
             setVisible(false)
           }}
@@ -52,7 +52,7 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
 
 export default ({ user }: MenuComponentInterface) => {
   const history = useHistory()
-  const { state, setState, setModalVisible } = useContext(AppContext)
+  const { setModalVisible } = useContext(AppContext)
   const [mainMenuVisible, setMainMenuVisible] = useState(false)
 
   const ref = useDetectClickOutside({ onTriggered: () => setMainMenuVisible(false) })
@@ -73,17 +73,16 @@ export default ({ user }: MenuComponentInterface) => {
   ]
 
   return (
-    <div id="menu" ref={ref}>
+    <div ref={ref}>
       <MenuOutlined
         style={{ fontSize: 24 }}
         onClick={() => {
           setMainMenuVisible(true)
-          setState({ ...state, menuClosed: false })
         }}
       />
       {mainMenuVisible
         ? (
-        <StyledMenu arr={MainMenuList} visible={mainMenuVisible} setVisible={setMainMenuVisible} />
+        <MenuItems arr={MainMenuList} visible={mainMenuVisible} setVisible={setMainMenuVisible} />
           )
         : null}
     </div>

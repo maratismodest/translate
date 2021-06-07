@@ -12,6 +12,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  ul {
+    li {
+      margin-bottom: 32px !important;
+    }
+  }
 }
 
 .close {

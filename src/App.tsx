@@ -19,7 +19,6 @@ import User from './components/User'
 import Word from './components/Word'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
-import { Course } from './components/Course'
 import { AuthContext } from './context/AuthContext'
 
 function App (props: any) {
@@ -64,7 +63,6 @@ function App (props: any) {
             <Route path="/user" render={() => <User {...props} user={user} />} />
             <Route path="/pickgame" exact render={() => <PickGame />} />
             <Route path="/" exact render={() => <Welcome />} />
-            <Route path="/course" render={() => <Course />} />
           </Switch>
 
           {user ? null : <ModalLogin {...props} />}
