@@ -126,7 +126,13 @@ interface TwoLanguageQuestionsInterface {
   firstLanguage : QuestionInterface[],
   secondLanguage : QuestionInterface[]
 }
-
+interface WordInterface {
+  audio:string,
+  eng: string,
+  lat:string,
+  rus: string,
+  tat: string,
+}
 export interface InitialStateInterface {
   chosenGame: string;
   gameState: 'welcome' | 'words' | 'phrases' | 'collect' | 'result';
@@ -140,8 +146,7 @@ export interface InitialStateInterface {
   phrases: TwoLanguageQuestionsInterface;
   collect: any;
   initialQuestionIndex?: 0;
-  // answer: string;
-  word: any;
+  word: WordInterface[];
   sounds: any;
 }
 
@@ -155,12 +160,9 @@ export const initialState: InitialStateInterface = {
   finished: false,
   currentQuestionIndex: 0,
   initialQuestionIndex: 0,
-  word: words,
+  word: [],
   words: wordsTatRus,
   phrases: phrasesTatRus,
   collect: phrases,
-  // answer: '-',
   sounds: Sounds
 }
-
-console.log('wordsTatRus', wordsTatRus)
