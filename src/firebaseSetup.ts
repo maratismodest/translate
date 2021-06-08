@@ -3,16 +3,14 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyAIZavHt2dSzumnsfdqBR7n0uRgwNPNTXo',
-  authDomain: 'chamala-317a8.firebaseapp.com',
-  databaseURL:
-    'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'chamala-317a8',
-  storageBucket: 'chamala-317a8.appspot.com',
-  messagingSenderId: '747912512246',
-  appId: '1:747912512246:web:e2363a9fb5de9b2255e2d7',
-  measurementId: 'G-NVQJQP3Z0Y'
+export const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
+  appId: process.env.REACT_APP_MESSAGING_APP_ID
 }
 
 firebase.initializeApp(firebaseConfig)

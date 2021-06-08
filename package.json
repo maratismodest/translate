@@ -22,6 +22,7 @@
     "compress.js": "^1.1.2",
     "file-saver": "^2.0.5",
     "firebase": "^8.4.2",
+    "firestore-export-import": "^0.15.0",
     "i18next": "^19.9.2",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
