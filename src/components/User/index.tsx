@@ -12,29 +12,31 @@ import { auth, firestore, storage } from '../../firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
 import _ from 'lodash'
+import { AuthContext } from '../../context/AuthContext'
 
-const User = ({ user }: any): any => {
+const User = () => {
+  const user = useContext(AuthContext)
   const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
-  const [fileUrl, setFileUrl] = useState(null)
   const [users, setUsers] = useState<any>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
-
-  useEffect(() => {
-    console.log('fileUrl', fileUrl)
-  }, [fileUrl])
+  if (!user) {
+    return null
+  }
 
   async function updatePhoto (link: string) {
     try {
-      const current = users[user.uid]
+      if (user && user.uid) {
+        const current = users[user.uid]
 
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
-        { ...current, avatar: link }
-      )
-      return res
+        const res = await axios.put(
+          `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
+          { ...current, avatar: link }
+        )
+        return res
+      }
     } catch (error) {
       console.log(error)
     }
@@ -96,7 +98,7 @@ const User = ({ user }: any): any => {
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
     updatePhoto(link).then((res) => {
-      setFileUrl(link)
+      console.log(link)
       window.location.reload()
     })
   }

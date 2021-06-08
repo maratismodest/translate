@@ -123,7 +123,7 @@ function App (props: any) {
             <Route path={['/result', '/*/result']} render={() => <Result {...props} />} />
             <Route path={['/about', '/*/about']} render={() => <h1>About</h1>} />
             <Route path={['/latin', '/*/latin']} render={() => <Latin />} />
-            <Route path='/user' render={() => <User {...props} user={user} />} />
+            <Route path='/user' render={() => <User />} />
             <Route path='/pickgame' exact render={() => <PickGame />} />
             <Route path='/' exact render={() => <Welcome />} />
           </Switch>
