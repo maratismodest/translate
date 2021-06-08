@@ -7,9 +7,7 @@ import AppContext from '../../AppContext'
 
 import _ from 'lodash'
 import { InitialStateInterface } from '../../localBase/base'
-import Header from '../../ui/Header'
-import Text from '../../ui/Text'
-import Icon from '../../ui/Icon'
+import { Header, Text, Icon } from 'ui'
 import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
 
