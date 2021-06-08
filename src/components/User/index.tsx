@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
-import Header from '../../ui/Header'
-import Text from '../../ui/Text'
+import { Header, Text, Button } from 'ui'
 import { Modal, Spin } from 'antd'
 import { initialState } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
 import { getUsers } from '../../api'
-import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
-import { auth, storage } from '../../firebaseSetup'
+import { auth, firestore, storage } from '../../firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
 
@@ -23,6 +21,7 @@ const User = ({ user }: any): any => {
   const [db, setDb] = useState<any>(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
     console.log('fileUrl', fileUrl)
@@ -61,7 +60,26 @@ const User = ({ user }: any): any => {
     }
   }
 
+  const usersRef = firestore.collection('users')
+
+  function getFirestoreUsers () {
+    usersRef
+      // .where('owner', '==', currentUserId)
+      // .where('title', '==', 'School1') // does not need index
+      // .where('score', '<=', 10)    // needs index
+      // .orderBy('owner', 'asc')
+      // .limit(3)
+      .onSnapshot((querySnapshot) => {
+        const items: any = []
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data())
+        })
+        setUsers(items)
+      })
+  }
+
   useEffect(() => {
+    getFirestoreUsers()
     getUsers().then((res) => {
       setDb(res)
     })
@@ -115,6 +133,8 @@ const User = ({ user }: any): any => {
       upload.click()
     }
   }
+  console.log('users', users)
+  console.log('currentUser', users[user.uid])
 
   return (
     <>
