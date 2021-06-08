@@ -2,16 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import { Header, Text, Button } from 'ui'
-import { Modal, Spin } from 'antd'
+import { Modal } from 'antd'
 import { initialState } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
-import { getUsers } from '../../api'
 import { StyledBody } from '../../AppStyles'
 import { auth, firestore, storage } from '../../firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
+import _ from 'lodash'
 
 const User = ({ user }: any): any => {
   const { setState } = useContext(AppContext)
@@ -21,7 +21,6 @@ const User = ({ user }: any): any => {
   const [db, setDb] = useState<any>(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
-  const [users, setUsers] = useState([])
 
   useEffect(() => {
     console.log('fileUrl', fileUrl)
@@ -41,71 +40,49 @@ const User = ({ user }: any): any => {
     }
   }
 
-  async function addUser (id: string) {
-    try {
-      const updated = {
-        count: 0,
-        correct: 0,
-        mistake: 0,
-        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
-      }
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
-        updated
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
-  }
-
   const usersRef = firestore.collection('users')
 
   function getFirestoreUsers () {
     usersRef
-      // .where('owner', '==', currentUserId)
-      // .where('title', '==', 'School1') // does not need index
-      // .where('score', '<=', 10)    // needs index
-      // .orderBy('owner', 'asc')
-      // .limit(3)
       .onSnapshot((querySnapshot) => {
         const items: any = []
         querySnapshot.forEach((doc) => {
           items.push(doc.data())
         })
-        setUsers(items)
+        setDb(items)
       })
   }
 
   useEffect(() => {
     getFirestoreUsers()
-    getUsers().then((res) => {
-      setDb(res)
-    })
   }, [])
 
   if (!db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
-  }
-  if (!user && db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
+    return <div>Loading</div>
   }
 
-  const currentUser = db[user.uid]
+  console.log('db', db)
+
+  const currentUser = _.find(db, { id: user.uid })
 
   if (!currentUser) {
-    addUser(user.uid).then((res) => {
-      return window.location.reload()
-    })
+    const newUser = {
+      id: user.uid,
+      count: 0,
+      correct: 0,
+      mistake: 0,
+      avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
+
+    }
+    // Add a new document with a generated id.
+    usersRef.add(newUser)
+      .then((docRef) => {
+        console.log('Document written with ID: ', docRef.id)
+        return window.location.reload()
+      })
+      .catch((error) => {
+        console.error('Error adding document: ', error)
+      })
   }
 
   const showModal = () => {
@@ -133,8 +110,6 @@ const User = ({ user }: any): any => {
       upload.click()
     }
   }
-  console.log('users', users)
-  console.log('currentUser', users[user.uid])
 
   return (
     <>
