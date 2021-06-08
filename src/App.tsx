@@ -43,18 +43,13 @@ function App (props: any) {
     modalLoginVisible,
     setModalVisible
   }
-  // REALTIME GET FUNCTION
+
   const ref = firestore.collection('words')
   const phrases = firestore.collection('phrases')
 
   function getWords () {
     setLoading(true)
     ref
-      // .where('owner', '==', currentUserId)
-      // .where('title', '==', 'School1') // does not need index
-      // .where('score', '<=', 10)    // needs index
-      // .orderBy('owner', 'asc')
-      // .limit(3)
       .onSnapshot((querySnapshot) => {
         const items: any = []
         querySnapshot.forEach((doc) => {
@@ -70,16 +65,9 @@ function App (props: any) {
           rusWords,
           words
         )
-
         setState({ ...initialState, word: items, words: wordsTatRus })
       })
-
     phrases
-      // .where('owner', '==', currentUserId)
-      // .where('title', '==', 'School1') // does not need index
-      // .where('score', '<=', 10)    // needs index
-      // .orderBy('owner', 'asc')
-      // .limit(3)
       .onSnapshot((querySnapshot) => {
         const phrases: any = []
         querySnapshot.forEach((doc) => {
@@ -107,7 +95,8 @@ function App (props: any) {
   }, [])
 
   if (loading) {
-    return (<div className={classes.bodyCenter}>
+    return (
+      <div className={classes.bodyCenter}>
         <Spin />
       </div>
     )

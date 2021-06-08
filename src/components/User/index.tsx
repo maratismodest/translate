@@ -18,7 +18,7 @@ const User = ({ user }: any): any => {
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
   const [fileUrl, setFileUrl] = useState(null)
-  const [db, setDb] = useState<any>(null)
+  const [users, setUsers] = useState<any>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
 
@@ -28,7 +28,7 @@ const User = ({ user }: any): any => {
 
   async function updatePhoto (link: string) {
     try {
-      const current = db[user.uid]
+      const current = users[user.uid]
 
       const res = await axios.put(
         `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
@@ -49,7 +49,7 @@ const User = ({ user }: any): any => {
         querySnapshot.forEach((doc) => {
           items.push(doc.data())
         })
-        setDb(items)
+        setUsers(items)
       })
   }
 
@@ -57,13 +57,11 @@ const User = ({ user }: any): any => {
     getFirestoreUsers()
   }, [])
 
-  if (!db) {
+  if (!users) {
     return <div>Loading</div>
   }
 
-  console.log('db', db)
-
-  const currentUser = _.find(db, { id: user.uid })
+  const currentUser = _.find(users, { id: user.uid })
 
   if (!currentUser) {
     const newUser = {
@@ -74,14 +72,16 @@ const User = ({ user }: any): any => {
       avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
 
     }
-    // Add a new document with a generated id.
-    usersRef.add(newUser)
-      .then((docRef) => {
-        console.log('Document written with ID: ', docRef.id)
-        return window.location.reload()
+
+    usersRef
+    // .doc() use if for some reason you want that firestore generates the id
+      .doc(user.uid)
+      .set(newUser)
+      .then(() => {
+        setUsers((prev : any) => [newUser, ...prev])
       })
-      .catch((error) => {
-        console.error('Error adding document: ', error)
+      .catch((err) => {
+        console.error(err)
       })
   }
 
@@ -91,12 +91,10 @@ const User = ({ user }: any): any => {
 
   const onFileChange = async (e: any) => {
     const res = await resizeImageFn(e.target.files[0])
-    console.log(res)
     const file = e.target.files[0]
     const fileRef = storageRef.child(file.name)
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
-    console.log('link', link)
     updatePhoto(link).then((res) => {
       setFileUrl(link)
       window.location.reload()
@@ -105,7 +103,6 @@ const User = ({ user }: any): any => {
 
   const handleClick = () => {
     const upload = document.getElementById('upload')
-    console.log(upload)
     if (upload) {
       upload.click()
     }
