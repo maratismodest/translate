@@ -4,7 +4,7 @@ import { phrases } from './phrases'
 import Sounds from './sounds'
 import { Language, WordsInterface } from './interfaces'
 
-function getLangWords (language: string):string[] {
+export function getLangWords (language: string):string[] {
   return words.map((item: WordsInterface) => {
     return _.get(item, language)
   })
@@ -30,7 +30,7 @@ interface QuestionInterface {
   audio: string
 }
 
-function resList (
+export function resList (
   firstLanguage: Language,
   secondLanguage: Language,
   firstArr: string[],
@@ -142,8 +142,8 @@ export interface InitialStateInterface {
   result: Array<any>;
   finished: boolean;
   currentQuestionIndex: number;
-  words: TwoLanguageQuestionsInterface;
-  phrases: TwoLanguageQuestionsInterface;
+  words: TwoLanguageQuestionsInterface | [];
+  phrases: TwoLanguageQuestionsInterface | [];
   collect: any;
   initialQuestionIndex?: 0;
   word: WordInterface[];
@@ -161,8 +161,8 @@ export const initialState: InitialStateInterface = {
   currentQuestionIndex: 0,
   initialQuestionIndex: 0,
   word: [],
-  words: wordsTatRus,
-  phrases: phrasesTatRus,
-  collect: phrases,
+  words: [],
+  phrases: [],
+  collect: [],
   sounds: Sounds
 }

@@ -6,7 +6,7 @@ import axios from 'axios'
 import AppContext from '../../AppContext'
 
 import _ from 'lodash'
-import { initialState } from '../../localBase/base'
+import { InitialStateInterface } from '../../localBase/base'
 import Header from '../../ui/Header'
 import Text from '../../ui/Text'
 import Icon from '../../ui/Icon'
@@ -75,8 +75,6 @@ const Result = ({ user }: any) => {
     })
   }
 
-  console.log('chosenGame', chosenGame)
-
   return (
     <StyledResult>
       <Header>{i18n.t('resultText')}:</Header>
@@ -107,21 +105,19 @@ const Result = ({ user }: any) => {
       <div>
         <div style={{ marginBottom: 16 }}>
           <Header level={4}>{i18n.t('wellDone')}</Header>
-          {/* <div> */}
-          {/*  {!user ? ( */}
-          {/*    <div style={{ textAlign: "center" }}> */}
-          {/*      <div>Зайди в личный кабинет, чтобы знать свой прогресс! </div> */}
-          {/*      <GoogleButton onClick={signInWithGoogle} label="Чамала!" /> */}
-          {/*    </div> */}
-          {/*  ) : null} */}
-          {/* </div> */}
         </div>
         <Link to={`/${chosenGame}`}>
           <Button
             onClick={() => {
-              setState(initialState)
+              setState((prevState : InitialStateInterface) => ({
+                ...prevState,
+                result: [],
+                finished: false,
+                currentQuestionIndex: 0,
+                initialQuestionIndex: 0
+              }))
             }}
-          >
+          >s
             {i18n.t('repeat')}
           </Button>
         </Link>
@@ -130,10 +126,15 @@ const Result = ({ user }: any) => {
       <Link
         to={'/'}
         onClick={() => {
-          setState({
-            ...initialState,
-            gameState: 'welcome'
-          })
+          setState((prevState : InitialStateInterface) => ({
+            ...prevState,
+            gameState: 'welcome',
+            result: [],
+            finished: false,
+            currentQuestionIndex: 0,
+            initialQuestionIndex: 0
+          }))
+          // setSomeState(prev => ({...prev, count: prev.count + 1}));
         }}
       >
         <Text underline large>

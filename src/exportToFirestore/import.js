@@ -4,6 +4,7 @@ const firebaseConfig = require('./config.js')
 const serviceAccount = require('./serviceAccount.json')
 const users = require('./users.json')
 const words = require('./words.json')
+const phrases = require('./phrases.json')
 
 // JSON To Firestore
 const jsonToFirestore = async () => {
