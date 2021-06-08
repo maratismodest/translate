@@ -26,22 +26,6 @@ const User = () => {
     return null
   }
 
-  async function updatePhoto (link: string) {
-    try {
-      if (user && user.uid) {
-        const current = users[user.uid]
-
-        const res = await axios.put(
-          `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
-          { ...current, avatar: link }
-        )
-        return res
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   const usersRef = firestore.collection('users')
 
   function getFirestoreUsers () {
@@ -97,10 +81,7 @@ const User = () => {
     const fileRef = storageRef.child(file.name)
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
-    updatePhoto(link).then((res) => {
-      console.log(link)
-      window.location.reload()
-    })
+    console.log('link', link)
   }
 
   const handleClick = () => {
@@ -185,3 +166,19 @@ const User = () => {
   )
 }
 export default User
+
+// async function updatePhoto (link: string) {
+//   try {
+//     if (user && user.uid) {
+//       const current = users[user.uid]
+//
+//       const res = await axios.put(
+//         `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
+//         { ...current, avatar: link }
+//       )
+//       return res
+//     }
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
