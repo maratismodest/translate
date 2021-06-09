@@ -1,27 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import i18n from 'i18next'
 import axios from 'axios'
 import AppContext from '../../AppContext'
-
 import _ from 'lodash'
 import { InitialStateInterface } from '../../localBase/base'
-import { Header, Text, Icon } from 'ui'
-import { Button } from '../../ui/Button'
+import { Header, Text, Icon, Button } from 'ui'
 import { StyledBody } from '../../AppStyles'
 import { AuthContext } from '../../context/AuthContext'
-
-const StyledResult = styled(StyledBody)`
-  width: 100%;
-`
-
-const ResultLi = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  margin-bottom: 10px;
-`
+import classes from './Result.module.scss'
 
 const Result = () => {
   const user = useContext(AuthContext)
@@ -76,14 +63,14 @@ const Result = () => {
   }
 
   return (
-    <StyledResult>
+    <StyledBody>
       <Header>{i18n.t('resultText')}:</Header>
       <ul>
         {result.map((item: any, index: number) => {
           const { correct, questionText, chosenText, correctText } = item
           console.log(item)
           return (
-            <ResultLi key={index}>
+            <li className={classes.re} key={index}>
               <div
                 style={{
                   display: 'flex',
@@ -98,7 +85,7 @@ const Result = () => {
                 <Icon icon={correct} />
               </div>
               {correct ? null : <Text green>Правильный ответ: {correctText}</Text>}
-            </ResultLi>
+            </li>
           )
         })}
       </ul>
@@ -141,7 +128,7 @@ const Result = () => {
           {i18n.t('mainPage')}
         </Text>
       </Link>
-    </StyledResult>
+    </StyledBody>
   )
 }
 export default Result

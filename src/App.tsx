@@ -122,7 +122,7 @@ function App (props: any) {
               Chamala
             </StyledLogo>
           </NavLink>
-          <Menu user={user} />
+          <Menu />
         </div>
 
         <div className={classes.main} id='page-wrap'>

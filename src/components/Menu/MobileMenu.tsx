@@ -7,8 +7,9 @@ import { MenuOutlined } from '@ant-design/icons'
 import Text from '../../ui/Text'
 import Icon from '../../ui/Icon'
 import i18n from 'i18next'
-import { MenuComponentInterface, MenuInterface, StyledMenuInterface } from './interfaces'
+import { MenuInterface, StyledMenuInterface } from './interfaces'
 import classes from './MobileMenu.module.scss'
+import { AuthContext } from '../../context/AuthContext'
 
 const MenuItems = ({ arr, setVisible }: StyledMenuInterface) => {
   const res = arr.map((item, index) => {
@@ -50,7 +51,8 @@ const MenuItems = ({ arr, setVisible }: StyledMenuInterface) => {
   )
 }
 
-export default ({ user }: MenuComponentInterface) => {
+export default () => {
+  const user = useContext(AuthContext)
   const history = useHistory()
   const { setModalVisible } = useContext(AppContext)
   const [mainMenuVisible, setMainMenuVisible] = useState(false)
