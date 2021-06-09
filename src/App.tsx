@@ -25,7 +25,7 @@ import { Spin } from 'antd'
 import { Language } from './localBase/interfaces'
 import { words } from './localBase/words'
 
-function App (props: any) {
+function App () {
   const [state, setState] = useState(initialState)
   const [loading, setLoading] = useState(false)
   const [modalLoginVisible, setModalVisible] = useState(false)
@@ -49,55 +49,44 @@ function App (props: any) {
 
   function getWords () {
     setLoading(true)
-    ref
-      // .where('owner', '==', currentUserId)
-      // .where('title', '==', 'School1') // does not need index
-      // .where('score', '<=', 10)    // needs index
-      // .orderBy('owner', 'asc')
-      // .limit(3)
-      .onSnapshot((querySnapshot) => {
-        const items: any = []
-        querySnapshot.forEach((doc) => {
-          items.push(doc.data())
-        })
-
-        const rusWords : string[] = getLangWords('rus')
-        const tatWords: string[] = getLangWords('tat')
-        const wordsTatRus = getWordsFirstSecond(
-          Language.tat,
-          Language.rus,
-          tatWords,
-          rusWords,
-          words
-        )
-
-        setState({ ...initialState, word: items, words: wordsTatRus })
+    ref.onSnapshot((querySnapshot) => {
+      const items: any = []
+      querySnapshot.forEach((doc) => {
+        items.push(doc.data())
       })
 
-    phrases
-      // .where('owner', '==', currentUserId)
-      // .where('title', '==', 'School1') // does not need index
-      // .where('score', '<=', 10)    // needs index
-      // .orderBy('owner', 'asc')
-      // .limit(3)
-      .onSnapshot((querySnapshot) => {
-        const phrases: any = []
-        querySnapshot.forEach((doc) => {
-          phrases.push(doc.data())
-        })
+      const rusWords : string[] = getLangWords('rus')
+      const tatWords: string[] = getLangWords('tat')
+      const wordsTatRus = getWordsFirstSecond(
+        Language.tat,
+        Language.rus,
+        tatWords,
+        rusWords,
+        words
+      )
+      console.log(items.length)
+      localStorage.setItem('word', JSON.stringify(items))
+      setState(prevState => ({ ...prevState, word: items, words: wordsTatRus }))
+    })
 
-        const rusWords : string[] = getLangWords('rus')
-        const tatWords: string[] = getLangWords('tat')
-        const phrasesTatRus = getWordsFirstSecond(
-          Language.tat,
-          Language.rus,
-          tatWords,
-          rusWords,
-          phrases
-        )
-
-        setState(prev => ({ ...prev, collect: phrases, phrases: phrasesTatRus }))
+    phrases.onSnapshot((querySnapshot) => {
+      const phrases: any = []
+      querySnapshot.forEach((doc) => {
+        phrases.push(doc.data())
       })
+
+      const rusWords : string[] = getLangWords('rus')
+      const tatWords: string[] = getLangWords('tat')
+      const phrasesTatRus = getWordsFirstSecond(
+        Language.tat,
+        Language.rus,
+        tatWords,
+        rusWords,
+        phrases
+      )
+
+      setState(prev => ({ ...prev, collect: phrases, phrases: phrasesTatRus }))
+    })
 
     setLoading(false)
   }
@@ -131,7 +120,7 @@ function App (props: any) {
             <Route path={['/words', '/*/words']} render={() => <Words />} />
             <Route path={['/phrases', '/*/phrases']} render={() => <Phrases />} />
             <Route path={['/collect', '/*/collect']} render={() => <Collect />} />
-            <Route path={['/result', '/*/result']} render={() => <Result {...props} />} />
+            <Route path={['/result', '/*/result']} render={() => <Result />} />
             <Route path={['/about', '/*/about']} render={() => <h1>About</h1>} />
             <Route path={['/latin', '/*/latin']} render={() => <Latin />} />
             <Route path='/user' render={() => <User />} />
@@ -139,7 +128,7 @@ function App (props: any) {
             <Route path='/' exact render={() => <Welcome />} />
           </Switch>
 
-          {user ? null : <ModalLogin {...props} />}
+          {user ? null : <ModalLogin />}
         </div>
         <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version='2' />
       </div>
