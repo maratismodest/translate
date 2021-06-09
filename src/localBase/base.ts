@@ -30,7 +30,7 @@ interface QuestionInterface {
   audio: string
 }
 
-function resList (
+export function resList (
   firstLanguage: Language,
   secondLanguage: Language,
   firstArr: string[],
@@ -97,13 +97,14 @@ export function getWordsFirstSecond (
     secondLanguage: resListSecondFirst
   }
 }
-// const wordsTatRus = getWordsFirstSecond(
-//   Language.tat,
-//   Language.rus,
-//   tatWords,
-//   rusWords,
-//   words
-// )
+
+export const wordsTatRus = getWordsFirstSecond(
+  Language.tat,
+  Language.rus,
+  tatWords,
+  rusWords,
+  words
+)
 
 export const phrasesTatRus = getWordsFirstSecond(
   Language.tat,
@@ -142,7 +143,7 @@ export interface InitialStateInterface {
   finished: boolean;
   currentQuestionIndex: number;
   words: TwoLanguageQuestionsInterface | [];
-  phrases: TwoLanguageQuestionsInterface;
+  phrases: TwoLanguageQuestionsInterface | [];
   collect: any;
   initialQuestionIndex?: 0;
   word: WordInterface[];
@@ -161,7 +162,7 @@ export const initialState: InitialStateInterface = {
   initialQuestionIndex: 0,
   word: [],
   words: [],
-  phrases: phrasesTatRus,
-  collect: phrases,
+  phrases: [],
+  collect: [],
   sounds: Sounds
 }

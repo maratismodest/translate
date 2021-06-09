@@ -23,4 +23,3 @@ export const signInWithGoogle = () => {
 }
 export const firestore = firebase.firestore()
 export const storage = firebase.storage()
-// export const database = firebase.database()

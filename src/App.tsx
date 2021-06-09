@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
 import { YMInitializer } from 'react-yandex-metrika'
-import { getWordsFirstSecond, initialState } from './localBase/base'
+import { getLangWords, getWordsFirstSecond, initialState } from './localBase/base'
 import { translateBaseI18 } from './localBase/locale/translate'
 import Welcome from './components/Welcome'
 import Words from './components/Words'
@@ -20,12 +20,14 @@ import Word from './components/Word'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { AuthContext } from './context/AuthContext'
-import axios from 'axios'
-import { Language, WordsInterface } from './localBase/interfaces'
-import _ from 'lodash'
+import { firestore } from './firebaseSetup'
+import { Spin } from 'antd'
+import { Language } from './localBase/interfaces'
+import { words } from './localBase/words'
 
 function App (props: any) {
   const [state, setState] = useState(initialState)
+  const [loading, setLoading] = useState(false)
   const [modalLoginVisible, setModalVisible] = useState(false)
 
   i18n
@@ -35,78 +37,111 @@ function App (props: any) {
     })
     .then()
   const user = useContext(AuthContext)
-
-  useEffect(() => {
-    async function getWordsFromFirebase () {
-      const res = await axios.get(
-        'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/words.json')
-
-      const words = res.data
-
-      function getLangWords (language: string):string[] {
-        return words.map((item: WordsInterface) => {
-          return _.get(item, language)
-        })
-      }
-
-      const rusWords : string[] = getLangWords('rus')
-      const tatWords: string[] = getLangWords('tat')
-      console.log('rusWords', rusWords)
-      console.log('tatWords', tatWords)
-      const wordsTatRus = getWordsFirstSecond(
-        Language.tat,
-        Language.rus,
-        tatWords,
-        rusWords,
-        words
-      )
-      console.log('wordsTatRus', wordsTatRus)
-      setState((prevState: any) => ({ ...prevState, word: words, words: wordsTatRus }))
-    }
-    getWordsFromFirebase()
-  }, [])
-
-  useEffect(() => {
-    if (user) {
-      console.log('user', user)
-    }
-  }, [user])
   const context = {
     state,
     setState,
     modalLoginVisible,
     setModalVisible
   }
+  // REALTIME GET FUNCTION
+  const ref = firestore.collection('words')
+  const phrases = firestore.collection('phrases')
+
+  function getWords () {
+    setLoading(true)
+    ref
+      // .where('owner', '==', currentUserId)
+      // .where('title', '==', 'School1') // does not need index
+      // .where('score', '<=', 10)    // needs index
+      // .orderBy('owner', 'asc')
+      // .limit(3)
+      .onSnapshot((querySnapshot) => {
+        const items: any = []
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data())
+        })
+
+        const rusWords : string[] = getLangWords('rus')
+        const tatWords: string[] = getLangWords('tat')
+        const wordsTatRus = getWordsFirstSecond(
+          Language.tat,
+          Language.rus,
+          tatWords,
+          rusWords,
+          words
+        )
+
+        setState({ ...initialState, word: items, words: wordsTatRus })
+      })
+
+    phrases
+      // .where('owner', '==', currentUserId)
+      // .where('title', '==', 'School1') // does not need index
+      // .where('score', '<=', 10)    // needs index
+      // .orderBy('owner', 'asc')
+      // .limit(3)
+      .onSnapshot((querySnapshot) => {
+        const phrases: any = []
+        querySnapshot.forEach((doc) => {
+          phrases.push(doc.data())
+        })
+
+        const rusWords : string[] = getLangWords('rus')
+        const tatWords: string[] = getLangWords('tat')
+        const phrasesTatRus = getWordsFirstSecond(
+          Language.tat,
+          Language.rus,
+          tatWords,
+          rusWords,
+          phrases
+        )
+
+        setState(prev => ({ ...prev, collect: phrases, phrases: phrasesTatRus }))
+      })
+
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getWords()
+  }, [])
+
+  if (loading) {
+    return (<div className={classes.bodyCenter}>
+        <Spin />
+      </div>
+    )
+  }
 
   return (
     <AppContext.Provider value={context}>
-      <div className={classes.body} id="App">
+      <div className={classes.body} id='App'>
         <div className={classes.header}>
-          <NavLink to="/">
-            <StyledLogo level={2} bold color="green">
+          <NavLink to='/'>
+            <StyledLogo level={2} bold color='green'>
               Chamala
             </StyledLogo>
           </NavLink>
           <Menu user={user} />
         </div>
 
-        <div className={classes.main} id="page-wrap">
+        <div className={classes.main} id='page-wrap'>
           <Switch>
             <Route path={['/word', '/*/word']} render={() => <Word />} />
             <Route path={['/words', '/*/words']} render={() => <Words />} />
             <Route path={['/phrases', '/*/phrases']} render={() => <Phrases />} />
             <Route path={['/collect', '/*/collect']} render={() => <Collect />} />
-            <Route path={['/result', '/*/result']} render={() => <Result />} />
+            <Route path={['/result', '/*/result']} render={() => <Result {...props} />} />
             <Route path={['/about', '/*/about']} render={() => <h1>About</h1>} />
             <Route path={['/latin', '/*/latin']} render={() => <Latin />} />
-            <Route path="/user" render={() => <User />} />
-            <Route path="/pickgame" exact render={() => <PickGame />} />
-            <Route path="/" exact render={() => <Welcome />} />
+            <Route path='/user' render={() => <User {...props} user={user} />} />
+            <Route path='/pickgame' exact render={() => <PickGame />} />
+            <Route path='/' exact render={() => <Welcome />} />
           </Switch>
 
           {user ? null : <ModalLogin {...props} />}
         </div>
-        <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version="2" />
+        <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version='2' />
       </div>
     </AppContext.Provider>
   )

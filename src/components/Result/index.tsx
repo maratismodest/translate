@@ -6,14 +6,10 @@ import axios from 'axios'
 import AppContext from '../../AppContext'
 
 import _ from 'lodash'
-import { initialState } from '../../localBase/base'
-import Header from '../../ui/Header'
-import Text from '../../ui/Text'
-import Icon from '../../ui/Icon'
+import { InitialStateInterface } from '../../localBase/base'
+import { Header, Text, Icon } from 'ui'
 import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
-import firebase from 'firebase'
-import { AuthContext } from '../../context/AuthContext'
 
 const StyledResult = styled(StyledBody)`
   width: 100%;
@@ -26,8 +22,7 @@ const ResultLi = styled.li`
   margin-bottom: 10px;
 `
 
-const Result = () => {
-  const user = useContext(AuthContext)
+const Result = ({ user }: any) => {
   const { state, setState } = useContext(AppContext)
   const { result, chosenGame } = state
 
@@ -45,20 +40,25 @@ const Result = () => {
     }
   }
 
-  function addCount (id: string) {
+  async function addCount (id: string) {
     const rightAnswers = _.filter(result, { correct: true })
     const wrongAnswers = _.filter(result, { correct: false })
-    const current = db[id]
-    const updated = {
-      ...current,
-      count: current.count + 1,
-      correct: current.correct + rightAnswers.length,
-      mistake: current.mistake + wrongAnswers.length
+    try {
+      const current = db[id]
+      const updated = {
+        ...current,
+        count: current.count + 1,
+        correct: current.correct + rightAnswers.length,
+        mistake: current.mistake + wrongAnswers.length
+      }
+      const res = await axios.put(
+        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
+        updated
+      )
+      return res
+    } catch (error) {
+      console.log(error)
     }
-    console.log('updated', updated)
-    firebase.database().ref('base/users/' + id).set(updated).then(r => {
-      console.log('r', r)
-    })
   }
 
   useEffect(() => {
@@ -68,10 +68,10 @@ const Result = () => {
   }, [])
 
   if (user) {
-    addCount(user.uid)
+    addCount(user.uid).then((res) => {
+      console.log('added Count')
+    })
   }
-
-  console.log('chosenGame', chosenGame)
 
   return (
     <StyledResult>
@@ -103,21 +103,19 @@ const Result = () => {
       <div>
         <div style={{ marginBottom: 16 }}>
           <Header level={4}>{i18n.t('wellDone')}</Header>
-          {/* <div> */}
-          {/*  {!user ? ( */}
-          {/*    <div style={{ textAlign: "center" }}> */}
-          {/*      <div>Зайди в личный кабинет, чтобы знать свой прогресс! </div> */}
-          {/*      <GoogleButton onClick={signInWithGoogle} label="Чамала!" /> */}
-          {/*    </div> */}
-          {/*  ) : null} */}
-          {/* </div> */}
         </div>
         <Link to={`/${chosenGame}`}>
           <Button
             onClick={() => {
-              setState(initialState)
+              setState((prevState : InitialStateInterface) => ({
+                ...prevState,
+                result: [],
+                finished: false,
+                currentQuestionIndex: 0,
+                initialQuestionIndex: 0
+              }))
             }}
-          >
+          >s
             {i18n.t('repeat')}
           </Button>
         </Link>
@@ -126,10 +124,15 @@ const Result = () => {
       <Link
         to={'/'}
         onClick={() => {
-          setState({
-            ...initialState,
-            gameState: 'welcome'
-          })
+          setState((prevState : InitialStateInterface) => ({
+            ...prevState,
+            gameState: 'welcome',
+            result: [],
+            finished: false,
+            currentQuestionIndex: 0,
+            initialQuestionIndex: 0
+          }))
+          // setSomeState(prev => ({...prev, count: prev.count + 1}));
         }}
       >
         <Text underline large>
