@@ -201,9 +201,11 @@ const Collect = () => {
         <Header>{i18n.t('repeatAudio')}</Header>
       </div>
 
+      <div className={classes.body}>
       <ul className={classes.result}>{resultList}</ul>
 
       <ul className={classes.options}>{separatedList}</ul>
+      </div>
 
       {questionResult
         ? (

@@ -3,14 +3,13 @@ import i18n from 'i18next'
 import { useHistory } from 'react-router-dom'
 import AppContext from '../../AppContext'
 import { Menu } from 'antd'
-
 import classes from './DesktopMenu.module.scss'
 import { AuthContext } from '../../context/AuthContext'
 
 export const DesktopMenu = () => {
   const user = useContext(AuthContext)
   const { setModalVisible } = useContext(AppContext)
-  const [menuState, setMenuState] = useState({ current: 'mail' })
+  const [menuState, setMenuState] = useState({ current: 'home' })
   const history = useHistory()
   const handleClick = (e: any) => {
     setMenuState({ current: e.key })

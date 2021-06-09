@@ -20,13 +20,19 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  li {
+    margin-right: 10px;
+  }
 }
 
 .option {
   margin-right: 10px;
   margin-bottom: 10px;
 }
-
+.body {
+  width: 100%;
+  max-width: 760px;
+}
 .circle {
   border: 1px solid;
   border-radius: 50%;
