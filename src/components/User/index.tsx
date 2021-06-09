@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import Header from '../../ui/Header'
 import Text from '../../ui/Text'
-import { Modal, Spin } from 'antd'
+import { Modal } from 'antd'
 import { initialState } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
@@ -14,80 +13,41 @@ import { StyledBody } from '../../AppStyles'
 import { auth, storage } from '../../firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
+import firebase from 'firebase'
+import { AuthContext } from '../../context/AuthContext'
 
-const User = ({ user }: any): any => {
+const User = () => {
+  const user = useContext(AuthContext)
   const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
-  const [fileUrl, setFileUrl] = useState(null)
-  const [db, setDb] = useState<any>(null)
+  const [users, setUsers] = useState<any>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
 
   useEffect(() => {
-    console.log('fileUrl', fileUrl)
-  }, [fileUrl])
-
-  async function updatePhoto (link: string) {
-    try {
-      const current = db[user.uid]
-
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
-        { ...current, avatar: link }
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async function addUser (id: string) {
-    try {
-      const updated = {
-        count: 0,
-        correct: 0,
-        mistake: 0,
-        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
-      }
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
-        updated
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
-  }
-
-  useEffect(() => {
     getUsers().then((res) => {
-      setDb(res)
+      setUsers(res)
     })
   }, [])
-
-  if (!db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
+  if (!user || !users) {
+    return null
   }
-  if (!user && db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
-  }
-
-  const currentUser = db[user.uid]
+  const currentUser = users[user.uid]
 
   if (!currentUser) {
-    addUser(user.uid).then((res) => {
-      return window.location.reload()
+    const updated = {
+      count: 0,
+      correct: 0,
+      mistake: 0,
+      avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png',
+      id: user.uid
+    }
+    firebase.database().ref('base/users/' + user.uid).set(updated).then(r => {
+      console.log('r', r)
+      window.location.reload()
     })
+    return null
   }
 
   const showModal = () => {
@@ -102,10 +62,10 @@ const User = ({ user }: any): any => {
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
     console.log('link', link)
-    updatePhoto(link).then((res) => {
-      setFileUrl(link)
-      window.location.reload()
-    })
+    // updatePhoto(link).then((res) => {
+    //   setFileUrl(link)
+    //   window.location.reload()
+    // })
   }
 
   const handleClick = () => {
@@ -115,10 +75,18 @@ const User = ({ user }: any): any => {
       upload.click()
     }
   }
+  // const addCount = () => {
+  //   console.log('addCount')
+  //   console.log(currentUser.count)
+  //   firebase.database().ref('base/users/' + user.uid).set({ ...currentUser, count: currentUser.count + 1 }).then(r => {
+  //     console.log('r', r)
+  //   })
+  // }
 
   return (
     <>
       <StyledBody>
+        {/* <Button onClick={addCount}>addCount</Button> */}
         <div>
           <div className={classes.avatar} onClick={handleClick}>
             {currentUser.avatar
@@ -191,3 +159,17 @@ const User = ({ user }: any): any => {
   )
 }
 export default User
+
+// async function updatePhoto (link: string) {
+//   try {
+//     const current = users[user?.uid]
+//
+//     const res = await axios.put(
+//       `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
+//       { ...current, avatar: link }
+//     )
+//     return res
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }

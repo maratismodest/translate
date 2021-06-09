@@ -4,7 +4,7 @@ import { phrases } from './phrases'
 import Sounds from './sounds'
 import { Language, WordsInterface } from './interfaces'
 
-function getLangWords (language: string):string[] {
+export function getLangWords (language: string):string[] {
   return words.map((item: WordsInterface) => {
     return _.get(item, language)
   })
@@ -97,14 +97,13 @@ export function getWordsFirstSecond (
     secondLanguage: resListSecondFirst
   }
 }
-
-export const wordsTatRus = getWordsFirstSecond(
-  Language.tat,
-  Language.rus,
-  tatWords,
-  rusWords,
-  words
-)
+// const wordsTatRus = getWordsFirstSecond(
+//   Language.tat,
+//   Language.rus,
+//   tatWords,
+//   rusWords,
+//   words
+// )
 
 export const phrasesTatRus = getWordsFirstSecond(
   Language.tat,
@@ -142,7 +141,7 @@ export interface InitialStateInterface {
   result: Array<any>;
   finished: boolean;
   currentQuestionIndex: number;
-  words: TwoLanguageQuestionsInterface;
+  words: TwoLanguageQuestionsInterface | [];
   phrases: TwoLanguageQuestionsInterface;
   collect: any;
   initialQuestionIndex?: 0;
@@ -161,7 +160,7 @@ export const initialState: InitialStateInterface = {
   currentQuestionIndex: 0,
   initialQuestionIndex: 0,
   word: [],
-  words: wordsTatRus,
+  words: [],
   phrases: phrasesTatRus,
   collect: phrases,
   sounds: Sounds

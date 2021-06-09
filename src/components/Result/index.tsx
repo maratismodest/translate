@@ -12,6 +12,8 @@ import Text from '../../ui/Text'
 import Icon from '../../ui/Icon'
 import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
+import firebase from 'firebase'
+import { AuthContext } from '../../context/AuthContext'
 
 const StyledResult = styled(StyledBody)`
   width: 100%;
@@ -24,7 +26,8 @@ const ResultLi = styled.li`
   margin-bottom: 10px;
 `
 
-const Result = ({ user }: any) => {
+const Result = () => {
+  const user = useContext(AuthContext)
   const { state, setState } = useContext(AppContext)
   const { result, chosenGame } = state
 
@@ -42,25 +45,20 @@ const Result = ({ user }: any) => {
     }
   }
 
-  async function addCount (id: string) {
+  function addCount (id: string) {
     const rightAnswers = _.filter(result, { correct: true })
     const wrongAnswers = _.filter(result, { correct: false })
-    try {
-      const current = db[id]
-      const updated = {
-        ...current,
-        count: current.count + 1,
-        correct: current.correct + rightAnswers.length,
-        mistake: current.mistake + wrongAnswers.length
-      }
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
-        updated
-      )
-      return res
-    } catch (error) {
-      console.log(error)
+    const current = db[id]
+    const updated = {
+      ...current,
+      count: current.count + 1,
+      correct: current.correct + rightAnswers.length,
+      mistake: current.mistake + wrongAnswers.length
     }
+    console.log('updated', updated)
+    firebase.database().ref('base/users/' + id).set(updated).then(r => {
+      console.log('r', r)
+    })
   }
 
   useEffect(() => {
@@ -70,9 +68,7 @@ const Result = ({ user }: any) => {
   }, [])
 
   if (user) {
-    addCount(user.uid).then((res) => {
-      console.log('added Count')
-    })
+    addCount(user.uid)
   }
 
   console.log('chosenGame', chosenGame)
