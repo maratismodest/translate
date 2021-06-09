@@ -2,40 +2,47 @@ import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import { Header, Text, Button } from 'ui'
-import { Modal, Spin } from 'antd'
+import { Modal } from 'antd'
 import { initialState } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
 import { getUsers } from '../../api'
 import { StyledBody } from '../../AppStyles'
-import { auth, firestore, storage } from '../../firebaseSetup'
+import { auth, storage } from '../../firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
+import { AuthContext } from '../../context/AuthContext'
 
-const User = ({ user }: any): any => {
+const User = () => {
+  const user = useContext(AuthContext)
   const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
-  const [fileUrl, setFileUrl] = useState(null)
-  const [db, setDb] = useState<any>(null)
+  const [users, setUsers] = useState<any>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
-  const [users, setUsers] = useState([])
-
   useEffect(() => {
-    console.log('fileUrl', fileUrl)
-  }, [fileUrl])
+    console.log('useEffect', user?.uid)
+    getUsers().then((res) => {
+      setUsers(res)
+    })
+  }, [])
+  if (!user || !users) {
+    return null
+  }
 
   async function updatePhoto (link: string) {
     try {
-      const current = db[user.uid]
+      if (user && user.uid) {
+        const current = users[user.uid]
 
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
-        { ...current, avatar: link }
-      )
-      return res
+        const res = await axios.put(
+          `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
+          { ...current, avatar: link }
+        )
+        return res
+      }
     } catch (error) {
       console.log(error)
     }
@@ -60,47 +67,7 @@ const User = ({ user }: any): any => {
     }
   }
 
-  const usersRef = firestore.collection('users')
-
-  function getFirestoreUsers () {
-    usersRef
-      // .where('owner', '==', currentUserId)
-      // .where('title', '==', 'School1') // does not need index
-      // .where('score', '<=', 10)    // needs index
-      // .orderBy('owner', 'asc')
-      // .limit(3)
-      .onSnapshot((querySnapshot) => {
-        const items: any = []
-        querySnapshot.forEach((doc) => {
-          items.push(doc.data())
-        })
-        setUsers(items)
-      })
-  }
-
-  useEffect(() => {
-    getFirestoreUsers()
-    getUsers().then((res) => {
-      setDb(res)
-    })
-  }, [])
-
-  if (!db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
-  }
-  if (!user && db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
-  }
-
-  const currentUser = db[user.uid]
+  const currentUser = users[user.uid]
 
   if (!currentUser) {
     addUser(user.uid).then((res) => {
@@ -121,7 +88,6 @@ const User = ({ user }: any): any => {
     const link = await fileRef.getDownloadURL()
     console.log('link', link)
     updatePhoto(link).then((res) => {
-      setFileUrl(link)
       window.location.reload()
     })
   }

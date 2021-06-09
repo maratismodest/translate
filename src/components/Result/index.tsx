@@ -10,6 +10,7 @@ import { InitialStateInterface } from '../../localBase/base'
 import { Header, Text, Icon } from 'ui'
 import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
+import { AuthContext } from '../../context/AuthContext'
 
 const StyledResult = styled(StyledBody)`
   width: 100%;
@@ -22,7 +23,8 @@ const ResultLi = styled.li`
   margin-bottom: 10px;
 `
 
-const Result = ({ user }: any) => {
+const Result = () => {
+  const user = useContext(AuthContext)
   const { state, setState } = useContext(AppContext)
   const { result, chosenGame } = state
 
