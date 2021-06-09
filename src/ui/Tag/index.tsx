@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 interface TagInterface {
   green?: boolean;
 }
-export default styled.p<TagInterface>`
+export const Tag = styled.p<TagInterface>`
   padding: 6px 20px;
   border: 1px solid rgba(11, 65, 12, 0.2);
   box-sizing: border-box;
@@ -42,3 +42,5 @@ export default styled.p<TagInterface>`
       background: rgba(15, 128, 18, 0.2);
     `}
 `
+
+export default Tag

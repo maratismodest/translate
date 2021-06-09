@@ -1,21 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Sounds from '../../localBase/sounds'
 import useSound from 'use-sound'
-import Icon from 'ui/Icon'
-import Text from 'ui/Text'
-import Header from 'ui/Header'
-import Tag from 'ui/Tag'
+
 import ProgressBlock from 'ui/ProgressBlock'
 import { ModalAnswer } from 'ui/Modals/ModalAnswer'
-import { Button } from '../../ui/Button'
+import { Button, Tag, Header, Text, Icon } from 'ui'
+import classes from './Word.module.scss'
 import { StyledBody } from '../../AppStyles'
-
-const StyledCollect = styled(StyledBody)``
 
 interface QuestionResultInterface {
   correct: boolean;
@@ -23,52 +18,6 @@ interface QuestionResultInterface {
   chosenText: string;
   correctText: string;
 }
-const Result = styled.ul`
-  min-height: 140px;
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid rgba(11, 65, 12, 0.2);
-  box-sizing: border-box;
-  box-shadow: inset 0px 5px 13px rgba(3, 32, 4, 0.02);
-  border-radius: 6px;
-  padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-`
-
-const AnswerLi = styled.li`
-  margin-right: 10px;
-  margin-bottom: 10px;
-`
-
-const Options = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-`
-
-const OptionLi = styled.li`
-  margin-right: 10px;
-  margin-bottom: 10px;
-`
-
-const Circle = styled.div`
-  border: 1px solid;
-  border-radius: 50%;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-`
-
-const Repeat = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-`
 
 const Collect = () => {
   const history = useHistory()
@@ -180,7 +129,7 @@ const Collect = () => {
   const resultList = answer.map((item, index) => {
     const { text, key } = item
     return (
-      <AnswerLi key={key}>
+      <li className={classes.answer} key={key}>
         <Tag
           green
           onClick={() => {
@@ -189,14 +138,14 @@ const Collect = () => {
         >
           <Text>{text}</Text>
         </Tag>
-      </AnswerLi>
+      </li>
     )
   })
 
   const separatedList = separated.map((item: any, index: number) => {
     const { text, key } = item
     return (
-      <OptionLi key={key} className={_.find(answer, item) ? 'cover important' : ''}>
+      <li key={key} className={_.find(answer, item) ? 'cover important' : ''}>
         <Tag
           onClick={(e: any) => {
             handleClick(key)
@@ -204,7 +153,7 @@ const Collect = () => {
         >
           <Text>{text}</Text>
         </Tag>
-      </OptionLi>
+      </li>
     )
   })
 
@@ -225,22 +174,22 @@ const Collect = () => {
   }
 
   return (
-    <StyledCollect>
-      <Repeat
+    <StyledBody>
+      <div className={classes.repeat}
         onClick={delayFunc}
         style={{
           pointerEvents: disabled ? 'none' : 'auto'
         }}
       >
-        <Circle>
+        <div className={classes.circle}>
           <Icon icon={'play'} size={16} />
-        </Circle>
+        </div>
         <Header>{i18n.t('repeatAudio')}</Header>
-      </Repeat>
+      </div>
 
-      <Result>{resultList}</Result>
+      <ul className={classes.result}>{resultList}</ul>
 
-      <Options>{separatedList}</Options>
+      <ul className={classes.options}>{separatedList}</ul>
 
       {questionResult
         ? (
@@ -253,7 +202,7 @@ const Collect = () => {
           )}
 
       <ProgressBlock length={questions.length} currentQuestionIndex={currentQuestionIndex} />
-    </StyledCollect>
+    </StyledBody>
   )
 }
 export default Collect
