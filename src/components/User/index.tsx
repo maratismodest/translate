@@ -1,74 +1,93 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
-import { Header, Text, Button } from 'ui'
-import { Modal } from 'antd'
+import Header from '../../ui/Header'
+import Text from '../../ui/Text'
+import { Modal, Spin } from 'antd'
 import { initialState } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
+import { getUsers } from '../../api'
+import { Button } from '../../ui/Button'
 import { StyledBody } from '../../AppStyles'
-import { auth, firestore, storage } from '../../firebaseSetup'
+import { auth, storage } from '../../firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
-import _ from 'lodash'
-import { AuthContext } from '../../context/AuthContext'
 
-const User = () => {
-  const user = useContext(AuthContext)
+const User = ({ user }: any): any => {
   const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
-  const [users, setUsers] = useState<any>()
+  const [fileUrl, setFileUrl] = useState(null)
+  const [db, setDb] = useState<any>(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
-  if (!user) {
-    return null
+
+  useEffect(() => {
+    console.log('fileUrl', fileUrl)
+  }, [fileUrl])
+
+  async function updatePhoto (link: string) {
+    try {
+      const current = db[user.uid]
+
+      const res = await axios.put(
+        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
+        { ...current, avatar: link }
+      )
+      return res
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const usersRef = firestore.collection('users')
-
-  function getFirestoreUsers () {
-    usersRef
-      .onSnapshot((querySnapshot) => {
-        const items: any = []
-        querySnapshot.forEach((doc) => {
-          items.push(doc.data())
-        })
-        setUsers(items)
-      })
+  async function addUser (id: string) {
+    try {
+      const updated = {
+        count: 0,
+        correct: 0,
+        mistake: 0,
+        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
+      }
+      const res = await axios.put(
+        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
+        updated
+      )
+      return res
+    } catch (error) {
+      console.log(error)
+      throw new Error(error)
+    }
   }
 
   useEffect(() => {
-    getFirestoreUsers()
+    getUsers().then((res) => {
+      setDb(res)
+    })
   }, [])
 
-  if (!users) {
-    return <div>Loading</div>
+  if (!db) {
+    return (
+      <StyledBody>
+        <Spin />
+      </StyledBody>
+    )
+  }
+  if (!user && db) {
+    return (
+      <StyledBody>
+        <Spin />
+      </StyledBody>
+    )
   }
 
-  const currentUser = _.find(users, { id: user.uid })
+  const currentUser = db[user.uid]
 
   if (!currentUser) {
-    const newUser = {
-      id: user.uid,
-      count: 0,
-      correct: 0,
-      mistake: 0,
-      avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
-
-    }
-
-    usersRef
-    // .doc() use if for some reason you want that firestore generates the id
-      .doc(user.uid)
-      .set(newUser)
-      .then(() => {
-        setUsers((prev : any) => [newUser, ...prev])
-      })
-      .catch((err) => {
-        console.error(err)
-      })
+    addUser(user.uid).then((res) => {
+      return window.location.reload()
+    })
   }
 
   const showModal = () => {
@@ -77,15 +96,21 @@ const User = () => {
 
   const onFileChange = async (e: any) => {
     const res = await resizeImageFn(e.target.files[0])
+    console.log(res)
     const file = e.target.files[0]
     const fileRef = storageRef.child(file.name)
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
     console.log('link', link)
+    updatePhoto(link).then((res) => {
+      setFileUrl(link)
+      window.location.reload()
+    })
   }
 
   const handleClick = () => {
     const upload = document.getElementById('upload')
+    console.log(upload)
     if (upload) {
       upload.click()
     }
@@ -166,19 +191,3 @@ const User = () => {
   )
 }
 export default User
-
-// async function updatePhoto (link: string) {
-//   try {
-//     if (user && user.uid) {
-//       const current = users[user.uid]
-//
-//       const res = await axios.put(
-//         `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
-//         { ...current, avatar: link }
-//       )
-//       return res
-//     }
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }

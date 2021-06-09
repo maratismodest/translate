@@ -13,7 +13,7 @@ import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
 import { GoogleButton } from './GoogleButton'
 import { auth } from '../../../../firebaseSetup'
 
-export const LoginForm = ({ setShow }: any) => {
+export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setShow }: any) => {
   type FormValues = {
     email: string;
     password: string;
