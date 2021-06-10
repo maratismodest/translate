@@ -16,10 +16,14 @@ export const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 const provider = new firebase.auth.GoogleAuthProvider()
+const facebook = new firebase.auth.FacebookAuthProvider()
 
 export const auth = firebase.auth()
 export const signInWithGoogle = () => {
   auth.signInWithPopup(provider)
+}
+export const signInWithFacebook = () => {
+  auth.signInWithPopup(facebook)
 }
 export const firestore = firebase.firestore()
 export const storage = firebase.storage()

@@ -11,6 +11,7 @@ import { Span } from '../../../../ui/Span'
 import { Paragraph } from '../../../../ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
 import { GoogleButton } from './GoogleButton'
+// import { FacebookButton } from './FacebookButton'
 import { auth } from '../../../../firebaseSetup'
 
 export const LoginForm = ({ setShow }: any) => {
@@ -78,7 +79,7 @@ export const LoginForm = ({ setShow }: any) => {
         <Span bold pointer style={{ marginBottom: isMobile ? 10 : 30, display: 'flex' }}>
           или войти с помощью:
         </Span>
-        {/* <FacebookButton /> */}
+         {/* <FacebookButton /> */}
         <GoogleButton />
       </StyledLoginFooter>
       <Paragraph
