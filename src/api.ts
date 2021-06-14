@@ -9,3 +9,13 @@ export async function getUsers () {
     throw new Error(error)
   }
 }
+
+export async function getWords () {
+  try {
+    const res = await axios.get('https://chamala.herokuapp.com/api/word')
+    return res.data
+  } catch (error) {
+    console.log(error)
+    throw new Error(error)
+  }
+}
