@@ -5,7 +5,7 @@ import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Sounds from '../../localBase/sounds'
 import useSound from 'use-sound'
-
+import { Spin } from 'antd'
 import ProgressBlock from 'ui/ProgressBlock'
 import { ModalAnswer } from 'ui/Modals/ModalAnswer'
 import { Button, Tag, Header, Text, Icon } from 'ui'
@@ -22,13 +22,22 @@ interface QuestionResultInterface {
 const Collect = () => {
   const history = useHistory()
   const { state, setState } = useContext(AppContext)
+  const { chosenGame, firstLanguage, word } = state
+
+  // console.log('word', word)
+
+  if (!word || word.length === 0) {
+    // console.log('0')
+    return (
+    <Spin />
+    )
+  }
 
   const { soundCorrect, soundWrong } = Sounds
   const [yes] = useSound(soundCorrect)
   const [no] = useSound(soundWrong)
   const [disabled, setDisabled] = useState(false)
   const [questionResult, setQuestionResult] = useState<any>()
-  const { chosenGame, firstLanguage, word } = state
 
   const shuffle = _.shuffle(word).slice(0, 5)
   const collectClone = _.clone(word)
@@ -119,7 +128,7 @@ const Collect = () => {
 
   const handleClick = (key: number) => {
     if (_.find(answer, { key: key })) {
-      console.log('уже есть')
+      // console.log('уже есть')
       return
     }
     const currentWord = _.find(separated, { key: key })

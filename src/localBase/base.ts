@@ -144,7 +144,7 @@ export interface InitialStateInterface {
   currentQuestionIndex: number;
   words: TwoLanguageQuestionsInterface | [];
   phrases: TwoLanguageQuestionsInterface | [];
-  collect: any;
+  collect: [];
   initialQuestionIndex?: 0;
   word: WordInterface[];
   sounds: any;

@@ -11,6 +11,7 @@ import i18n from 'i18next'
 import { Button, Icon, Slab, Header, ProgressBlock } from 'ui'
 import classes from './../Words/Words.module.scss'
 import { StyledBody } from '../../AppStyles'
+import { Spin } from 'antd'
 
 export interface questionResultInterface {
   correct: boolean;
@@ -35,7 +36,7 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
         <li
           key={index + text}
           onClick={(e: any) => {
-            console.log(e)
+            // console.log(e)
             currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id)
           }}
         >
@@ -69,7 +70,13 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext)
   const { phrases, chosenGame } = state
-  console.log('chosenGame', chosenGame)
+  if (!phrases || phrases.length === 0) {
+    // console.log('0')
+    return (
+      <Spin />
+    )
+  }
+  // console.log('chosenGame', chosenGame)
   const { firstLanguage, secondLanguage } = phrases
   const [answer, setAnswer] = useState<any>()
 

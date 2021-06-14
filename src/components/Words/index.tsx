@@ -11,6 +11,7 @@ import i18n from 'i18next'
 import { Button, Icon, Header, Slab, ProgressBlock } from 'ui'
 import { StyledBody } from '../../AppStyles'
 import classes from './Words.module.scss'
+import { Spin } from 'antd'
 
 export interface questionResultInterface {
   correct: boolean;
@@ -69,6 +70,12 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext)
   const { words, chosenGame } = state
+  if (!words || words.length === 0) {
+    // console.log('0')
+    return (
+      <Spin />
+    )
+  }
 
   const { firstLanguage, secondLanguage } = words
   const [answer, setAnswer] = useState<any>()

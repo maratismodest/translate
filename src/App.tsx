@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
 import { YMInitializer } from 'react-yandex-metrika'
-import { initialState } from './localBase/base'
+import { getLangWords, getWordsFirstSecond, initialState } from './localBase/base'
 import { translateBaseI18 } from './localBase/locale/translate'
 import Welcome from './components/Welcome'
 import Words from './components/Words'
@@ -21,7 +21,8 @@ import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { AuthContext } from './context/AuthContext'
 import { Spin } from 'antd'
-import { getHerokuWords } from './api'
+import { getHerokuPhrases, getHerokuWords } from './api'
+import { Language } from './localBase/interfaces'
 
 function App () {
   const [state, setState] = useState(initialState)
@@ -42,16 +43,37 @@ function App () {
     setModalVisible
   }
 
-  function getWords () {
+  function getWordsAndPhrases () {
     setLoading(true)
-    getHerokuWords().then((res) => {
-      setState(prev => ({ ...prev, word: res }))
+    getHerokuWords().then((words) => {
+      const rusWords : string[] = getLangWords('rus')
+      const tatWords: string[] = getLangWords('tat')
+      const wordsTatRus = getWordsFirstSecond(
+        Language.tat,
+        Language.rus,
+        tatWords,
+        rusWords,
+        words
+      )
+      setState(prev => ({ ...prev, word: words, words: wordsTatRus }))
+    })
+    getHerokuPhrases().then((phrases) => {
+      const rusPhrases : string[] = getLangWords('rus')
+      const tatPhrases: string[] = getLangWords('tat')
+      const phrasesTatRus = getWordsFirstSecond(
+        Language.tat,
+        Language.rus,
+        tatPhrases,
+        rusPhrases,
+        phrases
+      )
+      setState(prev => ({ ...prev, phrases: phrasesTatRus, collect: phrases }))
     })
     setLoading(false)
   }
 
   useEffect(() => {
-    getWords()
+    getWordsAndPhrases()
   }, [])
 
   if (loading) {

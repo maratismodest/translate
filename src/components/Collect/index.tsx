@@ -10,6 +10,7 @@ import { ModalAnswer } from 'ui/Modals/ModalAnswer'
 import { StyledBody } from '../../AppStyles'
 import classes from './../Word/Word.module.scss'
 import cn from 'classnames'
+import { Spin } from 'antd'
 
 interface QuestionResultInterface {
   correct: boolean;
@@ -21,14 +22,20 @@ interface QuestionResultInterface {
 const Collect = () => {
   const history = useHistory()
   const { state, setState } = useContext(AppContext)
+  const { collect, firstLanguage, chosenGame } = state
+  if (!collect || collect.length === 0) {
+    // console.log('0')
+    return (
+      <Spin />
+    )
+  }
 
   const { soundCorrect, soundWrong } = Sounds
   const [yes] = useSound(soundCorrect)
   const [no] = useSound(soundWrong)
   const [disabled, setDisabled] = useState(false)
   const [questionResult, setQuestionResult] = useState<any>()
-  const { collect, firstLanguage, chosenGame } = state
-  console.log('chosenGame', chosenGame)
+  // console.log('chosenGame', chosenGame)
 
   const shuffle = _.shuffle(collect).slice(0, 5)
   const collectClone = _.clone(collect)
@@ -123,7 +130,7 @@ const Collect = () => {
 
   const handleTagClick = (key: number) => {
     const currentIndex = _.findIndex(answer, { key: key })
-    console.log(currentIndex)
+    // console.log(currentIndex)
     const copyAnswer = _.clone(answer)
     copyAnswer.splice(currentIndex, 1)
     setAnswer(copyAnswer)
@@ -131,7 +138,7 @@ const Collect = () => {
 
   const handleClick = (key: number) => {
     if (_.find(answer, { key: key })) {
-      console.log('уже есть')
+      // console.log('уже есть')
       return
     }
     const currentWord = _.find(separated, { key: key })

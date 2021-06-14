@@ -23,7 +23,7 @@ export const ModalAnswer = ({
   currentQuestionResult,
   handleNext
 }: ModalAnswerInterface) => {
-  console.log('currentQuestionResult', currentQuestionResult)
+  // console.log('currentQuestionResult', currentQuestionResult)
   const { correct, correctText, chosenText } = currentQuestionResult
   const True = () => {
     return (
