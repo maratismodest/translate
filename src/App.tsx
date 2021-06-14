@@ -3,7 +3,7 @@ import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
 import { YMInitializer } from 'react-yandex-metrika'
-import { getLangWords, getWordsFirstSecond, initialState } from './localBase/base'
+import { initialState } from './localBase/base'
 import { translateBaseI18 } from './localBase/locale/translate'
 import Welcome from './components/Welcome'
 import Words from './components/Words'
@@ -20,10 +20,8 @@ import Word from './components/Word'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { AuthContext } from './context/AuthContext'
-import { firestore } from './firebaseSetup'
 import { Spin } from 'antd'
-import { Language } from './localBase/interfaces'
-import { words } from './localBase/words'
+import { getHerokuWords } from './api'
 
 function App () {
   const [state, setState] = useState(initialState)
@@ -43,51 +41,12 @@ function App () {
     modalLoginVisible,
     setModalVisible
   }
-  // REALTIME GET FUNCTION
-  const ref = firestore.collection('words')
-  const phrases = firestore.collection('phrases')
 
   function getWords () {
     setLoading(true)
-    ref.onSnapshot((querySnapshot) => {
-      const items: any = []
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data())
-      })
-
-      const rusWords : string[] = getLangWords('rus')
-      const tatWords: string[] = getLangWords('tat')
-      const wordsTatRus = getWordsFirstSecond(
-        Language.tat,
-        Language.rus,
-        tatWords,
-        rusWords,
-        words
-      )
-      console.log(items.length)
-      localStorage.setItem('word', JSON.stringify(items))
-      setState(prevState => ({ ...prevState, word: items, words: wordsTatRus }))
+    getHerokuWords().then((res) => {
+      setState(prev => ({ ...prev, word: res }))
     })
-
-    phrases.onSnapshot((querySnapshot) => {
-      const phrases: any = []
-      querySnapshot.forEach((doc) => {
-        phrases.push(doc.data())
-      })
-
-      const rusWords : string[] = getLangWords('rus')
-      const tatWords: string[] = getLangWords('tat')
-      const phrasesTatRus = getWordsFirstSecond(
-        Language.tat,
-        Language.rus,
-        tatWords,
-        rusWords,
-        phrases
-      )
-
-      setState(prev => ({ ...prev, collect: phrases, phrases: phrasesTatRus }))
-    })
-
     setLoading(false)
   }
 

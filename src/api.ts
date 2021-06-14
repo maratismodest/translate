@@ -10,7 +10,7 @@ export async function getUsers () {
   }
 }
 
-export async function getWords () {
+export async function getHerokuWords () {
   try {
     const res = await axios.get('https://chamala.herokuapp.com/api/word')
     return res.data
