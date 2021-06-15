@@ -28,7 +28,6 @@ import { GET_ALL_PHRASES } from './query/phrase'
 
 function App () {
   const [state, setState] = useState(initialState)
-  const [loading, setLoading] = useState(false)
   const [modalLoginVisible, setModalVisible] = useState(false)
 
   const { loading: wordsLoading, data: wordsData } = useQuery(GET_ALL_WORDS)
@@ -49,7 +48,6 @@ function App () {
   }
 
   useEffect(() => {
-    setLoading(true)
     if (wordsData) {
       const words = wordsData.getAllWords
 
@@ -64,7 +62,8 @@ function App () {
       )
       setState(prev => ({ ...prev, word: words, words: wordsTatRus }))
     }
-
+  }, [wordsData])
+  useEffect(() => {
     if (phrasesData) {
       const phrases = phrasesData.getAllPhrases
       const rusPhrases : string[] = getLangWords(phrases, 'rus')
@@ -78,10 +77,9 @@ function App () {
       )
       setState(prev => ({ ...prev, phrases: phrasesTatRus, collect: phrases }))
     }
-    setLoading(false)
-  }, [])
+  }, [phrasesData])
 
-  if (loading || wordsLoading || !wordsData || phrasesLoading || !phrasesData) {
+  if (wordsLoading || !wordsData || phrasesLoading || !phrasesData) {
     return (<div className={classes.bodyCenter}>
         <Spin />
       </div>
