@@ -79,7 +79,7 @@ export const LoginForm = ({ setShow }: any) => {
         <Span bold pointer style={{ marginBottom: isMobile ? 10 : 30, display: 'flex' }}>
           или войти с помощью:
         </Span>
-         {/* <FacebookButton /> */}
+          {/* <FacebookButton /> */}
         <GoogleButton />
       </StyledLoginFooter>
       <Paragraph
