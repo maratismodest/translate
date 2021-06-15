@@ -13,8 +13,9 @@ import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
 import { AuthContext } from '../../context/AuthContext'
 import _ from 'lodash'
-import { useQuery } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../../query/user'
+import { CREATE_USER } from '../../mutations/user'
 
 const User = () => {
   const { loading, data } = useQuery(GET_ALL_USERS)
@@ -24,6 +25,10 @@ const User = () => {
   const storageRef = storage.ref()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
+  const [createUser, { data: mutationData }] = useMutation(CREATE_USER)
+
+  console.log('addTodo', createUser)
+  console.log('mutationData', mutationData)
 
   if (loading && !data) {
     return (
@@ -56,31 +61,21 @@ const User = () => {
     }
   }
 
-  async function addUser (id: string) {
-    try {
-      const updated = {
-        count: 0,
-        correct: 0,
-        mistake: 0,
-        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png',
-        uid: id
-      }
-      const res = await axios.post(
-        'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json',
-        updated
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
-  }
-
   const currentUser = _.find(users, { uid: user.uid })
 
   if (!currentUser) {
-    addUser(user.uid).then((res) => {
-      return window.location.reload()
+    createUser({
+      variables: {
+        input: {
+          count: 0,
+          correct: 0,
+          mistake: 0,
+          avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png',
+          uid: user.uid
+        }
+      }
+    }).then(({ data } : any) => {
+      console.log('data', data)
     })
   }
 
