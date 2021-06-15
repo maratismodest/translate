@@ -10,22 +10,22 @@ export async function getUsers () {
   }
 }
 
-export async function getHerokuWords () {
-  try {
-    const res = await axios.get('https://chamala.herokuapp.com/api/word')
-    return res.data
-  } catch (error) {
-    console.log(error)
-    throw new Error(error)
-  }
-}
-
-export async function getHerokuPhrases () {
-  try {
-    const res = await axios.get('https://chamala.herokuapp.com/api/phrase')
-    return res.data
-  } catch (error) {
-    console.log(error)
-    throw new Error(error)
-  }
-}
+// export async function getHerokuWords () {
+//   try {
+//     const res = await axios.get('https://chamala.herokuapp.com/api/word')
+//     return res.data
+//   } catch (error) {
+//     console.log(error)
+//     throw new Error(error)
+//   }
+// }
+//
+// export async function getHerokuPhrases () {
+//   try {
+//     const res = await axios.get('https://chamala.herokuapp.com/api/phrase')
+//     return res.data
+//   } catch (error) {
+//     console.log(error)
+//     throw new Error(error)
+//   }
+// }

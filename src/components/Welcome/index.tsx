@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import i18n from 'i18next'
 import { isMobile } from 'react-device-detect'
@@ -6,16 +6,8 @@ import Logo from './welcome.svg'
 import { Button, Header } from 'ui'
 import classes from './Welcome.module.scss'
 import cn from 'classnames'
-import { useQuery } from '@apollo/client'
-import { GET_ALL_WORDS } from './../../query/word'
 
 const Desktop = () => {
-  const { loading, data } = useQuery(GET_ALL_WORDS)
-
-  useEffect(() => {
-    console.log(loading)
-    console.log(data)
-  }, [loading])
   return (
     <div className={classes.welcomeDesktop}>
       <div className={classes.welcomeDesktopWallPaper}>

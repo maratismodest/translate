@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import { Header, Text, Button } from 'ui'
@@ -7,30 +7,38 @@ import { initialState } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
-import { getUsers } from '../../api'
 import { StyledBody } from '../../AppStyles'
 import { auth, storage } from '../../firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
 import { AuthContext } from '../../context/AuthContext'
+import _ from 'lodash'
+import { useQuery } from '@apollo/client'
+import { GET_ALL_USERS } from '../../query/user'
 
 const User = () => {
+  const { loading, data } = useQuery(GET_ALL_USERS)
   const user = useContext(AuthContext)
   const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
-  const [users, setUsers] = useState<any>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
-  useEffect(() => {
-    console.log('useEffect', user?.uid)
-    getUsers().then((res) => {
-      setUsers(res)
-    })
-  }, [])
-  if (!user || !users) {
-    return null
+
+  if (loading && !data) {
+    return (
+      <div>Загрузка...</div>
+    )
   }
+
+  if (!user) {
+    return (
+      <div>Авторизуйтесь!</div>
+    )
+  }
+  const users = data.getAllUsers
+
+  console.log('users', users)
 
   async function updatePhoto (link: string) {
     try {
@@ -54,10 +62,11 @@ const User = () => {
         count: 0,
         correct: 0,
         mistake: 0,
-        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
+        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png',
+        uid: id
       }
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
+      const res = await axios.post(
+        'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json',
         updated
       )
       return res
@@ -67,7 +76,7 @@ const User = () => {
     }
   }
 
-  const currentUser = users[user.uid]
+  const currentUser = _.find(users, { uid: user.uid })
 
   if (!currentUser) {
     addUser(user.uid).then((res) => {
@@ -99,8 +108,6 @@ const User = () => {
       upload.click()
     }
   }
-  console.log('users', users)
-  console.log('currentUser', users[user.uid])
 
   return (
     <>

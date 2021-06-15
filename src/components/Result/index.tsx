@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import i18n from 'i18next'
-import axios from 'axios'
 import AppContext from '../../AppContext'
 import _ from 'lodash'
 import { InitialStateInterface } from '../../localBase/base'
@@ -9,57 +8,58 @@ import { Header, Text, Icon, Button } from 'ui'
 import { StyledBody } from '../../AppStyles'
 import { AuthContext } from '../../context/AuthContext'
 import classes from './Result.module.scss'
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_ALL_USERS } from '../../query/user'
+import { UPDATE_USER } from '../../mutations/user'
 
 const Result = () => {
-  const user = useContext(AuthContext)
   const { state, setState } = useContext(AppContext)
   const { result, chosenGame } = state
+  const user = useContext(AuthContext)
 
-  const [db, setDb] = useState<any>(null)
+  const { loading, data } = useQuery(GET_ALL_USERS)
+  const [updateUser] = useMutation(UPDATE_USER)
 
-  async function getInfo () {
-    try {
-      const res = await axios.get(
-        'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json'
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
+  if (!result) {
+    return (
+      <div>Ждем результатов</div>
+    )
   }
 
-  async function addCount (id: string) {
+  if (loading || !data) {
+    return (
+      <div>Смотрим базу данных пользователей</div>
+    )
+  }
+
+  const users = data.getAllUsers
+  console.log('users', users)
+
+  function addCount (uid : string) {
     const rightAnswers = _.filter(result, { correct: true })
     const wrongAnswers = _.filter(result, { correct: false })
-    try {
-      const current = db[id]
-      const updated = {
-        ...current,
-        count: current.count + 1,
-        correct: current.correct + rightAnswers.length,
-        mistake: current.mistake + wrongAnswers.length
-      }
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
-        updated
-      )
-      return res
-    } catch (error) {
-      console.log(error)
+    const current = _.find(users, { uid: uid })
+    const updated = {
+      ...current,
+      count: current.count + 1,
+      correct: current.correct + rightAnswers.length,
+      mistake: current.mistake + wrongAnswers.length
     }
+
+    console.log('updated', updated)
+    updateUser({
+      variables: {
+        input: {
+          uid, updated
+        }
+      }
+    }).then(({ data }: any) => {
+      console.log('data', data)
+    })
   }
 
-  useEffect(() => {
-    getInfo().then((res) => {
-      setDb(res.data)
-    })
-  }, [])
-
   if (user) {
-    addCount(user.uid).then((res) => {
-      console.log('added Count')
-    })
+    addCount(user.uid)
   }
 
   return (
@@ -104,7 +104,7 @@ const Result = () => {
                 initialQuestionIndex: 0
               }))
             }}
-          >s
+          >
             {i18n.t('repeat')}
           </Button>
         </Link>

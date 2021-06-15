@@ -21,13 +21,18 @@ import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { AuthContext } from './context/AuthContext'
 import { Spin } from 'antd'
-import { getHerokuPhrases, getHerokuWords } from './api'
 import { Language } from './localBase/interfaces'
+import { useQuery } from '@apollo/client'
+import { GET_ALL_WORDS } from './query/word'
+import { GET_ALL_PHRASES } from './query/phrase'
 
 function App () {
   const [state, setState] = useState(initialState)
   const [loading, setLoading] = useState(false)
   const [modalLoginVisible, setModalVisible] = useState(false)
+
+  const { loading: wordsLoading, data: wordsData } = useQuery(GET_ALL_WORDS)
+  const { loading: phrasesLoading, data: phrasesData } = useQuery(GET_ALL_PHRASES)
 
   i18n
     .init({
@@ -43,11 +48,13 @@ function App () {
     setModalVisible
   }
 
-  function getWordsAndPhrases () {
+  useEffect(() => {
     setLoading(true)
-    getHerokuWords().then((words) => {
-      const rusWords : string[] = getLangWords('rus')
-      const tatWords: string[] = getLangWords('tat')
+    if (wordsData) {
+      const words = wordsData.getAllWords
+
+      const rusWords : string[] = getLangWords(words, 'rus')
+      const tatWords: string[] = getLangWords(words, 'tat')
       const wordsTatRus = getWordsFirstSecond(
         Language.tat,
         Language.rus,
@@ -56,10 +63,12 @@ function App () {
         words
       )
       setState(prev => ({ ...prev, word: words, words: wordsTatRus }))
-    })
-    getHerokuPhrases().then((phrases) => {
-      const rusPhrases : string[] = getLangWords('rus')
-      const tatPhrases: string[] = getLangWords('tat')
+    }
+
+    if (phrasesData) {
+      const phrases = phrasesData.getAllPhrases
+      const rusPhrases : string[] = getLangWords(phrases, 'rus')
+      const tatPhrases: string[] = getLangWords(phrases, 'tat')
       const phrasesTatRus = getWordsFirstSecond(
         Language.tat,
         Language.rus,
@@ -68,20 +77,18 @@ function App () {
         phrases
       )
       setState(prev => ({ ...prev, phrases: phrasesTatRus, collect: phrases }))
-    })
+    }
     setLoading(false)
-  }
-
-  useEffect(() => {
-    getWordsAndPhrases()
   }, [])
 
-  if (loading) {
+  if (loading || wordsLoading || !wordsData || phrasesLoading || !phrasesData) {
     return (<div className={classes.bodyCenter}>
         <Spin />
       </div>
     )
   }
+
+  console.log(state)
 
   return (
     <AppContext.Provider value={context}>

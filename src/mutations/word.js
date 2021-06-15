@@ -1,9 +1,9 @@
 import { gql } from '@apollo/client'
 
-export const CREATE_USER = gql`
+export const CREATE_WORD = gql`
     mutation createUser($input: WordInput) {
         createWord(input: $input) {
-            id, username, age
+            rus, tat, eng, lat, audio
         }
     }
 `
