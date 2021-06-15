@@ -37,7 +37,7 @@ const User = () => {
     )
   }
   const users = data.getAllUsers
-
+  console.log('user', user)
   console.log('users', users)
 
   async function updatePhoto (link: string) {
