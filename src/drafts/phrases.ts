@@ -1,4 +1,4 @@
-import { WordsInterface } from './interfaces'
+import { WordsInterface } from '../localBase/interfaces'
 
 export const phrases: WordsInterface[] = [
   {

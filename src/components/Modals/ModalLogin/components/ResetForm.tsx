@@ -10,7 +10,7 @@ import { Span } from 'ui/Span'
 import { Paragraph } from 'ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
 import { GoogleButton } from './GoogleButton'
-import { auth } from '../../../../firebaseSetup'
+import { auth } from '../../../../firebase/firebaseSetup'
 
 export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
   type FormValues = {
@@ -36,7 +36,7 @@ export const ResetForm = ({ signInWithGoogle, setShow }: any) => {
     auth.sendPasswordResetEmail(email)
       .then(() => {
         setTimeout(() => {
-          console.log('setTimeout', 3000)
+          // console.log('setTimeout', 3000)
         }, 3000)
       })
       .catch(() => {

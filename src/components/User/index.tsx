@@ -2,19 +2,19 @@ import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Header, Text, Button } from 'ui'
 import { Modal } from 'antd'
-import { InitialStateInterface } from '../../localBase/base'
+import { InitialStateInterface } from '../../localBase/interfaces'
 import i18n from 'i18next'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import Tukai from './../../assets/tukai.png'
-import { StyledBody } from '../../AppStyles'
-import { auth, storage } from '../../firebaseSetup'
+import { StyledBody } from 'App'
+import { auth, storage } from '../../firebase/firebaseSetup'
 import classes from './User.module.scss'
 import { resizeImageFn } from './apiUser'
 import { AuthContext } from '../../context/AuthContext'
 import _ from 'lodash'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_ALL_USERS } from '../../query/user'
-import { CREATE_USER, UPDATE_USER } from '../../mutations/user'
+import { GET_ALL_USERS } from '../../graphql/query/user'
+import { CREATE_USER, UPDATE_USER } from '../../graphql/mutations/user'
 
 const User = () => {
   const user = useContext(AuthContext)
@@ -24,7 +24,7 @@ const User = () => {
     )
   }
   const { loading, data } = useQuery(GET_ALL_USERS)
-  const { state, setState } = useContext(AppContext)
+  const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -39,8 +39,8 @@ const User = () => {
   }
 
   const users = data.getAllUsers
-  console.log('user', user)
-  console.log('users', users)
+  // console.log('user', user)
+  // console.log('users', users)
 
   const currentUser = _.find(users, { uid: user.uid })
 
@@ -56,7 +56,7 @@ const User = () => {
         }
       }
     }).then((res) => {
-      console.log(new Date())
+      // console.log(new Date())
     })
   }
   if (user && !currentUser) {
@@ -73,7 +73,7 @@ const User = () => {
 
   const onFileChange = async (e: any) => {
     const res = await resizeImageFn(e.target.files[0])
-    console.log(res)
+    // console.log(res)
     const file = e.target.files[0]
     const fileRef = storageRef.child(file.name)
     await fileRef.put(res)
@@ -98,18 +98,18 @@ const User = () => {
       window.location.reload()
     })
 
-    console.log('link', link)
+    // console.log('link', link)
   }
 
   const handleClick = () => {
     const upload = document.getElementById('upload')
-    console.log(upload)
+    // console.log(upload)
     if (upload) {
       upload.click()
     }
   }
 
-  console.log(state)
+  // console.log(state)
   return (
     <>
       <StyledBody>

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { useDetectClickOutside } from 'react-detect-click-outside'
 import { useHistory } from 'react-router-dom'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import { MenuOutlined } from '@ant-design/icons'
 
 import Text from '../../ui/Text'

@@ -11,10 +11,9 @@ import Result from './components/Result'
 import Phrases from './components/Phrases'
 import Collect from './components/Collect'
 import Menu from './components/Menu'
-import { StyledLogo } from './AppStyles'
 import classes from './App.module.scss'
 import Latin from './components/Latin'
-import AppContext from './AppContext'
+import AppContext from './context/AppContext'
 import User from './components/User'
 import Word from './components/Word'
 import PickGame from './components/PickGame'
@@ -23,8 +22,19 @@ import { AuthContext } from './context/AuthContext'
 import { Spin } from 'antd'
 import { Language } from './localBase/interfaces'
 import { useQuery } from '@apollo/client'
-import { GET_ALL_WORDS } from './query/word'
-import { GET_ALL_PHRASES } from './query/phrase'
+import { GET_ALL_WORDS } from './graphql/query/word'
+import { GET_ALL_PHRASES } from './graphql/query/phrase'
+import { Header } from 'ui'
+import styled from 'styled-components'
+
+export const StyledBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  text-align: center;
+`
 
 function App () {
   const [state, setState] = useState(initialState)
@@ -86,16 +96,16 @@ function App () {
     )
   }
 
-  console.log(state)
+  // console.log(state)
 
   return (
     <AppContext.Provider value={context}>
       <div className={classes.body} id='App'>
         <div className={classes.header}>
           <NavLink to='/'>
-            <StyledLogo level={2} bold color='green'>
+            <Header level={2} bold color='green' className={classes.logo}>
               Chamala
-            </StyledLogo>
+            </Header>
           </NavLink>
           <Menu />
         </div>

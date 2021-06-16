@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import i18n from 'i18next'
 import { useHistory } from 'react-router-dom'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import { Menu } from 'antd'
 import classes from './DesktopMenu.module.scss'
 import { AuthContext } from '../../context/AuthContext'

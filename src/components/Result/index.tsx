@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import i18n from 'i18next'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import _ from 'lodash'
-import { InitialStateInterface } from '../../localBase/base'
+import { InitialStateInterface } from '../../localBase/interfaces'
 import { Header, Text, Icon, Button } from 'ui'
-import { StyledBody } from '../../AppStyles'
+import { StyledBody } from 'App'
 import { AuthContext } from '../../context/AuthContext'
 import classes from './Result.module.scss'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_ALL_USERS } from '../../query/user'
-import { UPDATE_USER } from '../../mutations/user'
+import { GET_ALL_USERS } from '../../graphql/query/user'
+import { UPDATE_USER } from '../../graphql/mutations/user'
 
 const Result = () => {
   const { state, setState } = useContext(AppContext)
@@ -33,7 +33,7 @@ const Result = () => {
   }
 
   const users = data.getAllUsers
-  console.log('users', users)
+  // console.log('users', users)
 
   function addCount (uid : string) {
     const rightAnswers = _.filter(result, { correct: true })
@@ -48,13 +48,13 @@ const Result = () => {
         correct: current.correct + rightAnswers.length,
         mistake: current.mistake + wrongAnswers.length
       }
-      console.log('updated', updated)
+      // console.log('updated', updated)
       updateUser({
         variables: {
           input: updated
         }
       }).then(() => {
-        console.log('data')
+        // console.log('data')
       })
     }
   }
@@ -65,7 +65,7 @@ const Result = () => {
       <ul>
         {result.map((item: any, index: number) => {
           const { correct, questionText, chosenText, correctText } = item
-          console.log(item)
+          // console.log(item)
           return (
             <li className={classes.re} key={index}>
               <div
@@ -93,7 +93,7 @@ const Result = () => {
         <Link to={`/${chosenGame}`}>
           <Button
             onClick={() => {
-              user ? addCount(user.uid) : console.log('tets')
+              user ? addCount(user.uid) : console.log('test')
               setState((prevState : InitialStateInterface) => ({
                 ...prevState,
                 result: [],
@@ -111,7 +111,7 @@ const Result = () => {
       <Link
         to={'/'}
         onClick={() => {
-          user ? addCount(user.uid) : console.log('tets')
+          user ? addCount(user.uid) : console.log('test')
           setState((prevState : InitialStateInterface) => ({
             ...prevState,
             gameState: 'welcome',

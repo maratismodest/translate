@@ -1,6 +1,6 @@
 import React from 'react'
 import Facebook from './facebook.svg'
-import { signInWithFacebook } from '../../../../../firebaseSetup'
+import { signInWithFacebook } from '../../../../../firebase/firebaseSetup'
 
 export const FacebookButton = () => {
   return (

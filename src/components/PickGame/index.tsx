@@ -5,7 +5,7 @@ import Slab from '../../ui/Slab'
 import Header from '../../ui/Header'
 import Word from './word.svg'
 import Phrase from './phrase.svg'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import classes from './PickGame.module.scss'
 
 const PickGame = () => {

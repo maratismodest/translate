@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
 import i18n from 'i18next'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import Sounds from '../../localBase/sounds'
 import useSound from 'use-sound'
 import { Spin } from 'antd'
@@ -10,7 +10,7 @@ import ProgressBlock from 'ui/ProgressBlock'
 import { ModalAnswer } from 'ui/Modals/ModalAnswer'
 import { Button, Tag, Header, Text, Icon } from 'ui'
 import classes from './Word.module.scss'
-import { StyledBody } from '../../AppStyles'
+import { StyledBody } from 'App'
 
 interface QuestionResultInterface {
   correct: boolean;

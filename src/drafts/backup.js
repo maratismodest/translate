@@ -1,15 +1,3 @@
-import axios from 'axios'
-
-export async function getUsers () {
-  try {
-    const res = await axios.get('https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json')
-    return res.data
-  } catch (error) {
-    console.log(error)
-    throw new Error(error)
-  }
-}
-
 // export async function getHerokuWords () {
 //   try {
 //     const res = await axios.get('https://chamala.herokuapp.com/api/word')
@@ -29,3 +17,15 @@ export async function getUsers () {
 //     throw new Error(error)
 //   }
 // }
+
+// export async function getUsers () {
+//   try {
+//     const res = await axios.get('https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json')
+//     return res.data
+//   } catch (error) {
+//     console.log(error)
+//     throw new Error(error)
+//   }
+// }
+
+// setSomeState(prev => ({...prev, count: prev.count + 1}));

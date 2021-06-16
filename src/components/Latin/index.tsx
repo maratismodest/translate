@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Input } from 'antd'
 import { transliterate } from '../../utils/tranliterate'
-import { phrases } from '../../localBase/phrases'
+import { phrases } from '../../drafts/phrases'
 
 const Latin = () => {
   const [first, setFirst] = useState('кибеткабат')

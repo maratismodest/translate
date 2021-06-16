@@ -1,33 +1,16 @@
 import _ from 'lodash'
-// import { words } from './words'
-// import { phrases } from './phrases'
 import Sounds from './sounds'
-import { Language, WordsInterface } from './interfaces'
+import {
+  InitialStateInterface,
+  Language,
+  QuestionInterface,
+  WordsInterface
+} from './interfaces'
 
 export function getLangWords (words: WordsInterface[], language: string):string[] {
   return words.map((item: WordsInterface) => {
     return _.get(item, language)
   })
-}
-//
-// export const rusWords : string[] = getLangWords('rus')
-// export const tatWords: string[] = getLangWords('tat')
-//
-// export const rusPhrases :string[] = getLangWords('rus')
-// export const tatPhrases: string[] = getLangWords('tat')
-
-// ############### //
-
-interface Option {
-  id: number,
-  text: string
-}
-interface QuestionInterface {
-  id: number,
-  questionText: string,
-  correct: 1,
-  options:Option[],
-  audio: string
 }
 
 export function resList (
@@ -96,58 +79,6 @@ export function getWordsFirstSecond (
     firstLanguage: resListFirstSecond,
     secondLanguage: resListSecondFirst
   }
-}
-
-// export const wordsTatRus = getWordsFirstSecond(
-//   Language.tat,
-//   Language.rus,
-//   tatWords,
-//   rusWords,
-//   words
-// )
-//
-// export const phrasesTatRus = getWordsFirstSecond(
-//   Language.tat,
-//   Language.rus,
-//   rusPhrases,
-//   tatPhrases,
-//   phrases
-// )
-//
-// export const collectPhrasesTatRus = getWordsFirstSecond(
-//   Language.tat,
-//   Language.rus,
-//   tatPhrases,
-//   rusPhrases,
-//   phrases
-// )
-
-interface TwoLanguageQuestionsInterface {
-  firstLanguage : QuestionInterface[],
-  secondLanguage : QuestionInterface[]
-}
-interface WordInterface {
-  audio:string,
-  eng: string,
-  lat:string,
-  rus: string,
-  tat: string,
-}
-export interface InitialStateInterface {
-  chosenGame: string;
-  gameState: 'welcome' | 'words' | 'phrases' | 'collect' | 'result';
-  language: Language;
-  firstLanguage: Language;
-  secondLanguage: Language;
-  result: Array<any>;
-  finished: boolean;
-  currentQuestionIndex: number;
-  words: TwoLanguageQuestionsInterface | [];
-  phrases: TwoLanguageQuestionsInterface | [];
-  collect: [];
-  initialQuestionIndex?: 0;
-  word: WordInterface[];
-  sounds: any;
 }
 
 export const initialState: InitialStateInterface = {

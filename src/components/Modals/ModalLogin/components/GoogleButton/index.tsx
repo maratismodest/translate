@@ -1,6 +1,6 @@
 import React from 'react'
 import Google from './google.svg'
-import { signInWithGoogle } from '../../../../../firebaseSetup'
+import { signInWithGoogle } from '../../../../../firebase/firebaseSetup'
 
 export const GoogleButton = () => {
   return (

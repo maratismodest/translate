@@ -12,7 +12,7 @@ import { Paragraph } from '../../../../ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
 import { GoogleButton } from './GoogleButton'
 // import { FacebookButton } from './FacebookButton'
-import { auth } from '../../../../firebaseSetup'
+import { auth } from '../../../../firebase/firebaseSetup'
 
 export const LoginForm = ({ setShow }: any) => {
   type FormValues = {
@@ -38,7 +38,7 @@ export const LoginForm = ({ setShow }: any) => {
     const { email, password } = data
     try {
       const { user } = await auth.signInWithEmailAndPassword(email, password)
-      console.log('user', user)
+      // console.log('user', user)
       return user
     } catch (error) {
       setError('Ошибка авторизации')
