@@ -14,7 +14,7 @@ import { AuthContext } from '../../context/AuthContext'
 import _ from 'lodash'
 import { useMutation, useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../../query/user'
-import { CREATE_USER } from '../../mutations/user'
+import { CREATE_USER, UPDATE_USER } from '../../mutations/user'
 
 const User = () => {
   const user = useContext(AuthContext)
@@ -30,6 +30,7 @@ const User = () => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
   const [createUser] = useMutation(CREATE_USER)
+  const [updateUser] = useMutation(UPDATE_USER)
 
   if (loading && !data) {
     return (
@@ -77,6 +78,26 @@ const User = () => {
     const fileRef = storageRef.child(file.name)
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
+
+    const current = _.find(users, { uid: user.uid })
+
+    const updated = {
+      id: current.id,
+      uid: current.uid,
+      avatar: link,
+      count: current.count,
+      correct: current.correct,
+      mistake: current.mistake
+    }
+
+    updateUser({
+      variables: {
+        input: updated
+      }
+    }).then(() => {
+      window.location.reload()
+    })
+
     console.log('link', link)
   }
 

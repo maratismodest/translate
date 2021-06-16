@@ -39,27 +39,24 @@ const Result = () => {
     const rightAnswers = _.filter(result, { correct: true })
     const wrongAnswers = _.filter(result, { correct: false })
     const current = _.find(users, { uid: uid })
-    const updated = {
-      ...current,
-      count: current.count + 1,
-      correct: current.correct + rightAnswers.length,
-      mistake: current.mistake + wrongAnswers.length
-    }
-
-    console.log('updated', updated)
-    updateUser({
-      variables: {
-        input: {
-          uid, updated
-        }
+    if (current && user) {
+      const updated = {
+        id: current.id,
+        uid: current.uid,
+        avatar: current.avatar,
+        count: current.count + 1,
+        correct: current.correct + rightAnswers.length,
+        mistake: current.mistake + wrongAnswers.length
       }
-    }).then(({ data }: any) => {
-      console.log('data', data)
-    })
-  }
-
-  if (user) {
-    addCount(user.uid)
+      console.log('updated', updated)
+      updateUser({
+        variables: {
+          input: updated
+        }
+      }).then(() => {
+        console.log('data')
+      })
+    }
   }
 
   return (
@@ -96,6 +93,7 @@ const Result = () => {
         <Link to={`/${chosenGame}`}>
           <Button
             onClick={() => {
+              user ? addCount(user.uid) : console.log('tets')
               setState((prevState : InitialStateInterface) => ({
                 ...prevState,
                 result: [],
@@ -113,6 +111,7 @@ const Result = () => {
       <Link
         to={'/'}
         onClick={() => {
+          user ? addCount(user.uid) : console.log('tets')
           setState((prevState : InitialStateInterface) => ({
             ...prevState,
             gameState: 'welcome',
