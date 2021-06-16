@@ -1,9 +1,8 @@
 import React, { useContext, useState } from 'react'
-import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import { Header, Text, Button } from 'ui'
 import { Modal } from 'antd'
-import { initialState } from '../../localBase/base'
+import { InitialStateInterface } from '../../localBase/base'
 import i18n from 'i18next'
 import AppContext from '../../AppContext'
 import Tukai from './../../assets/tukai.png'
@@ -18,17 +17,19 @@ import { GET_ALL_USERS } from '../../query/user'
 import { CREATE_USER } from '../../mutations/user'
 
 const User = () => {
-  const { loading, data } = useQuery(GET_ALL_USERS)
   const user = useContext(AuthContext)
-  const { setState } = useContext(AppContext)
+  if (!user || !user.uid) {
+    return (
+      <div>Авторизуйтесь!</div>
+    )
+  }
+  const { loading, data } = useQuery(GET_ALL_USERS)
+  const { state, setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
-  const [createUser, { data: mutationData }] = useMutation(CREATE_USER)
-
-  console.log('addTodo', createUser)
-  console.log('mutationData', mutationData)
+  const [createUser] = useMutation(CREATE_USER)
 
   if (loading && !data) {
     return (
@@ -36,34 +37,13 @@ const User = () => {
     )
   }
 
-  if (!user) {
-    return (
-      <div>Авторизуйтесь!</div>
-    )
-  }
   const users = data.getAllUsers
   console.log('user', user)
   console.log('users', users)
 
-  async function updatePhoto (link: string) {
-    try {
-      if (user && user.uid) {
-        const current = users[user.uid]
-
-        const res = await axios.put(
-          `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
-          { ...current, avatar: link }
-        )
-        return res
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   const currentUser = _.find(users, { uid: user.uid })
 
-  if (!currentUser) {
+  async function createUserNow (uid: string) {
     createUser({
       variables: {
         input: {
@@ -71,11 +51,18 @@ const User = () => {
           correct: 0,
           mistake: 0,
           avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png',
-          uid: user.uid
+          uid: uid
         }
       }
-    }).then(({ data } : any) => {
-      console.log('data', data)
+    }).then((res) => {
+      console.log(new Date())
+    })
+  }
+  if (user && !currentUser) {
+    setState(() => {
+      createUserNow(user.uid).then((res) => {
+        window.location.reload()
+      })
     })
   }
 
@@ -91,9 +78,6 @@ const User = () => {
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
     console.log('link', link)
-    updatePhoto(link).then((res) => {
-      window.location.reload()
-    })
   }
 
   const handleClick = () => {
@@ -104,6 +88,7 @@ const User = () => {
     }
   }
 
+  console.log(state)
   return (
     <>
       <StyledBody>
@@ -141,10 +126,10 @@ const User = () => {
         <Link
           to={'/'}
           onClick={() => {
-            setState({
-              ...initialState,
+            setState((prevState : InitialStateInterface) => ({
+              ...prevState,
               gameState: 'welcome'
-            })
+            }))
           }}
         >
           <Text underline large>
@@ -179,3 +164,19 @@ const User = () => {
   )
 }
 export default User
+
+// async function updatePhoto (link: string) {
+//   try {
+//     if (user && user.uid) {
+//       const current = users[user.uid]
+//
+//       const res = await axios.put(
+//         `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
+//         { ...current, avatar: link }
+//       )
+//       return res
+//     }
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }

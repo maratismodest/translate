@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export const GET_ALL_USERS = gql`
     query {
         getAllUsers {
-            uid, count, correct, mistake, avatar 
+            id, uid, count, correct, mistake, avatar 
         }
     }    
 
