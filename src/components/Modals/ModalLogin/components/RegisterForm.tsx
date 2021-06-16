@@ -9,7 +9,7 @@ import { Text } from '../../../../ui/Text'
 import { Span } from '../../../../ui/Span'
 import { Paragraph } from '../../../../ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
-import { auth } from '../../../../firebaseSetup'
+import { auth } from '../../../../firebase/firebaseSetup'
 import { GoogleButton } from './GoogleButton'
 
 export const RegisterForm = ({ setShow }: any) => {

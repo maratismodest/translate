@@ -1,36 +1,19 @@
 import _ from 'lodash'
-import { words } from './words'
-import { phrases } from './phrases'
 import Sounds from './sounds'
-import { Language, WordsInterface } from './interfaces'
+import {
+  InitialStateInterface,
+  Language,
+  QuestionInterface,
+  WordsInterface
+} from './interfaces'
 
-function getLangWords (language: string):string[] {
+export function getLangWords (words: WordsInterface[], language: string):string[] {
   return words.map((item: WordsInterface) => {
     return _.get(item, language)
   })
 }
 
-export const rusWords : string[] = getLangWords('rus')
-export const tatWords: string[] = getLangWords('tat')
-
-export const rusPhrases :string[] = getLangWords('rus')
-export const tatPhrases: string[] = getLangWords('tat')
-
-// ############### //
-
-interface Option {
-  id: number,
-  text: string
-}
-interface QuestionInterface {
-  id: number,
-  questionText: string,
-  correct: 1,
-  options:Option[],
-  audio: string
-}
-
-function resList (
+export function resList (
   firstLanguage: Language,
   secondLanguage: Language,
   firstArr: string[],
@@ -98,53 +81,6 @@ export function getWordsFirstSecond (
   }
 }
 
-export const wordsTatRus = getWordsFirstSecond(
-  Language.tat,
-  Language.rus,
-  tatWords,
-  rusWords,
-  words
-)
-
-export const phrasesTatRus = getWordsFirstSecond(
-  Language.tat,
-  Language.rus,
-  rusPhrases,
-  tatPhrases,
-  phrases
-)
-
-export const collectPhrasesTatRus = getWordsFirstSecond(
-  Language.tat,
-  Language.rus,
-  tatPhrases,
-  rusPhrases,
-  phrases
-)
-
-interface TwoLanguageQuestionsInterface {
-  firstLanguage : QuestionInterface[],
-  secondLanguage : QuestionInterface[]
-}
-
-export interface InitialStateInterface {
-  chosenGame: string;
-  gameState: 'welcome' | 'words' | 'phrases' | 'collect' | 'result';
-  language: Language;
-  firstLanguage: Language;
-  secondLanguage: Language;
-  result: Array<any>;
-  finished: boolean;
-  currentQuestionIndex: number;
-  words: TwoLanguageQuestionsInterface;
-  phrases: TwoLanguageQuestionsInterface;
-  collect: any;
-  initialQuestionIndex?: 0;
-  // answer: string;
-  word: any;
-  sounds: any;
-}
-
 export const initialState: InitialStateInterface = {
   chosenGame: '',
   gameState: 'welcome',
@@ -155,12 +91,9 @@ export const initialState: InitialStateInterface = {
   finished: false,
   currentQuestionIndex: 0,
   initialQuestionIndex: 0,
-  word: words,
-  words: wordsTatRus,
-  phrases: phrasesTatRus,
-  collect: phrases,
-  // answer: '-',
+  word: [],
+  words: [],
+  phrases: [],
+  collect: [],
   sounds: Sounds
 }
-
-console.log('wordsTatRus', wordsTatRus)

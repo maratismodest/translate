@@ -19,7 +19,7 @@ interface Props {
   button?: boolean;
 }
 
-export default styled.button<Partial<Props>>`
+export const Slab = styled.button<Partial<Props>>`
   position: relative;
   cursor: pointer;
   max-width: 380px;
@@ -124,3 +124,5 @@ export default styled.button<Partial<Props>>`
       background: #00ff00;
     `}
 `
+
+export default Slab

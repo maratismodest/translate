@@ -1,21 +1,17 @@
 import React, { useContext, useRef, useState } from 'react'
 import useSound from 'use-sound'
 import Sounds from '../../localBase/sounds'
-import Slab from '../../ui/Slab'
-import Header from '../../ui/Header'
-import ProgressBlock from '../../ui/ProgressBlock'
-
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 import { OptionInterface } from '../../localBase/interfaces'
-import AppContext from '../../AppContext'
-import Icon from '../../ui/Icon'
-import styled from 'styled-components'
+import AppContext from '../../context/AppContext'
 import { isMobile } from 'react-device-detect'
 import { ModalAnswer } from '../../ui/Modals/ModalAnswer'
 import i18n from 'i18next'
-import { Button } from '../../ui/Button'
-import { StyledBody } from '../../AppStyles'
+import { Button, Icon, Slab, Header, ProgressBlock } from 'ui'
+import classes from './../Words/Words.module.scss'
+import { StyledBody } from 'App'
+import { Spin } from 'antd'
 
 export interface questionResultInterface {
   correct: boolean;
@@ -32,25 +28,6 @@ interface CurrentQuestionResultInterface {
   chosenText: string;
 }
 
-const StyledWords = styled(StyledBody)`
-  //& .colors {
-  //  margin-bottom: 20px;
-  //  background: red !important;
-  //}
-`
-
-const MobileUl = styled.ul`
-  margin-top: 30px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  li {
-    width: fit-content;
-    margin-bottom: 20px;
-  }
-`
-
 const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
   const list = options.map((option: OptionInterface, index: number) => {
     const { id, text } = option
@@ -59,7 +36,7 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
         <li
           key={index + text}
           onClick={(e: any) => {
-            console.log(e)
+            // console.log(e)
             currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id)
           }}
         >
@@ -83,7 +60,7 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
     )
   })
   if (isMobile) {
-    return <MobileUl>{list}</MobileUl>
+    return <ul className={classes.ulMobile}>{list}</ul>
   }
   return <ul style={{ marginTop: 10 }}>{list}</ul>
 }
@@ -93,7 +70,13 @@ const Words = () => {
 
   const { state, setState } = useContext(AppContext)
   const { phrases, chosenGame } = state
-  console.log('chosenGame', chosenGame)
+  if (!phrases || phrases.length === 0) {
+    // console.log('0')
+    return (
+      <Spin />
+    )
+  }
+  // console.log('chosenGame', chosenGame)
   const { firstLanguage, secondLanguage } = phrases
   const [answer, setAnswer] = useState<any>()
 
@@ -170,7 +153,7 @@ const Words = () => {
   }
 
   return (
-    <StyledWords>
+    <StyledBody>
       <Slab
         onClick={(e: any) => {
           delayFunc(e)
@@ -204,7 +187,7 @@ const Words = () => {
         </Button>
           )}
       <ProgressBlock length={questions.current.length} currentQuestionIndex={currentQuestionIndex} />
-    </StyledWords>
+    </StyledBody>
   )
 }
 

@@ -11,9 +11,10 @@ import { Span } from '../../../../ui/Span'
 import { Paragraph } from '../../../../ui/Paragraph'
 import { LoginHeader, StyledInput, StyledLoginFooter } from '../index'
 import { GoogleButton } from './GoogleButton'
-import { auth } from '../../../../firebaseSetup'
+// import { FacebookButton } from './FacebookButton'
+import { auth } from '../../../../firebase/firebaseSetup'
 
-export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setShow }: any) => {
+export const LoginForm = ({ setShow }: any) => {
   type FormValues = {
     email: string;
     password: string;
@@ -37,7 +38,7 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
     const { email, password } = data
     try {
       const { user } = await auth.signInWithEmailAndPassword(email, password)
-      console.log('user', user)
+      // console.log('user', user)
       return user
     } catch (error) {
       setError('Ошибка авторизации')
@@ -78,7 +79,7 @@ export const LoginForm = ({ signInWithGoogle, signInWithEmailAndPassword, setSho
         <Span bold pointer style={{ marginBottom: isMobile ? 10 : 30, display: 'flex' }}>
           или войти с помощью:
         </Span>
-        {/* <FacebookButton /> */}
+          {/* <FacebookButton /> */}
         <GoogleButton />
       </StyledLoginFooter>
       <Paragraph

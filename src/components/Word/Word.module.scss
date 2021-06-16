@@ -1,0 +1,51 @@
+.result {
+  min-height: 140px;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(11, 65, 12, 0.2);
+  box-sizing: border-box;
+  box-shadow: inset 0px 5px 13px rgba(3, 32, 4, 0.02);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.answer {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  li {
+    margin-right: 10px;
+  }
+}
+
+.option {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.body {
+  width: 100%;
+  max-width: 760px;
+}
+.circle {
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}
+.repeat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+}

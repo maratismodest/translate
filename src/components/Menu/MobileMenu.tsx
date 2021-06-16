@@ -1,38 +1,17 @@
 import React, { useContext, useState } from 'react'
 import { useDetectClickOutside } from 'react-detect-click-outside'
 import { useHistory } from 'react-router-dom'
-import styled from 'styled-components'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import { MenuOutlined } from '@ant-design/icons'
 
 import Text from '../../ui/Text'
 import Icon from '../../ui/Icon'
 import i18n from 'i18next'
-import { MenuComponentInterface, MenuInterface, StyledMenuInterface } from './interfaces'
+import { MenuInterface, StyledMenuInterface } from './interfaces'
+import classes from './MobileMenu.module.scss'
+import { AuthContext } from '../../context/AuthContext'
 
-const Close = styled.div`
-  position: absolute;
-  right: 16px;
-  top: 16px;
-`
-
-const Styled = styled.div`
-  position: absolute;
-  z-index: 1000;
-  right: 0;
-  top: 0;
-  min-height: 350px;
-  width: 300px;
-  max-width: 80%;
-  background: #ffffff;
-  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.1);
-  border-radius: 0 0 0 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
+const MenuItems = ({ arr, setVisible }: StyledMenuInterface) => {
   const res = arr.map((item, index) => {
     const { text, cb, id } = item
     return (
@@ -57,24 +36,25 @@ const StyledMenu = ({ arr, setVisible }: StyledMenuInterface) => {
     )
   })
   return (
-    <Styled className={'menu'}>
+    <div className={classes.mobile}>
       <ul>{res}</ul>
-      <Close>
+      <div className={classes.close}>
         <Icon
           icon={'close'}
-          siz={32}
+          size={32}
           onClick={() => {
             setVisible(false)
           }}
         />
-      </Close>
-    </Styled>
+      </div>
+    </div>
   )
 }
 
-export default ({ user }: MenuComponentInterface) => {
+export default () => {
+  const user = useContext(AuthContext)
   const history = useHistory()
-  const { state, setState, setModalVisible } = useContext(AppContext)
+  const { setModalVisible } = useContext(AppContext)
   const [mainMenuVisible, setMainMenuVisible] = useState(false)
 
   const ref = useDetectClickOutside({ onTriggered: () => setMainMenuVisible(false) })
@@ -95,17 +75,16 @@ export default ({ user }: MenuComponentInterface) => {
   ]
 
   return (
-    <div id="menu" ref={ref}>
+    <div ref={ref}>
       <MenuOutlined
         style={{ fontSize: 24 }}
         onClick={() => {
           setMainMenuVisible(true)
-          setState({ ...state, menuClosed: false })
         }}
       />
       {mainMenuVisible
         ? (
-        <StyledMenu arr={MainMenuList} visible={mainMenuVisible} setVisible={setMainMenuVisible} />
+        <MenuItems arr={MainMenuList} visible={mainMenuVisible} setVisible={setMainMenuVisible} />
           )
         : null}
     </div>

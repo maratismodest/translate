@@ -4,18 +4,18 @@ import { Input, Modal } from 'antd'
 import { LoginForm } from './components/LoginForm'
 import { RegisterForm } from './components/RegisterForm'
 import { ResetForm } from './components/ResetForm'
-import AppContext from '../../../AppContext'
+import AppContext from '../../../context/AppContext'
 import { Header } from '../../../ui'
-import { StyledBody } from '../../../AppStyles'
-const StyledLogin = styled(StyledBody)`
+import { StyledBody } from 'App'
+
+const ModalLogin = (props: any) => {
+  const StyledLogin = styled(StyledBody)`
   color: #718ccc;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
 `
-
-const ModalLogin = (props: any) => {
   const { user } = props
   const { modalLoginVisible, setModalVisible } =
     useContext(AppContext)

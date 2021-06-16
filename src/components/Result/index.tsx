@@ -1,91 +1,73 @@
-import React, { useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import i18n from 'i18next'
-import axios from 'axios'
-import AppContext from '../../AppContext'
-
+import AppContext from '../../context/AppContext'
 import _ from 'lodash'
-import { initialState } from '../../localBase/base'
-import Header from '../../ui/Header'
-import Text from '../../ui/Text'
-import Icon from '../../ui/Icon'
-import { Button } from '../../ui/Button'
-import { StyledBody } from '../../AppStyles'
+import { InitialStateInterface } from '../../localBase/interfaces'
+import { Header, Text, Icon, Button } from 'ui'
+import { StyledBody } from 'App'
+import { AuthContext } from '../../context/AuthContext'
+import classes from './Result.module.scss'
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_ALL_USERS } from '../../graphql/query/user'
+import { UPDATE_USER } from '../../graphql/mutations/user'
 
-const StyledResult = styled(StyledBody)`
-  width: 100%;
-`
-
-const ResultLi = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-  margin-bottom: 10px;
-`
-
-const Result = ({ user }: any) => {
+const Result = () => {
   const { state, setState } = useContext(AppContext)
   const { result, chosenGame } = state
+  const user = useContext(AuthContext)
 
-  const [db, setDb] = useState<any>(null)
+  const { loading, data } = useQuery(GET_ALL_USERS)
+  const [updateUser] = useMutation(UPDATE_USER)
 
-  async function getInfo () {
-    try {
-      const res = await axios.get(
-        'https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users.json'
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
+  if (!result) {
+    return (
+      <div>Ждем результатов</div>
+    )
   }
 
-  async function addCount (id: string) {
+  if (loading || !data) {
+    return (
+      <div>Смотрим базу данных пользователей</div>
+    )
+  }
+
+  const users = data.getAllUsers
+  // console.log('users', users)
+
+  function addCount (uid : string) {
     const rightAnswers = _.filter(result, { correct: true })
     const wrongAnswers = _.filter(result, { correct: false })
-    try {
-      const current = db[id]
+    const current = _.find(users, { uid: uid })
+    if (current && user) {
       const updated = {
-        ...current,
+        id: current.id,
+        uid: current.uid,
+        avatar: current.avatar,
         count: current.count + 1,
         correct: current.correct + rightAnswers.length,
         mistake: current.mistake + wrongAnswers.length
       }
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
-        updated
-      )
-      return res
-    } catch (error) {
-      console.log(error)
+      // console.log('updated', updated)
+      updateUser({
+        variables: {
+          input: updated
+        }
+      }).then(() => {
+        // console.log('data')
+      })
     }
   }
 
-  useEffect(() => {
-    getInfo().then((res) => {
-      setDb(res.data)
-    })
-  }, [])
-
-  if (user) {
-    addCount(user.uid).then((res) => {
-      console.log('added Count')
-    })
-  }
-
-  console.log('chosenGame', chosenGame)
-
   return (
-    <StyledResult>
+    <StyledBody>
       <Header>{i18n.t('resultText')}:</Header>
       <ul>
         {result.map((item: any, index: number) => {
           const { correct, questionText, chosenText, correctText } = item
-          console.log(item)
+          // console.log(item)
           return (
-            <ResultLi key={index}>
+            <li className={classes.re} key={index}>
               <div
                 style={{
                   display: 'flex',
@@ -100,26 +82,25 @@ const Result = ({ user }: any) => {
                 <Icon icon={correct} />
               </div>
               {correct ? null : <Text green>Правильный ответ: {correctText}</Text>}
-            </ResultLi>
+            </li>
           )
         })}
       </ul>
       <div>
         <div style={{ marginBottom: 16 }}>
           <Header level={4}>{i18n.t('wellDone')}</Header>
-          {/* <div> */}
-          {/*  {!user ? ( */}
-          {/*    <div style={{ textAlign: "center" }}> */}
-          {/*      <div>Зайди в личный кабинет, чтобы знать свой прогресс! </div> */}
-          {/*      <GoogleButton onClick={signInWithGoogle} label="Чамала!" /> */}
-          {/*    </div> */}
-          {/*  ) : null} */}
-          {/* </div> */}
         </div>
         <Link to={`/${chosenGame}`}>
           <Button
             onClick={() => {
-              setState(initialState)
+              user ? addCount(user.uid) : console.log('test')
+              setState((prevState : InitialStateInterface) => ({
+                ...prevState,
+                result: [],
+                finished: false,
+                currentQuestionIndex: 0,
+                initialQuestionIndex: 0
+              }))
             }}
           >
             {i18n.t('repeat')}
@@ -130,17 +111,23 @@ const Result = ({ user }: any) => {
       <Link
         to={'/'}
         onClick={() => {
-          setState({
-            ...initialState,
-            gameState: 'welcome'
-          })
+          user ? addCount(user.uid) : console.log('test')
+          setState((prevState : InitialStateInterface) => ({
+            ...prevState,
+            gameState: 'welcome',
+            result: [],
+            finished: false,
+            currentQuestionIndex: 0,
+            initialQuestionIndex: 0
+          }))
+          // setSomeState(prev => ({...prev, count: prev.count + 1}));
         }}
       >
         <Text underline large>
           {i18n.t('mainPage')}
         </Text>
       </Link>
-    </StyledResult>
+    </StyledBody>
   )
 }
 export default Result

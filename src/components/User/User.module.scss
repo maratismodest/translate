@@ -1,0 +1,42 @@
+.avatar {
+  border-radius: 50%;
+  border: 1px solid black;
+  overflow: hidden;
+  width: 115px;
+  height: 115px;
+  margin: 0 auto;
+  margin-bottom: 24px;
+  img {
+    object-fit: cover;
+    object-position: center;
+  }
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  button {
+    margin-bottom: 10px;
+  }
+}
+
+.stats {
+  background: #ffffff;
+  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.08);
+  border-radius: 14px;
+  padding: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+}

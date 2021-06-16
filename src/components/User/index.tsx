@@ -1,136 +1,69 @@
-import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useContext, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import Header from '../../ui/Header'
-import Text from '../../ui/Text'
-import { Modal, Spin } from 'antd'
-import { initialState } from '../../localBase/base'
+import { Header, Text, Button } from 'ui'
+import { Modal } from 'antd'
+import { InitialStateInterface } from '../../localBase/interfaces'
 import i18n from 'i18next'
-import AppContext from '../../AppContext'
+import AppContext from '../../context/AppContext'
 import Tukai from './../../assets/tukai.png'
-import styled from 'styled-components'
-import { getInfo } from '../../api'
-import { Button } from '../../ui/Button'
-import { StyledBody } from '../../AppStyles'
-import { auth, storage } from '../../firebaseSetup'
-const Compress = require('compress.js')
-const StyledUser = styled(StyledBody)``
+import { StyledBody } from 'App'
+import { auth, storage } from '../../firebase/firebaseSetup'
+import classes from './User.module.scss'
+import { resizeImageFn } from './apiUser'
+import { AuthContext } from '../../context/AuthContext'
+import _ from 'lodash'
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_ALL_USERS } from '../../graphql/query/user'
+import { CREATE_USER, UPDATE_USER } from '../../graphql/mutations/user'
 
-const Avatar = styled.div`
-  border-radius: 50%;
-  border: 1px solid black;
-  overflow: hidden;
-  width: 115px;
-  height: 115px;
-  margin: 0 auto;
-  margin-bottom: 24px;
-  img {
-    object-fit: cover;
-    object-position: center;
+const User = () => {
+  const user = useContext(AuthContext)
+  if (!user || !user.uid) {
+    return (
+      <div>Авторизуйтесь!</div>
+    )
   }
-  &:hover {
-    opacity: 0.5;
-  }
-`
-const Stats = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 5px 13px rgba(3, 32, 4, 0.08);
-  border-radius: 14px;
-  padding: 30px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  span {
-    margin-bottom: 10px;
-    text-align: left;
-  }
-`
-
-const Buttons = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 16px;
-  button {
-    margin-bottom: 10px;
-  }
-`
-
-const User = ({ user }: any): any => {
-  const compress = new Compress()
+  const { loading, data } = useQuery(GET_ALL_USERS)
   const { setState } = useContext(AppContext)
   const [stats, setStats] = useState(true)
   const storageRef = storage.ref()
-  const [fileUrl, setFileUrl] = useState(null)
-  const [db, setDb] = useState<any>(null)
   const [isModalVisible, setIsModalVisible] = useState(false)
   const history = useHistory()
+  const [createUser] = useMutation(CREATE_USER)
+  const [updateUser] = useMutation(UPDATE_USER)
 
-  useEffect(() => {
-    console.log('fileUrl', fileUrl)
-  }, [fileUrl])
-
-  async function updatePhoto (link: string) {
-    try {
-      const current = db[user.uid]
-
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
-        { ...current, avatar: link }
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-    }
+  if (loading && !data) {
+    return (
+      <div>Загрузка...</div>
+    )
   }
 
-  async function addUser (id: string) {
-    try {
-      const updated = {
-        count: 0,
-        correct: 0,
-        mistake: 0,
-        avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png'
+  const users = data.getAllUsers
+  // console.log('user', user)
+  // console.log('users', users)
+
+  const currentUser = _.find(users, { uid: user.uid })
+
+  async function createUserNow (uid: string) {
+    createUser({
+      variables: {
+        input: {
+          count: 0,
+          correct: 0,
+          mistake: 0,
+          avatar: 'https://chamala.ru/static/media/tukai.361b9ae4.png',
+          uid: uid
+        }
       }
-      const res = await axios.put(
-        `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${id}.json`,
-        updated
-      )
-      return res
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
-  }
-
-  useEffect(() => {
-    getInfo().then((res) => {
-      setDb(res)
+    }).then((res) => {
+      // console.log(new Date())
     })
-  }, [])
-
-  if (!db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
   }
-  if (!user && db) {
-    return (
-      <StyledBody>
-        <Spin />
-      </StyledBody>
-    )
-  }
-
-  const currentUser = db[user.uid]
-
-  if (!currentUser) {
-    addUser(user.uid).then((res) => {
-      return window.location.reload()
+  if (user && !currentUser) {
+    setState(() => {
+      createUserNow(user.uid).then((res) => {
+        window.location.reload()
+      })
     })
   }
 
@@ -138,56 +71,50 @@ const User = ({ user }: any): any => {
     setIsModalVisible(true)
   }
 
-  const handleOk = () => {
-    setIsModalVisible(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalVisible(false)
-  }
-
-  async function resizeImageFn (file: any) {
-    const resizedImage = await compress.compress([file], {
-      size: 2, // the max size in MB, defaults to 2MB
-      quality: 1, // the quality of the image, max is 1,
-      maxWidth: 300, // the max width of the output image, defaults to 1920px
-      maxHeight: 300, // the max height of the output image, defaults to 1920px
-      resize: true // defaults to true, set false if you do not want to resize the image width and height
-    })
-    const img = resizedImage[0]
-    const base64str = img.data
-    const imgExt = img.ext
-    const resizedFiile = Compress.convertBase64ToFile(base64str, imgExt)
-    return resizedFiile
-  }
-
   const onFileChange = async (e: any) => {
     const res = await resizeImageFn(e.target.files[0])
-    console.log(res)
+    // console.log(res)
     const file = e.target.files[0]
     const fileRef = storageRef.child(file.name)
     await fileRef.put(res)
     const link = await fileRef.getDownloadURL()
-    console.log('link', link)
-    updatePhoto(link).then((res) => {
-      setFileUrl(link)
+
+    const current = _.find(users, { uid: user.uid })
+
+    const updated = {
+      id: current.id,
+      uid: current.uid,
+      avatar: link,
+      count: current.count,
+      correct: current.correct,
+      mistake: current.mistake
+    }
+
+    updateUser({
+      variables: {
+        input: updated
+      }
+    }).then(() => {
       window.location.reload()
     })
+
+    // console.log('link', link)
   }
 
   const handleClick = () => {
     const upload = document.getElementById('upload')
-    console.log(upload)
+    // console.log(upload)
     if (upload) {
       upload.click()
     }
   }
 
+  // console.log(state)
   return (
     <>
-      <StyledUser>
+      <StyledBody>
         <div>
-          <Avatar onClick={handleClick}>
+          <div className={classes.avatar} onClick={handleClick}>
             {currentUser.avatar
               ? (
               <img src={currentUser.avatar} width={115} height={115} />
@@ -195,13 +122,13 @@ const User = ({ user }: any): any => {
               : (
               <div>Нет изображения</div>
                 )}
-          </Avatar>
+          </div>
 
           <Header level={2}>{user.displayName}</Header>
           <input id="upload" type="file" onChange={onFileChange} hidden />
         </div>
 
-        <Buttons>
+        <div className={classes.buttons}>
           <Button
             onClick={() => {
               setStats((prevState) => !prevState)
@@ -210,35 +137,33 @@ const User = ({ user }: any): any => {
             Статистика
           </Button>
           <Button onClick={showModal}>Настройки</Button>
-          <Stats style={{ visibility: stats ? 'visible' : 'hidden' }}>
+          <div className={classes.stats} style={{ visibility: stats ? 'visible' : 'hidden' }}>
             <Text huge> Количество игр: {currentUser.count}</Text>
             <Text huge>Количество правильных ответов:{currentUser.correct} </Text>
             <Text huge>Количество неправильных ответов:{currentUser.mistake} </Text>
-          </Stats>
-        </Buttons>
+          </div>
+        </div>
 
         <Link
           to={'/'}
           onClick={() => {
-            setState({
-              ...initialState,
+            setState((prevState : InitialStateInterface) => ({
+              ...prevState,
               gameState: 'welcome'
-            })
+            }))
           }}
         >
           <Text underline large>
             {i18n.t('mainPage')}
           </Text>
         </Link>
-      </StyledUser>
+      </StyledBody>
       <Modal
         title="Ваш уровень"
         visible={isModalVisible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="ОК"
-        cancelText="Отмена"
+        footer={null}
         centered
+        onCancel={() => { setIsModalVisible(false) }}
       >
         <img src={Tukai} width={'100%'} />
         <div style={{ display: 'inline-grid' }}>
@@ -260,3 +185,19 @@ const User = ({ user }: any): any => {
   )
 }
 export default User
+
+// async function updatePhoto (link: string) {
+//   try {
+//     if (user && user.uid) {
+//       const current = users[user.uid]
+//
+//       const res = await axios.put(
+//         `https://chamala-317a8-default-rtdb.europe-west1.firebasedatabase.app/base/users/${user.uid}.json`,
+//         { ...current, avatar: link }
+//       )
+//       return res
+//     }
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }

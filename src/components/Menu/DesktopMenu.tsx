@@ -1,29 +1,22 @@
 import React, { useContext, useState } from 'react'
 import i18n from 'i18next'
 import { useHistory } from 'react-router-dom'
-import AppContext from '../../AppContext'
-import styled from 'styled-components'
+import AppContext from '../../context/AppContext'
 import { Menu } from 'antd'
-import { MenuComponentInterface } from './interfaces'
+import classes from './DesktopMenu.module.scss'
+import { AuthContext } from '../../context/AuthContext'
 
-export const DesktopMenu = ({ user }: MenuComponentInterface) => {
-  const StyledMenu = styled(Menu)`
-    background: none;
-    border: none;
-    font-size: 16px;
-    line-height: 126%;
-    font-weight: 600;
-  `
-
+export const DesktopMenu = () => {
+  const user = useContext(AuthContext)
   const { setModalVisible } = useContext(AppContext)
-  const [menuState, setMenuState] = useState({ current: 'mail' })
+  const [menuState, setMenuState] = useState({ current: 'home' })
   const history = useHistory()
   const handleClick = (e: any) => {
     setMenuState({ current: e.key })
   }
 
   return (
-    <StyledMenu onClick={handleClick} selectedKeys={[menuState.current]} mode="horizontal">
+    <Menu className={classes.desktop} onClick={handleClick} selectedKeys={[menuState.current]} mode="horizontal">
       <Menu.Item key="home" onClick={() => history.push('/')}>
       {i18n.t('home')}
     </Menu.Item>
@@ -37,6 +30,6 @@ export const DesktopMenu = ({ user }: MenuComponentInterface) => {
         </Menu.Item>
           )}
 
-    </StyledMenu>
+    </Menu>
   )
 }
