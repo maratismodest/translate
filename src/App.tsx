@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
 import { YMInitializer } from 'react-yandex-metrika'
-import { getLangWords, getWordsFirstSecond, initialState } from './localBase/base'
+import { initialState } from './localBase/base'
 import { translateBaseI18 } from './localBase/locale/translate'
 import Welcome from './components/Welcome'
 import Words from './components/Words'
@@ -19,11 +19,11 @@ import Word from './components/Word'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { AuthContext } from './context/AuthContext'
-import { Spin } from 'antd'
-import { Language } from './localBase/interfaces'
-import { useQuery } from '@apollo/client'
-import { GET_ALL_WORDS } from './graphql/query/word'
-import { GET_ALL_PHRASES } from './graphql/query/phrase'
+// import { Spin } from 'antd'
+// import { Language } from './localBase/interfaces'
+// import { useQuery } from '@apollo/client'
+// import { GET_ALL_WORDS } from './graphql/query/word'
+// import { GET_ALL_PHRASES } from './graphql/query/phrase'
 import { Header } from 'ui'
 import styled from 'styled-components'
 
@@ -40,8 +40,8 @@ function App () {
   const [state, setState] = useState(initialState)
   const [modalLoginVisible, setModalVisible] = useState(false)
 
-  const { loading: wordsLoading, data: wordsData } = useQuery(GET_ALL_WORDS)
-  const { loading: phrasesLoading, data: phrasesData } = useQuery(GET_ALL_PHRASES)
+  // const { loading: wordsLoading, data: wordsData } = useQuery(GET_ALL_WORDS)
+  // const { loading: phrasesLoading, data: phrasesData } = useQuery(GET_ALL_PHRASES)
 
   i18n
     .init({
@@ -57,44 +57,44 @@ function App () {
     setModalVisible
   }
 
-  useEffect(() => {
-    if (wordsData) {
-      const words = wordsData.getAllWords
+  // useEffect(() => {
+  //   if (wordsData) {
+  //     const words = wordsData.getAllWords
+  //
+  //     const rusWords : string[] = getLangWords(words, 'rus')
+  //     const tatWords: string[] = getLangWords(words, 'tat')
+  //     const wordsTatRus = getWordsFirstSecond(
+  //       Language.tat,
+  //       Language.rus,
+  //       tatWords,
+  //       rusWords,
+  //       words
+  //     )
+  //     setState(prev => ({ ...prev, word: words, words: wordsTatRus }))
+  //   }
+  // }, [wordsData])
+  // useEffect(() => {
+  //   if (phrasesData) {
+  //     const phrases = phrasesData.getAllPhrases
+  //     const rusPhrases : string[] = getLangWords(phrases, 'rus')
+  //     const tatPhrases: string[] = getLangWords(phrases, 'tat')
+  //     const phrasesTatRus = getWordsFirstSecond(
+  //       Language.tat,
+  //       Language.rus,
+  //       tatPhrases,
+  //       rusPhrases,
+  //       phrases
+  //     )
+  //     setState(prev => ({ ...prev, phrases: phrasesTatRus, collect: phrases }))
+  //   }
+  // }, [phrasesData])
 
-      const rusWords : string[] = getLangWords(words, 'rus')
-      const tatWords: string[] = getLangWords(words, 'tat')
-      const wordsTatRus = getWordsFirstSecond(
-        Language.tat,
-        Language.rus,
-        tatWords,
-        rusWords,
-        words
-      )
-      setState(prev => ({ ...prev, word: words, words: wordsTatRus }))
-    }
-  }, [wordsData])
-  useEffect(() => {
-    if (phrasesData) {
-      const phrases = phrasesData.getAllPhrases
-      const rusPhrases : string[] = getLangWords(phrases, 'rus')
-      const tatPhrases: string[] = getLangWords(phrases, 'tat')
-      const phrasesTatRus = getWordsFirstSecond(
-        Language.tat,
-        Language.rus,
-        tatPhrases,
-        rusPhrases,
-        phrases
-      )
-      setState(prev => ({ ...prev, phrases: phrasesTatRus, collect: phrases }))
-    }
-  }, [phrasesData])
-
-  if (wordsLoading || !wordsData || phrasesLoading || !phrasesData) {
-    return (<div className={classes.bodyCenter}>
-        <Spin />
-      </div>
-    )
-  }
+  // if (phrasesLoading || !phrasesData) {
+  //   return (<div className={classes.bodyCenter}>
+  //       <Spin />
+  //     </div>
+  //   )
+  // }
 
   // console.log(state)
 

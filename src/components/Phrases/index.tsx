@@ -12,6 +12,7 @@ import { Button, Icon, Slab, Header, ProgressBlock } from 'ui'
 import classes from './../Words/Words.module.scss'
 import { StyledBody } from 'App'
 import { Spin } from 'antd'
+import { PhrasesLayout } from '../PhrasesLayout/PhrasesLayout'
 
 export interface questionResultInterface {
   correct: boolean;
@@ -191,4 +192,10 @@ const Words = () => {
   )
 }
 
-export default Words
+export const Test = () => {
+  return (
+    <PhrasesLayout component={<Words />}/>
+  )
+}
+
+export default Test

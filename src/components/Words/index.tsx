@@ -12,6 +12,7 @@ import { Button, Icon, Header, Slab, ProgressBlock } from 'ui'
 import { StyledBody } from 'App'
 import classes from './Words.module.scss'
 import { Spin } from 'antd'
+import { CollectWordLayout } from '../CollectWordLayout/CollectWordLayout'
 
 export interface questionResultInterface {
   correct: boolean;
@@ -192,4 +193,10 @@ const Words = () => {
   )
 }
 
-export default Words
+export const Test = () => {
+  return (
+    <CollectWordLayout component={<Words />}/>
+  )
+}
+
+export default Test
