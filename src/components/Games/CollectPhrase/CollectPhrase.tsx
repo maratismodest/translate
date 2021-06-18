@@ -2,16 +2,15 @@ import React, { useContext, useEffect, useState } from 'react'
 import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
 import i18n from 'i18next'
-import AppContext from '../../context/AppContext'
-import Sounds from '../../localBase/sounds'
+import AppContext from '../../../context/AppContext'
+import Sounds from '../../../localBase/sounds'
 import useSound from 'use-sound'
 import { Icon, Text, Header, Tag, ProgressBlock, Button } from 'ui'
 import { ModalAnswer } from 'ui/Modals/ModalAnswer'
 import { StyledBody } from 'App'
-import classes from './../Word/Word.module.scss'
+import classes from '../Collect.module.scss'
 import cn from 'classnames'
 import { Spin } from 'antd'
-import { PhrasesLayout } from '../PhrasesLayout/PhrasesLayout'
 
 interface QuestionResultInterface {
   correct: boolean;
@@ -20,14 +19,14 @@ interface QuestionResultInterface {
   correctText: string;
 }
 
-const Collect = () => {
+export const CollectPhrase = () => {
   const history = useHistory()
   const { state, setState } = useContext(AppContext)
   const { collect, firstLanguage, chosenGame } = state
   if (!collect || collect.length === 0) {
     // console.log('0')
     return (
-      <Spin />
+      <div className='bodyCenter'><Spin /></div>
     )
   }
 
@@ -198,10 +197,10 @@ const Collect = () => {
   return (
     <StyledBody>
       <div className={classes.repeat}
-        onClick={delayFunc}
-        style={{
-          pointerEvents: disabled ? 'none' : 'auto'
-        }}
+           onClick={delayFunc}
+           style={{
+             pointerEvents: disabled ? 'none' : 'auto'
+           }}
       >
         <div className={classes.circle}>
           <Icon icon={'play'} size={16} />
@@ -210,25 +209,25 @@ const Collect = () => {
       </div>
 
       <div className={classes.body}>
-      <ul className={classes.result}>{resultList}</ul>
+        <ul className={classes.result}>{resultList}</ul>
 
-      <ul className={classes.options}>{separatedList}</ul>
+        <ul className={classes.options}>{separatedList}</ul>
       </div>
 
       {questionResult
         ? (
-        <ModalAnswer
-          currentQuestionResult={questionResult}
-          handleNext={handleNext}
-        />
+          <ModalAnswer
+            currentQuestionResult={questionResult}
+            handleNext={handleNext}
+          />
           )
         : (
-        <Button
-          onClick={handleAnswerClick}
-          disabled={!(answer.length > 0)}
-        >
-          {i18n.t('check')}
-        </Button>
+          <Button
+            onClick={handleAnswerClick}
+            disabled={!(answer.length > 0)}
+          >
+            {i18n.t('check')}
+          </Button>
           )}
 
       <ProgressBlock
@@ -238,10 +237,3 @@ const Collect = () => {
     </StyledBody>
   )
 }
-export const Test = () => {
-  return (
-    <PhrasesLayout component={<Collect />}/>
-  )
-}
-
-export default Test

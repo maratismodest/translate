@@ -1,18 +1,17 @@
 import React, { useContext, useRef, useState } from 'react'
 import useSound from 'use-sound'
-import Sounds from '../../localBase/sounds'
+import Sounds from '../../../localBase/sounds'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
-import { OptionInterface } from '../../localBase/interfaces'
-import AppContext from '../../context/AppContext'
+import { OptionInterface } from '../../../localBase/interfaces'
+import AppContext from '../../../context/AppContext'
 import { isMobile } from 'react-device-detect'
-import { ModalAnswer } from '../../ui/Modals/ModalAnswer'
+import { ModalAnswer } from '../../../ui/Modals/ModalAnswer'
 import i18n from 'i18next'
-import { Button, Icon, Header, Slab, ProgressBlock } from 'ui'
+import { Button, Icon, Slab, Header, ProgressBlock } from 'ui'
+import classes from '../GuessWord/Words.module.scss'
 import { StyledBody } from 'App'
-import classes from './Words.module.scss'
 import { Spin } from 'antd'
-import { CollectWordLayout } from '../CollectWordLayout/CollectWordLayout'
 
 export interface questionResultInterface {
   correct: boolean;
@@ -34,14 +33,14 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
     const { id, text } = option
     if (isMobile) {
       return (
-        <li key={index + text}>
-          <Slab
-            normal
-            button
-            onClick={(e: any) => {
-              currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id)
-            }}
-          >
+        <li
+          key={index + text}
+          onClick={(e: any) => {
+            // console.log(e)
+            currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id)
+          }}
+        >
+          <Slab normal button>
             {text}
           </Slab>
         </li>
@@ -66,19 +65,19 @@ const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
   return <ul style={{ marginTop: 10 }}>{list}</ul>
 }
 
-const Words = () => {
+export const GuessPhrase = () => {
   const history = useHistory()
 
   const { state, setState } = useContext(AppContext)
-  const { words, chosenGame } = state
-  if (!words || words.length === 0) {
+  const { phrases, chosenGame } = state
+  if (!phrases || phrases.length === 0) {
     // console.log('0')
     return (
-      <Spin />
+      <div className='bodyCenter'><Spin /></div>
     )
   }
-
-  const { firstLanguage, secondLanguage } = words
+  // console.log('chosenGame', chosenGame)
+  const { firstLanguage, secondLanguage } = phrases
   const [answer, setAnswer] = useState<any>()
 
   const first = _.shuffle(firstLanguage).slice(0, 3)
@@ -99,7 +98,6 @@ const Words = () => {
 
   const question = questions.current[currentQuestionIndex]
   const { options, questionText, correct, id: questionId, audio } = question
-
   const [tell, { duration }] = useSound(audio)
 
   function checkGameState (chosenGame: string, questionResult: questionResultInterface) {
@@ -166,7 +164,7 @@ const Words = () => {
         }}
         big
       >
-        <Header level={2}>{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
+        <Header level={2} >{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
 
         <Icon icon="play" size={24} className={'play'} />
       </Slab>
@@ -192,11 +190,3 @@ const Words = () => {
     </StyledBody>
   )
 }
-
-export const Test = () => {
-  return (
-    <CollectWordLayout component={<Words />}/>
-  )
-}
-
-export default Test

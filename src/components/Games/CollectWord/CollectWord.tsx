@@ -1,16 +1,16 @@
 import { useHistory } from 'react-router-dom'
 import React, { useContext, useEffect, useState } from 'react'
-import AppContext from '../../context/AppContext'
+import AppContext from '../../../context/AppContext'
 import { Spin } from 'antd'
-import Sounds from '../../localBase/sounds'
+import Sounds from '../../../localBase/sounds'
 import useSound from 'use-sound'
 import _ from 'lodash'
-import classes from './Word.module.scss'
-import { Tag } from '../../ui/Tag'
-import { StyledBody } from '../../App'
+import classes from '../Collect.module.scss'
+import { Tag } from '../../../ui/Tag'
+import { StyledBody } from '../../../App'
 import i18n from 'i18next'
-import { ModalAnswer } from '../../ui/Modals/ModalAnswer'
-import { Icon, Header, Button, ProgressBlock, Text } from '../../ui'
+import { ModalAnswer } from '../../../ui/Modals/ModalAnswer'
+import { Icon, Header, Button, ProgressBlock, Text } from '../../../ui'
 
 interface QuestionResultInterface {
   correct: boolean;
@@ -27,7 +27,7 @@ export const CollectWord = () => {
   if (!word || word.length === 0) {
     // console.log('0')
     return (
-      <div className={classes.bodyCenter}><Spin/></div>
+      <div className='bodyCenter'><Spin /></div>
 
     )
   }

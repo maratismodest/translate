@@ -1,18 +1,18 @@
-import React, { useContext, useEffect } from 'react'
-import AppContext from '../../context/AppContext'
+import React, { useContext } from 'react'
+import AppContext from '../../../context/AppContext'
 import { useQuery } from '@apollo/client'
-import { GET_ALL_WORDS } from '../../graphql/query/word'
-import { getLangWords, getWordsFirstSecond } from '../../localBase/base'
-import { Language } from '../../localBase/interfaces'
+import { GET_ALL_WORDS } from '../../../graphql/query/word'
+import { getLangWords, getWordsFirstSecond } from '../../../localBase/base'
+import { Language } from '../../../localBase/interfaces'
 
-export const CollectWordLayout = ({ component }: any) => {
+export const WordsLayout = ({ component }: any) => {
   const { setState, state } = useContext(AppContext)
 
   const { data } = useQuery(GET_ALL_WORDS)
   const { word } = state
 
-  useEffect(() => {
-    if (word.length === 0 && data) {
+  if (word.length === 0) {
+    if (data) {
       const words = data.getAllWords
       const rusWords : string[] = getLangWords(words, 'rus')
       const tatWords: string[] = getLangWords(words, 'tat')
@@ -25,7 +25,7 @@ export const CollectWordLayout = ({ component }: any) => {
       )
       setState((prev: any) => ({ ...prev, word: words, words: wordsTatRus }))
     }
-  }, [data])
+  }
 
   return (
     <>

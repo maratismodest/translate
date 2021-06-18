@@ -132,7 +132,7 @@ export const words: Array<WordsInterface> = [
   {
     tat: 'Сүз',
     rus: 'Слово',
-    eng: 'Word',
+    eng: 'CollectWord',
     audio:
       'https://firebasestorage.googleapis.com/v0/b/chamala-317a8.appspot.com/o/audio%2Fwords%2Fsuz.mp3?alt=media&token=bc2fed65-f1f1-4c5c-8566-5a84b7d81aea',
     lat: 'Sүz'

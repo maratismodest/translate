@@ -65,15 +65,9 @@ const Result = () => {
       <ul>
         {result.map((item: any, index: number) => {
           const { correct, questionText, chosenText, correctText } = item
-          // console.log(item)
           return (
-            <li className={classes.re} key={index}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  flexWrap: 'wrap'
-                }}
+            <li className={classes.result} key={index}>
+              <div className={classes.header}
               >
                 <Header level={3}>{questionText}: </Header>
                 <Text large color={correct ? 'green' : 'red'}>
