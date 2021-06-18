@@ -39,5 +39,8 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "url": "https://chamala.ru",
+  "manifestUrl": "https://chamala.ru/manifest.json",
+  "screenshots": []
 }
