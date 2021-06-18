@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useState } from 'react'
-import useSound from 'use-sound'
 import Sounds from '../../../localBase/sounds'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
@@ -71,7 +70,6 @@ export const GuessWord = () => {
   const { state, setState } = useContext(AppContext)
   const { words, chosenGame } = state
   if (!words || words.length === 0) {
-    // console.log('0')
     return (
       <div className='bodyCenter'><Spin /></div>
     )
@@ -86,8 +84,6 @@ export const GuessWord = () => {
   const questions = useRef(shuffle)
 
   const { soundCorrect, soundWrong } = Sounds
-  const [success] = useSound(soundCorrect)
-  const [mistake] = useSound(soundWrong)
 
   const [disabled, setDisabled] = useState(false)
 
@@ -99,7 +95,9 @@ export const GuessWord = () => {
   const question = questions.current[currentQuestionIndex]
   const { options, questionText, correct, id: questionId, audio } = question
 
-  const [tell, { duration }] = useSound(audio)
+  const questionSound = new Audio(audio)
+  const success = new Audio(soundCorrect)
+  const mistake = new Audio(soundWrong)
 
   function checkGameState (chosenGame: string, questionResult: questionResultInterface) {
     if (currentQuestionIndex + 1 < questions.current.length) {
@@ -124,7 +122,7 @@ export const GuessWord = () => {
     const correctText = _.find(options, { id: 1 }).text
     const { id, text } = answer
 
-    id === correct ? success() : mistake()
+    id === correct ? success.play() : mistake.play()
 
     const questionResultObject = {
       correct: id === correct,
@@ -137,16 +135,6 @@ export const GuessWord = () => {
     setCurrentQuestionResult(questionResultObject)
   }
 
-  const timer = Math.floor(duration || 1000)
-
-  const delayFunc = (e: any) => {
-    setDisabled(true)
-    tell()
-    setTimeout(() => {
-      setDisabled(false)
-    }, timer)
-  }
-
   const handleNext = () => {
     checkGameState(chosenGame, currentQuestionResult)
     setCurrentQuestionResult(null)
@@ -157,8 +145,10 @@ export const GuessWord = () => {
     <StyledBody>
       <Slab
         onClick={(e: any) => {
-          delayFunc(e)
+          setDisabled(true)
+          questionSound.play()
           e.target.blur()
+          setDisabled(false)
         }}
         style={{
           pointerEvents: disabled ? 'none' : 'auto'

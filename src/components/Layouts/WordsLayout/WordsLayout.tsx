@@ -10,7 +10,6 @@ export const WordsLayout = ({ component }: any) => {
 
   const { data } = useQuery(GET_ALL_WORDS)
   const { word } = state
-
   if (word.length === 0) {
     if (data) {
       const words = data.getAllWords
