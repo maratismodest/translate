@@ -19,11 +19,7 @@ import Word from './components/Games/CollectWord'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { AuthContext } from './context/AuthContext'
-// import { Spin } from 'antd'
-// import { Language } from './localBase/interfaces'
-// import { useQuery } from '@apollo/client'
-// import { GET_ALL_WORDS } from './graphql/query/word'
-// import { GET_ALL_PHRASES } from './graphql/query/phrase'
+
 import { Header } from 'ui'
 import styled from 'styled-components'
 
@@ -40,9 +36,6 @@ function App () {
   const [state, setState] = useState(initialState)
   const [modalLoginVisible, setModalVisible] = useState(false)
 
-  // const { loading: wordsLoading, data: wordsData } = useQuery(GET_ALL_WORDS)
-  // const { loading: phrasesLoading, data: phrasesData } = useQuery(GET_ALL_PHRASES)
-
   i18n
     .init({
       resources: translateBaseI18,
@@ -56,47 +49,6 @@ function App () {
     modalLoginVisible,
     setModalVisible
   }
-
-  // useEffect(() => {
-  //   if (wordsData) {
-  //     const words = wordsData.getAllWords
-  //
-  //     const rusWords : string[] = getLangWords(words, 'rus')
-  //     const tatWords: string[] = getLangWords(words, 'tat')
-  //     const wordsTatRus = getWordsFirstSecond(
-  //       Language.tat,
-  //       Language.rus,
-  //       tatWords,
-  //       rusWords,
-  //       words
-  //     )
-  //     setState(prev => ({ ...prev, word: words, words: wordsTatRus }))
-  //   }
-  // }, [wordsData])
-  // useEffect(() => {
-  //   if (phrasesData) {
-  //     const phrases = phrasesData.getAllPhrases
-  //     const rusPhrases : string[] = getLangWords(phrases, 'rus')
-  //     const tatPhrases: string[] = getLangWords(phrases, 'tat')
-  //     const phrasesTatRus = getWordsFirstSecond(
-  //       Language.tat,
-  //       Language.rus,
-  //       tatPhrases,
-  //       rusPhrases,
-  //       phrases
-  //     )
-  //     setState(prev => ({ ...prev, phrases: phrasesTatRus, collect: phrases }))
-  //   }
-  // }, [phrasesData])
-
-  // if (phrasesLoading || !phrasesData) {
-  //   return (<div className={classes.bodyCenter}>
-  //       <Spin />
-  //     </div>
-  //   )
-  // }
-
-  // console.log(state)
 
   return (
     <AppContext.Provider value={context}>
@@ -126,7 +78,7 @@ function App () {
 
           {user ? null : <ModalLogin />}
         </div>
-        <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version='2' />
+        <YMInitializer accounts={[72761164]} version='2' />
       </div>
     </AppContext.Provider>
   )

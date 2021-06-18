@@ -9,7 +9,7 @@
             name="description"
             content="Татарский - играючи!"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png"/>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo/logo192.png"/>
     <link rel='manifest' href='/manifest.json'>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -34,17 +34,18 @@
 <body>
 <noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/pwabuilder-sw.js')
-            .then(function (registration) {
-                console.log('Registration successful, scope is:', registration.scope);
-            })
-            .catch(function (error) {
-                console.log('Service worker registration failed, error:', error);
-            });
-    }
-</script>
+<script src='./app.js' />
+<!--<script>-->
+<!--    if ('serviceWorker' in navigator) {-->
+<!--        navigator.serviceWorker.register('/pwabuilder-sw.js')-->
+<!--            .then(function (registration) {-->
+<!--                console.log('Registration successful, scope is:', registration.scope);-->
+<!--            })-->
+<!--            .catch(function (error) {-->
+<!--                console.log('Service worker registration failed, error:', error);-->
+<!--            });-->
+<!--    }-->
+<!--</script>-->
 <script src="https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js"></script>
 </body>
 </html>
