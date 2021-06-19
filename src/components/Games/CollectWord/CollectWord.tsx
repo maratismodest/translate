@@ -25,7 +25,6 @@ export const CollectWord = () => {
   const { chosenGame, firstLanguage, word } = state
 
   if (!word || word.length === 0) {
-    // console.log('0')
     return (
       <div className='bodyCenter'><Spin /></div>
 

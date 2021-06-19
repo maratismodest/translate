@@ -57,8 +57,8 @@ export interface InitialStateInterface {
     result: Array<any>;
     finished: boolean;
     currentQuestionIndex: number;
-    words: TwoLanguageQuestionsInterface | [];
-    phrases: TwoLanguageQuestionsInterface | [];
+    words: TwoLanguageQuestionsInterface[] | [];
+    phrases: TwoLanguageQuestionsInterface[] | [];
     collect: [];
     initialQuestionIndex?: 0;
     word: WordInterface[];

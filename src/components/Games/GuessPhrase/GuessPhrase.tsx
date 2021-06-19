@@ -1,23 +1,23 @@
-import React, { useContext, useRef, useState } from 'react'
-import useSound from 'use-sound'
-import Sounds from '../../../localBase/sounds'
+import React, { useContext, useState } from 'react'
+import Sounds from 'localBase/sounds'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
-import { OptionInterface } from '../../../localBase/interfaces'
-import AppContext from '../../../context/AppContext'
-import { isMobile } from 'react-device-detect'
-import { ModalAnswer } from '../../../ui/Modals/ModalAnswer'
+import AppContext from 'context/AppContext'
+import { isDesktop, isMobile } from 'react-device-detect'
+import { ModalAnswer } from 'ui/Modals/ModalAnswer'
 import i18n from 'i18next'
-import { Button, Icon, Slab, Header, ProgressBlock } from 'ui'
-import classes from '../GuessWord/Words.module.scss'
+import { Button, Icon, Header, Slab, ProgressBlock } from 'ui'
 import { StyledBody } from 'App'
+import classes from './../Words.module.scss'
+import cn from 'classnames'
 import { Spin } from 'antd'
 
-export interface questionResultInterface {
+interface questionResultInterface {
   correct: boolean;
   id: number;
   questionText: string;
   correctText: string;
+  chosenText: string;
 }
 
 interface CurrentQuestionResultInterface {
@@ -28,91 +28,88 @@ interface CurrentQuestionResultInterface {
   chosenText: string;
 }
 
-const OptionsList = ({ options, currentQuestionResult, handleOption }: any) => {
-  const list = options.map((option: OptionInterface, index: number) => {
+interface AnswerInterface {
+  id: number
+  text: string
+}
+
+interface OptionsInterface {
+  id: number
+  text: string
+}
+
+interface OptionsListInterface {
+  options:OptionsInterface[]
+  handleOption: (arg0: number)=> void
+}
+const OptionsList = ({ options, handleOption }: OptionsListInterface) => {
+  const list = options.map((option) => {
     const { id, text } = option
     if (isMobile) {
       return (
-        <li
-          key={index + text}
-          onClick={(e: any) => {
-            // console.log(e)
-            currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id)
-          }}
-        >
-          <Slab normal button>
+        <li key={text}>
+          <Slab
+            normal
+            button
+            onClick={() => handleOption(id)}
+          >
             {text}
           </Slab>
         </li>
       )
     }
     return (
-      <li key={index + text} style={{ marginBottom: 10 }}>
+      <li key={text} className='mb-10'>
         <Button
           normal
-          onClick={(e: any) => {
-            currentQuestionResult ? console.log('уже выбран вариант') : handleOption(id)
-          }}
+          onClick={() => handleOption(id)}
         >
           {text}
         </Button>
       </li>
     )
   })
-  if (isMobile) {
-    return <ul className={classes.ulMobile}>{list}</ul>
-  }
-  return <ul style={{ marginTop: 10 }}>{list}</ul>
+
+  return <ul className={cn({
+    [classes.ul]: isDesktop,
+    [classes.ulMobile]: isMobile
+  })}>{list}</ul>
 }
 
 export const GuessPhrase = () => {
   const history = useHistory()
 
   const { state, setState } = useContext(AppContext)
-  const { phrases, chosenGame } = state
+  const { phrases } = state
   if (!phrases || phrases.length === 0) {
-    // console.log('0')
     return (
-      <div className='bodyCenter'><Spin /></div>
+      <div className='bodyCenter'>
+        <Spin />
+      </div>
     )
   }
-  // console.log('chosenGame', chosenGame)
+
   const { firstLanguage, secondLanguage } = phrases
-  const [answer, setAnswer] = useState<any>()
 
-  const first = _.shuffle(firstLanguage).slice(0, 3)
-  const second = _.shuffle(secondLanguage).slice(0, 3)
-  const shuffle = _.shuffle([...first, ...second])
-  const questions = useRef(shuffle)
-
-  const { soundCorrect, soundWrong } = Sounds
-  const [success] = useSound(soundCorrect)
-  const [mistake] = useSound(soundWrong)
-
-  const [disabled, setDisabled] = useState(false)
-
+  const [questions] = useState(() => {
+    const first = _.shuffle(firstLanguage).slice(0, 3)
+    const second = _.shuffle(secondLanguage).slice(0, 3)
+    return [...first, ...second]
+  })
   const [currentQuestionResult, setCurrentQuestionResult] = useState<CurrentQuestionResultInterface | any>(null)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-
   const [result, setResult] = useState<Array<questionResultInterface>>([])
 
-  const question = questions.current[currentQuestionIndex]
-  const { options, questionText, correct, id: questionId, audio } = question
-  const [tell, { duration }] = useSound(audio)
+  const [answer, setAnswer] = useState<AnswerInterface | null>(null)
 
-  function checkGameState (chosenGame: string, questionResult: questionResultInterface) {
-    if (currentQuestionIndex + 1 < questions.current.length) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1)
-      setResult((prevState) => [...prevState, questionResult])
-    } else {
-      history.push('/result')
-      setState({
-        ...state,
-        result: [...result, questionResult],
-        chosenGame: 'words'
-      })
-    }
-  }
+  const question = questions[currentQuestionIndex]
+  const { options, questionText, id: questionId, audio } = question
+
+  // correctId is always = 1!
+  const { soundCorrect, soundWrong } = Sounds
+  const questionSound = new Audio(audio)
+  const success = new Audio(soundCorrect)
+  const mistake = new Audio(soundWrong)
 
   const handleOption = (id: number) => {
     const currentOption = _.find(options, { id: id })
@@ -120,73 +117,62 @@ export const GuessPhrase = () => {
   }
 
   const handleCheck = () => {
+    if (!answer) {
+      return console.log('No chosen answer')
+    }
     const correctText = _.find(options, { id: 1 }).text
     const { id, text } = answer
 
-    id === correct ? success() : mistake()
+    id === 1 ? success.play() : mistake.play()
 
-    const questionResultObject = {
-      correct: id === correct,
+    const questionResult: questionResultInterface = {
+      correct: id === 1,
       id: questionId,
       questionText,
       correctText,
       chosenText: text
     }
-
-    setCurrentQuestionResult(questionResultObject)
-  }
-
-  const timer = Math.floor(duration || 1000)
-
-  const delayFunc = (e: any) => {
-    setDisabled(true)
-    tell()
-    setTimeout(() => {
-      setDisabled(false)
-    }, timer)
+    setAnswer(null)
+    setCurrentQuestionResult(questionResult)
   }
 
   const handleNext = () => {
-    checkGameState(chosenGame, currentQuestionResult)
-    setCurrentQuestionResult(null)
-    setAnswer(undefined)
+    if (currentQuestionIndex + 1 < questions.length) {
+      setResult((prev) => [...prev, currentQuestionResult])
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
+      setCurrentQuestionResult(null)
+    } else {
+      setState((prev: any) => ({ ...prev, result: [...result, currentQuestionResult] }))
+      history.push('/result')
+    }
   }
 
   return (
     <StyledBody>
       <Slab
         onClick={(e: any) => {
-          delayFunc(e)
+          questionSound.play()
           e.target.blur()
         }}
         style={{
-          pointerEvents: disabled ? 'none' : 'auto'
+          pointerEvents: currentQuestionResult ? 'none' : 'auto'
         }}
         big
       >
-        <Header level={2} >{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
+        <Header level={2}>{state.firstLanguage === 'lat' ? 'Qabat' : questionText}</Header>
 
         <Icon icon="play" size={24} className={'play'} />
       </Slab>
 
-      <OptionsList options={options} currentQuestionResult={currentQuestionResult} handleOption={handleOption} />
+      <OptionsList options={options} handleOption={handleOption} />
 
-      {currentQuestionResult
-        ? (
-        <>
-          <ModalAnswer currentQuestionResult={currentQuestionResult} handleNext={handleNext} />
-          <Button onClick={handleCheck} disabled={!answer}>
-            {i18n.t('check')}
-          </Button>
-        </>
-          )
-        : (
-        // <Button onClick={handleNext}>{i18n.t("next")}</Button>
-        <Button onClick={handleCheck} disabled={!answer}>
-          {i18n.t('check')}
-        </Button>
-          )}
-      <ProgressBlock length={questions.current.length} currentQuestionIndex={currentQuestionIndex} />
+      {currentQuestionResult && (
+        <ModalAnswer currentQuestionResult={currentQuestionResult} handleNext={handleNext} />
+      )}
+      <Button onClick={handleCheck} disabled={!answer}>
+        {i18n.t('check')}
+      </Button>
+      <ProgressBlock length={questions.length} currentQuestionIndex={currentQuestionIndex} />
     </StyledBody>
   )
 }

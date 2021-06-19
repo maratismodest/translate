@@ -7,6 +7,8 @@ import Word from './word.svg'
 import Phrase from './phrase.svg'
 import AppContext from '../../context/AppContext'
 import classes from './PickGame.module.scss'
+// import { CollectPhrase } from '../Games/CollectPhrase/CollectPhrase'
+// import { Layout } from '../Layouts/Layout/Layout'
 
 const PickGame = () => {
   const { state, setState } = useContext(AppContext)
@@ -80,4 +82,6 @@ const PickGame = () => {
   )
 }
 
-export default PickGame
+export default function Default () {
+  return <PickGame />
+}
