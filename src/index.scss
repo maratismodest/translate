@@ -1,86 +1,101 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: var(--color-black);
-    background: var(--color-white);
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-black);
+  background: var(--color-white);
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
 }
 
 :root {
-    --color-primary: #718CCC;
-    --color-green: #0F8012;
-    --color-white: #FFFFFF;
-    --color-red: #EA051C;
-    --color-darkgreen: #0D4F0F;
-    --color-grey: #CAD3C9;
-    --color-lightgrey: #FAF8F8;
-    --color-lemon: #CFE6D0;
-    --color-black: #000000;
+  --color-primary: #718CCC;
+  --color-green: #0F8012;
+  --color-white: #FFFFFF;
+  --color-red: #EA051C;
+  --color-darkgreen: #0D4F0F;
+  --color-grey: #CAD3C9;
+  --color-lightgrey: #FAF8F8;
+  --color-lemon: #CFE6D0;
+  --color-black: #000000;
 }
 
 
 ul {
-    padding: 0;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+div {
+  ul {
+    margin-bottom: 0;
+  }
+  p {
     margin: 0;
-    list-style: none;
+    padding: 0;
+  }
+
 }
 
 li {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 ul {
-    li.cover.important {
-        p, span {
-            pointer-events: none;
-            background: var(--color-grey) !important;
-            color: var(--color-grey) !important;
-        }
+  li.cover.important {
+    p, span {
+      pointer-events: none;
+      background: var(--color-grey) !important;
+      color: var(--color-grey) !important;
     }
+  }
 }
 
 
-h1,h2,h3,h4,h5,h6 {
-    padding:0;
-    margin: 0;
+h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: 0;
 }
 
 .mb-40 {
-    margin-bottom: 40px !important;
+  margin-bottom: 40px !important;
 }
+
 .mb-68 {
-    margin-bottom: 68px !important;
+  margin-bottom: 68px !important;
 }
+
 #page-wrap {
-    overflow: auto;
+  overflow: auto;
 }
 
 .ft-36 {
-    font-size: 36px !important;
-    line-height: 126% !important;
+  font-size: 36px !important;
+  line-height: 126% !important;
 }
 
 .green {
-    color: var(--color-green) !important;
+  color: var(--color-green) !important;
 }
 
 .bodyCenter {
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-    min-height: 100vh;
-    width: 100%;
-    background: var(--color-lightgrey);
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--color-lightgrey);
+  justify-content: center;
+  align-items: center;
 }
 
-
+.mb-10 {
+  margin-bottom: 10px;
+}

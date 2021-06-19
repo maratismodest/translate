@@ -1,40 +1,21 @@
+import React from 'react'
 import { Typography } from 'antd'
-import styled, { css } from 'styled-components'
+import classes from './Header.module.scss'
+import cn from 'classnames'
 
-const { Title } = Typography
+// interface Props {
+//   bold?: boolean;
+//   color?: string;
+// }
 
-interface Props {
-  bold?: boolean;
-  color?: string;
+export const Header = ({ bold, color, ...props } : any) => {
+  return (
+    <Typography className={cn(classes.header, {
+      [classes.red]: color === 'red',
+      [classes.green]: color === 'green',
+      [classes.bold]: bold
+    })} {...props}/>
+  )
 }
-
-export const Header = styled(Title)<Partial<Props>>`
-  && {
-    font-family: Roboto;
-    font-style: normal;
-    padding: 0;
-    margin: 0;
-    color: var(--color-black);
-    font-style: normal;
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 126%;
-    ${(props) =>
-      props.bold &&
-      css`
-        font-weight: 500;
-      `}
-    ${(props) =>
-      props.color === 'green' &&
-      css`
-        color: var(--color-green);
-      `}
-    ${(props) =>
-      props.color === 'red' &&
-      css`
-        color: var(--color-red);
-      `}
-  }
-`
 
 export default Header
