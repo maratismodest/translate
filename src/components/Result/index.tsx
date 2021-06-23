@@ -17,25 +17,11 @@ const Result = () => {
   const { result, chosenGame } = state
   const user = useContext(AuthContext)
 
-  const { loading, data } = useQuery(GET_ALL_USERS)
+  const { data } = useQuery(GET_ALL_USERS)
   const [updateUser] = useMutation(UPDATE_USER)
 
-  if (!result) {
-    return (
-      <div>Ждем результатов</div>
-    )
-  }
-
-  if (loading || !data) {
-    return (
-      <div>Смотрим базу данных пользователей</div>
-    )
-  }
-
-  const users = data.getAllUsers
-  // console.log('users', users)
-
   function addCount (uid : string) {
+    const users = data.getAllUsers
     const rightAnswers = _.filter(result, { correct: true })
     const wrongAnswers = _.filter(result, { correct: false })
     const current = _.find(users, { uid: uid })
