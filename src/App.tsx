@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import 'antd/dist/antd.css'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import i18n from 'i18next'
@@ -19,7 +19,7 @@ import Word from './components/Games/CollectWord'
 import PickGame from './components/PickGame'
 import ModalLogin from './components/Modals/ModalLogin'
 import { AuthContext } from './context/AuthContext'
-import { Language } from './localBase/interfaces'
+import { Language, WordsInterface } from './localBase/interfaces'
 import { useQuery } from '@apollo/client'
 import { GET_ALL_WORDS } from './graphql/query/word'
 import { GET_ALL_PHRASES } from './graphql/query/phrase'
@@ -57,41 +57,54 @@ function App () {
     setModalVisible
   }
 
-  function getWordsAndPhrases () {
-    if (word.length === 0 && wordsData) {
-      const words = wordsData.getAllWords
+  function setWordsAndPhrases (words: WordsInterface[], phrases: WordsInterface[]) {
+    const rusWords: string[] = getLangWords(words, 'rus')
+    const tatWords: string[] = getLangWords(words, 'tat')
+    const wordsTatRus = getWordsFirstSecond(
+      Language.tat,
+      Language.rus,
+      tatWords,
+      rusWords,
+      words
+    )
+    const rusPhrases: string[] = getLangWords(phrases, 'rus')
+    const tatPhrases: string[] = getLangWords(phrases, 'tat')
+    const phrasesTatRus = getWordsFirstSecond(
+      Language.tat,
+      Language.rus,
+      tatPhrases,
+      rusPhrases,
+      phrases
+    )
+    setState((prev: any) => ({ ...prev, word: words, words: wordsTatRus, phrases: phrasesTatRus, collect: phrases }))
+  }
 
-      const rusWords : string[] = getLangWords(words, 'rus')
-      const tatWords: string[] = getLangWords(words, 'tat')
-      const wordsTatRus = getWordsFirstSecond(
-        Language.tat,
-        Language.rus,
-        tatWords,
-        rusWords,
-        words
-      )
+  async function getWordsAndPhrases () {
+    const localStorageWords = localStorage.getItem('words')
+    const localStoragePhrases = localStorage.getItem('phrases')
+    if (word.length === 0 || phrases.length === 0) {
+      if (localStorageWords && localStoragePhrases) {
+        const wordsData: WordsInterface[] = JSON.parse(localStorageWords)
+        const phrasesData: WordsInterface[] = JSON.parse(localStorageWords)
 
-      setState((prev : any) => ({ ...prev, word: words, words: wordsTatRus }))
-      console.log('getWords')
-    }
-
-    if (phrases.length === 0 && phrasesData) {
-      const phrases = phrasesData.getAllPhrases
-      const rusPhrases : string[] = getLangWords(phrases, 'rus')
-      const tatPhrases: string[] = getLangWords(phrases, 'tat')
-      const phrasesTatRus = getWordsFirstSecond(
-        Language.tat,
-        Language.rus,
-        tatPhrases,
-        rusPhrases,
-        phrases
-      )
-      setState((prev: any) => ({ ...prev, phrases: phrasesTatRus, collect: phrases }))
-      console.log('getPhrases')
+        // const size = 6
+        // const items:WordsInterface[] = wordsData.slice(0, size)
+        setWordsAndPhrases(wordsData, phrasesData)
+      } else {
+        if (wordsData && phrasesData) {
+          const words = wordsData.getAllWords
+          const phrases = phrasesData.getAllPhrases
+          setWordsAndPhrases(words, phrases)
+          localStorage.setItem('words', JSON.stringify(words))
+          localStorage.setItem('phrases', JSON.stringify(phrases))
+        }
+      }
     }
   }
 
-  getWordsAndPhrases()
+  useEffect(() => {
+    getWordsAndPhrases()
+  }, [wordsData, phrasesData])
 
   return (
     <AppContext.Provider value={context}>
@@ -121,7 +134,8 @@ function App () {
 
           {user ? null : <ModalLogin />}
         </div>
-        <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version='2' />
+        <YMInitializer accounts={[72761164]} version='2' />
+        {/* <YMInitializer accounts={[72761164]} options={{ webvisor: true }} version='2' /> */}
       </div>
     </AppContext.Provider>
   )
